@@ -461,6 +461,89 @@ If the player spends most of their time fighting with a particular weapon or abi
 
 ---
 
+Status Effects
+
+Status effects are a combat and world-system layer that can affect the player, enemies, or both.
+
+The system should support:
+
+- Temporary and permanent effects
+- Buffs and debuffs
+- Duration
+- Stacking rules
+- Removal rules
+- Clear status display
+- Effects that can sometimes be overcome through gameplay
+
+A key design idea is that some debuffs should be more than temporary penalties. They can become problems the player learns to overcome, fitting the game's broader use-based progression philosophy.
+
+Weirded Out
+
+A deliberately strange debuff and an example of status effects doubling as character development.
+
+Description:
+
+"You're weirded out because you wouldn't touch it with a 10 foot pole."
+
+Base effect:
+
+- -50% attack damage
+
+While Weirded Out is active, each critical strike permanently reduces the debuff's damage penalty by 1 percentage point.
+
+The improvement persists for the entire playthrough, even after Weirded Out wears off. Future applications therefore start from the player's previously reduced penalty.
+
+Progression is capped at +10% attack damage.
+
+Example:
+
+- 0 lifetime crits while Weirded Out: -50% attack damage
+- 10: -40%
+- 25: -25%
+- 50: 0%
+- 51: +1%
+- 60: +10%
+
+This means the player can eventually turn a severe debuff into a permanent bonus through play.
+
+Butterfingers
+
+A more general debuff concept affecting reliable handling of attacks or items.
+
+Possible effects include:
+
+- Attacks having a chance to miss
+- A chance to drop a held item
+- Other unreliable handling effects
+
+The exact penalty and mastery mechanic are not locked yet.
+
+Butterfingers should remain distinct from more specific disarming effects.
+
+Wizard Spell: Unhanded
+
+A deliberately absurd wizard spell that temporarily makes the target's hands or fingers too floppy to grip equipment properly.
+
+Primary effect:
+
+- Target becomes disarmed
+- Target cannot use equipped weapons or shields while affected
+
+The visual joke should be cartoonishly ridiculous rather than graphic.
+
+Candidate names include:
+
+- Finger of Shame
+- Floppy Fingers
+- Unhanded
+- Curse of the Limp Grip
+
+Unhanded is the current working name.
+
+Its final recovery or progression mechanic can be explored during implementation.
+
+---
+
 Inventory
 
 The player will have an inventory containing items such as:
@@ -702,6 +785,12 @@ Combat
 - [ ] Dodging
 - [ ] Abilities
 - [ ] Enemy AI
+- [ ] Status effects
+- [ ] Buffs
+- [ ] Debuffs
+- [ ] Weirded Out
+- [ ] Butterfingers
+- [ ] Unhanded wizard spell
 - [ ] Loot
 
 World
@@ -785,6 +874,7 @@ Goals:
 - Consumables
 - Shops
 - Economy
+- Status effects
 - Save/load
 
 ---
