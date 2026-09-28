@@ -542,6 +542,19 @@ Unhanded is the current working name.
 
 Its final recovery or progression mechanic can be explored during implementation.
 
+
+
+Social / Personality Statuses
+
+Situational effects caused by NPCs and social encounters:
+- Charmed: charm from a beautiful/charismatic NPC may affect combat or dialogue.
+- Starstruck: meeting someone extraordinary may reduce combat/social performance.
+- Intimidated: a terrifying NPC/enemy may reduce effectiveness against them.
+- Inspired: witnessing greatness temporarily boosts a related skill or XP gain.
+- Flustered: embarrassment/social pressure may reduce defence/accuracy and alter dialogue.
+- Envious: seeing something desirable may boost related skill XP but hurt Charisma with its owner.
+These should be situational states by default.
+
 ---
 
 Inventory
