@@ -752,6 +752,60 @@ This should make it possible to add new content without rewriting core gameplay 
 
 ---
 
+Prototype Development Order
+
+The first development goal is to make the character and basic combat feel good before building the wider RPG world.
+
+1. Character movement
+- Idle
+- Walk
+- Run
+- Dodge roll
+- Jump
+- Direction/facing and responsive movement transitions
+
+2. Training ground
+- Dedicated test arena
+- Unlimited-health training dummy
+- Damage numbers and floating counters
+- Health bar
+- Combo damage total
+- Combo ends after 1 second without an attack
+- Display total combo damage and calculated DPS
+
+3. Sword combat
+- Slash
+- Swing
+- Stab
+- Double strike
+- Three-move combos
+- Heavy attacks
+- Deflect
+- Parry
+- Tune timing, hitboxes, recovery, chaining and hit feedback
+
+4. First enemy
+- Enemy that fights back
+- Basic movement, targeting, attacks, reactions and defeat
+
+5. Shield
+- Blocking
+- Shield bash
+- Block/deflect/parry interactions
+
+6. Staff
+- Basic staff combat and the foundation for staff/magic gameplay
+
+7. Bow
+- Aiming, firing, projectiles and ranged combat feel
+
+8. Status effects
+- Once movement and the core weapon combat foundations feel natural, build the status-effect layer and test how effects influence the player.
+
+The training ground is a development tool. It should help tune combat feel before those systems are moved into the actual world.
+
+---
+
 Development Status
 
 The project is currently in early development / prototype stage.
