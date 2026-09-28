@@ -889,50 +889,181 @@ The Turnip
 
 ---
 
-Roadmap
+Prototype Build Order
 
-Phase 1: Core Prototype
+The first playable prototype should focus on making the character and combat feel good before building the actual RPG world.
 
-Build the smallest playable version of the game.
+Phase 1: Character & Movement
+
+Build the player character first and make basic movement feel responsive.
 
 Goals:
 
-- Player movement
-- Basic world
-- Opening cutscene
-- Starting village
-- First current task
-- Interaction
-- Simple enemy
-- Basic combat
-- Basic health
-- Basic item pickup
+- Godot project structure
+- Modular character setup
+- First character sprite set
+- Idle
+- Walk
+- Run
+- Dodge roll
+- Jump
+- Direction/facing
+- Movement and animation state transitions
+- Basic camera/testing space
+
+The character should be fun to move before combat or world content is added.
 
 ---
 
-Phase 2: Character Progression
+Phase 2: Training Ground
 
-Implement the defining progression system.
+Create a dedicated development arena where movement and combat can be tested without the distractions of the main game world.
 
 Goals:
 
+- Simple training-ground environment
+- Movement test space
+- Test dummy
+- Unlimited dummy health
+- Proper health bar
+- Floating damage numbers
+- Damage counters
+- Current combo damage
+- Combo ends after 1 second without an attack
+- Display total combo damage
+- Calculate and display DPS
+
+This is a development tool. It can be ugly and temporary as long as it makes testing fast and useful.
+
+---
+
+Phase 3: Sword Combat
+
+Use the training dummy to make the first weapon feel natural before introducing enemies.
+
+Goals:
+
+- Slash
+- Swing
+- Stab
+- Double strike
+- Three-move combos
+- Heavy attacks
+- Deflect
+- Parry
+- Attack timing
+- Hitboxes and hit detection
+- Movement during attacks
+- Recovery and chaining
+- Hit feedback
+- Consistent damage handling
+
+The priority is feel. The player should enjoy simply fighting the dummy before we worry about building a complete combat system.
+
+Health bars, floating damage numbers, combo totals and DPS should then be tuned as part of the test experience.
+
+---
+
+Phase 4: First Enemy
+
+Once sword combat feels good against the dummy, create an enemy that fights back.
+
+Goals:
+
+- Enemy movement
+- Player targeting
+- Attack telegraphs
+- Enemy attacks
+- Taking damage
+- Hit reactions
+- Basic defeat/death state
+- First complete player-vs-enemy combat loop
+
+---
+
+Phase 5: Shield Combat
+
+Add the shield after the sword and first enemy are working.
+
+Goals:
+
+- Blocking
+- Block timing and response
+- Shield bash
+- Interaction with enemy attacks
+- Deflect/parry relationships
+- Defensive combat feel
+
+---
+
+Phase 6: Staff Combat
+
+Add staves after the sword and shield foundations feel solid.
+
+Goals:
+
+- Basic staff moveset
+- Attack timing
+- Hit detection
+- Staff-specific combat feel
+- Foundations for the magic/staff path
+
+---
+
+Phase 7: Bow Combat
+
+Add bows after staff combat.
+
+Goals:
+
+- Aiming
+- Firing
+- Projectile behaviour
+- Attack timing
+- Hit detection
+- Ranged combat feel
+
+Other weapon types can be added later once the core weapon architecture is proven.
+
+---
+
+Phase 8: Status Effects
+
+Once movement and the basic combat foundation are working, build the status-effect layer and test how effects influence the player and enemies.
+
+Goals:
+
+- Buffs
+- Debuffs
+- Duration
+- Stacking
+- Removal
+- Status display
+- Weirded Out
+- Butterfingers
+- Unhanded
+- Charmed
+- Starstruck
+- Intimidated
+- Inspired
+- Flustered
+- Envious
+
+Status effects should plug into the existing combat and character systems rather than becoming a separate combat framework.
+
+---
+
+Phase 9: RPG Foundation
+
+With the movement and combat foundations proven, expand into the wider RPG systems.
+
+Goals:
+
+- Health and core stats
 - Skills
 - Use-based XP
 - Skill levels
-- Skill effects
-- Basic attributes
-- Progression feedback
-
-The player should be able to visibly become better at the things they actually do.
-
----
-
-Phase 3: RPG Foundation
-
-Build the basic RPG framework.
-
-Goals:
-
+- Attributes
 - Inventory
 - Equipment
 - Items
@@ -941,46 +1072,36 @@ Goals:
 - Consumables
 - Shops
 - Economy
-- Status effects
 - Save/load
 
 ---
 
-Phase 4: Exploration
+Phase 10: World & Story
 
-Expand the world.
+Move from the training ground into the actual game world.
 
 Goals:
 
-- Multiple areas
+- Starting village
+- Opening cutscene
+- First current task
 - NPCs
+- Dialogue
+- World exploration
 - Resources
 - Secrets
 - Dungeons
-- Treasure
+- Enemies
+- Quests
 - Exploration rewards
 
----
-
-Phase 5: Quests
-
-Add structured content.
-
-Goals:
-
-- Quest system
-- Objectives
-- Rewards
-- Dialogue
-- Main quests
-- Side quests
-- Hidden quests
+The training ground should remain available as a development/test area.
 
 ---
 
-Phase 6: Cards
+Phase 11: Cards
 
-Introduce the card system.
+Introduce the card system after the core RPG loop is stable.
 
 Goals:
 
@@ -994,9 +1115,9 @@ Goals:
 
 ---
 
-Phase 7: The Weird Stuff
+Phase 12: The Weird Stuff
 
-This is where things get dangerous.
+Expand the game's stranger systems and content.
 
 Goals:
 
@@ -1009,9 +1130,9 @@ Goals:
 
 ---
 
-Phase 8: Polish & Expansion
+Phase 13: Polish & Expansion
 
-Once the core systems are fun:
+Once the core game is fun:
 
 - Improve art
 - Improve animations
@@ -1023,6 +1144,7 @@ Once the core systems are fun:
 - Add more quests
 - Add more cards
 - Add more equipment
+- Add more weapons
 - Add more secrets
 
 ---
