@@ -30,6 +30,43 @@ Obviously.
 
 ---
 
+Opening & Core Story Hook
+
+The game opens with a short cutscene that establishes the world, the mystery, and the player's reason to begin the journey.
+
+Opening Sequence
+
+1. A strange object falls from the sky near the player's village.
+2. The villagers panic and gather to see what happened.
+3. The village elder tells an old tale about objects that have fallen from the sky before, said to contain extraordinary powers.
+4. The stories describe powers such as immense strength, the ability to turn things to gold, or even the power to command others.
+5. The object is clearly mysterious and potentially dangerous.
+6. The villagers decide that nobody should go looking for it.
+7. Strange events begin occurring around the village after the impact, suggesting that the object may be causing problems.
+8. The player decides to investigate.
+9. The cutscene ends and control returns to the player in the village.
+10. The player's first current task is to find out where the object landed.
+
+The protagonist is an ordinary person, not a chosen one. There is no predetermined class at the beginning. What the player becomes should emerge from the actions they take during the game.
+
+The opening should create questions rather than explain everything:
+
+- What exactly fell from the sky?
+- What power does it contain?
+- Why are the old stories frightening?
+- What happened to people who found objects like this before?
+- What happens if the player finds it first?
+
+Once control returns to the player, they should be free to explore the village, talk to NPCs, prepare for the journey, discover small interactions, or immediately pursue the object.
+
+Opening Hook Principle
+
+The opening should establish curiosity quickly, introduce the strange fantasy tone, provide a believable reason for the player to investigate, give the player a clear first objective, and hand control back without turning the introduction into a long lore dump.
+
+The first few minutes should make the player want to answer questions rather than feel like they have already been given all the answers.
+
+---
+
 Core Vision
 
 The player should feel like they are creating their own RPG character rather than selecting one from a menu.
@@ -633,6 +670,9 @@ Core
 - [ ] Interaction system
 - [ ] Camera
 - [ ] Basic world
+- [ ] Opening cutscene / story sequence
+- [ ] Starting village
+- [ ] First current-task flow
 
 Character
 
@@ -672,6 +712,7 @@ World
 - [ ] Dungeons
 - [ ] Exploration rewards
 - [ ] Hidden locations
+- [ ] Cutscene / dialogue presentation
 
 Cards
 
@@ -702,6 +743,9 @@ Goals:
 
 - Player movement
 - Basic world
+- Opening cutscene
+- Starting village
+- First current task
 - Interaction
 - Simple enemy
 - Basic combat
@@ -827,6 +871,12 @@ Once the core systems are fun:
 ---
 
 Development Principles
+
+Protect the Opening Hook
+
+The opening should immediately create curiosity, establish the strange fantasy tone, give the player a believable reason to investigate, and provide a clear first objective. Keep the handoff to gameplay quick and raise questions rather than burying the player in lore.
+
+---
 
 Build Vertically
 
