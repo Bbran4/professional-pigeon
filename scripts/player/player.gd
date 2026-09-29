@@ -66,7 +66,7 @@ func _input(event: InputEvent) -> void:
 			last_cardinal_input = Vector2.DOWN
 		KEY_A, KEY_LEFT:
 			last_cardinal_input = Vector2.LEFT
-		KEY_SHIFT:
+		KEY_CTRL:
 			dodge_requested = true
 		KEY_SPACE:
 			jump_requested = true
@@ -126,7 +126,7 @@ func get_isometric_direction(cardinal_input: Vector2) -> Vector2:
 
 func is_run_pressed() -> bool:
 	## Ctrl is the temporary prototype run modifier.
-	return Input.is_physical_key_pressed(KEY_CTRL)
+	return Input.is_physical_key_pressed(KEY_SHIFT)
 
 func move_with_acceleration(target_velocity: Vector2, delta: float) -> void:
 	## States ask the Player to move toward a target velocity.
