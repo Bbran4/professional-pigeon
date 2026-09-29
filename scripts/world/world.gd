@@ -1,5 +1,6 @@
 extends Node2D
 class_name GameWorld
 
-## World scene shell.
-## Area loading, interactions, NPCs and enemies will be added by their respective systems.
+## The World is currently a scene shell.
+## Future systems such as area loading, interactions, NPCs, enemies,
+## encounters, and world resources will be added here or beneath it.
