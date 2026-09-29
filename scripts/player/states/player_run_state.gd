@@ -1,7 +1,7 @@
 extends PlayerState
 class_name PlayerRunState
 
-## Run handles movement at RUN_SPEED while Ctrl is held.
+## Run handles movement at RUN_SPEED while Shift is held.
 ## Releasing Ctrl returns the player to Walk.
 
 func physics_process_state(delta: float) -> void:
@@ -17,12 +17,15 @@ func physics_process_state(delta: float) -> void:
 
 	var movement_input: Vector2 = player.get_cardinal_input()
 
+	if movement_input != Vector2.ZERO:
+		player.update_facing(movement_input)
+
 	## No movement input means we are no longer running.
 	if movement_input == Vector2.ZERO:
 		state_machine.transition_to(&"Idle")
 		return
 
-	## Ctrl being released immediately changes the state to Walk.
+	## Shift being released immediately changes the state to Walk.
 	if not player.is_run_pressed():
 		state_machine.transition_to(&"Walk")
 		return
