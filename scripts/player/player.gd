@@ -126,7 +126,7 @@ func get_isometric_direction(cardinal_input: Vector2) -> Vector2:
 	return ISO_LEFT
 
 func is_run_pressed() -> bool:
-	## Ctrl is the temporary prototype run modifier.
+	## Shift is the temporary prototype run modifier.
 	return Input.is_physical_key_pressed(KEY_SHIFT)
 
 func update_facing(cardinal_input: Vector2) -> void:
@@ -135,8 +135,8 @@ func update_facing(cardinal_input: Vector2) -> void:
 		return
 
 	facing_direction = cardinal_input
-	var face: Polygon2D = $Face
-	face.position = get_isometric_direction(cardinal_input) * 16.0
+	var face: Polygon2D = $Visuals/Face
+	face.position = get_isometric_direction(cardinal_input) * 12.0
 
 func move_with_acceleration(target_velocity: Vector2, delta: float) -> void:
 	## States ask the Player to move toward a target velocity.
