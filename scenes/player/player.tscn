@@ -1,20 +1,42 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_script"]
-[ext_resource type="Script" path="res://scripts/player/player_state_machine.gd" id="2_state"]
-[ext_resource type="Script" path="res://scripts/player/player_visual.gd" id="3_visual"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://scripts/player/player_state_machine.gd" id="2_machine"]
+[ext_resource type="Script" path="res://scripts/player/player_state.gd" id="3_state"]
+[ext_resource type="Script" path="res://scripts/player/states/player_idle_state.gd" id="4_idle"]
+[ext_resource type="Script" path="res://scripts/player/states/player_walk_state.gd" id="5_walk"]
+[ext_resource type="Script" path="res://scripts/player/states/player_run_state.gd" id="6_run"]
+[ext_resource type="Script" path="res://scripts/player/states/player_dodge_state.gd" id="7_dodge"]
+[ext_resource type="Script" path="res://scripts/player/states/player_jump_state.gd" id="8_jump"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(24, 40)
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_script")
+script = ExtResource("1_player")
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("2_state")
+script = ExtResource("2_machine")
+initial_state = NodePath("Idle")
 
-[node name="Visuals" type="Node2D" parent="."]
-script = ExtResource("3_visual")
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_idle")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("5_walk")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("6_run")
+
+[node name="Dodge" type="Node" parent="StateMachine"]
+script = ExtResource("7_dodge")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("8_jump")
+
+[node name="Visuals" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-12, -20, 12, -20, 12, 20, -12, 20)
+color = Color(0.137255, 0.533333, 1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_player")
