@@ -2,7 +2,7 @@ extends PlayerState
 class_name PlayerRunState
 
 ## Run handles movement at RUN_SPEED while Shift is held.
-## Releasing Ctrl returns the player to Walk.
+## Releasing Shift returns the player to Walk.
 
 func physics_process_state(delta: float) -> void:
 	## Special movement requests take priority over running.
