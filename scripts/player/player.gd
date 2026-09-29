@@ -111,13 +111,37 @@ func is_run_pressed() -> bool:
 	return Input.is_physical_key_pressed(KEY_SHIFT)
 
 func update_facing(cardinal_input: Vector2) -> void:
-	## Store the latest movement direction and move the face marker to the front edge.
+	## Store the latest facing direction and update the existing face marker.
+	## The marker is a scene node. Code only changes its position and visibility.
 	if cardinal_input == Vector2.ZERO:
 		return
 
-	facing_direction = cardinal_input
+	var face_direction: Vector2 = cardinal_input
+
+	## When moving diagonally, use the most recently pressed cardinal
+	## direction for the face. Movement still uses both X and Y axes.
+	if cardinal_input.x != 0.0 and cardinal_input.y != 0.0:
+		face_direction = last_cardinal_input
+
+	facing_direction = face_direction
+
 	var face: Polygon2D = $Visuals/Face
-	face.position = cardinal_input * 16.0
+
+	match face_direction:
+		Vector2.DOWN:
+			face.position = Vector2(0.0, -20.0)
+			face.visible = true
+		Vector2.LEFT:
+			face.position = Vector2(-12.0, 0.0)
+			face.visible = true
+		Vector2.RIGHT:
+			face.position = Vector2(12.0, 0.0)
+			face.visible = true
+		Vector2.UP:
+			## Facing up means the face is on the far side of the character,
+			## so the marker is hidden by the blue body.
+			face.position = Vector2(0.0, -20.0)
+			face.visible = false
 
 func move_with_acceleration(target_velocity: Vector2, delta: float) -> void:
 	## States ask the Player to move toward a target velocity.
