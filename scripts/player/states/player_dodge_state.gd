@@ -17,6 +17,7 @@ func enter_state(previous_state: PlayerState) -> void:
 		state_machine.transition_to(&"Idle")
 		return
 
+	player.update_facing(movement_input)
 	dodge_direction = player.get_isometric_direction(movement_input)
 	time_remaining = player.DODGE_DURATION
 	player.velocity = dodge_direction * player.DODGE_SPEED
