@@ -16,11 +16,11 @@ class_name CharacterVisuals
 ## can exist until the first real character sprites are imported.
 
 @onready var player: Player = get_parent().get_parent() as Player
-@onready var body: AnimatedSprite2D = $Body
-@onready var hair: AnimatedSprite2D = $Hair
-@onready var face: AnimatedSprite2D = $Face
-@onready var clothing: AnimatedSprite2D = $Clothing
-@onready var equipment: AnimatedSprite2D = $Equipment
+@onready var body: AnimatedSprite2D = $BodyLayer
+@onready var hair: AnimatedSprite2D = $HairLayer
+@onready var face: AnimatedSprite2D = $FaceLayer
+@onready var clothing: AnimatedSprite2D = $ClothingLayer
+@onready var equipment: AnimatedSprite2D = $EquipmentLayer
 
 var current_direction: String = "down"
 var current_animation: String = "idle"
