@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/player/player_state_machine.gd" id="2_machine"]
@@ -37,6 +37,14 @@ script = ExtResource("8_jump")
 [node name="Visuals" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(-12, -20, 12, -20, 12, 20, -12, 20)
 color = Color(0.137255, 0.533333, 1, 1)
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -45.0
+offset_top = -52.0
+offset_right = 45.0
+offset_bottom = -28.0
+text = "Idle"
+horizontal_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_player")
