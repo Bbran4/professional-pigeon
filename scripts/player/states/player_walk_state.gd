@@ -30,7 +30,7 @@ func physics_process_state(delta: float) -> void:
 		state_machine.transition_to(&"Run")
 		return
 
-	## Convert the logical direction into our isometric screen direction.
+	## Use the input directly so left/right affect X and up/down affect Y.
 	var direction: Vector2 = player.get_isometric_direction(movement_input)
 	player.move_with_acceleration(direction * player.WALK_SPEED, delta)
 	player.move_and_slide()
