@@ -31,6 +31,7 @@ const ISO_LEFT: Vector2 = Vector2(-0.70710678, -0.70710678)
 var last_cardinal_input: Vector2 = Vector2.DOWN
 var dodge_requested: bool = false
 var jump_requested: bool = false
+var facing_direction: Vector2 = Vector2.DOWN
 
 func _ready() -> void:
 	## CharacterBody2D normally has floor-based movement in 2D.
@@ -128,6 +129,15 @@ func is_run_pressed() -> bool:
 	## Ctrl is the temporary prototype run modifier.
 	return Input.is_physical_key_pressed(KEY_SHIFT)
 
+func update_facing(cardinal_input: Vector2) -> void:
+	## Store the latest movement direction and move the face marker to the front edge.
+	if cardinal_input == Vector2.ZERO:
+		return
+
+	facing_direction = cardinal_input
+	var face: Polygon2D = $Face
+	face.position = get_isometric_direction(cardinal_input) * 16.0
+
 func move_with_acceleration(target_velocity: Vector2, delta: float) -> void:
 	## States ask the Player to move toward a target velocity.
 	## Keeping acceleration here means every movement state uses the same
@@ -139,6 +149,9 @@ func finish_movement_state() -> void:
 	## Dodge and Jump call this when they finish.
 	## We then decide which normal movement state should take over.
 	var movement_input: Vector2 = get_cardinal_input()
+
+	if movement_input != Vector2.ZERO:
+		update_facing(movement_input)
 
 	if movement_input == Vector2.ZERO:
 		state_machine.transition_to(&"Idle")
