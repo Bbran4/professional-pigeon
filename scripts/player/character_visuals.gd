@@ -16,6 +16,7 @@ class_name CharacterVisuals
 ## can exist until the first real character sprites are imported.
 
 @onready var player: Player = get_parent().get_parent() as Player
+@onready var state_machine: PlayerStateMachine = $"../../StateMachine"
 @onready var body: AnimatedSprite2D = $BodyLayer
 @onready var hair: AnimatedSprite2D = $HairLayer
 @onready var face: AnimatedSprite2D = $FaceLayer
@@ -26,15 +27,20 @@ var current_direction: String = "down"
 var current_animation: String = "idle"
 
 func _ready() -> void:
-	## Listen to the existing movement state machine instead of creating
-	## another state system just for visuals.
+	## CharacterVisuals is a child of Player, so its _ready() can run before
+	## Player's own _ready() has initialized Player's @onready variables.
+	## Access the StateMachine directly from the scene tree instead.
 	if player == null:
 		push_error("CharacterVisuals must be a child of Player/Visuals.")
 		return
 
-	player.state_machine.state_changed.connect(_on_state_changed)
+	if state_machine == null:
+		push_error("CharacterVisuals could not find Player/StateMachine.")
+		return
+
+	state_machine.state_changed.connect(_on_state_changed)
 	update_direction(player.facing_direction)
-	update_animation(player.state_machine.current_state)
+	update_animation(state_machine.current_state)
 
 func update_direction(direction: Vector2) -> void:
 	## Convert the player's four cardinal facing directions into stable
