@@ -17,12 +17,15 @@ func physics_process_state(delta: float) -> void:
 
 	var movement_input: Vector2 = player.get_cardinal_input()
 
+	if movement_input != Vector2.ZERO:
+		player.update_facing(movement_input)
+
 	## Releasing movement returns us to Idle.
 	if movement_input == Vector2.ZERO:
 		state_machine.transition_to(&"Idle")
 		return
 
-	## Holding Ctrl changes Walk into Run.
+	## Holding Shift changes Walk into Run.
 	if player.is_run_pressed():
 		state_machine.transition_to(&"Run")
 		return
