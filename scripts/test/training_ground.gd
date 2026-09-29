@@ -1,4 +1,5 @@
 extends Node2D
 
-## Development test scene shell.
-## Training dummy, damage tracking and combat test tooling belong to the training-ground milestone.
+## Development-only training ground scene.
+## This scene will eventually contain the training dummy, damage numbers,
+## combo tracking, DPS tracking, and other combat-development tools.
