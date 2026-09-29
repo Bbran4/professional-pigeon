@@ -7,7 +7,8 @@
 [ext_resource type="Script" uid="uid://btb5ncogviqxy" path="res://scripts/player/states/player_run_state.gd" id="6_run"]
 [ext_resource type="Script" uid="uid://els58ebnut7e" path="res://scripts/player/states/player_dodge_state.gd" id="7_dodge"]
 [ext_resource type="Script" uid="uid://d07l8aqlqiy1w" path="res://scripts/player/states/player_jump_state.gd" id="8_jump"]
-[ext_resource type="Script" path="res://scripts/player/character_visuals.gd" id="9_character_visuals"]
+[ext_resource type="Texture2D" uid="uid://bv6y2h4a1fmyk" path="res://assets/characters/Character_Sprite.png" id="9_5gtgg"]
+[ext_resource type="Script" uid="uid://k7qgmta7xdto" path="res://scripts/player/character_visuals.gd" id="9_character_visuals"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(24, 40)
@@ -43,22 +44,63 @@ position = Vector2(0, -12)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
 
-[node name="CharacterVisuals" type="Node2D" parent="Visuals"]
+[node name="CharacterVisuals" type="Node2D" parent="Visuals" unique_id=759772089]
 script = ExtResource("9_character_visuals")
 
-[node name="BodyLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
-z_index = 0
+[node name="BodyLayer" type="Node2D" parent="Visuals/CharacterVisuals" unique_id=161039044]
 
-[node name="HairLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+[node name="Head" type="Sprite2D" parent="Visuals/CharacterVisuals/BodyLayer" unique_id=2050153582]
+position = Vector2(0, -81)
+texture = ExtResource("9_5gtgg")
+offset = Vector2(0, -53)
+region_enabled = true
+region_rect = Rect2(187, 262, 106, 112)
+
+[node name="LeftLeg" type="Sprite2D" parent="Visuals/CharacterVisuals/BodyLayer" unique_id=1098824508]
+position = Vector2(14, 87)
+texture = ExtResource("9_5gtgg")
+offset = Vector2(8, 88)
+region_enabled = true
+region_rect = Rect2(49, 427, 62, 206)
+
+[node name="LeftArm" type="Sprite2D" parent="Visuals/CharacterVisuals/BodyLayer" unique_id=686391086]
+position = Vector2(14.000002, -52)
+rotation = -0.41083926
+texture = ExtResource("9_5gtgg")
+offset = Vector2(-4, 57)
+region_enabled = true
+region_rect = Rect2(65, 249, 29, 138)
+
+[node name="Torso" type="Sprite2D" parent="Visuals/CharacterVisuals/BodyLayer" unique_id=1303455342]
+texture = ExtResource("9_5gtgg")
+region_enabled = true
+region_rect = Rect2(208, 457, 64, 146)
+
+[node name="RightLeg" type="Sprite2D" parent="Visuals/CharacterVisuals/BodyLayer" unique_id=93766614]
+position = Vector2(-5, 87)
+texture = ExtResource("9_5gtgg")
+offset = Vector2(9, 88)
+region_enabled = true
+region_rect = Rect2(49, 427, 62, 206)
+
+[node name="RightArm" type="Sprite2D" parent="Visuals/CharacterVisuals/BodyLayer" unique_id=1308260544]
+position = Vector2(-13, -51)
+rotation = 0.20766573
+texture = ExtResource("9_5gtgg")
+offset = Vector2(-4, 57)
+region_enabled = true
+region_rect = Rect2(65, 249, 29, 138)
+
+[node name="HairLayer" type="Node2D" parent="Visuals/CharacterVisuals" unique_id=1428194678]
 z_index = 10
 
-[node name="FaceLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+[node name="FaceLayer" type="Node2D" parent="Visuals/CharacterVisuals" unique_id=793414875]
 z_index = 20
 
-[node name="ClothingLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+[node name="ClothingLayer" type="Node2D" parent="Visuals/CharacterVisuals" unique_id=137539964]
 z_index = 30
 
-[node name="EquipmentLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+[node name="EquipmentLayer" type="Node2D" parent="Visuals/CharacterVisuals" unique_id=1298269971]
 z_index = 40
 
 [node name="StateLabel" type="Label" parent="." unique_id=305777538]
