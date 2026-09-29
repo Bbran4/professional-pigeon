@@ -16,13 +16,6 @@ const DODGE_COOLDOWN: float = 0.35
 const JUMP_DURATION: float = 0.42
 const JUMP_HEIGHT: float = 22.0
 
-## These vectors convert our four cardinal input directions into the
-## diagonal screen-space directions used by the isometric presentation.
-const ISO_UP: Vector2 = Vector2(0.70710678, -0.70710678)
-const ISO_RIGHT: Vector2 = Vector2(0.70710678, 0.70710678)
-const ISO_DOWN: Vector2 = Vector2(-0.70710678, 0.70710678)
-const ISO_LEFT: Vector2 = Vector2(-0.70710678, -0.70710678)
-
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var visuals: Polygon2D = $Visuals
 @onready var state_label: Label = $StateLabel
@@ -104,26 +97,14 @@ func get_cardinal_input() -> Vector2:
 	if Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN):
 		input_direction.y += 1.0
 
-	## If two axes are held, use the most recently pressed cardinal axis.
-	## This keeps movement deliberately four-directional for now.
-	if input_direction.x != 0.0 and input_direction.y != 0.0:
-		if last_cardinal_input.x != 0.0:
-			input_direction = Vector2(last_cardinal_input.x, 0.0)
-		else:
-			input_direction = Vector2(0.0, last_cardinal_input.y)
-
+	## Holding two directions combines both axes, so diagonal movement is possible.
 	return input_direction.normalized()
 
 func get_isometric_direction(cardinal_input: Vector2) -> Vector2:
-	## Translate a logical cardinal direction into its screen-space
-	## isometric movement direction.
-	if cardinal_input == Vector2.UP:
-		return ISO_UP
-	if cardinal_input == Vector2.RIGHT:
-		return ISO_RIGHT
-	if cardinal_input == Vector2.DOWN:
-		return ISO_DOWN
-	return ISO_LEFT
+	## Movement uses normal screen-space coordinates.
+	## The isometric presentation comes from the world and art, not by
+	## changing the player's X/Y movement axes.
+	return cardinal_input
 
 func is_run_pressed() -> bool:
 	## Shift is the temporary prototype run modifier.
