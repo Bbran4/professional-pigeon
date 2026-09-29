@@ -129,18 +129,18 @@ func update_facing(cardinal_input: Vector2) -> void:
 
 	match face_direction:
 		Vector2.DOWN:
-			face.position = Vector2(0.0, -20.0)
+			face.position = Vector2(0.0, -12.0)
 			face.visible = true
 		Vector2.LEFT:
-			face.position = Vector2(-12.0, 0.0)
+			face.position = Vector2(-12.0, -12.0)
 			face.visible = true
 		Vector2.RIGHT:
-			face.position = Vector2(12.0, 0.0)
+			face.position = Vector2(12.0, -12.0)
 			face.visible = true
 		Vector2.UP:
 			## Facing up means the face is on the far side of the character,
 			## so the marker is hidden by the blue body.
-			face.position = Vector2(0.0, -20.0)
+			face.position = Vector2(0.0, -12.0)
 			face.visible = false
 
 func move_with_acceleration(target_velocity: Vector2, delta: float) -> void:
