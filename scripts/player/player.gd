@@ -18,6 +18,7 @@ const JUMP_HEIGHT: float = 22.0
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var visuals: Polygon2D = $Visuals
+@onready var character_visuals: CharacterVisuals = $Visuals/CharacterVisuals
 @onready var state_label: Label = $StateLabel
 
 ## Input is recorded here and consumed by states when appropriate.
@@ -124,6 +125,7 @@ func update_facing(cardinal_input: Vector2) -> void:
 		face_direction = last_cardinal_input
 
 	facing_direction = face_direction
+	character_visuals.update_direction(facing_direction)
 
 	var face: Polygon2D = $Visuals/Face
 
