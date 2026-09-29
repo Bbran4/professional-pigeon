@@ -1,6 +1,11 @@
 extends CharacterBody2D
 class_name Player
 
+## The Player is the shared interface used by the individual movement states.
+## It owns input, movement constants, and helper functions.
+## The actual behaviour for Idle, Walk, Run, Dodge, and Jump lives in
+## the separate state scripts under scripts/player/states/.
+
 const WALK_SPEED: float = 120.0
 const RUN_SPEED: float = 200.0
 const ACCELERATION: float = 900.0
@@ -11,6 +16,8 @@ const DODGE_COOLDOWN: float = 0.35
 const JUMP_DURATION: float = 0.42
 const JUMP_HEIGHT: float = 22.0
 
+## These vectors convert our four cardinal input directions into the
+## diagonal screen-space directions used by the isometric presentation.
 const ISO_UP: Vector2 = Vector2(0.70710678, -0.70710678)
 const ISO_RIGHT: Vector2 = Vector2(0.70710678, 0.70710678)
 const ISO_DOWN: Vector2 = Vector2(-0.70710678, 0.70710678)
@@ -18,22 +25,38 @@ const ISO_LEFT: Vector2 = Vector2(-0.70710678, -0.70710678)
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var visuals: Polygon2D = $Visuals
+@onready var state_label: Label = $StateLabel
 
+## Input is recorded here and consumed by states when appropriate.
 var last_cardinal_input: Vector2 = Vector2.DOWN
 var dodge_requested: bool = false
 var jump_requested: bool = false
 
 func _ready() -> void:
+	## CharacterBody2D normally has floor-based movement in 2D.
+	## Floating mode is appropriate for our top-down/isometric movement.
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 
+	## The state machine emits this whenever the active state changes.
+	state_machine.state_changed.connect(_on_state_changed)
+
+	## The initial state is entered by the state machine before this node's
+	## _ready() runs, so update the label once here as well.
+	_update_state_label()
+
 func _input(event: InputEvent) -> void:
+	## We only care about keyboard input for this prototype.
 	if event is not InputEventKey:
 		return
+
+	## Ignore key releases and keyboard auto-repeat.
 	if not event.pressed or event.echo:
 		return
 
 	var physical_key: int = event.physical_keycode
 
+	## Remember the most recently pressed cardinal direction.
+	## This is used when two movement keys are held at the same time.
 	match physical_key:
 		KEY_W, KEY_UP:
 			last_cardinal_input = Vector2.UP
@@ -49,6 +72,8 @@ func _input(event: InputEvent) -> void:
 			jump_requested = true
 
 func consume_dodge_request() -> bool:
+	## States call this when they want to check for a dodge request.
+	## Consuming it means the request is handled only once.
 	if not dodge_requested:
 		return false
 
@@ -56,6 +81,7 @@ func consume_dodge_request() -> bool:
 	return true
 
 func consume_jump_request() -> bool:
+	## Same idea as consume_dodge_request(), but for jumping.
 	if not jump_requested:
 		return false
 
@@ -63,6 +89,9 @@ func consume_jump_request() -> bool:
 	return true
 
 func get_cardinal_input() -> Vector2:
+	## Read the current WASD/arrow-key movement input.
+	## The returned value is always one of the four cardinal directions,
+	## or Vector2.ZERO when there is no movement input.
 	var input_direction: Vector2 = Vector2.ZERO
 
 	if Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT):
@@ -74,6 +103,8 @@ func get_cardinal_input() -> Vector2:
 	if Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN):
 		input_direction.y += 1.0
 
+	## If two axes are held, use the most recently pressed cardinal axis.
+	## This keeps movement deliberately four-directional for now.
 	if input_direction.x != 0.0 and input_direction.y != 0.0:
 		if last_cardinal_input.x != 0.0:
 			input_direction = Vector2(last_cardinal_input.x, 0.0)
@@ -83,6 +114,8 @@ func get_cardinal_input() -> Vector2:
 	return input_direction.normalized()
 
 func get_isometric_direction(cardinal_input: Vector2) -> Vector2:
+	## Translate a logical cardinal direction into its screen-space
+	## isometric movement direction.
 	if cardinal_input == Vector2.UP:
 		return ISO_UP
 	if cardinal_input == Vector2.RIGHT:
@@ -92,13 +125,19 @@ func get_isometric_direction(cardinal_input: Vector2) -> Vector2:
 	return ISO_LEFT
 
 func is_run_pressed() -> bool:
+	## Ctrl is the temporary prototype run modifier.
 	return Input.is_physical_key_pressed(KEY_CTRL)
 
 func move_with_acceleration(target_velocity: Vector2, delta: float) -> void:
+	## States ask the Player to move toward a target velocity.
+	## Keeping acceleration here means every movement state uses the same
+	## movement feel without duplicating the math.
 	var acceleration_rate: float = ACCELERATION if target_velocity != Vector2.ZERO else DECELERATION
 	velocity = velocity.move_toward(target_velocity, acceleration_rate * delta)
 
 func finish_movement_state() -> void:
+	## Dodge and Jump call this when they finish.
+	## We then decide which normal movement state should take over.
 	var movement_input: Vector2 = get_cardinal_input()
 
 	if movement_input == Vector2.ZERO:
@@ -107,3 +146,15 @@ func finish_movement_state() -> void:
 		state_machine.transition_to(&"Run")
 	else:
 		state_machine.transition_to(&"Walk")
+
+func _on_state_changed(previous_state: PlayerState, new_state: PlayerState) -> void:
+	## Update the debug label whenever the state machine changes state.
+	_update_state_label()
+
+func _update_state_label() -> void:
+	## Display the actual state node name above the player.
+	if state_machine.current_state == null:
+		state_label.text = "No State"
+		return
+
+	state_label.text = String(state_machine.current_state.name)
