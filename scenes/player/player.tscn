@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://btb5ncogviqxy" path="res://scripts/player/states/player_run_state.gd" id="6_run"]
 [ext_resource type="Script" uid="uid://els58ebnut7e" path="res://scripts/player/states/player_dodge_state.gd" id="7_dodge"]
 [ext_resource type="Script" uid="uid://d07l8aqlqiy1w" path="res://scripts/player/states/player_jump_state.gd" id="8_jump"]
+[ext_resource type="Script" path="res://scripts/player/character_visuals.gd" id="9_character_visuals"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(24, 40)
@@ -41,6 +42,24 @@ polygon = PackedVector2Array(-12, -20, 12, -20, 12, 20, -12, 20)
 position = Vector2(0, -12)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+
+[node name="CharacterVisuals" type="Node2D" parent="Visuals"]
+script = ExtResource("9_character_visuals")
+
+[node name="BodyLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+z_index = 0
+
+[node name="HairLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+z_index = 10
+
+[node name="FaceLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+z_index = 20
+
+[node name="ClothingLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+z_index = 30
+
+[node name="EquipmentLayer" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals"]
+z_index = 40
 
 [node name="StateLabel" type="Label" parent="." unique_id=305777538]
 offset_left = -45.0
