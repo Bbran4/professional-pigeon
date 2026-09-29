@@ -136,7 +136,7 @@ func update_facing(cardinal_input: Vector2) -> void:
 
 	facing_direction = cardinal_input
 	var face: Polygon2D = $Visuals/Face
-	face.position = get_isometric_direction(cardinal_input) * 12.0
+	face.position = cardinal_input * 16.0
 
 func move_with_acceleration(target_velocity: Vector2, delta: float) -> void:
 	## States ask the Player to move toward a target velocity.
