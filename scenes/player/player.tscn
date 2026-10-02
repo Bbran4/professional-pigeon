@@ -1266,7 +1266,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j4nxn")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"dodge_down",
 "speed": 14.0
 }, {
@@ -1869,7 +1869,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_byjem")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"run_down",
 "speed": 12.0
 }, {
@@ -1919,7 +1919,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qnksm")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"run_left",
 "speed": 12.0
 }, {
@@ -1969,7 +1969,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7yw2v")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"run_right",
 "speed": 12.0
 }, {
@@ -2069,7 +2069,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4q6hw")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"walk_down",
 "speed": 10.0
 }, {
@@ -2119,7 +2119,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wtqmm")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"walk_left",
 "speed": 10.0
 }, {
@@ -2169,7 +2169,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c63qf")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"walk_right",
 "speed": 10.0
 }, {
@@ -2219,7 +2219,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0ax6y")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"walk_up",
 "speed": 10.0
 }]
@@ -2256,7 +2256,7 @@ script = ExtResource("9_character_visuals")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals/CharacterVisuals" unique_id=1152098160]
 sprite_frames = SubResource("SpriteFrames_player")
-animation = &"run_down"
+animation = &"walk_up"
 autoplay = "idle_down"
 
 [node name="StateLabel" type="Label" parent="." unique_id=305777538]
