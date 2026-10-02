@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/test/training_dummy.gd" id="1_dummy"]
+[ext_resource type="Script" path="res://scripts/components/health.gd" id="2_health"]
+
+[sub_resource type="CapsuleShape2D" id="BodyShape"]
+radius = 18.0
+height = 70.0
+
+[sub_resource type="CircleShape2D" id="HurtboxShape"]
+radius = 42.0
+
+[node name="TrainingDummy" type="StaticBody2D"]
+script = ExtResource("1_dummy")
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("BodyShape")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_health")
+max_health = 999999.0
+unlimited_health = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = true
+monitorable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 8)
+shape = SubResource("HurtboxShape")
