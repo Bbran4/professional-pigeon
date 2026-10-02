@@ -17,7 +17,7 @@ const JUMP_DURATION: float = 0.42
 const JUMP_HEIGHT: float = 22.0
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
-@onready var visuals: Polygon2D = $Visuals
+@onready var visuals: Node2D = $Visuals
 @onready var character_visuals: CharacterVisuals = $Visuals/CharacterVisuals
 @onready var state_label: Label = $StateLabel
 
@@ -112,38 +112,18 @@ func is_run_pressed() -> bool:
 	return Input.is_physical_key_pressed(KEY_SHIFT)
 
 func update_facing(cardinal_input: Vector2) -> void:
-	## Store the latest facing direction and update the existing face marker.
-	## The marker is a scene node. Code only changes its position and visibility.
 	if cardinal_input == Vector2.ZERO:
 		return
 
 	var face_direction: Vector2 = cardinal_input
 
 	## When moving diagonally, use the most recently pressed cardinal
-	## direction for the face. Movement still uses both X and Y axes.
+	## direction for the character's facing. Movement still uses both axes.
 	if cardinal_input.x != 0.0 and cardinal_input.y != 0.0:
 		face_direction = last_cardinal_input
 
 	facing_direction = face_direction
 	character_visuals.update_direction(facing_direction)
-
-	var face: Polygon2D = $Visuals/Face
-
-	match face_direction:
-		Vector2.DOWN:
-			face.position = Vector2(0.0, -12.0)
-			face.visible = true
-		Vector2.LEFT:
-			face.position = Vector2(-12.0, -12.0)
-			face.visible = true
-		Vector2.RIGHT:
-			face.position = Vector2(12.0, -12.0)
-			face.visible = true
-		Vector2.UP:
-			## Facing up means the face is on the far side of the character,
-			## so the marker is hidden by the blue body.
-			face.position = Vector2(0.0, -12.0)
-			face.visible = false
 
 func move_with_acceleration(target_velocity: Vector2, delta: float) -> void:
 	## States ask the Player to move toward a target velocity.
