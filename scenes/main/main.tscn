@@ -1,11 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
-[ext_resource type="PackedScene" path="res://scenes/world/world.tscn" id="2_world"]
+[ext_resource type="PackedScene" path="res://scenes/test/training_ground.tscn" id="1_training"]
 
 [node name="Main" type="Node2D"]
 
-[node name="World" parent="." instance=ExtResource("2_world")]
-
-[node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(0, 0)
+[node name="TrainingGround" parent="." instance=ExtResource("1_training")]
