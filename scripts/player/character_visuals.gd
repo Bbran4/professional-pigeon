@@ -1,35 +1,18 @@
 extends Node2D
 class_name CharacterVisuals
 
-## CharacterVisuals owns the visual representation of the player.
-## The movement state machine remains responsible for gameplay state.
-## This node only translates that state into character animations and layers.
-##
-## Each visual layer can eventually have its own AnimatedSprite2D:
-## - Body
-## - Hair
-## - Face
-## - Clothing
-## - Equipment
-##
-## Artwork is intentionally not required yet. Empty AnimatedSprite2D nodes
-## can exist until the first real character sprites are imported.
+## CharacterVisuals owns the player's sprite-sheet based visual.
+## Gameplay states remain responsible for movement. This node only translates
+## gameplay state + facing direction into an AnimatedSprite2D animation.
 
 @onready var player: Player = get_parent().get_parent() as Player
 @onready var state_machine: PlayerStateMachine = $"../../StateMachine"
-@onready var body: AnimatedSprite2D = $BodyLayer
-@onready var hair: AnimatedSprite2D = $HairLayer
-@onready var face: AnimatedSprite2D = $FaceLayer
-@onready var clothing: AnimatedSprite2D = $ClothingLayer
-@onready var equipment: AnimatedSprite2D = $EquipmentLayer
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var current_direction: String = "down"
 var current_animation: String = "idle"
 
 func _ready() -> void:
-	## CharacterVisuals is a child of Player, so its _ready() can run before
-	## Player's own _ready() has initialized Player's @onready variables.
-	## Access the StateMachine directly from the scene tree instead.
 	if player == null:
 		push_error("CharacterVisuals must be a child of Player/Visuals.")
 		return
@@ -43,71 +26,45 @@ func _ready() -> void:
 	update_animation(state_machine.current_state)
 
 func update_direction(direction: Vector2) -> void:
-	## Convert the player's four cardinal facing directions into stable
-	## animation suffixes used by the sprite assets.
-	var direction_name: String = current_direction
-
 	if direction == Vector2.DOWN:
-		direction_name = "down"
+		current_direction = "down"
 	elif direction == Vector2.LEFT:
-		direction_name = "left"
+		current_direction = "left"
 	elif direction == Vector2.RIGHT:
-		direction_name = "right"
+		current_direction = "right"
 	elif direction == Vector2.UP:
-		direction_name = "up"
+		current_direction = "up"
 
-	current_direction = direction_name
-	_refresh_current_animation()
+	_refresh_animation()
 
 func update_animation(state: PlayerState) -> void:
-	## Convert the gameplay state name into the animation name used by
-	## the modular sprite layers.
 	if state == null:
 		current_animation = "idle"
-		_refresh_current_animation()
-		return
+	else:
+		match state.name:
+			"Idle":
+				current_animation = "idle"
+			"Walk":
+				current_animation = "walk"
+			"Run":
+				current_animation = "run"
+			"Dodge":
+				current_animation = "dodge"
+			"Jump":
+				current_animation = "jump"
+			_:
+				current_animation = "idle"
 
-	match state.name:
-		"Idle":
-			current_animation = "idle"
-		"Walk":
-			current_animation = "walk"
-		"Run":
-			current_animation = "run"
-		"Dodge":
-			current_animation = "dodge"
-		"Jump":
-			current_animation = "jump"
-		_:
-			current_animation = "idle"
-
-	_refresh_current_animation()
+	_refresh_animation()
 
 func _on_state_changed(previous_state: PlayerState, new_state: PlayerState) -> void:
-	## A state change is enough to update the animation. Direction is already
-	## tracked by Player whenever movement input changes.
 	update_animation(new_state)
 
-func _refresh_current_animation() -> void:
-	## Animation names follow one convention:
-	## idle_down, idle_left, idle_right, idle_up
-	## walk_down, walk_left, walk_right, walk_up
-	## etc.
-	var animation_name: String = current_animation + "_" + current_direction
-
-	_play_layer(body, animation_name)
-	_play_layer(hair, animation_name)
-	_play_layer(face, animation_name)
-	_play_layer(clothing, animation_name)
-	_play_layer(equipment, animation_name)
-
-func _play_layer(layer: AnimatedSprite2D, animation_name: String) -> void:
-	## Empty AnimatedSprite2D nodes are valid while artwork is being created.
-	## Only try to play an animation when that layer has SpriteFrames assigned.
-	if layer.sprite_frames == null:
+func _refresh_animation() -> void:
+	if sprite == null or sprite.sprite_frames == null:
 		return
 
-	if not layer.sprite_frames.has_animation(animation_name):
-		return
+	var animation_name := current_animation + "_" + current_direction
 
-	layer.play(animation_name)
+	if sprite.sprite_frames.has_animation(animation_name):
+		sprite.play(animation_name)
