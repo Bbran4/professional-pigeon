@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/test/training_ground.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/test/training_dummy.tscn" id="3_dummy"]
 
 [sub_resource type="RectangleShape2D" id="WallHorizontal"]
 size = Vector2(2400, 64)
@@ -28,6 +29,9 @@ position = Vector2(350, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(0, 0)
+
+[node name="TrainingDummy" parent="." instance=ExtResource("3_dummy")]
+position = Vector2(350, 0)
 
 [node name="Collision" type="Node2D" parent="."]
 
