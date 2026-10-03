@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3]
-
-[ext_resource type="PackedScene" path="res://scenes/test/training_ground.tscn" id="1_training"]
-
-[node name="Main" type="Node2D"]
-
-[node name="TrainingGround" parent="." instance=ExtResource("1_training")]
