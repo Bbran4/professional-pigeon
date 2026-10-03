@@ -1,1280 +1,1455 @@
-UNNAMED RPG
+# PROFESSIONAL PIGEON
 
-«A 2D RPG about exploration, character growth, strange little discoveries, and becoming absurdly good at the things you actually use.»
-
----
-
-Overview
-
-UNNAMED RPG is a 2D single-player RPG built around a simple idea:
-
-Your character should grow because of what you actually do.
-
-Instead of choosing a rigid class and following a predetermined progression path, the player develops their character organically through gameplay.
-
-Use a sword often, and your sword skills improve.
-
-Block attacks, and your defensive abilities improve.
-
-Cast spells, and your magical abilities develop.
-
-Sneak around, and you become better at sneaking.
-
-Craft things, and you become a better crafter.
-
-The game takes inspiration from the skill progression philosophy of games like The Elder Scrolls V: Skyrim, while combining it with exploration, traditional RPG systems, collectible cards, card packs, quests, NPCs, dungeons, and a healthy amount of nonsense.
-
-Including a turnip.
-
-Obviously.
+> «A 2D incremental game about stealing food, recruiting pigeons, building an empire, and becoming the most important bird in the kingdom.»
 
 ---
 
-Opening & Core Story Hook
+## Overview
 
-The game opens with a short cutscene that establishes the world, the mystery, and the player's reason to begin the journey.
+**PROFESSIONAL PIGEON** is a 2D single-player incremental game about one ordinary pigeon with an extraordinary ambition:
 
-Opening Sequence
+**Become the Pigeon King.**
 
-1. A strange object falls from the sky near the player's village.
-2. The villagers panic and gather to see what happened.
-3. The village elder tells an old tale about objects that have fallen from the sky before, said to contain extraordinary powers.
-4. The stories describe powers such as immense strength, the ability to turn things to gold, or even the power to command others.
-5. The object is clearly mysterious and potentially dangerous.
-6. The villagers decide that nobody should go looking for it.
-7. Strange events begin occurring around the village after the impact, suggesting that the object may be causing problems.
-8. The player decides to investigate.
-9. The cutscene ends and control returns to the player in the village.
-10. The player's first current task is to find out where the object landed.
+You begin with nothing.
 
-The protagonist is an ordinary person, not a chosen one. There is no predetermined class at the beginning. What the player becomes should emerge from the actions they take during the game.
+No kingdom.
 
-The opening should create questions rather than explain everything:
+No followers.
 
-- What exactly fell from the sky?
-- What power does it contain?
-- Why are the old stories frightening?
-- What happened to people who found objects like this before?
-- What happens if the player finds it first?
+No throne.
 
-Once control returns to the player, they should be free to explore the village, talk to NPCs, prepare for the journey, discover small interactions, or immediately pursue the object.
+Not even a particularly impressive supply of breadcrumbs.
 
-Opening Hook Principle
+You are simply a pigeon trying to survive in a medieval world full of humans, animals, food, shiny objects and opportunities.
 
-The opening should establish curiosity quickly, introduce the strange fantasy tone, provide a believable reason for the player to investigate, give the player a clear first objective, and hand control back without turning the introduction into a long lore dump.
+At first, you do everything yourself.
 
-The first few minutes should make the player want to answer questions rather than feel like they have already been given all the answers.
+You search for food.
 
----
+You steal things.
 
-Core Vision
+You carry objects.
 
-The player should feel like they are creating their own RPG character rather than selecting one from a menu.
+You scout new locations.
 
-There are no strict character classes defining exactly what the player can become.
+You cause problems.
 
-Instead, the player's actions determine their development.
+Eventually, you discover that there are other pigeons willing to work for you.
 
-A character who spends hours fighting with swords should eventually feel different from a character who spends those same hours using magic.
+So you recruit them.
 
-A character who constantly explores, crafts, sneaks, trades, or experiments should develop in different ways.
+Then you recruit more.
 
-The world should reward curiosity.
+Soon, the jobs you once performed yourself are being handled by your growing pigeon workforce.
 
-The player's choices should matter.
+Eventually, you aren't really doing much at all.
 
-And occasionally, the player should find something completely ridiculous.
+You're sitting in your throne room.
+
+Giving orders.
+
+Being important.
+
+Being a pigeon.
+
+The ultimate goal is to build a functioning pigeon kingdom where your growing army of unique pigeons handles increasingly large operations on your behalf.
 
 ---
 
-Design Pillars
+# Core Concept
 
-1. Play to Progress
+Professional Pigeon is built around a simple incremental progression:
 
-Character progression is primarily driven by gameplay.
+**Do the work → earn resources → recruit pigeons → automate the work → unlock new opportunities → expand your influence**
 
-Use a skill → gain experience → improve the skill.
+The player's role gradually changes throughout the game.
+
+### Early Game
+
+You are the worker.
+
+> Find food.
+> Steal food.
+> Carry food.
+> Sell food.
+> Repeat.
+
+### Mid Game
+
+You become the manager.
+
+> Send pigeons to collect food.
+> Send pigeons to steal valuables.
+> Send pigeons to scout new locations.
+
+### Late Game
+
+You become the ruler.
+
+> Your pigeons handle everything.
+
+You spend your time managing the kingdom, discovering new opportunities, recruiting exceptional pigeons and expanding your throne room.
+
+The progression is therefore not simply about becoming a stronger pigeon.
+
+It is about becoming **less necessary**.
+
+That is the heart of the incremental system.
+
+---
+
+# Design Pillars
+
+## 1. Start Small
+
+The player should begin with almost nothing.
+
+One pigeon.
+
+One small area.
+
+One basic resource.
+
+A handful of simple actions.
+
+The player should understand the game within minutes.
+
+---
+
+## 2. Automate What You Do
+
+The most important progression system is automation.
+
+Initially, the player performs actions manually.
+
+Over time, pigeons take over those tasks.
+
+For example:
+
+### Beginning
+
+**Player → Collect Bread**
+
+### Later
+
+**Player → Hire Pigeon → Pigeon Collects Bread**
+
+### Later Still
+
+**Pigeon Manager → Multiple Pigeons Collect Bread**
+
+Eventually:
+
+**Bread Collection → Fully Automated**
+
+The player should constantly be replacing manual work with increasingly capable pigeons.
+
+---
+
+## 3. Every Pigeon Should Have Personality
+
+Pigeons should not simply be anonymous workers represented by numbers.
+
+The kingdom should be populated by **individual pigeons**.
+
+Each unique pigeon can have:
+
+* A name
+* A personality
+* A visual identity
+* Unique abilities
+* Strengths
+* Weaknesses
+* Favourite activities
+* Special interactions
+* A unique contribution to the kingdom
 
 Examples:
 
-- Sword attacks improve Sword
-- Blocking improves Defence
-- Dodging improves Agility
-- Using bows improves Ranged
-- Casting spells improves Magic
-- Sneaking improves Sneak
-- Crafting improves Crafting
-- Lockpicking improves Lockpicking
-- Talking and interacting can contribute to social abilities
+### Gary
 
-The goal is for progression to feel like a natural consequence of playing.
+Excellent bread thief.
 
----
+Terrible at carrying anything else.
 
-2. Explore Because You Want To
+### Susan
 
-The world should contain things worth discovering.
+Extremely strong.
 
-Exploration may lead to:
+Has no sense of direction.
 
-- Hidden locations
-- Treasure
-- NPCs
-- Quests
-- Dungeons
-- Rare equipment
-- Secret encounters
-- Cards
-- Card packs
-- Crafting materials
-- Lore
-- Strange objects
-- Completely unnecessary turnips
+### Sir Feathers
 
-Not every reward needs to be powerful.
+Formerly owned by a knight.
 
-Sometimes discovering something interesting is the reward.
+Still believes himself to be nobility.
+
+### Greg
+
+Nobody knows what Greg does.
+
+He keeps finding money.
+
+### The Twins
+
+Always work together.
+
+Nobody has ever successfully separated them.
+
+The goal is for players to eventually have favourite pigeons.
 
 ---
 
-3. Combat Should Feel Earned
+# Pigeon Progression
 
-Combat should be simple enough to understand but deep enough to reward experimentation.
+Pigeons are the foundation of the player's growing empire.
 
-The player should be able to develop different combat styles naturally.
+A pigeon can be assigned to different activities.
 
-Possible approaches include:
+Possible activities include:
 
-- Sword and shield
-- Two-handed weapons
-- Dual wielding
-- Bows
-- Magic
-- Defensive builds
-- Evasion-focused builds
-- Hybrid builds
-- Extremely questionable builds involving vegetables
+* Food gathering
+* Scavenging
+* Stealing
+* Carrying
+* Scouting
+* Trading
+* Recruiting
+* Guarding
+* Delivering
+* Exploring
+* Managing other pigeons
 
-Combat progression should tie into the wider skill system rather than existing as a completely separate progression track.
+Different pigeons will perform different tasks more effectively.
 
----
-
-Skill System
-
-The skill system is one of the core mechanics of UNNAMED RPG.
-
-Skills improve through use.
-
-Example
-
-A player starts with:
-
-Sword: Level 1
-XP: 0 / 100
-
-The player begins fighting enemies with a sword.
-
-After successfully using the sword repeatedly:
-
-Sword: Level 2
-XP: 15 / 150
-
-The player may then gain:
-
-- Increased damage
-- New abilities
-- Reduced stamina costs
-- Faster attacks
-- Access to equipment
-- Passive bonuses
-- New combat techniques
-
-The exact progression system is still subject to experimentation.
-
-Important Principle
-
-The player should not need to stop playing the game to artificially level a skill.
-
-Playing the game should be the training.
+The player therefore builds a workforce rather than simply purchasing generic upgrades.
 
 ---
 
-Character Progression
+# The Pigeon Workforce
 
-The player character will have several layers of progression.
+The workforce should evolve naturally.
 
-Skills
+### Stage 1: You
 
-Individual abilities improve through use.
+The player performs everything manually.
 
-Attributes
+### Stage 2: Helpers
 
-Broader character statistics may improve as skills develop.
+The player recruits the first pigeons.
 
-Possible attributes include:
+### Stage 3: Specialists
 
-- Strength
-- Agility
-- Intelligence
-- Endurance
-- Luck
-- Charisma
+Unique pigeons begin handling specific activities.
 
-Equipment
+### Stage 4: Departments
 
-Weapons, armour and accessories provide additional ways to customise the character.
+Groups of pigeons begin managing larger operations.
 
-Abilities
+### Stage 5: Kingdom
 
-Higher skill levels can unlock new abilities, techniques and passive bonuses.
+The player oversees an entire pigeon civilization.
 
-Cards
+The progression should always feel like:
 
-Cards provide another layer of progression and collection.
+**"I don't have to do that anymore."**
+
+That feeling is central to the game.
 
 ---
 
-Cards
+# Resources
 
-Cards are a major part of the game's progression and collection systems.
+Resources should remain understandable and meaningful.
 
-Cards may be discovered throughout the world or obtained from rewards.
+Possible resources include:
 
-Possible sources include:
+### Food
 
-- Quests
-- Dungeons
-- Chests
-- NPCs
-- Exploration
-- Combat
-- Special encounters
-- Card packs
-- Rare discoveries
+The basic resource.
 
-Cards may provide:
+Used to feed pigeons and support operations.
 
-- Passive bonuses
-- Temporary effects
-- Combat abilities
-- Utility effects
-- Modifiers
-- Special interactions
-- Cosmetic collection value
-- Unlockable mechanics
+Examples:
 
-The exact role of cards will evolve during development.
+* Bread
+* Grain
+* Seeds
+* Fruit
+* Meat scraps
+* Pastries
 
----
+### Coins
 
-Card Packs
+Obtained by selling valuable items, completing activities and interacting with the human economy.
 
-Players can obtain card packs containing random cards.
+### Shiny Objects
 
-Possible rarity tiers:
+A special collectible resource valued by pigeons.
 
-Common
-Uncommon
-Rare
-Epic
-Legendary
+Examples:
 
-Card packs may be awarded through gameplay or obtained through other in-game systems.
+* Coins
+* Rings
+* Jewellery
+* Buttons
+* Cutlery
+* Keys
+* Decorative objects
 
-The intention is for opening a pack to feel like a small moment of discovery.
+### Reputation
 
-The system should remain integrated into the RPG rather than feeling like a completely separate game.
+Represents the player's influence within the pigeon world.
 
----
+### Territory
 
-The Turnip
+Represents areas controlled or influenced by the player's pigeon kingdom.
 
-Yes.
+The exact resource list should remain deliberately small.
 
-The turnip is real.
-
-The turnip is important.
-
-The exact importance of the turnip is currently classified.
-
-Possible uses include:
-
-- Food
-- Quest item
-- Crafting ingredient
-- Trading commodity
-- Weapon
-- Joke item
-- Rare collectible
-- NPC gift
-- Secret item
-- Extremely valuable treasure
-- Extremely worthless garbage
-- Something the player absolutely should not have touched
-
-The turnip exists because games are allowed to have stupid things in them.
-
-Sometimes those stupid things become the things players remember.
+The goal is to avoid turning the game into a spreadsheet simulator.
 
 ---
 
-World
+# The World
 
-The game world will be made up of interconnected areas containing:
+The game takes place in a medieval fantasy world populated by humans, animals, monsters and pigeons.
 
-- Towns
-- Wilderness
-- Caves
-- Dungeons
-- Buildings
-- Roads
-- Secrets
-- NPCs
-- Enemies
-- Resources
-- Hidden areas
+The pigeon sees the world differently from the player.
 
-The world should encourage the player to wander away from the obvious path.
+A human sees:
 
----
+> Marketplace
 
-Exploration
+A pigeon sees:
 
-Exploration should be meaningful.
+> **Unlimited Bread**
 
-The player may discover locations that are:
+A human sees:
 
-- Useful
-- Dangerous
-- Beautiful
-- Strange
-- Funny
-- Completely unexplained
+> Royal Palace
 
-The game should reward players for asking:
+A pigeon sees:
 
-«"What's over there?"»
+> **Extremely Expensive Things That Are Not Being Guarded Properly**
 
-rather than simply following quest markers.
+A human sees:
+
+> Castle Roof
+
+A pigeon sees:
+
+> **Prime Territory**
 
 ---
 
-NPCs
+# World Progression
 
-NPCs should help make the world feel alive.
+The player's influence expands across increasingly important locations.
 
-Potential NPC systems include:
+Possible areas include:
 
-- Dialogue
-- Factions
-- Shops
-- Quests
-- Relationships
-- Trading
-- Rumours
-- Unique interactions
-- Hidden information
+* Village
+* Farm
+* Marketplace
+* Town
+* Castle
+* Cathedral
+* Harbour
+* Royal Palace
+* Military Camp
+* Merchant District
+* Capital City
 
-Some NPCs may have their own small stories or questlines.
+Each location introduces new opportunities, resources, pigeons and challenges.
 
-Others may simply exist to make the world feel like somewhere people actually live.
-
-And at least one NPC will probably have very strong opinions about turnips.
-
----
-
-Quests
-
-Quests should provide direction without turning the game into a checklist simulator.
-
-Possible quest types include:
-
-Main Quests
-
-Major story progression.
-
-Side Quests
-
-Optional stories and rewards.
-
-Exploration Quests
-
-Encourage the player to discover locations.
-
-Skill Quests
-
-Encourage the player to experiment with specific skills.
-
-Hidden Quests
-
-Triggered through unusual actions or discoveries.
-
-Completely Ridiculous Quests
-
-Because sometimes an NPC needs 14 turnips.
-
-Nobody knows why.
+The world should become increasingly valuable as the player's pigeon kingdom grows.
 
 ---
 
-Dungeons
+# Exploration
 
-Dungeons provide more focused challenges.
+Exploration should provide opportunities rather than simply placing collectibles around a map.
 
-Possible dungeon features:
+The player may discover:
 
-- Combat
-- Traps
-- Puzzles
-- Environmental challenges
-- Hidden rooms
-- Treasure
-- Boss encounters
-- Rare cards
-- Unique equipment
-- Lore
+* New pigeon recruits
+* Hidden food sources
+* Valuable objects
+* Secret locations
+* New territories
+* Human activities to exploit
+* Rare pigeons
+* Special events
+* New automation opportunities
+* Strange pigeon-related discoveries
 
-Dungeons should reward preparation and experimentation.
+Exploration should regularly produce the feeling:
 
----
-
-Combat
-
-Combat is intended to be approachable while supporting different playstyles.
-
-Possible systems include:
-
-- Basic attacks
-- Heavy attacks
-- Blocking
-- Dodging
-- Special abilities
-- Magic
-- Ranged attacks
-- Status effects
-- Equipment bonuses
-- Skill-based progression
-
-Combat should feed directly into the skill system.
-
-If the player spends most of their time fighting with a particular weapon or ability, that choice should shape their character.
+> **"Wait... I can use that?"**
 
 ---
 
-Status Effects
+# Human Interaction
 
-Status effects are a combat and world-system layer that can affect the player, enemies, or both.
+Humans are not the player's enemies by default.
 
-The system should support:
+They are mostly an enormous collection of opportunities.
 
-- Temporary and permanent effects
-- Buffs and debuffs
-- Duration
-- Stacking rules
-- Removal rules
-- Clear status display
-- Effects that can sometimes be overcome through gameplay
+Humans can:
 
-A key design idea is that some debuffs should be more than temporary penalties. They can become problems the player learns to overcome, fitting the game's broader use-based progression philosophy.
+* Drop food
+* Leave valuables unattended
+* Build useful structures
+* Sell items
+* Accidentally provide resources
+* Chase pigeons
+* Feed pigeons
+* Attempt to remove pigeons
 
-Weirded Out
+Different humans should react differently to the player's growing pigeon presence.
 
-A deliberately strange debuff and an example of status effects doubling as character development.
+Some may love pigeons.
 
-Description:
+Some may tolerate pigeons.
 
-"You're weirded out because you wouldn't touch it with a 10 foot pole."
+Some may absolutely despise pigeons.
 
-Base effect:
-
-- -50% attack damage
-
-While Weirded Out is active, each critical strike permanently reduces the debuff's damage penalty by 1 percentage point.
-
-The improvement persists for the entire playthrough, even after Weirded Out wears off. Future applications therefore start from the player's previously reduced penalty.
-
-Progression is capped at +10% attack damage.
-
-Example:
-
-- 0 lifetime crits while Weirded Out: -50% attack damage
-- 10: -40%
-- 25: -25%
-- 50: 0%
-- 51: +1%
-- 60: +10%
-
-This means the player can eventually turn a severe debuff into a permanent bonus through play.
-
-Butterfingers
-
-A more general debuff concept affecting reliable handling of attacks or items.
-
-Possible effects include:
-
-- Attacks having a chance to miss
-- A chance to drop a held item
-- Other unreliable handling effects
-
-The exact penalty and mastery mechanic are not locked yet.
-
-Butterfingers should remain distinct from more specific disarming effects.
-
-Wizard Spell: Unhanded
-
-A deliberately absurd wizard spell that temporarily makes the target's hands or fingers too floppy to grip equipment properly.
-
-Primary effect:
-
-- Target becomes disarmed
-- Target cannot use equipped weapons or shields while affected
-
-The visual joke should be cartoonishly ridiculous rather than graphic.
-
-Candidate names include:
-
-- Finger of Shame
-- Floppy Fingers
-- Unhanded
-- Curse of the Limp Grip
-
-Unhanded is the current working name.
-
-Its final recovery or progression mechanic can be explored during implementation.
-
-
-
-Social / Personality Statuses
-
-Situational effects caused by NPCs and social encounters:
-- Charmed: charm from a beautiful/charismatic NPC may affect combat or dialogue.
-- Starstruck: meeting someone extraordinary may reduce combat/social performance.
-- Intimidated: a terrifying NPC/enemy may reduce effectiveness against them.
-- Inspired: witnessing greatness temporarily boosts a related skill or XP gain.
-- Flustered: embarrassment/social pressure may reduce defence/accuracy and alter dialogue.
-- Envious: seeing something desirable may boost related skill XP but hurt Charisma with its owner.
-These should be situational states by default.
+The player's reputation with humans can create different opportunities and challenges.
 
 ---
 
-Inventory
+# Pigeon Kingdom
 
-The player will have an inventory containing items such as:
+As the player's influence grows, the player establishes their own pigeon kingdom.
 
-- Weapons
-- Armour
-- Accessories
-- Consumables
-- Crafting materials
-- Quest items
-- Cards
-- Miscellaneous objects
+This introduces a major persistent progression layer.
 
-Inventory management should remain useful without becoming tedious.
+The kingdom can contain:
 
----
+* Pigeon housing
+* Food storage
+* Training areas
+* Treasure storage
+* Recruitment areas
+* Meeting rooms
+* Royal chambers
+* Defensive structures
+* The throne room
 
-Equipment
+The kingdom should visually evolve as the player progresses.
 
-Equipment can modify the player's capabilities.
+What begins as:
 
-Possible equipment slots:
+**A few pigeons sitting on a roof**
 
-Head
-Body
-Hands
-Legs
-Feet
-Main Hand
-Off Hand
-Accessory
+can eventually become:
 
-Equipment may contain:
-
-- Damage bonuses
-- Defensive bonuses
-- Skill bonuses
-- Special effects
-- Elemental properties
-- Unique abilities
+**A fully functioning pigeon kingdom.**
 
 ---
 
-Crafting
+# The Throne Room
 
-Crafting is intended to provide another way for players to interact with the world.
+The throne room is one of the major long-term goals.
 
-Possible crafting categories:
+The player eventually becomes:
 
-- Weapons
-- Armour
-- Potions
-- Food
-- Tools
-- Consumables
-- Special items
+# THE PIGEON KING
 
-Crafting skill should improve through crafting rather than simply spending points on it.
+The throne room should act as a visual representation of the player's progress.
 
----
+It can contain:
 
-Economy
+* The player's throne
+* Important pigeons
+* Collected treasures
+* Decorations
+* Trophies
+* Rare objects
+* Kingdom achievements
+* Special pigeons
+* Completely unnecessary furniture
 
-The world will contain a basic economy.
+The throne should evolve throughout the game.
 
-Players may:
+Possible progression:
 
-- Buy items
-- Sell items
-- Trade
-- Find valuable objects
-- Earn quest rewards
-- Discover treasure
-- Gather resources
-- Craft valuable goods
+**Wooden box**
 
-Different NPCs may value different items.
+↓
 
-Which brings us neatly back to turnips.
+**Stolen chair**
 
----
+↓
 
-Save System
+**Nice chair**
 
-The game should support saving and loading the player's progress.
+↓
 
-Persistent information may include:
+**Royal chair**
 
-- Player location
-- Skills
-- Attributes
-- Inventory
-- Equipment
-- Cards
-- Quests
-- NPC states
-- World discoveries
-- Completed objectives
-- Important choices
+↓
 
-The save system should be designed early enough that adding new persistent systems later does not require rebuilding everything.
+**Ridiculously elaborate pigeon throne**
+
+The player should eventually be able to walk into their throne room and immediately see how far they have come.
 
 ---
 
-Technical Direction
+# Automation
 
-Engine
+Automation is the primary progression system.
+
+Every major activity should eventually be capable of being automated.
+
+Examples:
+
+### Food
+
+Player gathers bread.
+
+↓
+
+Hire Bread Pigeon.
+
+↓
+
+Bread Pigeon gathers bread.
+
+↓
+
+Hire more pigeons.
+
+↓
+
+Bread gathering becomes automated.
+
+---
+
+### Scavenging
+
+Player searches for valuable objects.
+
+↓
+
+Hire Scavenger Pigeon.
+
+↓
+
+Scavenger searches automatically.
+
+↓
+
+Rare scavenger pigeons improve discovery.
+
+---
+
+### Exploration
+
+Player manually scouts an area.
+
+↓
+
+Hire Scout Pigeon.
+
+↓
+
+Scout discovers locations.
+
+↓
+
+Special scout pigeons reveal rare opportunities.
+
+---
+
+# Upgrades
+
+Upgrades should primarily unlock **new capabilities** rather than endlessly increasing numerical values.
+
+Possible upgrades include:
+
+* Larger carrying capacity
+* Faster movement
+* Better food detection
+* Better scavenging
+* Longer scouting range
+* More pigeon housing
+* Improved recruitment
+* New territories
+* New activities
+* New automation systems
+* Improved pigeon management
+* New kingdom buildings
+
+Upgrades should make the player's operation feel more capable.
+
+---
+
+# Pigeon Recruitment
+
+Recruitment is one of the game's major progression systems.
+
+Pigeons can be discovered throughout the world.
+
+Some may be:
+
+* Found during exploration
+* Rescued
+* Recruited from other groups
+* Discovered in unusual locations
+* Rewarded for completing objectives
+* Purchased or traded for
+* Hidden behind special conditions
+
+Rare pigeons should feel like discoveries rather than simple purchases.
+
+---
+
+# Pigeon Personalities
+
+Unique pigeons can have personality traits that affect how they behave.
+
+Possible traits:
+
+* Brave
+* Lazy
+* Greedy
+* Loyal
+* Curious
+* Cowardly
+* Aggressive
+* Confident
+* Easily distracted
+* Extremely hungry
+* Suspiciously intelligent
+
+Traits can create both benefits and drawbacks.
+
+A greedy pigeon might collect more valuables but consume more food.
+
+A lazy pigeon might work slowly but require less food.
+
+A brave pigeon might be excellent at dangerous scouting.
+
+The exact personality system will evolve during development.
+
+---
+
+# Pigeon Relationships
+
+Pigeons may develop relationships with other pigeons.
+
+Possible relationships include:
+
+* Friends
+* Rivals
+* Partners
+* Family
+* Mentors
+* Followers
+
+These relationships can produce unique interactions and bonuses.
+
+The goal is not to create a complicated social simulator.
+
+The goal is to make the pigeon kingdom feel like it contains **actual characters**.
+
+---
+
+# Events
+
+The world should occasionally generate events that temporarily change the player's opportunities.
+
+Examples:
+
+* Market day
+* Royal banquet
+* Harvest festival
+* Wedding
+* Tournament
+* Caravan arrival
+* Military parade
+* Storm
+* Food shortage
+* Pigeon migration
+* Cat infestation
+
+Events should provide short-term opportunities without requiring constant player attention.
+
+---
+
+# Challenges
+
+The game should include challenges that encourage players to develop their kingdom.
+
+Possible challenges:
+
+* Collect a certain amount of food
+* Recruit a specific pigeon
+* Discover a location
+* Steal a particular object
+* Establish a new territory
+* Complete an activity without being caught
+* Reach a kingdom milestone
+* Find rare treasures
+
+Challenges should provide meaningful rewards and give the player short-term goals.
+
+---
+
+# Prestige / Rebirth
+
+A prestige system is optional and should only be introduced if it improves the game.
+
+A possible system could involve the player **passing the crown to a successor**.
+
+The player could reset their current kingdom while keeping certain permanent benefits.
+
+Possible permanent progression:
+
+* Royal traditions
+* Ancient pigeon knowledge
+* Special pigeons
+* Kingdom bonuses
+* New starting options
+* Cosmetic throne upgrades
+* Historical achievements
+
+Prestige should represent the **history of the pigeon kingdom**, rather than simply resetting numbers.
+
+The player should feel like each reign contributed to something larger.
+
+---
+
+# Economy
+
+The world contains a simple economy.
+
+The player can:
+
+* Collect food
+* Find valuables
+* Sell items
+* Trade
+* Complete activities
+* Discover resources
+* Recruit pigeons
+* Expand operations
+
+The economy should remain understandable.
+
+The player should always know:
+
+**What am I earning?**
+
+**What am I spending it on?**
+
+**What does this unlock?**
+
+---
+
+# Inventory
+
+The player can collect miscellaneous objects.
+
+Possible items include:
+
+* Food
+* Coins
+* Jewellery
+* Keys
+* Tools
+* Decorations
+* Quest items
+* Rare objects
+* Pigeon-related items
+
+Some objects may have practical value.
+
+Others may simply be valuable because pigeons apparently think they're valuable.
+
+---
+
+# Comedy
+
+The game should be funny without becoming a constant parody.
+
+The world itself should remain reasonably believable.
+
+The comedy comes from seeing a normal medieval world through the perspective of a pigeon.
+
+Examples:
+
+A knight:
+
+> "Stand aside, beast!"
+
+The pigeon:
+
+> **Steals his lunch.**
+
+A merchant:
+
+> "Who keeps taking my coins?"
+
+The pigeon kingdom:
+
+> **Expanding rapidly.**
+
+A royal advisor:
+
+> "Your Majesty, the pigeon population has increased dramatically."
+
+The king:
+
+> "Again?"
+
+The player:
+
+> **Pigeon King sits silently on throne.**
+
+The humour should come from **understatement, character behaviour and escalation**.
+
+---
+
+# Art Direction
+
+The game is intended to use a stylized 2D art style.
+
+The visual direction should support:
+
+* Clear silhouettes
+* Readable environments
+* Expressive pigeons
+* Distinctive characters
+* Strong animation
+* Comedic visual details
+* Medieval fantasy environments
+
+Pigeons should be visually recognizable and expressive.
+
+Unique pigeons should be identifiable at a glance.
+
+---
+
+# Technical Direction
+
+## Engine
 
 Godot 4.x
 
-Language
+## Language
 
 GDScript
 
-Game Type
+## Game Type
 
-2D Single-Player RPG
+2D Single-Player Incremental Game
 
-Development Philosophy
+## Camera
 
-The project should favour simple, modular systems that can grow with the game.
+The game will primarily use a 2D side-scrolling presentation.
 
-Avoid building massive systems before they are needed.
+The exact camera and world structure will evolve during prototyping.
 
 ---
 
-Architecture
+# Architecture
 
-The project will be organised around several major systems.
+The project should be organized around modular systems.
 
-Player
-├── Stats
-├── Skills
-├── Inventory
-├── Equipment
-├── Abilities
-└── Progression
-
-World
-├── Areas
-├── NPCs
-├── Enemies
-├── Interactions
+```text
+Game
+├── Player
+│   ├── Movement
+│   ├── Interaction
+│   └── Progression
+│
+├── Pigeons
+│   ├── Pigeon Data
+│   ├── Pigeon AI
+│   ├── Pigeon Recruitment
+│   ├── Pigeon Tasks
+│   ├── Pigeon Traits
+│   └── Pigeon Relationships
+│
 ├── Resources
-└── Encounters
+│   ├── Food
+│   ├── Currency
+│   ├── Valuables
+│   └── Territory
+│
+├── Automation
+│   ├── Tasks
+│   ├── Workers
+│   ├── Production
+│   └── Managers
+│
+├── World
+│   ├── Areas
+│   ├── NPCs
+│   ├── Buildings
+│   ├── Events
+│   └── Discoveries
+│
+├── Kingdom
+│   ├── Buildings
+│   ├── Territory
+│   ├── Throne Room
+│   └── Decorations
+│
+├── Progression
+│   ├── Upgrades
+│   ├── Unlocks
+│   ├── Achievements
+│   └── Prestige
+│
+└── Persistence
+    ├── Save Data
+    ├── Load Data
+    └── World State
+```
 
-Combat
-├── Damage
-├── Defence
-├── Status Effects
-├── Abilities
-└── Enemy AI
-
-Cards
-├── Card Data
-├── Card Collection
-├── Card Packs
-├── Rarity
-└── Card Effects
-
-Quests
-├── Quest Data
-├── Objectives
-├── Rewards
-└── Quest State
-
-Persistence
-├── Save Data
-├── Load Data
-└── World State
-
-The exact architecture will evolve as development continues.
+The exact architecture will evolve during development.
 
 ---
 
-Data-Driven Design
+# Data-Driven Design
 
 Where practical, game content should be data-driven.
 
 Examples:
 
-- Items
-- Weapons
-- Armour
-- Skills
-- Cards
-- Enemies
-- NPCs
-- Quests
-- Loot tables
+* Pigeons
+* Pigeon traits
+* Activities
+* Resources
+* Items
+* Locations
+* Buildings
+* Upgrades
+* Events
+* Achievements
+* Kingdom progression
 
-This should make it possible to add new content without rewriting core gameplay systems.
-
----
-
-Prototype Development Order
-
-The first development goal is to make the character and basic combat feel good before building the wider RPG world.
-
-1. Character movement
-- Idle
-- Walk
-- Run
-- Dodge roll
-- Jump
-- Direction/facing and responsive movement transitions
-
-2. Training ground
-- Dedicated test arena
-- Unlimited-health training dummy
-- Damage numbers and floating counters
-- Health bar
-- Combo damage total
-- Combo ends after 1 second without an attack
-- Display total combo damage and calculated DPS
-
-3. Sword combat
-- Slash
-- Swing
-- Stab
-- Double strike
-- Three-move combos
-- Heavy attacks
-- Deflect
-- Parry
-- Tune timing, hitboxes, recovery, chaining and hit feedback
-
-4. First enemy
-- Enemy that fights back
-- Basic movement, targeting, attacks, reactions and defeat
-
-5. Shield
-- Blocking
-- Shield bash
-- Block/deflect/parry interactions
-
-6. Staff
-- Basic staff combat and the foundation for staff/magic gameplay
-
-7. Bow
-- Aiming, firing, projectiles and ranged combat feel
-
-8. Status effects
-- Once movement and the core weapon combat foundations feel natural, build the status-effect layer and test how effects influence the player.
-
-The training ground is a development tool. It should help tune combat feel before those systems are moved into the actual world.
+This should allow new content to be added without rewriting core systems.
 
 ---
 
-Development Status
+# Save System
 
-The project is currently in early development / prototype stage.
+The game should support persistent saving and loading.
 
-The implementation status will be tracked here as systems are completed.
+Persistent information may include:
 
-Core
+* Player progress
+* Resources
+* Recruited pigeons
+* Pigeon traits
+* Pigeon relationships
+* Completed activities
+* Unlocked locations
+* Kingdom buildings
+* Throne room
+* Upgrades
+* Achievements
+* Prestige history
+* World discoveries
 
-- [ ] Godot project structure
-- [ ] Player controller
-- [ ] Basic movement
-- [ ] Interaction system
-- [ ] Camera
-- [ ] Basic world
-- [ ] Opening cutscene / story sequence
-- [ ] Starting village
-- [ ] First current-task flow
-
-Character
-
-- [ ] Skill system
-- [ ] Use-based skill XP
-- [ ] Skill levels
-- [ ] Attributes
-- [ ] Ability system
-- [ ] Equipment
-
-RPG Systems
-
-- [ ] Inventory
-- [ ] Items
-- [ ] Shops
-- [ ] Economy
-- [ ] Crafting
-- [ ] Save/load
-
-Combat
-
-- [ ] Player attacks
-- [ ] Enemy attacks
-- [ ] Health
-- [ ] Damage
-- [ ] Defence
-- [ ] Dodging
-- [ ] Abilities
-- [ ] Enemy AI
-- [ ] Status effects
-- [ ] Buffs
-- [ ] Debuffs
-- [ ] Weirded Out
-- [ ] Butterfingers
-- [ ] Unhanded wizard spell
-- [ ] Loot
-
-World
-
-- [ ] NPCs
-- [ ] Dialogue
-- [ ] Quests
-- [ ] Dungeons
-- [ ] Exploration rewards
-- [ ] Hidden locations
-- [ ] Cutscene / dialogue presentation
-
-Cards
-
-- [ ] Card data
-- [ ] Card collection
-- [ ] Card effects
-- [ ] Card rarity
-- [ ] Card packs
-- [ ] Card rewards
-
-The Turnip
-
-- [ ] Obtain a turnip
-- [ ] Decide what turnips actually do
-- [ ] Add unnecessary turnip-related content
-- [ ] Question previous design decisions
-- [ ] Keep the turnip anyway
+The save system should be designed early enough that new progression systems can be added without requiring a complete rewrite.
 
 ---
 
-Prototype Build Order
+# Prototype Development Order
 
-The first playable prototype should focus on making the character and combat feel good before building the actual RPG world.
+The first objective is **not** to build the entire kingdom.
 
-Phase 1: Character & Movement
+The first objective is to prove that the fundamental incremental loop is fun.
 
-Build the player character first and make basic movement feel responsive.
+## Phase 1: Pigeon Movement
+
+Build the pigeon first.
 
 Goals:
 
-- Godot project structure
-- Modular character setup
-- First character sprite set
-- Idle
-- Walk
-- Run
-- Dodge roll
-- Jump
-- Direction/facing
-- Movement and animation state transitions
-- Basic camera/testing space
+* Basic movement
+* Idle
+* Walking
+* Flying
+* Landing
+* Direction/facing
+* Basic animation
+* Simple interaction
 
-The character should be fun to move before combat or world content is added.
+The pigeon should feel enjoyable to control.
 
 ---
 
-Phase 2: Training Ground
+## Phase 2: First Resource
 
-Create a dedicated development arena where movement and combat can be tested without the distractions of the main game world.
+Introduce the simplest possible resource.
+
+Example:
+
+**Bread**
 
 Goals:
 
-- Simple training-ground environment
-- Movement test space
-- Test dummy
-- Unlimited dummy health
-- Proper health bar
-- Floating damage numbers
-- Damage counters
-- Current combo damage
-- Combo ends after 1 second without an attack
-- Display total combo damage
-- Calculate and display DPS
+* Find bread
+* Collect bread
+* Store bread
+* Display bread
+* Spend bread
 
-This is a development tool. It can be ugly and temporary as long as it makes testing fast and useful.
+The entire first gameplay loop should be playable.
 
 ---
 
-Phase 3: Sword Combat
+## Phase 3: First Automated Pigeon
 
-Use the training dummy to make the first weapon feel natural before introducing enemies.
+Introduce the first recruitable pigeon.
 
 Goals:
 
-- Slash
-- Swing
-- Stab
-- Double strike
-- Three-move combos
-- Heavy attacks
-- Deflect
-- Parry
-- Attack timing
-- Hitboxes and hit detection
-- Movement during attacks
-- Recovery and chaining
-- Hit feedback
-- Consistent damage handling
+* Find pigeon
+* Recruit pigeon
+* Assign task
+* Pigeon performs task
+* Resource is generated automatically
 
-The priority is feel. The player should enjoy simply fighting the dummy before we worry about building a complete combat system.
+This is the most important prototype milestone.
 
-Health bars, floating damage numbers, combo totals and DPS should then be tuned as part of the test experience.
+The player should immediately understand:
+
+> **"I used to do that myself. Now my pigeon does it."**
 
 ---
 
-Phase 4: First Enemy
+## Phase 4: Multiple Activities
 
-Once sword combat feels good against the dummy, create an enemy that fights back.
+Introduce additional activities.
+
+Examples:
+
+* Food gathering
+* Scavenging
+* Carrying
+* Exploration
+
+The player should begin deciding which pigeons should perform which tasks.
+
+---
+
+## Phase 5: Unique Pigeons
+
+Introduce named pigeons with different abilities and personalities.
 
 Goals:
 
-- Enemy movement
-- Player targeting
-- Attack telegraphs
-- Enemy attacks
-- Taking damage
-- Hit reactions
-- Basic defeat/death state
-- First complete player-vs-enemy combat loop
+* Pigeon data
+* Unique names
+* Traits
+* Visual differences
+* Task effectiveness
+* Recruitment system
 
 ---
 
-Phase 5: Shield Combat
+## Phase 6: First Territory
 
-Add the shield after the sword and first enemy are working.
+Expand the world beyond the starting area.
 
 Goals:
 
-- Blocking
-- Block timing and response
-- Shield bash
-- Interaction with enemy attacks
-- Deflect/parry relationships
-- Defensive combat feel
+* New location
+* New resources
+* New activities
+* New pigeon recruits
+* New opportunities
 
 ---
 
-Phase 6: Staff Combat
+## Phase 7: Pigeon Kingdom
 
-Add staves after the sword and shield foundations feel solid.
+Introduce the player's first permanent base.
 
 Goals:
 
-- Basic staff moveset
-- Attack timing
-- Hit detection
-- Staff-specific combat feel
-- Foundations for the magic/staff path
+* Pigeon housing
+* Food storage
+* Pigeon management
+* Basic buildings
+* Kingdom progression
 
 ---
 
-Phase 7: Bow Combat
+## Phase 8: Throne Room
 
-Add bows after staff combat.
+Introduce the long-term visual goal.
 
 Goals:
 
-- Aiming
-- Firing
-- Projectile behaviour
-- Attack timing
-- Hit detection
-- Ranged combat feel
-
-Other weapon types can be added later once the core weapon architecture is proven.
+* Throne room
+* Player throne
+* Pigeon displays
+* Decorations
+* Kingdom milestones
+* Royal progression
 
 ---
 
-Phase 8: Status Effects
+## Phase 9: Expanded Automation
 
-Once movement and the basic combat foundation are working, build the status-effect layer and test how effects influence the player and enemies.
+Add deeper automation.
 
 Goals:
 
-- Buffs
-- Debuffs
-- Duration
-- Stacking
-- Removal
-- Status display
-- Weirded Out
-- Butterfingers
-- Unhanded
-- Charmed
-- Starstruck
-- Intimidated
-- Inspired
-- Flustered
-- Envious
-
-Status effects should plug into the existing combat and character systems rather than becoming a separate combat framework.
+* Task managers
+* Groups of pigeons
+* Automated resource collection
+* Automated scouting
+* Automated trading
+* Expanded pigeon management
 
 ---
 
-Phase 9: RPG Foundation
+## Phase 10: World Expansion
 
-With the movement and combat foundations proven, expand into the wider RPG systems.
+Expand the world and introduce more locations.
 
 Goals:
 
-- Health and core stats
-- Skills
-- Use-based XP
-- Skill levels
-- Attributes
-- Inventory
-- Equipment
-- Items
-- Weapons
-- Armour
-- Consumables
-- Shops
-- Economy
-- Save/load
+* Towns
+* Castles
+* Markets
+* Farms
+* Roads
+* New NPCs
+* New pigeon types
+* Rare discoveries
+* Special events
 
 ---
 
-Phase 10: World & Story
+## Phase 11: Long-Term Progression
 
-Move from the training ground into the actual game world.
+Add systems that give players reasons to continue after the initial kingdom is established.
 
-Goals:
+Possible systems:
 
-- Starting village
-- Opening cutscene
-- First current task
-- NPCs
-- Dialogue
-- World exploration
-- Resources
-- Secrets
-- Dungeons
-- Enemies
-- Quests
-- Exploration rewards
-
-The training ground should remain available as a development/test area.
+* Achievements
+* Rare pigeons
+* Special territories
+* Kingdom upgrades
+* Historical milestones
+* Prestige
+* Advanced automation
+* Rare collectibles
 
 ---
 
-Phase 11: Cards
+# Development Principles
 
-Introduce the card system after the core RPG loop is stable.
+## Build the Incremental Loop First
 
-Goals:
+The most important loop is:
 
-- Card data
-- Card collection
-- Rarity
-- Card effects
-- Card packs
-- Card rewards
-- World integration
+```text
+Perform Activity
+      ↓
+Earn Resource
+      ↓
+Recruit Pigeon
+      ↓
+Automate Activity
+      ↓
+Unlock New Activity
+      ↓
+Expand
+```
 
----
-
-Phase 12: The Weird Stuff
-
-Expand the game's stranger systems and content.
-
-Goals:
-
-- Turnips
-- Strange NPCs
-- Unusual items
-- Secret interactions
-- Hidden mechanics
-- Unexpected discoveries
+If this isn't satisfying with placeholder art, additional content won't fix it.
 
 ---
 
-Phase 13: Polish & Expansion
+## Automation Should Feel Like Progress
 
-Once the core game is fun:
+When the player hires a pigeon to perform a task, that should feel like a genuine milestone.
 
-- Improve art
-- Improve animations
-- Improve UI
-- Improve sound
-- Improve music
-- Expand the world
-- Add more enemies
-- Add more quests
-- Add more cards
-- Add more equipment
-- Add more weapons
-- Add more secrets
+The game should communicate:
+
+> **"You don't need to do this anymore."**
+
+This is one of the primary rewards in the game.
 
 ---
 
-Development Principles
+## Avoid Meaningless Number Inflation
 
-Protect the Opening Hook
+The game should not rely on endlessly increasing numbers.
 
-The opening should immediately create curiosity, establish the strange fantasy tone, give the player a believable reason to investigate, and provide a clear first objective. Keep the handoff to gameplay quick and raise questions rather than burying the player in lore.
+Progression should instead come from:
 
----
+* New pigeons
+* New activities
+* New locations
+* New resources
+* New automation
+* New buildings
+* New abilities
+* New opportunities
+* New kingdom features
 
-Build Vertically
-
-A small complete feature is more valuable than ten unfinished systems.
-
-For example:
-
-Player
-  ↓
-Enemy
-  ↓
-Combat
-  ↓
-Loot
-  ↓
-Skill XP
-  ↓
-Level Increase
-
-A complete gameplay loop should exist as early as possible.
+Numbers should support progression rather than become the progression.
 
 ---
 
-Make Progression Visible
+## Make Pigeons Memorable
 
-Players should understand why they are getting stronger.
+Pigeons are the heart of the game.
 
-When a skill increases, the game should make that improvement clear.
+The player should remember individual pigeons.
 
----
+If a player says:
 
-Reward Exploration
+> "Greg found the royal necklace again."
 
-Exploration should regularly produce interesting discoveries.
-
-Not every reward needs to be statistically powerful.
-
-Sometimes the reward can simply be:
-
-«"I can't believe I found this."»
+that means the pigeon system is working.
 
 ---
 
-Keep Systems Modular
+## Reward Exploration
 
-The combat system should not need to know everything about quests.
+Exploration should uncover meaningful opportunities.
 
-The card system should not need to know everything about NPCs.
+A player should occasionally find something that changes how they play.
 
-The save system should be able to persist data from different systems without tightly coupling them together.
+A rare pigeon.
 
----
+A new activity.
 
-Prefer Content Over Complexity
+A hidden resource.
 
-A simple system with lots of interesting content is preferable to a complicated system that exists only because it is technically impressive.
+A strange object.
 
----
+A shortcut.
 
-Keep the Humour
+A secret location.
 
-The world does not need to be a comedy game.
-
-But it should occasionally surprise the player.
-
-A serious dungeon can contain a ridiculous item.
-
-A normal NPC can have a bizarre side quest.
-
-A legendary treasure can turn out to be a turnip.
-
-The tone should have room for both adventure and absurdity.
+Or something completely unnecessary.
 
 ---
 
-Long-Term Vision
+## Keep the World Believable Enough
 
-The ultimate goal is to create an RPG where the player's character feels genuinely theirs.
+The medieval world should function as a real place.
 
-Not because they picked a class at the beginning.
+Humans have:
 
-Because of what they did.
+* Jobs
+* Markets
+* Homes
+* Farms
+* Castles
+* Taverns
+* Roads
+* Problems
 
-A player might become a powerful swordsman.
+The pigeon kingdom is the ridiculous element.
 
-Another might become a master mage.
-
-Another might combine archery, crafting and stealth.
-
-Another might spend an unreasonable amount of time collecting cards.
-
-Another might somehow become famous for carrying 47 turnips.
-
-All of those should be valid stories.
-
-The game should provide the world.
-
-The player provides the character.
+This contrast makes the comedy stronger.
 
 ---
 
-Project Status
+# Development Status
 
-Early Development
+The project is currently in early concept / prototype development.
 
-The game is currently being developed as a 2D RPG prototype in Godot 4.x.
+## Core
 
-The design is expected to evolve during development.
+* [ ] Godot project structure
+* [ ] Player pigeon
+* [ ] Pigeon movement
+* [ ] Pigeon animation
+* [ ] Interaction system
+* [ ] Camera
+* [ ] Starting area
 
-The important thing is to build a playable foundation first, then let the game grow from there.
+## Incremental Systems
+
+* [ ] Resource system
+* [ ] Manual resource collection
+* [ ] Pigeon recruitment
+* [ ] Pigeon tasks
+* [ ] Automation
+* [ ] Multiple resource types
+* [ ] Upgrade system
+* [ ] Unlock system
+
+## Pigeons
+
+* [ ] Pigeon data
+* [ ] Unique pigeons
+* [ ] Pigeon traits
+* [ ] Pigeon personalities
+* [ ] Pigeon recruitment
+* [ ] Pigeon relationships
+* [ ] Pigeon task assignment
+
+## World
+
+* [ ] Starting area
+* [ ] Village
+* [ ] Marketplace
+* [ ] Farm
+* [ ] Town
+* [ ] Castle
+* [ ] Additional territories
+* [ ] NPCs
+* [ ] Events
+* [ ] Exploration
+
+## Kingdom
+
+* [ ] Pigeon housing
+* [ ] Food storage
+* [ ] Kingdom buildings
+* [ ] Territory
+* [ ] Throne room
+* [ ] Throne
+* [ ] Decorations
+* [ ] Royal progression
+
+## Persistence
+
+* [ ] Save system
+* [ ] Load system
+* [ ] Pigeon persistence
+* [ ] Resource persistence
+* [ ] Kingdom persistence
+* [ ] World state
 
 ---
 
-One Final Rule
+# Prototype Build Order
 
-If the game isn't fun with placeholder graphics, prettier graphics won't save it.
+The first playable prototype should be extremely small.
 
-Build the fun first.
+### Step 1
 
-Then make it pretty.
+Control one pigeon.
 
-And keep the turnip.
+### Step 2
+
+Find bread.
+
+### Step 3
+
+Collect bread.
+
+### Step 4
+
+Spend bread.
+
+### Step 5
+
+Find another pigeon.
+
+### Step 6
+
+Recruit that pigeon.
+
+### Step 7
+
+Assign it to collect bread.
+
+### Step 8
+
+Watch the pigeon collect bread automatically.
+
+### Step 9
+
+Use the resources generated by that pigeon to unlock something new.
+
+### Step 10
+
+Repeat.
+
+If that loop feels good, the game has a foundation.
+
+Everything else can grow from it.
+
+---
+
+# Long-Term Vision
+
+Professional Pigeon should eventually allow the player to look back at their humble beginnings and realize how ridiculous their operation has become.
+
+At the beginning:
+
+**One pigeon collecting breadcrumbs.**
+
+Later:
+
+**Several pigeons gathering food.**
+
+Later:
+
+**Dedicated pigeons scavenging valuable objects.**
+
+Later:
+
+**Pigeon scouts discovering new territories.**
+
+Later:
+
+**Pigeon managers coordinating entire operations.**
+
+Eventually:
+
+**A functioning pigeon kingdom.**
+
+And somewhere in the middle of all this, the player acquires a throne.
+
+They sit down.
+
+Their pigeons continue working.
+
+The player does nothing.
+
+Because they are royalty now.
+
+---
+
+# One Final Rule
+
+The player should always feel like they are **building something**.
+
+Not simply making a number bigger.
+
+They are building:
+
+**A workforce.**
+
+**A collection of characters.**
+
+**A territory.**
+
+**A kingdom.**
+
+**A ridiculous legacy.**
+
+And eventually...
+
+# A PIGEON EMPIRE.
+
+The player started as a pigeon.
+
+They became a professional.
+
+Then a leader.
+
+Then a king.
+
+The birds did the rest.
