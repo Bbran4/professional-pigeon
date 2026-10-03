@@ -634,26 +634,6 @@ A brave pigeon might be excellent at dangerous scouting.
 
 The exact personality system will evolve during development.
 
----
-
-# Pigeon Relationships
-
-Pigeons may develop relationships with other pigeons.
-
-Possible relationships include:
-
-* Friends
-* Rivals
-* Partners
-* Family
-* Mentors
-* Followers
-
-These relationships can produce unique interactions and bonuses.
-
-The goal is not to create a complicated social simulator.
-
-The goal is to make the pigeon kingdom feel like it contains **actual characters**.
 
 ---
 
