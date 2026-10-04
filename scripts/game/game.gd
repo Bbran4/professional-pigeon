@@ -13,7 +13,7 @@ func _ready() -> void:
 	player.position = Vector2(520, 500)
 
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	update_building_collision($StartingBuilding)
 	update_building_collision($BuildingTwo)
 	update_building_collision($BuildingThree)
@@ -32,7 +32,7 @@ func update_building_collision(building: StaticBody2D) -> void:
 	var player_bottom := player.global_position.y + player_collision.shape.get_rect().size.y / 2.0
 	var enable_height := building_top - BUILDING_COLLISION_PADDING
 
-	# The roof becomes solid only after the entire pigeon is at least
-	# 10 pixels above the building. This prevents the roof from catching
-	# the pigeon while it is flying upward.
+	# Keep the roof disabled until the whole pigeon is 10 pixels above it.
+	# This runs before the player's physics movement, so the roof is active
+	# before the pigeon can move down into it.
 	collision_shape.disabled = player_bottom > enable_height
