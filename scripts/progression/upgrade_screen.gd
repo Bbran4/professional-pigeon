@@ -6,6 +6,8 @@ class_name UpgradeScreen
 @onready var faster_flight_button: Button = $Panel/VBox/FasterFlightButton
 @onready var stronger_flaps_button: Button = $Panel/VBox/StrongerFlapsButton
 @onready var energy_reserve_button: Button = $Panel/VBox/EnergyReserveButton
+@onready var bread_spawns_button: Button = $Panel/VBox/BreadSpawnsButton
+@onready var bread_value_button: Button = $Panel/VBox/BreadValueButton
 @onready var back_button: Button = $Panel/VBox/BackButton
 
 var skill_tree: SkillTree
@@ -16,6 +18,8 @@ func _ready() -> void:
 	faster_flight_button.pressed.connect(_on_skill_pressed.bind(&"faster_flight"))
 	stronger_flaps_button.pressed.connect(_on_skill_pressed.bind(&"stronger_flaps"))
 	energy_reserve_button.pressed.connect(_on_skill_pressed.bind(&"energy_reserve"))
+	bread_spawns_button.pressed.connect(_on_skill_pressed.bind(&"bread_spawns"))
+	bread_value_button.pressed.connect(_on_skill_pressed.bind(&"bread_value"))
 	back_button.pressed.connect(_on_back_pressed)
 	ProgressionManager.food_changed.connect(_on_progression_changed)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
@@ -39,6 +43,8 @@ func refresh() -> void:
 	_update_skill_button(faster_flight_button, &"faster_flight")
 	_update_skill_button(stronger_flaps_button, &"stronger_flaps")
 	_update_skill_button(energy_reserve_button, &"energy_reserve")
+	_update_skill_button(bread_spawns_button, &"bread_spawns")
+	_update_skill_button(bread_value_button, &"bread_value")
 
 
 func _update_skill_button(button: Button, skill_id: StringName) -> void:
