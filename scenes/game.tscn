@@ -84,6 +84,5 @@ shape = SubResource("RectangleShape_building_c")
 position = Vector2(520, 500)
 stats = SubResource("Resource_lbhrr")
 
-[node name="RunManager" type="Node" parent="." node_paths=PackedStringArray("player")]
+[node name="RunManager" type="Node" parent="."]
 script = ExtResource("5_run_manager")
-player = NodePath("../Player")
