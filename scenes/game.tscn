@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://dnrb7pknv1sf" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
 [ext_resource type="Script" uid="uid://c013n7hqyxt0k" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
 [ext_resource type="Script" uid="uid://b32pmjtjdgu6" path="res://scripts/progression/upgrade_screen.gd" id="8_upgrade"]
-[ext_resource type="Script" path="res://scripts/progression/skill_manager.gd" id="9_skill_manager"]
-[ext_resource type="Script" path="res://scripts/progression/skill_button.gd" id="10_skill_button"]
+[ext_resource type="Script" uid="uid://c0owjdr38lyk8" path="res://scripts/progression/skill_manager.gd" id="9_skill_manager"]
+[ext_resource type="Script" uid="uid://bedfuu4k8lhcq" path="res://scripts/progression/skill_button.gd" id="10_skill_button"]
 
 [sub_resource type="Gradient" id="Gradient_background"]
 colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
@@ -31,7 +31,7 @@ size = Vector2(300, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape_roof_c"]
 size = Vector2(260, 10)
 
-[sub_resource type="Resource" id="Resource_gee14"]
+[sub_resource type="Resource" id="Resource_vtaks"]
 resource_local_to_scene = true
 script = ExtResource("3_lnu2h")
 
@@ -132,7 +132,7 @@ one_way_collision = true
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
 position = Vector2(270, 290)
-stats = SubResource("Resource_gee14")
+stats = SubResource("Resource_vtaks")
 
 [node name="RunManager" type="Node" parent="." unique_id=701323077]
 script = ExtResource("5_run_manager")
@@ -254,7 +254,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("8_upgrade")
 
-[node name="TopBar" type="Panel" parent="UpgradeScreenLayer/UpgradeScreen"]
+[node name="TopBar" type="Panel" parent="UpgradeScreenLayer/UpgradeScreen" unique_id=969848763]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
@@ -262,26 +262,26 @@ offset_right = 1132.0
 offset_bottom = 78.0
 mouse_filter = 2
 
-[node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+[node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=426530994]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 10.0
 offset_right = 300.0
 offset_bottom = 48.0
-text = "Pigeon Skill Tree"
 theme_override_font_sizes/font_size = 22
+text = "Pigeon Skill Tree"
 
-[node name="FoodLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+[node name="FoodLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=1086701980]
 layout_mode = 0
 offset_left = 430.0
 offset_top = 12.0
 offset_right = 650.0
 offset_bottom = 46.0
+theme_override_font_sizes/font_size = 18
 text = "Food: 0"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
 
-[node name="HelpLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+[node name="HelpLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=906267126]
 layout_mode = 0
 offset_left = 680.0
 offset_top = 14.0
@@ -290,7 +290,7 @@ offset_bottom = 44.0
 text = "Wheel: Zoom  |  Middle Drag: Pan"
 horizontal_alignment = 1
 
-[node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+[node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=1856952757]
 layout_mode = 0
 offset_left = 930.0
 offset_top = 8.0
@@ -298,89 +298,81 @@ offset_right = 1090.0
 offset_bottom = 50.0
 text = "Back"
 
-[node name="SkillManager" type="Control" parent="UpgradeScreenLayer/UpgradeScreen"]
-layout_mode = 0
+[node name="SkillManager" type="Control" parent="UpgradeScreenLayer/UpgradeScreen" unique_id=202417832]
+clip_contents = true
+anchors_preset = 0
 offset_left = 20.0
 offset_top = 88.0
 offset_right = 1132.0
 offset_bottom = 628.0
-clip_contents = true
 mouse_filter = 1
 script = ExtResource("9_skill_manager")
 
-[node name="SkillCanvas" type="Control" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager"]
-layout_mode = 0
+[node name="SkillCanvas" type="Control" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager" unique_id=825759651]
+anchors_preset = 0
 offset_right = 1400.0
 offset_bottom = 900.0
 mouse_filter = 1
 
-[node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1781976936]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 100.0
 offset_right = 300.0
 offset_bottom = 165.0
-mouse_filter = 0
 script = ExtResource("10_skill_button")
 skill_id = &"faster_flight"
 
-[node name="StrongerFlapsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="StrongerFlapsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1047828362]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 250.0
 offset_right = 300.0
 offset_bottom = 315.0
-mouse_filter = 0
 script = ExtResource("10_skill_button")
 skill_id = &"stronger_flaps"
 
-[node name="EnergyReserveButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="EnergyReserveButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=190457732]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 400.0
 offset_right = 300.0
 offset_bottom = 465.0
-mouse_filter = 0
 script = ExtResource("10_skill_button")
 skill_id = &"energy_reserve"
 
-[node name="FasterEnergyRegenerationButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="FasterEnergyRegenerationButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=620364887]
 layout_mode = 0
 offset_left = 450.0
 offset_top = 250.0
 offset_right = 680.0
 offset_bottom = 315.0
-mouse_filter = 0
 script = ExtResource("10_skill_button")
 skill_id = &"faster_energy_regeneration"
 
-[node name="MoreEnergyPerSecondButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="MoreEnergyPerSecondButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=154717010]
 layout_mode = 0
 offset_left = 450.0
 offset_top = 400.0
 offset_right = 680.0
 offset_bottom = 465.0
-mouse_filter = 0
 script = ExtResource("10_skill_button")
 skill_id = &"more_energy_per_second"
 
-[node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1934534279]
 layout_mode = 0
 offset_left = 850.0
 offset_top = 100.0
 offset_right = 1060.0
 offset_bottom = 165.0
-mouse_filter = 0
 script = ExtResource("10_skill_button")
 skill_id = &"bread_spawns"
 
-[node name="BreadValueButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="BreadValueButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=683310244]
 layout_mode = 0
 offset_left = 850.0
 offset_top = 250.0
 offset_right = 1060.0
 offset_bottom = 315.0
-mouse_filter = 0
 script = ExtResource("10_skill_button")
 skill_id = &"bread_value"
-
