@@ -14,5 +14,18 @@ resource = ExtResource("2_bread_resource")
 polygon = PackedVector2Array(-14, -5, -9, -9, 4, -9, 14, -3, 12, 6, 4, 9, -9, 8, -14, 3)
 color = Color(0.2, 0.8, 0.2, 1)
 
+[node name="InteractionPrompt" type="Label" parent="."]
+offset_left = -100.0
+offset_top = -38.0
+offset_right = 100.0
+offset_bottom = -14.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 12
+text = "Press [E] to collect"
+horizontal_alignment = 1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape_bread")
