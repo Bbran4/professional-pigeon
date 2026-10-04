@@ -2,7 +2,7 @@ extends Control
 class_name SkillManager
 
 var skill_tree: SkillTree
-@export var skill_canvas: Control
+@onready var skill_canvas: Control = $SkillCanvas
 @export var zoom_step: float = 0.1
 @export var min_zoom: float = 0.5
 @export var max_zoom: float = 2.0
