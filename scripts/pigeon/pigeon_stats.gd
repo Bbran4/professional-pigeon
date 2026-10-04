@@ -4,6 +4,7 @@ class_name PigeonStats
 ## Movement
 @export var walk_speed: float = 100.0
 @export var flight_speed: float = 200.0
+@export var flap_strength: float = 350.0
 
 ## Energy
 @export var max_energy: float = 100.0
