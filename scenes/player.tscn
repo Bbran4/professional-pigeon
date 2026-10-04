@@ -1,30 +1,180 @@
-[gd_scene format=3 uid="uid://dmjuleyefg0wl"]
+[gd_scene load_steps=30 format=3]
 
-[ext_resource type="Script" uid="uid://berq6bwtj1pc2" path="res://scripts/player/player.gd" id="1_player"]
-[ext_resource type="Script" uid="uid://daj8778k8wluk" path="res://scripts/player/player_controller.gd" id="2_controller"]
-[ext_resource type="Script" uid="uid://cb6keylt51upi" path="res://scripts/state_machine/state_machine.gd" id="3_machine"]
-[ext_resource type="Script" uid="uid://cinaiqir1momd" path="res://scripts/state_machine/states/idle_state.gd" id="4_idle"]
-[ext_resource type="Script" uid="uid://clk6jfwbj6b7u" path="res://scripts/state_machine/states/walk_state.gd" id="5_walk"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2_controller"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="3_machine"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/idle_state.gd" id="4_idle"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/walk_state.gd" id="5_walk"]
+[ext_resource type="Script" path="res://scripts/pigeon/pigeon_stats.gd" id="6_stats"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/flight_state.gd" id="7_flight"]
+[ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_eat-Sheet.png" id="8_eat"]
+[ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_walking-Sheet.png" id="9_walk"]
+[ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_fiy-Sheet.png" id="10_fly"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
 
-[node name="Player" type="CharacterBody2D" unique_id=401531476]
-script = ExtResource("1_player")
+[sub_resource type="Resource" id="PigeonStats_player"]
+script = ExtResource("6_stats")
+resource_local_to_scene = true
+walk_speed = 100.0
+flight_speed = 200.0
+max_energy = 100.0
+energy_regeneration = 10.0
+flight_energy_drain = 10.0
+can_dive = false
+can_peck = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=783681567]
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_0"]
+atlas = ExtResource("8_eat")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_1"]
+atlas = ExtResource("8_eat")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_2"]
+atlas = ExtResource("8_eat")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_3"]
+atlas = ExtResource("8_eat")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_0"]
+atlas = ExtResource("9_walk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_1"]
+atlas = ExtResource("9_walk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_2"]
+atlas = ExtResource("9_walk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_3"]
+atlas = ExtResource("9_walk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly_0"]
+atlas = ExtResource("10_fly")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly_1"]
+atlas = ExtResource("10_fly")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly_2"]
+atlas = ExtResource("10_fly")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly_3"]
+atlas = ExtResource("10_fly")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly_4"]
+atlas = ExtResource("10_fly")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly_5"]
+atlas = ExtResource("10_fly")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fly_6"]
+atlas = ExtResource("10_fly")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_player"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fly_6")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_player")
+stats = SubResource("PigeonStats_player")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_player")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_player")
 
-[node name="StateMachine" type="Node" parent="." unique_id=673668037 node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_machine")
 initial_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="StateMachine" unique_id=1050428730]
+[node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("4_idle")
+intent = 0
 
-[node name="WalkState" type="Node" parent="StateMachine" unique_id=941742307]
+[node name="WalkState" type="Node" parent="StateMachine"]
 script = ExtResource("5_walk")
 intent = 1
 
-[node name="PlayerController" type="Node" parent="." unique_id=198649419 node_paths=PackedStringArray("state_machine")]
+[node name="FlightState" type="Node" parent="StateMachine"]
+script = ExtResource("7_flight")
+intent = 2
+
+[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("2_controller")
 state_machine = NodePath("../StateMachine")
