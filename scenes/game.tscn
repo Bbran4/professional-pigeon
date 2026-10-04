@@ -303,6 +303,16 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Bigger Energy Reserve"
 
+[node name="FasterEnergyRegenerationButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Faster Energy Regeneration"
+
+[node name="MoreEnergyPerSecondButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "More Energy Per Second"
+
 [node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
