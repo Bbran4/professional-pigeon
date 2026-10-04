@@ -184,10 +184,9 @@ monitorable = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BreadDetector"]
 shape = SubResource("CircleShape2D_bread_detector")
 
-[node name="SkillTree" type="Node" parent="." node_paths=PackedStringArray("inventory")]
+[node name="SkillTree" type="Node" parent="."]
 script = ExtResource("14_skill_tree")
 catalog = ExtResource("15_skill_catalog")
-inventory = NodePath("../Inventory")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_machine")
