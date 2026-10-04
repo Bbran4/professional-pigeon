@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://dnrb7pknv1sf" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
 [ext_resource type="Script" uid="uid://c013n7hqyxt0k" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
 [ext_resource type="Script" uid="uid://b32pmjtjdgu6" path="res://scripts/progression/upgrade_screen.gd" id="8_upgrade"]
+[ext_resource type="Script" path="res://scripts/progression/skill_manager.gd" id="9_skill_manager"]
+[ext_resource type="Script" path="res://scripts/progression/skill_button.gd" id="10_skill_button"]
 
 [sub_resource type="Gradient" id="Gradient_background"]
 colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
@@ -252,72 +254,133 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("8_upgrade")
 
-[node name="Panel" type="Panel" parent="UpgradeScreenLayer/UpgradeScreen" unique_id=621872645]
+[node name="TopBar" type="Panel" parent="UpgradeScreenLayer/UpgradeScreen"]
 layout_mode = 0
-offset_left = 276.0
-offset_top = 90.0
-offset_right = 876.0
-offset_bottom = 620.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 1132.0
+offset_bottom = 78.0
+mouse_filter = 2
 
-[node name="VBox" type="VBoxContainer" parent="UpgradeScreenLayer/UpgradeScreen/Panel" unique_id=78767579]
+[node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 28.0
-offset_right = 560.0
-offset_bottom = 580.0
-theme_override_constants/separation = 10
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 300.0
+offset_bottom = 48.0
+text = "Pigeon Skill Tree"
+theme_override_font_sizes/font_size = 22
 
-[node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=1754718422]
-layout_mode = 2
-text = "Pigeon Upgrades"
-horizontal_alignment = 1
-
-[node name="FoodLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=1692303154]
-layout_mode = 2
+[node name="FoodLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 12.0
+offset_right = 650.0
+offset_bottom = 46.0
 text = "Food: 0"
 horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
 
-[node name="StatusLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=749515185]
-layout_mode = 2
-text = "Spend Food to improve your pigeon."
+[node name="HelpLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 14.0
+offset_right = 900.0
+offset_bottom = 44.0
+text = "Wheel: Zoom  |  Middle Drag: Pan"
 horizontal_alignment = 1
 
-[node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=707127653]
-custom_minimum_size = Vector2(0, 52)
-layout_mode = 2
-text = "Faster Flight"
+[node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+layout_mode = 0
+offset_left = 930.0
+offset_top = 8.0
+offset_right = 1090.0
+offset_bottom = 50.0
+text = "Back"
 
-[node name="StrongerFlapsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=679491091]
-custom_minimum_size = Vector2(0, 52)
-layout_mode = 2
-text = "Stronger Flaps"
+[node name="SkillManager" type="Control" parent="UpgradeScreenLayer/UpgradeScreen"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 88.0
+offset_right = 1132.0
+offset_bottom = 628.0
+clip_contents = true
+mouse_filter = 1
+script = ExtResource("9_skill_manager")
 
-[node name="EnergyReserveButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=23390834]
-custom_minimum_size = Vector2(0, 52)
-layout_mode = 2
-text = "Bigger Energy Reserve"
+[node name="SkillCanvas" type="Control" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager"]
+layout_mode = 0
+offset_right = 1400.0
+offset_bottom = 900.0
+mouse_filter = 1
 
-[node name="FasterEnergyRegenerationButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=396159762]
-custom_minimum_size = Vector2(0, 52)
-layout_mode = 2
-text = "Faster Energy Regeneration"
+[node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 300.0
+offset_bottom = 165.0
+mouse_filter = 0
+script = ExtResource("10_skill_button")
+skill_id = &"faster_flight"
 
-[node name="MoreEnergyPerSecondButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=1023738497]
-custom_minimum_size = Vector2(0, 52)
-layout_mode = 2
-text = "More Energy Per Second"
+[node name="StrongerFlapsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 250.0
+offset_right = 300.0
+offset_bottom = 315.0
+mouse_filter = 0
+script = ExtResource("10_skill_button")
+skill_id = &"stronger_flaps"
 
-[node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=103241903]
-custom_minimum_size = Vector2(0, 52)
-layout_mode = 2
-text = "More Bread"
+[node name="EnergyReserveButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 400.0
+offset_right = 300.0
+offset_bottom = 465.0
+mouse_filter = 0
+script = ExtResource("10_skill_button")
+skill_id = &"energy_reserve"
 
-[node name="BreadValueButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=945480059]
-custom_minimum_size = Vector2(0, 52)
-layout_mode = 2
-text = "More Valuable Bread"
+[node name="FasterEnergyRegenerationButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 250.0
+offset_right = 680.0
+offset_bottom = 315.0
+mouse_filter = 0
+script = ExtResource("10_skill_button")
+skill_id = &"faster_energy_regeneration"
 
-[node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=1702404328]
-custom_minimum_size = Vector2(0, 44)
-layout_mode = 2
-text = "Back to Run Results"
+[node name="MoreEnergyPerSecondButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 400.0
+offset_right = 680.0
+offset_bottom = 465.0
+mouse_filter = 0
+script = ExtResource("10_skill_button")
+skill_id = &"more_energy_per_second"
+
+[node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 100.0
+offset_right = 1060.0
+offset_bottom = 165.0
+mouse_filter = 0
+script = ExtResource("10_skill_button")
+skill_id = &"bread_spawns"
+
+[node name="BreadValueButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 250.0
+offset_right = 1060.0
+offset_bottom = 315.0
+mouse_filter = 0
+script = ExtResource("10_skill_button")
+skill_id = &"bread_value"
+
