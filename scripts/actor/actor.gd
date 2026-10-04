@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Actor
 
+@export var gravity_scale: float = 1.0
+
 var move_direction: Vector2 = Vector2.ZERO
 
 
@@ -11,6 +13,10 @@ func get_move_speed() -> float:
 func move() -> void:
 	velocity = move_direction * get_move_speed()
 	move_and_slide()
+
+
+func apply_gravity(delta: float) -> void:
+	velocity += get_gravity() * gravity_scale * delta
 
 
 func stop() -> void:
