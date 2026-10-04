@@ -30,3 +30,15 @@ func play_animation(animation_name: StringName) -> void:
 		return
 
 	animated_sprite.play(animation_name)
+
+
+func update_facing() -> void:
+	var animated_sprite := get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+
+	if animated_sprite == null:
+		return
+
+	if move_direction.x < 0.0:
+		animated_sprite.flip_h = true
+	elif move_direction.x > 0.0:
+		animated_sprite.flip_h = false
