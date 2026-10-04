@@ -7,7 +7,7 @@ class_name PigeonStats
 @export var flap_strength: float = 350.0
 
 ## Energy
-@export var max_energy: float = 100.0
+@export var max_energy: float = 20.0
 @export var energy_regeneration: float = 10.0
 @export var flight_energy_drain: float = 10.0
 
