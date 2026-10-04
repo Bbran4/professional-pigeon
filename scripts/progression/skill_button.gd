@@ -8,7 +8,8 @@ var skill_tree: SkillTree
 
 func setup(tree: SkillTree) -> void:
 	skill_tree = tree
-	pressed.connect(_on_pressed)
+	if not pressed.is_connected(_on_pressed):
+		pressed.connect(_on_pressed)
 	refresh()
 
 
