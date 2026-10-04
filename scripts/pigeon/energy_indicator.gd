@@ -1,8 +1,8 @@
 extends Node2D
 class_name EnergyIndicator
 
-@export var radius: float = 13.0
-@export var line_width: float = 4.0
+@export var dot_radius: float = 4.0
+@export var dot_spacing: float = 11.0
 @export var offset: Vector2 = Vector2(0.0, -28.0)
 
 const BACKGROUND_COLOR := Color(0.08, 0.11, 0.16, 0.8)
@@ -49,12 +49,23 @@ func _on_red_tween_finished() -> void:
 
 
 func _draw() -> void:
-	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, BACKGROUND_COLOR, line_width, true)
+	var max_energy := maxi(1, int(ceilf(energy_ratio * pigeon_max_energy())))
+	var current_energy := energy_ratio * float(max_energy)
 
-	if energy_ratio <= 0.0:
-		return
+	for i in range(max_energy):
+		var x := (float(i) - float(max_energy - 1) * 0.5) * dot_spacing
+		var dot_position := Vector2(x, 0.0)
+		var filled := float(i) < current_energy
 
-	var start_angle := -PI / 2.0
-	var end_angle := start_angle + TAU * energy_ratio
+		if filled:
+			draw_circle(dot_position, dot_radius, energy_color)
+		else:
+			draw_circle(dot_position, dot_radius, BACKGROUND_COLOR)
 
-	draw_arc(Vector2.ZERO, radius, start_angle, end_angle, 48, energy_color, line_width, true)
+
+func pigeon_max_energy() -> float:
+	var pigeon := get_parent() as Pigeon
+	if pigeon == null:
+		return 1.0
+
+	return maxf(1.0, pigeon.get_max_energy())
