@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var player: Player = $Player
 
+const BUILDING_COLLISION_PADDING: float = 5.0
+
 
 func _ready() -> void:
 	$Ground.position = Vector2(0, 568)
@@ -25,6 +27,6 @@ func update_building_collision(building: StaticBody2D) -> void:
 	var building_top := building.global_position.y
 	var player_y := player.global_position.y
 
-	# Above the building's highest point: the roof is solid.
-	# Below the building's highest point: the pigeon can walk through it.
-	collision_shape.disabled = player_y > building_top
+	# Keep the roof collision disabled until the player is at least
+	# 5 pixels above the building's highest point.
+	collision_shape.disabled = player_y > building_top - BUILDING_COLLISION_PADDING
