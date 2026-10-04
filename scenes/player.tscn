@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3]
+[gd_scene load_steps=33 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2_controller"]
@@ -167,6 +167,10 @@ shape = SubResource("CapsuleShape2D_player")
 
 [node name="EnergyIndicator" type="Node2D" parent="."]
 script = ExtResource("13_energy")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 5.0
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("12_inventory")
