@@ -12,7 +12,35 @@ func _ready() -> void:
 	if stats == null:
 		stats = PigeonStats.new()
 
-	current_energy = stats.max_energy
+	current_energy = get_max_energy()
+
+
+func get_skill_tree() -> SkillTree:
+	return get_node_or_null("SkillTree") as SkillTree
+
+
+func get_max_energy() -> float:
+	var skill_tree := get_skill_tree()
+	if skill_tree == null:
+		return stats.max_energy
+
+	return stats.max_energy + skill_tree.get_effect_value(&"max_energy_add")
+
+
+func get_flight_speed() -> float:
+	var skill_tree := get_skill_tree()
+	if skill_tree == null:
+		return stats.flight_speed
+
+	return stats.flight_speed + skill_tree.get_effect_value(&"flight_speed_add")
+
+
+func get_flap_strength() -> float:
+	var skill_tree := get_skill_tree()
+	if skill_tree == null:
+		return stats.flap_strength
+
+	return stats.flap_strength + skill_tree.get_effect_value(&"flap_strength_add")
 
 
 func show_energy_indicator() -> void:
@@ -35,11 +63,11 @@ func get_move_speed() -> float:
 
 
 func flap() -> void:
-	velocity.y = -stats.flap_strength
+	velocity.y = -get_flap_strength()
 
 
 func fly() -> void:
-	velocity.x = move_direction.x * stats.flight_speed
+	velocity.x = move_direction.x * get_flight_speed()
 	move_and_slide()
 
 
@@ -53,5 +81,5 @@ func regenerate_energy(delta: float) -> void:
 
 	current_energy = minf(
 		current_energy + stats.energy_regeneration * delta,
-		stats.max_energy
+		get_max_energy()
 	)
