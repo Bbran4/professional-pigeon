@@ -1,7 +1,9 @@
 extends Pigeon
 class_name Player
 
-var bread_count: int = 0
+signal bread_collected
+
+@onready var inventory: PlayerInventory = $Inventory
 
 
 func collect_bread() -> bool:
@@ -25,6 +27,22 @@ func collect_bread() -> bool:
 	if closest_bread == null:
 		return false
 
-	bread_count += 1
+	inventory.add_food(1)
 	closest_bread.collect()
+	bread_collected.emit()
 	return true
+
+
+func set_run_active(active: bool) -> void:
+	var state_machine := get_node_or_null("StateMachine")
+	var controller := get_node_or_null("PlayerController")
+
+	if state_machine:
+		state_machine.set_process(active)
+		state_machine.set_physics_process(active)
+
+	if controller:
+		controller.set_process(active)
+
+	if not active:
+		stop()
