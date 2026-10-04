@@ -80,5 +80,5 @@ shape = SubResource("RectangleShape_building_c")
 [node name="SpawnManager" parent="." instance=ExtResource("4_spawn")]
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
-position = Vector2(210, 285)
+position = Vector2(520, 500)
 stats = SubResource("Resource_lnu2h")
