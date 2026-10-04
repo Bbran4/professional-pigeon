@@ -10,17 +10,19 @@ func _process(_delta: float) -> void:
 
 	var actor := state_machine.actor
 	var horizontal := Input.get_axis("move_left", "move_right")
-	var vertical := Input.get_axis("move_up", "move_down")
 	var pigeon := actor as Pigeon
 
-	actor.move_direction = Vector2(horizontal, vertical)
+	actor.move_direction = Vector2(horizontal, 0.0)
 
-	var is_flying := state_machine.current_state is FlightState
-	var wants_to_start_flying := Input.is_action_pressed("move_up")
-
-	if pigeon and pigeon.current_energy > 0.0 and (wants_to_start_flying or is_flying):
+	if pigeon and Input.is_action_just_pressed("move_up") and pigeon.current_energy > 0.0:
 		state_machine.transition(StateMachine.Intent.FLY)
-	elif not actor.is_on_floor():
+		pigeon.flap()
+		return
+
+	if state_machine.current_state is FlightState:
+		return
+
+	if not actor.is_on_floor():
 		state_machine.transition(StateMachine.Intent.FALL)
 	elif horizontal == 0.0:
 		state_machine.transition(StateMachine.Intent.IDLE)
