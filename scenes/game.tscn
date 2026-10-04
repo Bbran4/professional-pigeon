@@ -99,7 +99,7 @@ position = Vector2(0, 309)
 color = Color(0.49847698, 0.37880498, 0.44915748, 1)
 polygon = PackedVector2Array(0, 0, 420, 0, 420, 260, 0, 260)
 
-[node name="RoofCollision" type="CollisionShape2D" parent="StartingBuilding" unique_id=774470004]
+[node name="RoofCollision" type="CollisionShape2D" parent="StartingBuilding" unique_id=774470004 groups=["drop_through_platform"]]
 position = Vector2(210, 5)
 shape = SubResource("RectangleShape_roof_a")
 one_way_collision = true
@@ -111,7 +111,7 @@ position = Vector2(650, 388)
 color = Color(0.3227448, 0.4099707, 0.61605483, 1)
 polygon = PackedVector2Array(0, 0, 300, 0, 300, 180, 0, 180)
 
-[node name="RoofCollision" type="CollisionShape2D" parent="BuildingTwo" unique_id=1535392231]
+[node name="RoofCollision" type="CollisionShape2D" parent="BuildingTwo" unique_id=1535392231 groups=["drop_through_platform"]]
 position = Vector2(150, 5)
 shape = SubResource("RectangleShape_roof_b")
 one_way_collision = true
@@ -123,7 +123,7 @@ position = Vector2(950, 248)
 color = Color(0.4856602, 0.41958183, 0.2809997, 1)
 polygon = PackedVector2Array(0, 0, 260, 0, 260, 320, 0, 320)
 
-[node name="RoofCollision" type="CollisionShape2D" parent="BuildingThree" unique_id=816111953]
+[node name="RoofCollision" type="CollisionShape2D" parent="BuildingThree" unique_id=816111953 groups=["drop_through_platform"]]
 position = Vector2(130, 5)
 shape = SubResource("RectangleShape_roof_c")
 one_way_collision = true
