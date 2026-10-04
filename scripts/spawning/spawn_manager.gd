@@ -3,17 +3,10 @@ class_name SpawnManager
 
 @export var bread_scene: PackedScene
 @export var bread_count: int = 2
-
-## Bread can only spawn at these predefined ground positions.
-## Each run randomly selects from this list.
-@export var bread_spawn_points: Array[Vector2] = [
-	Vector2(460, 559),
-	Vector2(540, 559),
-	Vector2(620, 559),
-	Vector2(1260, 559),
-	Vector2(1330, 559),
-	Vector2(1380, 559)
-]
+@export var ground_y: float = 568.0
+@export var world_start: float = 24.0
+@export var world_end: float = 5976.0
+@export var minimum_spawn_spacing: float = 100.0
 
 
 func _ready() -> void:
@@ -26,33 +19,35 @@ func spawn_bread() -> void:
 		return
 
 	var amount_to_spawn := bread_count + get_additional_bread_spawns()
-	var spawn_points := get_random_spawn_points(amount_to_spawn)
+	var spawn_positions := get_random_spawn_positions(amount_to_spawn)
 
-	for spawn_position in spawn_points:
+	for spawn_position in spawn_positions:
 		var bread := bread_scene.instantiate() as Node2D
-
 		if bread == null:
 			continue
-
 		bread.position = spawn_position
 		add_child(bread)
 
 
-func get_random_spawn_points(amount: int) -> Array[Vector2]:
-	var selected_points: Array[Vector2] = []
+func get_random_spawn_positions(amount: int) -> Array[Vector2]:
+	var positions: Array[Vector2] = []
+	if amount <= 0 or world_end <= world_start:
+		return positions
 
-	if amount <= 0 or bread_spawn_points.is_empty():
-		return selected_points
+	var attempts := 0
+	var max_attempts := amount * 30
+	while positions.size() < amount and attempts < max_attempts:
+		attempts += 1
+		var candidate := randf_range(world_start, world_end)
+		var is_too_close := false
+		for existing in positions:
+			if absf(existing.x - candidate) < minimum_spawn_spacing:
+				is_too_close = true
+				break
+		if not is_too_close:
+			positions.append(Vector2(candidate, ground_y))
 
-	var available_points := bread_spawn_points.duplicate()
-	available_points.shuffle()
-
-	var amount_to_spawn := mini(amount, available_points.size())
-
-	for index in range(amount_to_spawn):
-		selected_points.append(available_points[index])
-
-	return selected_points
+	return positions
 
 
 func get_additional_bread_spawns() -> int:
