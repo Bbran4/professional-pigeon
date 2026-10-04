@@ -1,6 +1,7 @@
 [gd_scene load_steps=8 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/game/game.gd" id="2_game"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
 size = Vector2(1400, 80)
@@ -23,6 +24,7 @@ width = 1152
 height = 648
 
 [node name="Game" type="Node2D" unique_id=10413488]
+script = ExtResource("2_game")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture_background")
