@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
 [ext_resource type="Script" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
 [ext_resource type="Script" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
+[ext_resource type="Script" path="res://scripts/progression/upgrade_screen.gd" id="8_upgrade"]
 
 [sub_resource type="Gradient" id="Gradient_background"]
 colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
@@ -152,44 +153,52 @@ script = ExtResource("6_run_end_panel")
 [node name="Panel" type="Panel" parent="RunEndLayer/RunEndPanel"]
 layout_mode = 0
 offset_left = 376.0
-offset_top = 220.0
+offset_top = 190.0
 offset_right = 776.0
-offset_bottom = 428.0
+offset_bottom = 450.0
 mouse_filter = 0
 
 [node name="TitleLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel"]
 layout_mode = 0
 offset_left = 100.0
-offset_top = 24.0
+offset_top = 20.0
 offset_right = 300.0
-offset_bottom = 58.0
+offset_bottom = 54.0
 text = "Run Complete!"
 horizontal_alignment = 1
 
 [node name="ReasonLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel"]
 layout_mode = 0
 offset_left = 50.0
-offset_top = 70.0
+offset_top = 60.0
 offset_right = 350.0
-offset_bottom = 100.0
+offset_bottom = 90.0
 text = "Time's up!"
 horizontal_alignment = 1
 
 [node name="FoodLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel"]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 105.0
-offset_right = 350.0
-offset_bottom = 135.0
-text = "Food collected: 0"
+offset_left = 25.0
+offset_top = 92.0
+offset_right = 375.0
+offset_bottom = 122.0
+text = "Food earned: 0  |  Total Food: 0"
 horizontal_alignment = 1
+
+[node name="UpgradesButton" type="Button" parent="RunEndLayer/RunEndPanel/Panel"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 135.0
+offset_right = 325.0
+offset_bottom = 180.0
+text = "Go to Upgrades"
 
 [node name="RestartButton" type="Button" parent="RunEndLayer/RunEndPanel/Panel"]
 layout_mode = 0
-offset_left = 125.0
-offset_top = 150.0
-offset_right = 275.0
-offset_bottom = 190.0
+offset_left = 75.0
+offset_top = 195.0
+offset_right = 325.0
+offset_bottom = 240.0
 text = "Restart Run"
 
 
@@ -232,3 +241,68 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_hud_food")
 text = "Food: 0"
 horizontal_alignment = 1
+
+
+[node name="UpgradeScreenLayer" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="UpgradeScreen" type="Control" parent="UpgradeScreenLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_upgrade")
+
+[node name="Panel" type="Panel" parent="UpgradeScreenLayer/UpgradeScreen"]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 90.0
+offset_right = 876.0
+offset_bottom = 558.0
+mouse_filter = 0
+
+[node name="VBox" type="VBoxContainer" parent="UpgradeScreenLayer/UpgradeScreen/Panel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 28.0
+offset_right = 560.0
+offset_bottom = 440.0
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+layout_mode = 2
+text = "Pigeon Upgrades"
+horizontal_alignment = 1
+
+[node name="FoodLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+layout_mode = 2
+text = "Food: 0"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+layout_mode = 2
+text = "Spend Food to improve your pigeon."
+horizontal_alignment = 1
+
+[node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Faster Flight"
+
+[node name="StrongerFlapsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Stronger Flaps"
+
+[node name="EnergyReserveButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Bigger Energy Reserve"
+
+[node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Back to Run Results"
