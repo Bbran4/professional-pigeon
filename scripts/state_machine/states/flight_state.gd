@@ -27,7 +27,7 @@ func physics_update(delta: float) -> void:
 		return
 
 	pigeon.apply_gravity(delta)
-	pigeon.velocity.x = pigeon.move_direction.x * pigeon.stats.flight_speed
+	pigeon.velocity.x = pigeon.move_direction.x * pigeon.get_flight_speed()
 	pigeon.move_and_slide()
 	pigeon.drain_energy(pigeon.stats.flight_energy_drain * delta)
 
