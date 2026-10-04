@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"faster_flight"
+display_name = "Faster Flight"
+description = "Increase flight speed."
+category = 1
+food_cost = 5
+effect_id = &"flight_speed_add"
+effect_value = 20.0
+max_level = 1
