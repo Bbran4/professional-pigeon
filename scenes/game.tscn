@@ -1,10 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfbifrtt8fl6r"]
+[gd_scene format=3 uid="uid://cfbifrtt8fl6r"]
 
-[ext_resource type="PackedScene" uid="uid://dmjuleyefg0wl" path="res://scenes/player.tscn" id="1_player"]
-[ext_resource type="Script" uid="res://scripts/game/game.gd" path="res://scripts/game/game.gd" id="2_game"]
-[ext_resource type="Script" uid="res://scripts/pigeon/pigeon_stats.gd" path="res://scripts/pigeon/pigeon_stats.gd" id="3_lnu2h"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://c002t7r6xcr7f" path="res://scripts/game/game.gd" id="2_game"]
+[ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="3_lnu2h"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
-[ext_resource type="Script" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
+[ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
 
 [sub_resource type="Gradient" id="Gradient_background"]
 colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
@@ -26,7 +26,7 @@ size = Vector2(300, 180)
 [sub_resource type="RectangleShape2D" id="RectangleShape_building_c"]
 size = Vector2(260, 320)
 
-[sub_resource type="Resource" id="Resource_lbhrr"]
+[sub_resource type="Resource" id="Resource_iywne"]
 resource_local_to_scene = true
 script = ExtResource("3_lnu2h")
 
@@ -42,6 +42,7 @@ centered = false
 position = Vector2(0, 568)
 
 [node name="Visual" type="Polygon2D" parent="Ground" unique_id=1604817760]
+color = Color(0.48000407, 0.41780668, 0.32629156, 1)
 polygon = PackedVector2Array(0, 0, 1400, 0, 1400, 80, 0, 80)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=1980253687]
@@ -52,6 +53,7 @@ shape = SubResource("RectangleShape_ground")
 position = Vector2(0, 309)
 
 [node name="Visual" type="Polygon2D" parent="StartingBuilding" unique_id=1215256032]
+color = Color(0.49847698, 0.37880498, 0.44915748, 1)
 polygon = PackedVector2Array(0, 0, 420, 0, 420, 260, 0, 260)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartingBuilding" unique_id=774470004]
@@ -62,6 +64,7 @@ shape = SubResource("RectangleShape_building_a")
 position = Vector2(650, 388)
 
 [node name="Visual" type="Polygon2D" parent="BuildingTwo" unique_id=1521914218]
+color = Color(0.3227448, 0.4099707, 0.61605483, 1)
 polygon = PackedVector2Array(0, 0, 300, 0, 300, 180, 0, 180)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingTwo" unique_id=1535392231]
@@ -72,6 +75,7 @@ shape = SubResource("RectangleShape_building_b")
 position = Vector2(950, 248)
 
 [node name="Visual" type="Polygon2D" parent="BuildingThree" unique_id=1507439961]
+color = Color(0.4856602, 0.41958183, 0.2809997, 1)
 polygon = PackedVector2Array(0, 0, 260, 0, 260, 320, 0, 320)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingThree" unique_id=816111953]
@@ -82,7 +86,7 @@ shape = SubResource("RectangleShape_building_c")
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
 position = Vector2(520, 500)
-stats = SubResource("Resource_lbhrr")
+stats = SubResource("Resource_iywne")
 
-[node name="RunManager" type="Node" parent="."]
+[node name="RunManager" type="Node" parent="." unique_id=701323077]
 script = ExtResource("5_run_manager")
