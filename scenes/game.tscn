@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
 [ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
 [ext_resource type="Script" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
+[ext_resource type="Script" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
 
 [sub_resource type="Gradient" id="Gradient_background"]
 colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
@@ -148,3 +149,30 @@ offset_top = 150.0
 offset_right = 275.0
 offset_bottom = 190.0
 text = "Restart Run"
+
+
+[node name="RunHUD" type="CanvasLayer" parent="."]
+layer = 10
+script = ExtResource("7_run_hud")
+
+[node name="MarginContainer" type="MarginContainer" parent="RunHUD"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 240.0
+offset_bottom = 124.0
+
+[node name="Panel" type="Panel" parent="RunHUD/MarginContainer"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="RunHUD/MarginContainer/Panel"]
+layout_mode = 2
+
+[node name="TimerLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox"]
+layout_mode = 2
+text = "Time: 60"
+horizontal_alignment = 1
+
+[node name="FoodLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox"]
+layout_mode = 2
+text = "Food: 0"
+horizontal_alignment = 1
