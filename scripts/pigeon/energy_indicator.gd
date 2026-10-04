@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 	if pigeon == null or pigeon.stats == null:
 		return
 
-	energy_ratio = clampf(pigeon.current_energy / pigeon.stats.max_energy, 0.0, 1.0)
+	energy_ratio = clampf(pigeon.current_energy / pigeon.get_max_energy(), 0.0, 1.0)
 
 	if energy_ratio <= 0.1 and red_tween == null and energy_color != LOW_ENERGY_COLOR:
 		red_tween = create_tween()
