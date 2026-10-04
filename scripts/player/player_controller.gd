@@ -9,14 +9,14 @@ func _process(_delta: float) -> void:
 		return
 
 	var actor := state_machine.actor
-	var horizontal := Input.get_axis("ui_left", "ui_right")
-	var vertical := Input.get_axis("ui_up", "ui_down")
+	var horizontal := Input.get_axis("move_left", "move_right")
+	var vertical := Input.get_axis("move_up", "move_down")
 	var pigeon := actor as Pigeon
 
 	actor.move_direction = Vector2(horizontal, vertical)
 
 	var is_flying := state_machine.current_state is FlightState
-	var wants_to_start_flying := Input.is_action_pressed("ui_up")
+	var wants_to_start_flying := Input.is_action_pressed("move_up")
 
 	if pigeon and pigeon.current_energy > 0.0 and (wants_to_start_flying or is_flying):
 		state_machine.transition(StateMachine.Intent.FLY)
