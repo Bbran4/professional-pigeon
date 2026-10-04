@@ -11,6 +11,7 @@ const LOW_ENERGY_COLOR := Color(1.0, 0.15, 0.12, 1.0)
 
 var energy_ratio: float = 1.0
 var energy_color: Color = ENERGY_COLOR
+var max_energy: int = 1
 var red_tween: Tween
 
 
@@ -25,6 +26,7 @@ func _process(_delta: float) -> void:
 	if pigeon == null or pigeon.stats == null:
 		return
 
+	max_energy = maxi(1, int(ceilf(pigeon.get_max_energy())))
 	energy_ratio = clampf(pigeon.current_energy / pigeon.get_max_energy(), 0.0, 1.0)
 
 	if energy_ratio <= 0.1 and red_tween == null and energy_color != LOW_ENERGY_COLOR:
@@ -49,23 +51,13 @@ func _on_red_tween_finished() -> void:
 
 
 func _draw() -> void:
-	var max_energy := maxi(1, int(ceilf(energy_ratio * pigeon_max_energy())))
 	var current_energy := energy_ratio * float(max_energy)
 
 	for i in range(max_energy):
 		var x := (float(i) - float(max_energy - 1) * 0.5) * dot_spacing
 		var dot_position := Vector2(x, 0.0)
-		var filled := float(i) < current_energy
 
-		if filled:
+		if float(i) < current_energy:
 			draw_circle(dot_position, dot_radius, energy_color)
 		else:
 			draw_circle(dot_position, dot_radius, BACKGROUND_COLOR)
-
-
-func pigeon_max_energy() -> float:
-	var pigeon := get_parent() as Pigeon
-	if pigeon == null:
-		return 1.0
-
-	return maxf(1.0, pigeon.get_max_energy())
