@@ -26,9 +26,8 @@ script = ExtResource("6_stats")
 resource_local_to_scene = true
 walk_speed = 100.0
 flight_speed = 200.0
-max_energy = 20.0
+max_energy = 3.0
 energy_regeneration = 10.0
-flight_energy_drain = 10.0
 can_dive = false
 can_peck = true
 
