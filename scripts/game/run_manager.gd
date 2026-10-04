@@ -67,9 +67,11 @@ func end_run(reason: String) -> void:
 	player.set_run_active(false)
 
 	var food_collected := player.inventory.food
+	ProgressionManager.add_food(food_collected)
+	player.inventory.food = 0
 
 	reason_label.text = get_end_reason_text(reason)
-	food_label.text = "Food collected: %d" % food_collected
+	food_label.text = "Food earned: %d  |  Total Food: %d" % [food_collected, ProgressionManager.food]
 	result_panel.show()
 
 	run_ended.emit(reason, food_collected)
