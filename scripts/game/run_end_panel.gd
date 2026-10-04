@@ -2,7 +2,7 @@ extends Control
 
 @onready var restart_button: Button = $Panel/RestartButton
 @onready var upgrades_button: Button = $Panel/UpgradesButton
-@onready var upgrade_screen: UpgradeScreen = $"../UpgradeScreen"
+@onready var upgrade_screen: UpgradeScreen = $"../../UpgradeScreenLayer/UpgradeScreen"
 
 
 func _ready() -> void:
