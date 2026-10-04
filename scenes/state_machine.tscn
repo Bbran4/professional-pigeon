@@ -12,6 +12,8 @@ initial_state = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="State_Machine" unique_id=1590966605]
 script = ExtResource("2_6rk0d")
+intent = 0
 
 [node name="WalkState" type="Node" parent="State_Machine" unique_id=11429018]
 script = ExtResource("3_7f3de")
+intent = 1
