@@ -8,6 +8,6 @@ func _ready() -> void:
 
 
 func _on_restart_pressed() -> void:
-	var run_manager := get_parent().get_node("RunManager") as RunManager
+	var run_manager := get_tree().current_scene.get_node("RunManager") as RunManager
 	if run_manager:
 		run_manager.restart_run()
