@@ -17,8 +17,12 @@ func get_move_speed() -> float:
 	return stats.walk_speed
 
 
+func flap() -> void:
+	velocity.y = -stats.flap_strength
+
+
 func fly() -> void:
-	velocity = move_direction * stats.flight_speed
+	velocity.x = move_direction.x * stats.flight_speed
 	move_and_slide()
 
 
@@ -27,6 +31,9 @@ func drain_energy(amount: float) -> void:
 
 
 func regenerate_energy(delta: float) -> void:
+	if not is_on_floor():
+		return
+
 	current_energy = minf(
 		current_energy + stats.energy_regeneration * delta,
 		stats.max_energy
