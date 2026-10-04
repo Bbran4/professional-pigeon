@@ -3,7 +3,37 @@ class_name Player
 
 signal bread_collected
 
+var nearby_bread: Bread
+
 @onready var inventory: PlayerInventory = $Inventory
+
+
+func _process(_delta: float) -> void:
+	update_interaction_prompt()
+
+
+func update_interaction_prompt() -> void:
+	var detector := get_node_or_null("BreadDetector") as Area2D
+	var closest_bread: Bread
+	var closest_distance := INF
+
+	if detector:
+		for area: Area2D in detector.get_overlapping_areas():
+			var bread := area as Bread
+			if bread == null:
+				continue
+
+			var distance := global_position.distance_squared_to(bread.global_position)
+			if distance < closest_distance:
+				closest_distance = distance
+				closest_bread = bread
+
+	if nearby_bread and is_instance_valid(nearby_bread):
+		nearby_bread.set_prompt_visible(false)
+
+	nearby_bread = closest_bread
+	if nearby_bread:
+		nearby_bread.set_prompt_visible(true)
 
 
 func collect_bread() -> bool:
