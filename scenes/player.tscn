@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/state_machine/states/falling_state.gd" id="11_falling"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_eat-Sheet.png" id="8_eat"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_walking-Sheet.png" id="9_walk"]
+[ext_resource type="Script" path="res://scripts/player/player_inventory.gd" id="12_inventory"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_fiy-Sheet.png" id="10_fly"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
@@ -162,6 +163,9 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_player")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("12_inventory")
 
 [node name="BreadDetector" type="Area2D" parent="."]
 monitoring = true
