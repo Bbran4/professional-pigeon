@@ -1,2 +1,2 @@
-extends CharacterBody2D
+extends Actor
 class_name Pigeon
