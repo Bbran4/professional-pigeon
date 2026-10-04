@@ -22,10 +22,9 @@ func physics_update(delta: float) -> void:
 	if pigeon == null:
 		return
 
-	if pigeon.current_energy <= 0.0:
-		transition(StateMachine.Intent.FALL)
-		return
-
+	# Energy limits how many flaps the pigeon can perform, not whether it can
+	# continue the current flight. The final flap should behave exactly like
+	# every other flap, then gravity brings the pigeon back down naturally.
 	pigeon.apply_gravity(delta)
 	pigeon.velocity.x = pigeon.move_direction.x * pigeon.get_flight_speed()
 	pigeon.move_and_slide()
