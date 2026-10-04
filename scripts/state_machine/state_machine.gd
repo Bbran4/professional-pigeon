@@ -10,13 +10,20 @@ enum Intent {
 
 @export var initial_state: State
 
+var actor: Actor
 var current_state: State
 var previous_state: State
 
 
 func _ready() -> void:
+	actor = get_parent() as Actor
+
+	if actor == null:
+		push_error("StateMachine must be a child of an Actor.")
+		return
+
 	for child: Node in get_children():
-		var state : Node = child as State
+		var state := child as State
 		if state == null:
 			continue
 		state.state_machine = self
