@@ -5,12 +5,29 @@ class_name Pigeon
 
 var current_energy: float
 
+@onready var energy_indicator: EnergyIndicator = $EnergyIndicator
+
 
 func _ready() -> void:
 	if stats == null:
 		stats = PigeonStats.new()
 
 	current_energy = stats.max_energy
+
+
+func show_energy_indicator() -> void:
+	if energy_indicator == null:
+		return
+
+	energy_indicator.reset_color()
+	energy_indicator.visible = true
+
+
+func hide_energy_indicator() -> void:
+	if energy_indicator == null:
+		return
+
+	energy_indicator.visible = false
 
 
 func get_move_speed() -> float:
