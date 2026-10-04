@@ -3,13 +3,17 @@ class_name SpawnManager
 
 @export var bread_scene: PackedScene
 @export var bread_count: int = 2
-@export var ground_y: float = 568.0
-@export var bread_half_height: float = 9.0
-@export var ground_spawn_regions: Array[Rect2] = [
-	Rect2(420, 528, 230, 40),
-	Rect2(1210, 528, 190, 40)
+
+## Bread can only spawn at these predefined ground positions.
+## Each run randomly selects from this list.
+@export var bread_spawn_points: Array[Vector2] = [
+	Vector2(460, 559),
+	Vector2(540, 559),
+	Vector2(620, 559),
+	Vector2(1260, 559),
+	Vector2(1330, 559),
+	Vector2(1380, 559)
 ]
-@export var minimum_bread_distance: float = 64.0
 
 
 func _ready() -> void:
@@ -21,9 +25,9 @@ func spawn_bread() -> void:
 		push_error("SpawnManager requires a Bread scene.")
 		return
 
-	var spawn_positions := get_random_ground_positions()
+	var spawn_points := get_random_spawn_points()
 
-	for spawn_position in spawn_positions:
+	for spawn_position in spawn_points:
 		var bread := bread_scene.instantiate() as Node2D
 
 		if bread == null:
@@ -33,36 +37,18 @@ func spawn_bread() -> void:
 		add_child(bread)
 
 
-func get_random_ground_positions() -> Array[Vector2]:
-	var positions: Array[Vector2] = []
+func get_random_spawn_points() -> Array[Vector2]:
+	var selected_points: Array[Vector2] = []
 
-	if bread_count <= 0 or ground_spawn_regions.is_empty():
-		return positions
+	if bread_count <= 0 or bread_spawn_points.is_empty():
+		return selected_points
 
-	var random := RandomNumberGenerator.new()
-	random.randomize()
+	var available_points := bread_spawn_points.duplicate()
+	available_points.shuffle()
 
-	var max_attempts : int = max(bread_count * 20, 20)
+	var amount_to_spawn := mini(bread_count, available_points.size())
 
-	for _attempt in range(max_attempts):
-		if positions.size() >= bread_count:
-			break
+	for index in range(amount_to_spawn):
+		selected_points.append(available_points[index])
 
-		var region := ground_spawn_regions[random.randi_range(0, ground_spawn_regions.size() - 1)]
-
-		var x := random.randf_range(region.position.x, region.end.x)
-		var y := ground_y - bread_half_height
-		var candidate := Vector2(x, y)
-
-		if is_spawn_position_valid(candidate, positions):
-			positions.append(candidate)
-
-	return positions
-
-
-func is_spawn_position_valid(candidate: Vector2, existing_positions: Array[Vector2]) -> bool:
-	for existing_position in existing_positions:
-		if candidate.distance_to(existing_position) < minimum_bread_distance:
-			return false
-
-	return true
+	return selected_points
