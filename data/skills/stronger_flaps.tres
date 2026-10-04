@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"stronger_flaps"
+display_name = "Stronger Flaps"
+description = "Increase the strength of each flap."
+category = 1
+food_cost = 10
+prerequisites = Array[StringName]([&"faster_flight"])
+effect_id = &"flap_strength_add"
+effect_value = 25.0
+max_level = 1
