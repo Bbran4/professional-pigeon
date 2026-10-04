@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene load_steps=32 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2_controller"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/state_machine/states/idle_state.gd" id="4_idle"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/walk_state.gd" id="5_walk"]
 [ext_resource type="Script" path="res://scripts/pigeon/pigeon_stats.gd" id="6_stats"]
+[ext_resource type="Script" path="res://scripts/pigeon/energy_indicator.gd" id="13_energy"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/flight_state.gd" id="7_flight"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/falling_state.gd" id="11_falling"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_eat-Sheet.png" id="8_eat"]
@@ -163,6 +164,9 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_player")
+
+[node name="EnergyIndicator" type="Node2D" parent="."]
+script = ExtResource("13_energy")
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("12_inventory")
