@@ -10,7 +10,7 @@ class_name FollowCamera
 func _ready() -> void:
 	position_smoothing_enabled = false
 	var half_view := get_viewport_rect().size / zoom * 0.5
-	var player_position := get_parent().global_position
+	var player_position: Vector2 = get_parent().global_position
 	global_position = Vector2(
 		clampf(player_position.x, world_left + half_view.x, world_right - half_view.x),
 		minf(player_position.y, ground_top - half_view.y)
@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 	var viewport_size := get_viewport_rect().size / zoom
 	var half_width := viewport_size.x * 0.5
 	var half_height := viewport_size.y * 0.5
-	var player_position := get_parent().global_position
+	var player_position: Vector2 = get_parent().global_position
 
 	var target_x := clampf(player_position.x, world_left + half_width, world_right - half_width)
 	var target_y := minf(player_position.y, ground_top - half_height)
