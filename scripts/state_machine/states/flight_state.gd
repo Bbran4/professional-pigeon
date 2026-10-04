@@ -17,8 +17,11 @@ func physics_update(delta: float) -> void:
 		return
 
 	if pigeon.current_energy <= 0.0:
-		transition(StateMachine.Intent.IDLE)
+		transition(StateMachine.Intent.FALL)
 		return
 
 	pigeon.fly()
 	pigeon.drain_energy(pigeon.stats.flight_energy_drain * delta)
+
+	if pigeon.is_on_floor() and pigeon.move_direction.y > 0.0:
+		transition(StateMachine.Intent.IDLE)
