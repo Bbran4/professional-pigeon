@@ -11,7 +11,7 @@ func _ready() -> void:
 	player.position = Vector2(520, 500)
 
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_building_collision($StartingBuilding)
 	update_building_collision($BuildingTwo)
 	update_building_collision($BuildingThree)
@@ -23,9 +23,8 @@ func update_building_collision(building: StaticBody2D) -> void:
 		return
 
 	var building_top := building.global_position.y
-	var player_bottom := player.global_position.y + 16.0
+	var player_y := player.global_position.y
 
-	# Buildings are only solid from their roof upward.
-	# This lets the pigeon walk through the building from the street,
-	# then land on the roof when flying down onto it.
-	collision_shape.disabled = player_bottom < building_top
+	# Above the building's highest point: the roof is solid.
+	# Below the building's highest point: the pigeon can walk through it.
+	collision_shape.disabled = player_y > building_top
