@@ -1,8 +1,9 @@
 extends State
 class_name WalkState
 
-func enter() -> void:
+func enter(previous_state: State) -> void:
 	print("Entered State: Walk")
 
+
 func exit() -> void:
-	print ("Exited State: Walk")
+	print("Exited State: Walk")
