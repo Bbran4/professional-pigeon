@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"more_energy_per_second"
+display_name = "More Energy per Second"
+description = "Recover more energy each regeneration tick."
+category = 1
+food_cost = 15
+effect_id = &"energy_regen_amount_add"
+effect_value = 1.0
+max_level = 3
