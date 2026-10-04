@@ -6,7 +6,9 @@ class_name SkillTree
 signal skill_purchased(skill_id: StringName, new_level: int)
 signal purchase_rejected(skill_id: StringName, reason: String)
 
-@export var skills: Array[SkillData] = []
+@export var catalog: SkillCatalog
+
+var skills: Array[SkillData] = []
 @export var inventory: PlayerInventory
 
 var skill_levels: Dictionary = {}
@@ -14,6 +16,8 @@ var skills_by_id: Dictionary = {}
 
 
 func _ready() -> void:
+	if catalog != null:
+		skills = catalog.skills
 	_rebuild_lookup()
 
 
