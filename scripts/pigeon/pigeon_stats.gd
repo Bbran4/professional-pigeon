@@ -8,7 +8,8 @@ class_name PigeonStats
 
 ## Energy
 @export var max_energy: float = 3.0
-@export var energy_regeneration: float = 10.0
+@export var energy_regeneration_interval: float = 1.0
+@export var energy_regeneration_amount: float = 1.0
 
 ## Abilities
 @export var can_dive: bool = false
