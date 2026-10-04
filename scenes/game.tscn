@@ -16,11 +16,11 @@ colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture_background"]
 gradient = SubResource("Gradient_background")
-width = 1152
+width = 6000
 height = 648
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
-size = Vector2(1400, 80)
+size = Vector2(6000, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_roof_a"]
 size = Vector2(420, 10)
@@ -86,10 +86,10 @@ position = Vector2(0, 568)
 
 [node name="Visual" type="Polygon2D" parent="Ground" unique_id=1604817760]
 color = Color(0.48000407, 0.41780668, 0.32629156, 1)
-polygon = PackedVector2Array(0, 0, 1400, 0, 1400, 80, 0, 80)
+polygon = PackedVector2Array(0, 0, 6000, 0, 6000, 80, 0, 80)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=1980253687]
-position = Vector2(700, 40)
+position = Vector2(3000, 40)
 shape = SubResource("RectangleShape_ground")
 
 [node name="StartingBuilding" type="StaticBody2D" parent="." unique_id=313037322]
