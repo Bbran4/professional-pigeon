@@ -10,9 +10,9 @@ var remaining_bread: int
 var active: bool = true
 
 @onready var player: Player = $"../Player"
-@onready var result_panel: Control = $"../RunEndPanel"
-@onready var food_label: Label = $"../RunEndPanel/Panel/FoodLabel"
-@onready var reason_label: Label = $"../RunEndPanel/Panel/ReasonLabel"
+@onready var result_panel: Control = $"../RunEndLayer/RunEndPanel"
+@onready var food_label: Label = $"../RunEndLayer/RunEndPanel/Panel/FoodLabel"
+@onready var reason_label: Label = $"../RunEndLayer/RunEndPanel/Panel/ReasonLabel"
 
 
 func _ready() -> void:
