@@ -1,30 +1,44 @@
-[gd_scene format=3 uid="uid://dmjuleyefg0wl"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Script" uid="uid://berq6bwtj1pc2" path="res://scripts/player/player.gd" id="1_player"]
-[ext_resource type="Script" uid="uid://daj8778k8wluk" path="res://scripts/player/player_controller.gd" id="2_controller"]
-[ext_resource type="Script" uid="uid://cb6keylt51upi" path="res://scripts/state_machine/state_machine.gd" id="3_machine"]
-[ext_resource type="Script" uid="uid://cinaiqir1momd" path="res://scripts/state_machine/states/idle_state.gd" id="4_idle"]
-[ext_resource type="Script" uid="uid://clk6jfwbj6b7u" path="res://scripts/state_machine/states/walk_state.gd" id="5_walk"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2_controller"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="3_machine"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/idle_state.gd" id="4_idle"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/walk_state.gd" id="5_walk"]
+[ext_resource type="Script" path="res://scripts/pigeon/pigeon_stats.gd" id="6_stats"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
 
-[node name="Player" type="CharacterBody2D" unique_id=564848017]
-script = ExtResource("1_player")
+[sub_resource type="Resource" id="PigeonStats_player"]
+script = ExtResource("6_stats")
+resource_local_to_scene = true
+walk_speed = 100.0
+flight_speed = 200.0
+max_energy = 100.0
+energy_regeneration = 10.0
+flight_energy_drain = 10.0
+can_dive = false
+can_peck = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1163247763]
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_player")
+stats = SubResource("PigeonStats_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_player")
 
-[node name="StateMachine" type="Node" parent="." unique_id=1645009581 node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_machine")
 initial_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="StateMachine" unique_id=577671195]
+[node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("4_idle")
+intent = 0
 
-[node name="WalkState" type="Node" parent="StateMachine" unique_id=1848492467]
+[node name="WalkState" type="Node" parent="StateMachine"]
 script = ExtResource("5_walk")
 intent = 1
 
-[node name="PlayerController" type="Node" parent="." unique_id=1132846454 node_paths=PackedStringArray("state_machine")]
+[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("2_controller")
 state_machine = NodePath("../StateMachine")
