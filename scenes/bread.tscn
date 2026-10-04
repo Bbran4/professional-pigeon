@@ -6,12 +6,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape_bread"]
 size = Vector2(28, 18)
 
-[node name="Bread" type="Area2D"]
+[node name="Bread" type="Area2D" groups=["bread"]]
 script = ExtResource("1_bread_script")
 resource = ExtResource("2_bread_resource")
 
 [node name="Visual" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(-14, -5, -9, -9, 4, -9, 14, -3, 12, 6, 4, 9, -9, 8, -14, 3)
+color = Color(0.2, 0.8, 0.2, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape_bread")
