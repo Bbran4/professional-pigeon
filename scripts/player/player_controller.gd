@@ -13,6 +13,7 @@ func _process(_delta: float) -> void:
 	var pigeon := actor as Pigeon
 
 	actor.move_direction = Vector2(horizontal, 0.0)
+	actor.update_facing()
 
 	if pigeon and Input.is_action_just_pressed("move_up") and pigeon.current_energy > 0.0:
 		state_machine.transition(StateMachine.Intent.FLY)
