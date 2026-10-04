@@ -1,14 +1,12 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://lk5px5k1yfp1"]
 
-[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
 script = ExtResource("1_skill")
 id = &"better_scavenging"
 display_name = "Better Scavenging"
 description = "Find more Food during scavenging activities."
-category = 0
 food_cost = 5
 effect_id = &"food_yield_multiplier"
 effect_value = 0.1
-max_level = 1

@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="3_lnu2h"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
 [ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
-[ext_resource type="Script" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
-[ext_resource type="Script" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
-[ext_resource type="Script" path="res://scripts/progression/upgrade_screen.gd" id="8_upgrade"]
+[ext_resource type="Script" uid="uid://dnrb7pknv1sf" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
+[ext_resource type="Script" uid="uid://c013n7hqyxt0k" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
+[ext_resource type="Script" uid="uid://b32pmjtjdgu6" path="res://scripts/progression/upgrade_screen.gd" id="8_upgrade"]
 
 [sub_resource type="Gradient" id="Gradient_background"]
 colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
@@ -29,8 +29,15 @@ size = Vector2(300, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape_roof_c"]
 size = Vector2(260, 10)
 
+[sub_resource type="Resource" id="Resource_gee14"]
+resource_local_to_scene = true
+script = ExtResource("3_lnu2h")
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_hud_panel"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
 bg_color = Color(0.055, 0.075, 0.11, 0.92)
 border_width_left = 2
 border_width_top = 2
@@ -41,36 +48,28 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-content_margin_left = 14.0
-content_margin_top = 10.0
-content_margin_right = 14.0
-content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_hud_timer"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
 bg_color = Color(0.12, 0.18, 0.27, 0.95)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_hud_food"]
 content_margin_left = 8.0
 content_margin_top = 4.0
 content_margin_right = 8.0
 content_margin_bottom = 4.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_hud_food"]
 bg_color = Color(0.12, 0.2, 0.12, 0.95)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-
-[sub_resource type="Resource" id="Resource_iywne"]
-resource_local_to_scene = true
-script = ExtResource("3_lnu2h")
 
 [node name="Game" type="Node2D" unique_id=10413488]
 script = ExtResource("2_game")
@@ -130,17 +129,16 @@ one_way_collision = true
 [node name="SpawnManager" parent="." unique_id=1444331125 instance=ExtResource("4_spawn")]
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
-position = Vector2(520, 500)
-stats = SubResource("Resource_iywne")
+position = Vector2(270, 290)
+stats = SubResource("Resource_gee14")
 
 [node name="RunManager" type="Node" parent="." unique_id=701323077]
 script = ExtResource("5_run_manager")
 
-
-[node name="RunEndLayer" type="CanvasLayer" parent="."]
+[node name="RunEndLayer" type="CanvasLayer" parent="." unique_id=1543046195]
 layer = 20
 
-[node name="RunEndPanel" type="Control" parent="RunEndLayer"]
+[node name="RunEndPanel" type="Control" parent="RunEndLayer" unique_id=1390672750]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,15 +148,14 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_run_end_panel")
 
-[node name="Panel" type="Panel" parent="RunEndLayer/RunEndPanel"]
+[node name="Panel" type="Panel" parent="RunEndLayer/RunEndPanel" unique_id=1179473201]
 layout_mode = 0
 offset_left = 376.0
 offset_top = 190.0
 offset_right = 776.0
 offset_bottom = 450.0
-mouse_filter = 0
 
-[node name="TitleLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel"]
+[node name="TitleLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel" unique_id=882159249]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 20.0
@@ -167,7 +164,7 @@ offset_bottom = 54.0
 text = "Run Complete!"
 horizontal_alignment = 1
 
-[node name="ReasonLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel"]
+[node name="ReasonLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel" unique_id=665034546]
 layout_mode = 0
 offset_left = 50.0
 offset_top = 60.0
@@ -176,7 +173,7 @@ offset_bottom = 90.0
 text = "Time's up!"
 horizontal_alignment = 1
 
-[node name="FoodLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel"]
+[node name="FoodLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel" unique_id=449456455]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 92.0
@@ -185,7 +182,7 @@ offset_bottom = 122.0
 text = "Food earned: 0  |  Total Food: 0"
 horizontal_alignment = 1
 
-[node name="UpgradesButton" type="Button" parent="RunEndLayer/RunEndPanel/Panel"]
+[node name="UpgradesButton" type="Button" parent="RunEndLayer/RunEndPanel/Panel" unique_id=1217410187]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 135.0
@@ -193,7 +190,7 @@ offset_right = 325.0
 offset_bottom = 180.0
 text = "Go to Upgrades"
 
-[node name="RestartButton" type="Button" parent="RunEndLayer/RunEndPanel/Panel"]
+[node name="RestartButton" type="Button" parent="RunEndLayer/RunEndPanel/Panel" unique_id=107655077]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 195.0
@@ -201,26 +198,25 @@ offset_right = 325.0
 offset_bottom = 240.0
 text = "Restart Run"
 
-
-[node name="RunHUD" type="CanvasLayer" parent="."]
+[node name="RunHUD" type="CanvasLayer" parent="." unique_id=244068897]
 layer = 10
 script = ExtResource("7_run_hud")
 
-[node name="MarginContainer" type="MarginContainer" parent="RunHUD"]
+[node name="MarginContainer" type="MarginContainer" parent="RunHUD" unique_id=1305050688]
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 250.0
 offset_bottom = 138.0
 
-[node name="Panel" type="Panel" parent="RunHUD/MarginContainer"]
+[node name="Panel" type="Panel" parent="RunHUD/MarginContainer" unique_id=1556345713]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_hud_panel")
 
-[node name="VBox" type="VBoxContainer" parent="RunHUD/MarginContainer/Panel"]
-layout_mode = 2
+[node name="VBox" type="VBoxContainer" parent="RunHUD/MarginContainer/Panel" unique_id=742106707]
+layout_mode = 0
 theme_override_constants/separation = 8
 
-[node name="TimerLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox"]
+[node name="TimerLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox" unique_id=102497807]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
@@ -231,7 +227,7 @@ theme_override_styles/normal = SubResource("StyleBox_hud_timer")
 text = "Time: 60"
 horizontal_alignment = 1
 
-[node name="FoodLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox"]
+[node name="FoodLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox" unique_id=63277825]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 1, 0.82, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
@@ -242,11 +238,11 @@ theme_override_styles/normal = SubResource("StyleBox_hud_food")
 text = "Food: 0"
 horizontal_alignment = 1
 
-
-[node name="UpgradeScreenLayer" type="CanvasLayer" parent="."]
+[node name="UpgradeScreenLayer" type="CanvasLayer" parent="." unique_id=1274348906]
 layer = 30
 
-[node name="UpgradeScreen" type="Control" parent="UpgradeScreenLayer"]
+[node name="UpgradeScreen" type="Control" parent="UpgradeScreenLayer" unique_id=1413036099]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -254,18 +250,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-visible = false
 script = ExtResource("8_upgrade")
 
-[node name="Panel" type="Panel" parent="UpgradeScreenLayer/UpgradeScreen"]
+[node name="Panel" type="Panel" parent="UpgradeScreenLayer/UpgradeScreen" unique_id=621872645]
 layout_mode = 0
 offset_left = 276.0
 offset_top = 90.0
 offset_right = 876.0
 offset_bottom = 620.0
-mouse_filter = 0
 
-[node name="VBox" type="VBoxContainer" parent="UpgradeScreenLayer/UpgradeScreen/Panel"]
+[node name="VBox" type="VBoxContainer" parent="UpgradeScreenLayer/UpgradeScreen/Panel" unique_id=78767579]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 28.0
@@ -273,57 +267,57 @@ offset_right = 560.0
 offset_bottom = 580.0
 theme_override_constants/separation = 10
 
-[node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=1754718422]
 layout_mode = 2
 text = "Pigeon Upgrades"
 horizontal_alignment = 1
 
-[node name="FoodLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="FoodLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=1692303154]
 layout_mode = 2
 text = "Food: 0"
 horizontal_alignment = 1
 
-[node name="StatusLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="StatusLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=749515185]
 layout_mode = 2
 text = "Spend Food to improve your pigeon."
 horizontal_alignment = 1
 
-[node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=707127653]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Faster Flight"
 
-[node name="StrongerFlapsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="StrongerFlapsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=679491091]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Stronger Flaps"
 
-[node name="EnergyReserveButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="EnergyReserveButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=23390834]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Bigger Energy Reserve"
 
-[node name="FasterEnergyRegenerationButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="FasterEnergyRegenerationButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=396159762]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Faster Energy Regeneration"
 
-[node name="MoreEnergyPerSecondButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="MoreEnergyPerSecondButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=1023738497]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "More Energy Per Second"
 
-[node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=103241903]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "More Bread"
 
-[node name="BreadValueButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="BreadValueButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=945480059]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "More Valuable Bread"
 
-[node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+[node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox" unique_id=1702404328]
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "Back to Run Results"

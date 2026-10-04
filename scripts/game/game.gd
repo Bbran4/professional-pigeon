@@ -8,4 +8,4 @@ func _ready() -> void:
 	$StartingBuilding.position = Vector2(0, 309)
 	$BuildingTwo.position = Vector2(650, 388)
 	$BuildingThree.position = Vector2(950, 248)
-	player.position = Vector2(520, 500)
+	player.position = Vector2(270,290)

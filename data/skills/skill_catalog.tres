@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCatalog" load_steps=18 format=3]
+[gd_resource type="Resource" script_class="SkillCatalog" format=3 uid="uid://dsjv870im25ba"]
 
-[ext_resource type="Script" path="res://scripts/progression/skill_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" uid="uid://b3ae4o6yy0p1x" path="res://scripts/progression/skill_catalog.gd" id="1_catalog"]
 [ext_resource type="Resource" path="res://data/skills/better_scavenging.tres" id="2"]
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="2_skill"]
 [ext_resource type="Resource" path="res://data/skills/full_pockets.tres" id="3"]
 [ext_resource type="Resource" path="res://data/skills/food_finder.tres" id="4"]
 [ext_resource type="Resource" path="res://data/skills/faster_flight.tres" id="5"]
@@ -20,4 +21,4 @@
 
 [resource]
 script = ExtResource("1_catalog")
-skills = Array[ExtResource("2")]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7"), ExtResource("16"), ExtResource("17"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15")])
+skills = Array[ExtResource("2_skill")]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7"), ExtResource("16"), ExtResource("17"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15")])
