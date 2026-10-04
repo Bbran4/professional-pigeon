@@ -25,7 +25,8 @@ func spawn_bread() -> void:
 		push_error("SpawnManager requires a Bread scene.")
 		return
 
-	var spawn_points := get_random_spawn_points()
+	var amount_to_spawn := bread_count + get_additional_bread_spawns()
+	var spawn_points := get_random_spawn_points(amount_to_spawn)
 
 	for spawn_position in spawn_points:
 		var bread := bread_scene.instantiate() as Node2D
@@ -37,18 +38,22 @@ func spawn_bread() -> void:
 		add_child(bread)
 
 
-func get_random_spawn_points() -> Array[Vector2]:
+func get_random_spawn_points(amount: int) -> Array[Vector2]:
 	var selected_points: Array[Vector2] = []
 
-	if bread_count <= 0 or bread_spawn_points.is_empty():
+	if amount <= 0 or bread_spawn_points.is_empty():
 		return selected_points
 
 	var available_points := bread_spawn_points.duplicate()
 	available_points.shuffle()
 
-	var amount_to_spawn := mini(bread_count, available_points.size())
+	var amount_to_spawn := mini(amount, available_points.size())
 
 	for index in range(amount_to_spawn):
 		selected_points.append(available_points[index])
 
 	return selected_points
+
+
+func get_additional_bread_spawns() -> int:
+	return ProgressionManager.get_skill_level(&"bread_spawns")
