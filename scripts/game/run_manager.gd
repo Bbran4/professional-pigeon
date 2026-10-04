@@ -10,9 +10,13 @@ var remaining_bread: int
 var active: bool = true
 
 @onready var player: Player = $"../Player"
+@onready var result_panel: Control = $"../RunEndPanel"
+@onready var food_label: Label = $"../RunEndPanel/Panel/FoodLabel"
+@onready var reason_label: Label = $"../RunEndPanel/Panel/ReasonLabel"
 
 
 func _ready() -> void:
+	result_panel.hide()
 	call_deferred("start_run")
 
 
@@ -27,6 +31,8 @@ func _process(delta: float) -> void:
 
 
 func start_run() -> void:
+	active = true
+	result_panel.hide()
 	time_remaining = run_duration
 	remaining_bread = get_tree().get_nodes_in_group("bread").size()
 
@@ -34,7 +40,10 @@ func start_run() -> void:
 		push_error("RunManager requires a Player.")
 		return
 
-	player.bread_collected.connect(_on_bread_collected)
+	if not player.bread_collected.is_connected(_on_bread_collected):
+		player.bread_collected.connect(_on_bread_collected)
+
+	player.set_run_active(true)
 
 	if remaining_bread == 0:
 		end_run("all_bread_collected")
@@ -56,6 +65,24 @@ func end_run(reason: String) -> void:
 
 	active = false
 	player.set_run_active(false)
-	run_ended.emit(reason, player.inventory.food)
 
-	print("Run ended: ", reason, " | Food collected: ", player.inventory.food)
+	var food_collected := player.inventory.food
+
+	reason_label.text = get_end_reason_text(reason)
+	food_label.text = "Food collected: %d" % food_collected
+	result_panel.show()
+
+	run_ended.emit(reason, food_collected)
+
+	print("Run ended: ", reason, " | Food collected: ", food_collected)
+
+
+func restart_run() -> void:
+	get_tree().reload_current_scene()
+
+
+func get_end_reason_text(reason: String) -> String:
+	if reason == "all_bread_collected":
+		return "All bread collected!"
+
+	return "Time's up!"
