@@ -29,7 +29,6 @@ func physics_update(delta: float) -> void:
 	pigeon.apply_gravity(delta)
 	pigeon.velocity.x = pigeon.move_direction.x * pigeon.get_flight_speed()
 	pigeon.move_and_slide()
-	pigeon.drain_energy(pigeon.stats.flight_energy_drain * delta)
 
 	if pigeon.is_on_floor():
 		transition(StateMachine.Intent.IDLE)
