@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dmjuleyefg0wl" path="res://scenes/player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://c002t7r6xcr7f" path="res://scripts/game/game.gd" id="2_game"]
 [ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="3_lnu2h"]
+[ext_resource type="PackedScene" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
 
 [sub_resource type="Gradient" id="Gradient_background"]
 colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
@@ -75,6 +76,8 @@ polygon = PackedVector2Array(0, 0, 260, 0, 260, 320, 0, 320)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingThree" unique_id=816111953]
 position = Vector2(130, 160)
 shape = SubResource("RectangleShape_building_c")
+
+[node name="SpawnManager" parent="." instance=ExtResource("4_spawn")]
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
 position = Vector2(210, 285)
