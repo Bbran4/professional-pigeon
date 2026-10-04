@@ -10,5 +10,5 @@ func _process(_delta: float) -> void:
 	if run_manager == null:
 		return
 
-	timer_label.text = "Time: %02d" % ceili(run_manager.time_remaining)
-	food_label.text = "Food: %d" % run_manager.player.inventory.food
+	timer_label.text = "%02d" % ceili(run_manager.time_remaining)
+	food_label.text = "%d" % run_manager.player.inventory.food
