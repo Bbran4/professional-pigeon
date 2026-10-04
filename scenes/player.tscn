@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/state_machine/states/walk_state.gd" id="5_walk"]
 [ext_resource type="Script" path="res://scripts/pigeon/pigeon_stats.gd" id="6_stats"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/flight_state.gd" id="7_flight"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/falling_state.gd" id="11_falling"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_eat-Sheet.png" id="8_eat"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_walking-Sheet.png" id="9_walk"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_fiy-Sheet.png" id="10_fly"]
@@ -171,9 +172,13 @@ intent = 0
 script = ExtResource("5_walk")
 intent = 1
 
+[node name="FallingState" type="Node" parent="StateMachine"]
+script = ExtResource("11_falling")
+intent = 2
+
 [node name="FlightState" type="Node" parent="StateMachine"]
 script = ExtResource("7_flight")
-intent = 2
+intent = 3
 
 [node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("2_controller")
