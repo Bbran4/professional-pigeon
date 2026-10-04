@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3]
+[gd_scene load_steps=31 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2_controller"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_fiy-Sheet.png" id="10_fly"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bread_detector"]
+radius = 40.0
 
 [sub_resource type="Resource" id="PigeonStats_player"]
 script = ExtResource("6_stats")
@@ -159,6 +162,13 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_player")
+
+[node name="BreadDetector" type="Area2D" parent="."]
+monitoring = true
+monitorable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreadDetector"]
+shape = SubResource("CircleShape2D_bread_detector")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_machine")
