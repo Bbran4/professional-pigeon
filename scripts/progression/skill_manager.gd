@@ -1,7 +1,7 @@
 extends Control
 class_name SkillManager
 
-@export var skill_tree: SkillTree
+var skill_tree: SkillTree
 @export var skill_canvas: Control
 @export var zoom_step: float = 0.1
 @export var min_zoom: float = 0.5
@@ -13,17 +13,27 @@ var panning: bool = false
 var last_mouse_position: Vector2
 
 
+func setup(tree: SkillTree) -> void:
+	skill_tree = tree
+	_setup_skill_buttons()
+
+
 func _ready() -> void:
 	if skill_canvas == null:
 		push_error("SkillManager requires a SkillCanvas.")
 		return
 
-	_setup_skill_buttons()
 	ProgressionManager.food_changed.connect(_on_progression_changed)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 
+	if skill_tree != null:
+		_setup_skill_buttons()
+
 
 func _setup_skill_buttons() -> void:
+	if skill_canvas == null or skill_tree == null:
+		return
+
 	for child in skill_canvas.get_children():
 		var skill_button := child as SkillButton
 		if skill_button == null:
@@ -37,6 +47,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
+
 		if mouse_event.button_index == MOUSE_BUTTON_MIDDLE:
 			panning = mouse_event.pressed
 			last_mouse_position = mouse_event.position
