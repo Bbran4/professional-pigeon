@@ -1,0 +1,135 @@
+[gd_resource type="Resource" script_class="SkillCatalog" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="2_skill"]
+
+[sub_resource type="Resource" id="Skill_better_scavenging"]
+script = ExtResource("2_skill")
+id = &"better_scavenging"
+display_name = "Better Scavenging"
+description = "Find more Food during scavenging activities."
+category = 0
+food_cost = 5
+effect_id = &"food_yield_multiplier"
+effect_value = 0.1
+
+[sub_resource type="Resource" id="Skill_full_pockets"]
+script = ExtResource("2_skill")
+id = &"full_pockets"
+display_name = "Full Pockets"
+description = "Increase how much Food can be carried."
+category = 0
+food_cost = 10
+prerequisites = Array[StringName]([&"better_scavenging"])
+effect_id = &"food_capacity"
+effect_value = 5
+
+[sub_resource type="Resource" id="Skill_food_finder"]
+script = ExtResource("2_skill")
+id = &"food_finder"
+display_name = "Food Finder"
+description = "Improve the chance of discovering Food sources."
+category = 0
+food_cost = 15
+prerequisites = Array[StringName]([&"full_pockets"])
+effect_id = &"food_discovery_bonus"
+effect_value = 0.1
+
+[sub_resource type="Resource" id="Skill_faster_flight"]
+script = ExtResource("2_skill")
+id = &"faster_flight"
+display_name = "Faster Flight"
+description = "Increase flight speed."
+category = 1
+food_cost = 5
+effect_id = &"flight_speed_add"
+effect_value = 20.0
+
+[sub_resource type="Resource" id="Skill_stronger_flaps"]
+script = ExtResource("2_skill")
+id = &"stronger_flaps"
+display_name = "Stronger Flaps"
+description = "Increase the strength of each flap."
+category = 1
+food_cost = 10
+prerequisites = Array[StringName]([&"faster_flight"])
+effect_id = &"flap_strength_add"
+effect_value = 25.0
+
+[sub_resource type="Resource" id="Skill_energy_reserve"]
+script = ExtResource("2_skill")
+id = &"energy_reserve"
+display_name = "Bigger Energy Reserve"
+description = "Increase maximum flight energy."
+category = 1
+food_cost = 15
+prerequisites = Array[StringName]([&"stronger_flaps"])
+effect_id = &"max_energy_add"
+effect_value = 20.0
+
+[sub_resource type="Resource" id="Skill_dive"]
+script = ExtResource("2_skill")
+id = &"dive"
+display_name = "Dive"
+description = "Unlock the Dive ability."
+category = 2
+food_cost = 10
+effect_id = &"unlock_dive"
+effect_value = 1.0
+
+[sub_resource type="Resource" id="Skill_peck"]
+script = ExtResource("2_skill")
+id = &"peck"
+display_name = "Peck"
+description = "Unlock the Peck ability."
+category = 2
+food_cost = 10
+effect_id = &"unlock_peck"
+effect_value = 1.0
+
+[sub_resource type="Resource" id="Skill_rush_hour"]
+script = ExtResource("2_skill")
+id = &"rush_hour"
+display_name = "Rush Hour"
+description = "Increase Food production for a short boost."
+category = 3
+food_cost = 15
+prerequisites = Array[StringName]([&"better_scavenging"])
+effect_id = &"temporary_food_rate"
+effect_value = 2.0
+
+[sub_resource type="Resource" id="Skill_double_crumbs"]
+script = ExtResource("2_skill")
+id = &"double_crumbs"
+display_name = "Double Crumbs"
+description = "Give Food collection a chance to yield an extra crumb."
+category = 3
+food_cost = 20
+prerequisites = Array[StringName]([&"food_finder"])
+effect_id = &"bonus_food_chance"
+effect_value = 0.25
+
+[sub_resource type="Resource" id="Skill_first_recruit"]
+script = ExtResource("2_skill")
+id = &"first_recruit"
+display_name = "First Recruit"
+description = "Unlock the ability to recruit your first worker pigeon."
+category = 4
+food_cost = 10
+effect_id = &"unlock_recruitment"
+effect_value = 1.0
+
+[sub_resource type="Resource" id="Skill_larger_flock"]
+script = ExtResource("2_skill")
+id = &"larger_flock"
+display_name = "Larger Flock"
+description = "Increase the number of pigeons you can recruit."
+category = 4
+food_cost = 20
+prerequisites = Array[StringName]([&"first_recruit"])
+effect_id = &"pigeon_capacity_add"
+effect_value = 1.0
+
+[resource]
+script = ExtResource("1_catalog")
+skills = Array[ExtResource("2_skill")]([SubResource("Skill_better_scavenging"), SubResource("Skill_full_pockets"), SubResource("Skill_food_finder"), SubResource("Skill_faster_flight"), SubResource("Skill_stronger_flaps"), SubResource("Skill_energy_reserve"), SubResource("Skill_dive"), SubResource("Skill_peck"), SubResource("Skill_rush_hour"), SubResource("Skill_double_crumbs"), SubResource("Skill_first_recruit"), SubResource("Skill_larger_flock")])
