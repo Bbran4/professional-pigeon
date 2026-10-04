@@ -5,6 +5,9 @@ class_name EnergyIndicator
 @export var dot_spacing: float = 11.0
 @export var offset: Vector2 = Vector2(0.0, -28.0)
 
+const DOTS_PER_ROW := 5
+const ROW_SPACING := 11.0
+
 const BACKGROUND_COLOR := Color(0.08, 0.11, 0.16, 0.8)
 const ENERGY_COLOR := Color(0.2, 0.65, 1.0, 1.0)
 const LOW_ENERGY_COLOR := Color(1.0, 0.15, 0.12, 1.0)
@@ -34,6 +37,7 @@ func _process(_delta: float) -> void:
 		red_tween.tween_property(self, "energy_color", LOW_ENERGY_COLOR, 1.0)
 		red_tween.finished.connect(_on_red_tween_finished)
 
+	visible = energy_ratio < 1.0
 	queue_redraw()
 
 
@@ -52,10 +56,15 @@ func _on_red_tween_finished() -> void:
 
 func _draw() -> void:
 	var current_energy := energy_ratio * float(max_energy)
+	var row_count := int(ceil(float(max_energy) / float(DOTS_PER_ROW)))
 
 	for i in range(max_energy):
-		var x := (float(i) - float(max_energy - 1) * 0.5) * dot_spacing
-		var dot_position := Vector2(x, 0.0)
+		var row := i / DOTS_PER_ROW
+		var column := i % DOTS_PER_ROW
+		var dots_in_row := mini(DOTS_PER_ROW, max_energy - row * DOTS_PER_ROW)
+		var x := (float(column) - float(dots_in_row - 1) * 0.5) * dot_spacing
+		var y := (float(row) - float(row_count - 1) * 0.5) * ROW_SPACING
+		var dot_position := Vector2(x, y)
 
 		if float(i) < current_energy:
 			draw_circle(dot_position, dot_radius, energy_color)
