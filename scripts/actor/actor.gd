@@ -15,3 +15,12 @@ func move() -> void:
 
 func stop() -> void:
 	velocity = Vector2.ZERO
+
+
+func play_animation(animation_name: StringName) -> void:
+	var animated_sprite := get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+
+	if animated_sprite == null:
+		return
+
+	animated_sprite.play(animation_name)
