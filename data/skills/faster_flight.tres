@@ -10,5 +10,5 @@ description = "Increase flight speed."
 category = 1
 food_cost = 5
 effect_id = &"flight_speed_add"
-effect_value = 20.0
+effect_value = 20
 max_level = 1
