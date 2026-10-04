@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3]
+[gd_scene load_steps=35 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2_controller"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/state_machine/states/walk_state.gd" id="5_walk"]
 [ext_resource type="Script" path="res://scripts/pigeon/pigeon_stats.gd" id="6_stats"]
 [ext_resource type="Script" path="res://scripts/pigeon/energy_indicator.gd" id="13_energy"]
+[ext_resource type="Script" path="res://scripts/progression/skill_tree.gd" id="14_skill_tree"]
+[ext_resource type="Resource" path="res://data/skills/skill_catalog.tres" id="15_skill_catalog"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/flight_state.gd" id="7_flight"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/falling_state.gd" id="11_falling"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_eat-Sheet.png" id="8_eat"]
@@ -24,7 +26,7 @@ script = ExtResource("6_stats")
 resource_local_to_scene = true
 walk_speed = 100.0
 flight_speed = 200.0
-max_energy = 100.0
+max_energy = 20.0
 energy_regeneration = 10.0
 flight_energy_drain = 10.0
 can_dive = false
@@ -181,6 +183,11 @@ monitorable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BreadDetector"]
 shape = SubResource("CircleShape2D_bread_detector")
+
+[node name="SkillTree" type="Node" parent="." node_paths=PackedStringArray("inventory")]
+script = ExtResource("14_skill_tree")
+catalog = ExtResource("15_skill_catalog")
+inventory = NodePath("../Inventory")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_machine")
