@@ -1,8 +1,69 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
+size = Vector2(1400, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape_building_a"]
+size = Vector2(420, 260)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape_building_b"]
+size = Vector2(300, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape_building_c"]
+size = Vector2(260, 320)
+
+[sub_resource type="Gradient" id="Gradient_background"]
+colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture_background"]
+gradient = SubResource("Gradient_background")
+width = 1152
+height = 648
+
 [node name="Game" type="Node2D" unique_id=10413488]
 
+[node name="Background" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture_background")
+centered = false
+z_index = -10
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="Visual" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(0, 0, 1400, 0, 1400, 80, 0, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(700, 40)
+shape = SubResource("RectangleShape_ground")
+
+[node name="StartingBuilding" type="StaticBody2D" parent="."]
+
+[node name="Visual" type="Polygon2D" parent="StartingBuilding"]
+polygon = PackedVector2Array(0, 0, 420, 0, 420, 260, 0, 260)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartingBuilding"]
+position = Vector2(210, 130)
+shape = SubResource("RectangleShape_building_a")
+
+[node name="BuildingTwo" type="StaticBody2D" parent="."]
+
+[node name="Visual" type="Polygon2D" parent="BuildingTwo"]
+polygon = PackedVector2Array(0, 0, 300, 0, 300, 180, 0, 180)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingTwo"]
+position = Vector2(150, 90)
+shape = SubResource("RectangleShape_building_b")
+
+[node name="BuildingThree" type="StaticBody2D" parent="."]
+
+[node name="Visual" type="Polygon2D" parent="BuildingThree"]
+polygon = PackedVector2Array(0, 0, 260, 0, 260, 320, 0, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingThree"]
+position = Vector2(130, 160)
+shape = SubResource("RectangleShape_building_c")
+
 [node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(400, 300)
+position = Vector2(210, 360)
