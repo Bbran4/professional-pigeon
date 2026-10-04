@@ -5,9 +5,15 @@ class_name FlightState
 func enter(_previous_state: State) -> void:
 	state_machine.actor.play_animation(&"fly")
 
+	var pigeon := state_machine.actor as Pigeon
+	if pigeon:
+		pigeon.show_energy_indicator()
+
 
 func exit() -> void:
-	pass
+	var pigeon := state_machine.actor as Pigeon
+	if pigeon:
+		pigeon.hide_energy_indicator()
 
 
 func physics_update(delta: float) -> void:
