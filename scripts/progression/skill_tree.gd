@@ -7,10 +7,9 @@ signal skill_purchased(skill_id: StringName, new_level: int)
 signal purchase_rejected(skill_id: StringName, reason: String)
 
 @export var catalog: SkillCatalog
-
-var skills: Array[SkillData] = []
 @export var inventory: PlayerInventory
 
+var skills: Array[SkillData] = []
 var skill_levels: Dictionary = {}
 var skills_by_id: Dictionary = {}
 
@@ -42,6 +41,17 @@ func get_skill(skill_id: StringName) -> SkillData:
 
 func get_level(skill_id: StringName) -> int:
 	return int(skill_levels.get(skill_id, 0))
+
+
+func get_effect_value(effect_id: StringName) -> float:
+	var total := 0.0
+
+	for skill in skills:
+		if skill == null or skill.effect_id != effect_id:
+			continue
+		total += skill.effect_value * get_level(skill.id)
+
+	return total
 
 
 func is_unlocked(skill_id: StringName) -> bool:
