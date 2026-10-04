@@ -16,7 +16,7 @@ var previous_state: State
 
 func _ready() -> void:
 	for child: Node in get_children():
-		var state := child as State
+		var state : Node = child as State
 		if state == null:
 			continue
 		state.state_machine = self
