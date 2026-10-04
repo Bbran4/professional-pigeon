@@ -262,7 +262,7 @@ layout_mode = 0
 offset_left = 276.0
 offset_top = 90.0
 offset_right = 876.0
-offset_bottom = 558.0
+offset_bottom = 620.0
 mouse_filter = 0
 
 [node name="VBox" type="VBoxContainer" parent="UpgradeScreenLayer/UpgradeScreen/Panel"]
@@ -270,8 +270,8 @@ layout_mode = 0
 offset_left = 40.0
 offset_top = 28.0
 offset_right = 560.0
-offset_bottom = 440.0
-theme_override_constants/separation = 12
+offset_bottom = 580.0
+theme_override_constants/separation = 10
 
 [node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
 layout_mode = 2
@@ -302,6 +302,16 @@ text = "Stronger Flaps"
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Bigger Energy Reserve"
+
+[node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "More Bread"
+
+[node name="BreadValueButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "More Valuable Bread"
 
 [node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/Panel/VBox"]
 custom_minimum_size = Vector2(0, 44)
