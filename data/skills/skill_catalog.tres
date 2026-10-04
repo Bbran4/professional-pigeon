@@ -119,6 +119,28 @@ food_cost = 10
 effect_id = &"unlock_recruitment"
 effect_value = 1.0
 
+[sub_resource type="Resource" id="Skill_bread_spawns"]
+script = ExtResource("2_skill")
+id = &"bread_spawns"
+display_name = "More Bread"
+description = "Spawn one additional bread each run."
+category = 0
+food_cost = 2
+effect_id = &"bread_spawns"
+effect_value = 1.0
+max_level = 3
+
+[sub_resource type="Resource" id="Skill_bread_value"]
+script = ExtResource("2_skill")
+id = &"bread_value"
+display_name = "More Valuable Bread"
+description = "Each bread is worth one additional Food."
+category = 0
+food_cost = 5
+effect_id = &"bread_value_add"
+effect_value = 1.0
+max_level = 3
+
 [sub_resource type="Resource" id="Skill_larger_flock"]
 script = ExtResource("2_skill")
 id = &"larger_flock"
@@ -132,4 +154,4 @@ effect_value = 1.0
 
 [resource]
 script = ExtResource("1_catalog")
-skills = Array[ExtResource("2_skill")]([SubResource("Skill_better_scavenging"), SubResource("Skill_full_pockets"), SubResource("Skill_food_finder"), SubResource("Skill_faster_flight"), SubResource("Skill_stronger_flaps"), SubResource("Skill_energy_reserve"), SubResource("Skill_dive"), SubResource("Skill_peck"), SubResource("Skill_rush_hour"), SubResource("Skill_double_crumbs"), SubResource("Skill_first_recruit"), SubResource("Skill_larger_flock")])
+skills = Array[ExtResource("2_skill")]([SubResource("Skill_better_scavenging"), SubResource("Skill_full_pockets"), SubResource("Skill_food_finder"), SubResource("Skill_faster_flight"), SubResource("Skill_stronger_flaps"), SubResource("Skill_energy_reserve"), SubResource("Skill_dive"), SubResource("Skill_peck"), SubResource("Skill_rush_hour"), SubResource("Skill_double_crumbs"), SubResource("Skill_first_recruit"), SubResource("Skill_larger_flock"), SubResource("Skill_bread_spawns"), SubResource("Skill_bread_value")])
