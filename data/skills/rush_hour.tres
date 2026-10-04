@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"rush_hour"
+display_name = "Rush Hour"
+description = "Increase Food production for a short boost."
+category = 3
+food_cost = 15
+prerequisites = Array[StringName]([&"better_scavenging"])
+effect_id = &"temporary_food_rate"
+effect_value = 2
+max_level = 1
