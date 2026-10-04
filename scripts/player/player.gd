@@ -57,7 +57,11 @@ func collect_bread() -> bool:
 	if closest_bread == null:
 		return false
 
-	inventory.add_food(1)
+	var bread_value := 1
+	var skill_tree := get_skill_tree()
+	if skill_tree:
+		bread_value += int(skill_tree.get_effect_value(&"bread_value_add"))
+	inventory.add_food(bread_value)
 	closest_bread.collect()
 	bread_collected.emit()
 	return true
