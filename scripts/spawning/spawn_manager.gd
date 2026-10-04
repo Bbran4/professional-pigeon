@@ -42,7 +42,7 @@ func get_random_ground_positions() -> Array[Vector2]:
 	var random := RandomNumberGenerator.new()
 	random.randomize()
 
-	var max_attempts := max(bread_count * 20, 20)
+	var max_attempts : int = max(bread_count * 20, 20)
 
 	for _attempt in range(max_attempts):
 		if positions.size() >= bread_count:
