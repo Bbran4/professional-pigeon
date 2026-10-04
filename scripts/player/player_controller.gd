@@ -11,6 +11,10 @@ func _process(_delta: float) -> void:
 	var actor := state_machine.actor
 	var horizontal := Input.get_axis("move_left", "move_right")
 	var pigeon := actor as Pigeon
+	var player := actor as Player
+
+	if player and Input.is_action_just_pressed("collect"):
+		player.collect_bread()
 
 	actor.move_direction = Vector2(horizontal, 0.0)
 	actor.update_facing()
