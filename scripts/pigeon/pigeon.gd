@@ -13,6 +13,8 @@ var flap_held: bool = false
 var facing: int = 1
 var is_gliding: bool = false
 var is_diving: bool = false
+var is_sprinting: bool = false
+var sprint_timer: float = 0.0
 var swoop_timer: float = 0.0
 
 var _energy_regeneration_timer: float = 0.0
@@ -40,6 +42,9 @@ func _physics_process(delta: float) -> void:
 	_coyote_timer = maxf(_coyote_timer - delta, 0.0)
 	_flap_buffer_timer = maxf(_flap_buffer_timer - delta, 0.0)
 	swoop_timer = maxf(swoop_timer - delta, 0.0)
+sprint_timer = maxf(sprint_timer - delta, 0.0)
+if sprint_timer <= 0.0:
+	is_sprinting = false
 
 	var on_floor := is_on_floor()
 	if on_floor:
@@ -137,6 +142,10 @@ func buffer_flap() -> void:
 func try_flap() -> bool:
 	var from_ground := _coyote_timer > 0.0
 
+	# Every active flap costs energy, including the initial ground flap.
+	if current_energy <= 0.0:
+		return false
+
 	if not from_ground:
 		if current_energy <= 0.0:
 			return false
@@ -153,6 +162,32 @@ func flap() -> void:
 	_flap_cut_armed = true
 	is_gliding = false
 	is_diving = false
+
+
+func start_sprint() -> bool:
+	if is_on_floor():
+		var direction := signf(move_direction.x)
+		if direction == 0.0:
+			direction = float(facing)
+		is_sprinting = true
+		sprint_timer = stats.sprint_ground_duration
+		velocity.x = direction * stats.sprint_ground_speed
+		return true
+
+	# Air sprint is a burst, not a separate energy pool. Empty the remaining
+	# energy and turn it into horizontal acceleration.
+	if current_energy <= 0.0:
+		return false
+	is_sprinting = true
+	sprint_timer = 0.12
+	var energy := current_energy
+	current_energy = 0.0
+	velocity.x = move_toward(
+		velocity.x,
+		float(facing) * stats.sprint_air_speed,
+		stats.sprint_air_acceleration * maxf(energy, 1.0)
+	)
+	return true
 
 
 func drain_energy(amount: float) -> void:
@@ -215,6 +250,8 @@ func air_move(delta: float) -> void:
 	_apply_air_gravity(delta)
 
 	var speed := get_flight_speed()
+	if is_sprinting:
+		speed = maxf(speed, stats.sprint_air_speed)
 	if is_gliding:
 		speed *= stats.glide_speed_multiplier
 
@@ -230,7 +267,7 @@ func _apply_air_gravity(delta: float) -> void:
 	is_gliding = _can_glide_now()
 
 	if is_gliding:
-		drain_energy(stats.glide_energy_per_second * delta)
+		# Gliding is always free, including at zero energy.
 		velocity.y = move_toward(velocity.y, stats.glide_fall_speed, stats.glide_brake * delta)
 		return
 
