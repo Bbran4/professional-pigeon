@@ -24,6 +24,7 @@ func _ready() -> void:
 		return
 
 	ProgressionManager.food_changed.connect(_on_progression_changed)
+	ProgressionManager.coin_changed.connect(_on_coin_changed)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 
 	if skill_tree != null:
@@ -83,6 +84,10 @@ func _zoom_at_mouse(delta: float, mouse_position: Vector2) -> void:
 
 
 func _on_progression_changed(_food: int) -> void:
+	_refresh_buttons()
+
+
+func _on_coin_changed(_coin: int) -> void:
 	_refresh_buttons()
 
 
