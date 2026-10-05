@@ -27,6 +27,11 @@ func _process(_delta: float) -> void:
 				state_machine.transition(StateMachine.Intent.FALL)
 				return
 
+		if Input.is_action_just_pressed("sprint") and not pigeon.is_on_floor():
+			if pigeon.start_sprint():
+				state_machine.transition(StateMachine.Intent.FALL)
+				return
+
 		if Input.is_action_just_pressed("move_up"):
 			if pigeon.is_on_floor() or state_machine.current_state is FallingState:
 				pigeon.buffer_flap()
