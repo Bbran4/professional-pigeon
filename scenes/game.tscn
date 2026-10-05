@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
 [ext_resource type="Script" uid="uid://dnrb7pknv1sf" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
 [ext_resource type="Script" uid="uid://c013n7hqyxt0k" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
+[ext_resource type="Script" path="res://scripts/ui/cooldown_indicator.gd" id="11_cooldown"]
 [ext_resource type="Script" uid="uid://b32pmjtjdgu6" path="res://scripts/progression/upgrade_screen.gd" id="8_upgrade"]
 [ext_resource type="Script" uid="uid://c0owjdr38lyk8" path="res://scripts/progression/skill_manager.gd" id="9_skill_manager"]
 [ext_resource type="Script" uid="uid://bedfuu4k8lhcq" path="res://scripts/progression/skill_button.gd" id="10_skill_button"]
@@ -208,7 +209,7 @@ script = ExtResource("7_run_hud")
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 250.0
-offset_bottom = 168.0
+offset_bottom = 224.0
 
 [node name="Panel" type="Panel" parent="RunHUD/MarginContainer" unique_id=1556345713]
 layout_mode = 2
@@ -246,6 +247,23 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_hud_food")
 text = "Coin: 0"
 horizontal_alignment = 1
+[node name="BurstIndicators" type="HBoxContainer" parent="RunHUD/MarginContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="GroundBurst" type="Control" parent="RunHUD/MarginContainer/Panel/VBox/BurstIndicators"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+script = ExtResource("11_cooldown")
+label_text = "S"
+
+[node name="AirBurst" type="Control" parent="RunHUD/MarginContainer/Panel/VBox/BurstIndicators"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+script = ExtResource("11_cooldown")
+label_text = "A"
+
 
 [node name="UpgradeScreenLayer" type="CanvasLayer" parent="." unique_id=1274348906]
 layer = 30
