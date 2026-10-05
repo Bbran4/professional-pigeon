@@ -12,6 +12,7 @@ var current_energy: float
 var flap_held: bool = false
 var facing: int = 1
 var is_gliding: bool = false
+var glide_timer: float = 0.0
 var is_diving: bool = false
 var is_sprinting: bool = false
 var sprint_held: bool = false
@@ -166,6 +167,7 @@ func try_flap() -> bool:
 
 func flap() -> void:
 	velocity.y = -get_flap_strength()
+	glide_timer = 0.0
 	_flap_cut_armed = true
 	is_gliding = false
 	is_diving = false
@@ -180,7 +182,7 @@ func start_sprint() -> bool:
 			return false
 		is_sprinting = true
 		sprint_is_air = false
-		sprint_timer = stats.sprint_ground_duration
+		sprint_timer = get_ground_sprint_duration()
 		return true
 
 	if sprint_air_cooldown_timer > 0.0:
@@ -188,7 +190,7 @@ func start_sprint() -> bool:
 
 	is_sprinting = true
 	sprint_is_air = true
-	sprint_timer = stats.sprint_air_duration
+	sprint_timer = get_air_sprint_duration()
 	return true
 
 
@@ -204,16 +206,30 @@ func get_air_sprint_cooldown_ratio() -> float:
 	return 1.0 - (sprint_air_cooldown_timer / stats.sprint_air_cooldown)
 
 
+func get_ground_sprint_duration() -> float:
+	return maxf(stats.sprint_ground_duration + _effect(&"sprint_ground_duration_add"), 0.1)
+
+
+func get_air_sprint_duration() -> float:
+	return maxf(stats.sprint_air_duration + _effect(&"sprint_air_duration_add"), 0.1)
+
+
+func get_glide_duration() -> float:
+	return maxf(stats.glide_duration + _effect(&"glide_duration_add"), 0.1)
+
+
 func get_ground_sprint_active_ratio() -> float:
-	if not is_sprinting or sprint_is_air or stats.sprint_ground_duration <= 0.0:
+	var duration := get_ground_sprint_duration()
+	if not is_sprinting or sprint_is_air:
 		return 0.0
-	return sprint_timer / stats.sprint_ground_duration
+	return sprint_timer / duration
 
 
 func get_air_sprint_active_ratio() -> float:
-	if not is_sprinting or not sprint_is_air or stats.sprint_air_duration <= 0.0:
+	var duration := get_air_sprint_duration()
+	if not is_sprinting or not sprint_is_air:
 		return 0.0
-	return sprint_timer / stats.sprint_air_duration
+	return sprint_timer / duration
 
 
 func drain_energy(amount: float) -> void:
@@ -292,11 +308,16 @@ func air_move(delta: float) -> void:
 
 
 func _apply_air_gravity(delta: float) -> void:
+	glide_timer = maxf(glide_timer - delta, 0.0)
 	if is_diving:
 		velocity.y = move_toward(velocity.y, stats.dive_speed, stats.dive_acceleration * delta)
 		return
 
-	is_gliding = _can_glide_now()
+	if is_gliding and glide_timer <= 0.0:
+		is_gliding = false
+	if not is_gliding and _can_glide_now():
+		is_gliding = true
+		glide_timer = get_glide_duration()
 
 	if is_gliding:
 		# Gliding is always free, including at zero energy.
