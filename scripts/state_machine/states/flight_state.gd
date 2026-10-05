@@ -18,16 +18,14 @@ func exit() -> void:
 
 func physics_update(delta: float) -> void:
 	var pigeon := state_machine.actor as Pigeon
-
 	if pigeon == null:
 		return
 
-	# Energy limits how many flaps the pigeon can perform, not whether it can
-	# continue the current flight. The final flap should behave exactly like
-	# every other flap, then gravity brings the pigeon back down naturally.
-	pigeon.apply_gravity(delta)
-	pigeon.velocity.x = pigeon.move_direction.x * pigeon.get_flight_speed()
-	pigeon.move_and_slide()
+	pigeon.air_move(delta)
 
+	# FlightState owns the rising/apex portion of a flap. Once the pigeon is
+	# descending, FallingState takes over so dive/glide behaviour stays explicit.
 	if pigeon.is_on_floor():
 		transition(StateMachine.Intent.IDLE)
+	elif pigeon.velocity.y >= 0.0:
+		transition(StateMachine.Intent.FALL)
