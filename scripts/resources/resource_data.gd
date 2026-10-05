@@ -1,9 +1,6 @@
 extends Resource
 class_name ResourceData
 
-## Defines one collectible resource in the game's economy.
-## Quantities belong to an inventory or progression system.
-
 enum ResourceType {
 	FOOD,
 	COIN
