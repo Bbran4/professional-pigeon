@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3]
+[gd_scene load_steps=36 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2_controller"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" path="res://data/skills/skill_catalog.tres" id="15_skill_catalog"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/flight_state.gd" id="7_flight"]
 [ext_resource type="Script" path="res://scripts/state_machine/states/falling_state.gd" id="11_falling"]
+[ext_resource type="Script" path="res://scripts/state_machine/states/swoop_state.gd" id="17_swoop"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_eat-Sheet.png" id="8_eat"]
 [ext_resource type="Texture2D" path="res://assets/Pigeon Sprite-Sheet/pigeon_walking-Sheet.png" id="9_walk"]
 [ext_resource type="Script" path="res://scripts/player/player_inventory.gd" id="12_inventory"]
@@ -28,7 +29,8 @@ resource_local_to_scene = true
 walk_speed = 100.0
 flight_speed = 200.0
 max_energy = 3.0
-energy_regeneration = 10.0
+energy_regeneration_interval = 1.0
+energy_regeneration_amount = 1.0
 can_dive = false
 can_peck = true
 
@@ -206,6 +208,10 @@ intent = 2
 [node name="FlightState" type="Node" parent="StateMachine"]
 script = ExtResource("7_flight")
 intent = 3
+
+[node name="SwoopState" type="Node" parent="StateMachine"]
+script = ExtResource("17_swoop")
+intent = 4
 
 [node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("2_controller")
