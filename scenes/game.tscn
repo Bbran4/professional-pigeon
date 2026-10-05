@@ -327,8 +327,8 @@ script = ExtResource("9_skill_manager")
 
 [node name="SkillCanvas" type="Control" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager" unique_id=825759651]
 anchors_preset = 0
-offset_right = 1400.0
-offset_bottom = 900.0
+offset_right = 1800.0
+offset_bottom = 1050.0
 mouse_filter = 1
 
 [node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1781976936]
@@ -393,3 +393,76 @@ offset_right = 1060.0
 offset_bottom = 315.0
 script = ExtResource("10_skill_button")
 skill_id = &"bread_value"
+
+
+[node name="UnlockSeedsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 400.0
+offset_right = 1060.0
+offset_bottom = 465.0
+script = ExtResource("10_skill_button")
+skill_id = &"unlock_seeds"
+
+[node name="SeedsSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 550.0
+offset_right = 1060.0
+offset_bottom = 615.0
+script = ExtResource("10_skill_button")
+skill_id = &"seeds_spawns"
+
+[node name="UnlockWormsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 1150.0
+offset_top = 400.0
+offset_right = 1360.0
+offset_bottom = 465.0
+script = ExtResource("10_skill_button")
+skill_id = &"unlock_worms"
+
+[node name="WormsSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 1150.0
+offset_top = 550.0
+offset_right = 1360.0
+offset_bottom = 615.0
+script = ExtResource("10_skill_button")
+skill_id = &"worms_spawns"
+
+[node name="UnlockCoinButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 700.0
+offset_right = 1060.0
+offset_bottom = 765.0
+script = ExtResource("10_skill_button")
+skill_id = &"unlock_coin"
+
+[node name="FarthingSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 1150.0
+offset_top = 700.0
+offset_right = 1360.0
+offset_bottom = 765.0
+script = ExtResource("10_skill_button")
+skill_id = &"farthing_spawns"
+
+[node name="PennySpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 1150.0
+offset_top = 800.0
+offset_right = 1360.0
+offset_bottom = 865.0
+script = ExtResource("10_skill_button")
+skill_id = &"penny_spawns"
+
+[node name="NobleSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+layout_mode = 0
+offset_left = 1150.0
+offset_top = 900.0
+offset_right = 1360.0
+offset_bottom = 965.0
+script = ExtResource("10_skill_button")
+skill_id = &"noble_spawns"
