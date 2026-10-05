@@ -2,22 +2,19 @@ extends Node
 class_name PlayerInventory
 
 var food: int = 0
+var coin: int = 0
 
 
 func add_food(amount: int = 1) -> void:
-	if amount <= 0:
-		return
-
-	food += amount
+	if amount > 0:
+		food += amount
 
 
-func can_spend_food(amount: int) -> bool:
-	return amount >= 0 and food >= amount
+func add_coin(amount: int = 1) -> void:
+	if amount > 0:
+		coin += amount
 
 
-func spend_food(amount: int) -> bool:
-	if not can_spend_food(amount):
-		return false
-
-	food -= amount
-	return true
+func clear() -> void:
+	food = 0
+	coin = 0
