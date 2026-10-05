@@ -10,7 +10,7 @@ const ROW_SPACING := 11.0
 
 const BACKGROUND_COLOR := Color(0.08, 0.11, 0.16, 0.8)
 const ENERGY_COLOR := Color(0.2, 0.65, 1.0, 1.0)
-const LOW_ENERGY_COLOR := Color(1.0, 0.15, 0.12, 1.0)
+const LOW_ENERGY_COLOR := Color(0.2, 0.65, 1.0, 1.0)
 
 var energy_ratio: float = 1.0
 var energy_color: Color = ENERGY_COLOR
