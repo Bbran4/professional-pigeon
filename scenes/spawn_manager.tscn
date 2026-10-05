@@ -18,4 +18,3 @@
 script = ExtResource("1_spawn_manager")
 collectible_scenes = Array[PackedScene]([ExtResource("2_bread"), ExtResource("3_seeds"), ExtResource("4_worms"), ExtResource("5_farthing"), ExtResource("6_penny"), ExtResource("7_noble")])
 collectible_resources = Array[Resource]([ExtResource("8_bread_resource"), ExtResource("9_seeds_resource"), ExtResource("10_worms_resource"), ExtResource("11_farthing_resource"), ExtResource("12_penny_resource"), ExtResource("13_noble_resource")])
-collectible_count = 20
