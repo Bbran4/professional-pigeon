@@ -61,6 +61,8 @@ func _physics_process(delta: float) -> void:
 	var on_floor := is_on_floor()
 	if on_floor:
 		_coyote_timer = stats.coyote_time
+		is_gliding = false
+		glide_timer = 0.0
 
 		if not _was_on_floor:
 			landed.emit(_peak_fall_speed)
