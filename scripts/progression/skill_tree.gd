@@ -1,9 +1,6 @@
 extends Node
 class_name SkillTree
 
-## Owns access to the static skill definitions.
-## Purchased progress and Food are stored by ProgressionManager so they survive run restarts.
-
 signal skill_purchased(skill_id: StringName, new_level: int)
 signal purchase_rejected(skill_id: StringName, reason: String)
 
@@ -74,15 +71,25 @@ func can_purchase(skill_id: StringName) -> bool:
 	if current_level >= skill.max_level:
 		return false
 
-	return ProgressionManager.can_spend_food(get_next_cost(skill_id))
+	return ProgressionManager.can_spend(get_next_food_cost(skill_id), get_next_coin_cost(skill_id))
 
 
-func get_next_cost(skill_id: StringName) -> int:
+func get_next_food_cost(skill_id: StringName) -> int:
 	var skill := get_skill(skill_id)
 	if skill == null:
 		return 0
-
 	return skill.food_cost * (get_level(skill_id) + 1)
+
+
+func get_next_coin_cost(skill_id: StringName) -> int:
+	var skill := get_skill(skill_id)
+	if skill == null:
+		return 0
+	return skill.coin_cost * (get_level(skill_id) + 1)
+
+
+func get_next_cost(skill_id: StringName) -> int:
+	return get_next_food_cost(skill_id)
 
 
 func purchase(skill_id: StringName) -> bool:
@@ -97,9 +104,11 @@ func purchase(skill_id: StringName) -> bool:
 	if current_level >= skill.max_level:
 		return _reject(skill_id, "Skill is already at maximum level.")
 
-	var cost := get_next_cost(skill_id)
-	if not ProgressionManager.spend_food(cost):
-		return _reject(skill_id, "Not enough Food.")
+	var food_cost := get_next_food_cost(skill_id)
+	var coin_cost := get_next_coin_cost(skill_id)
+
+	if not ProgressionManager.spend(food_cost, coin_cost):
+		return _reject(skill_id, "Not enough Food or Coin.")
 
 	var new_level := current_level + 1
 	ProgressionManager.set_skill_level(skill_id, new_level)
