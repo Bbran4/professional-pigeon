@@ -14,7 +14,10 @@ var facing: int = 1
 var is_gliding: bool = false
 var is_diving: bool = false
 var is_sprinting: bool = false
+var sprint_held: bool = false
 var sprint_timer: float = 0.0
+var sprint_cooldown_timer: float = 0.0
+var sprint_is_air: bool = false
 var swoop_timer: float = 0.0
 
 var _energy_regeneration_timer: float = 0.0
@@ -42,9 +45,12 @@ func _physics_process(delta: float) -> void:
 	_coyote_timer = maxf(_coyote_timer - delta, 0.0)
 	_flap_buffer_timer = maxf(_flap_buffer_timer - delta, 0.0)
 	swoop_timer = maxf(swoop_timer - delta, 0.0)
-	sprint_timer = maxf(sprint_timer - delta, 0.0)
-	if sprint_timer <= 0.0:
-		is_sprinting = false
+	sprint_cooldown_timer = maxf(sprint_cooldown_timer - delta, 0.0)
+	if is_sprinting:
+		sprint_timer = maxf(sprint_timer - delta, 0.0)
+		if not sprint_held or sprint_timer <= 0.0:
+			is_sprinting = false
+			sprint_cooldown_timer = stats.sprint_air_cooldown if sprint_is_air else stats.sprint_ground_cooldown
 
 	var on_floor := is_on_floor()
 	if on_floor:
@@ -161,38 +167,18 @@ func flap() -> void:
 
 
 func start_sprint() -> bool:
-	# Ground sprint is a normal horizontal sprint. Air sprint remains the
-	# high-speed burst that consumes all remaining energy.
-	if is_on_floor():
-		var direction := signf(move_direction.x)
-		if direction == 0.0:
-			direction = float(facing)
+	if is_sprinting or sprint_cooldown_timer > 0.0:
+		return false
 
+	if is_on_floor():
 		is_sprinting = true
+		sprint_is_air = false
 		sprint_timer = stats.sprint_ground_duration
-		velocity.x = move_toward(
-			velocity.x,
-			direction * stats.sprint_ground_speed,
-			stats.sprint_ground_acceleration * get_physics_process_delta_time()
-		)
 		return true
 
-	# Air sprint is a burst, not a separate energy pool. Empty the remaining
-	# energy and turn it into horizontal acceleration.
-	if current_energy <= 0.0:
-		return false
 	is_sprinting = true
-	sprint_timer = 0.12
-	var energy := current_energy
-	current_energy = 0.0
-	var direction := signf(velocity.x)
-	if direction == 0.0:
-		direction = float(facing)
-	velocity.x = move_toward(
-		velocity.x,
-		direction * stats.sprint_air_speed,
-		stats.sprint_air_acceleration * maxf(energy, 1.0)
-	)
+	sprint_is_air = true
+	sprint_timer = stats.sprint_air_duration
 	return true
 
 
@@ -242,9 +228,15 @@ func steer_horizontal(max_speed: float, acceleration: float, friction: float, de
 
 
 func ground_move(delta: float) -> void:
+	var speed := get_move_speed()
+	var acceleration := stats.ground_acceleration
+	if is_sprinting:
+		speed = stats.sprint_ground_speed
+		acceleration = stats.sprint_ground_acceleration
+
 	steer_horizontal(
-		get_move_speed(),
-		stats.ground_acceleration,
+		speed,
+		acceleration,
 		stats.ground_friction,
 		delta
 	)
