@@ -22,8 +22,9 @@ func _process(_delta: float) -> void:
 	if pigeon:
 		pigeon.flap_held = Input.is_action_pressed("move_up")
 
-		if Input.is_action_just_pressed("sprint"):
+		if Input.is_action_pressed("sprint") and pigeon.is_on_floor():
 			if pigeon.start_sprint():
+				state_machine.transition(StateMachine.Intent.FALL)
 				return
 
 		if Input.is_action_just_pressed("move_up"):
