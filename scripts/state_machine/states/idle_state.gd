@@ -11,8 +11,10 @@ func exit() -> void:
 
 
 func physics_update(delta: float) -> void:
-	state_machine.actor.stop()
-
 	var pigeon := state_machine.actor as Pigeon
 	if pigeon:
+		pigeon.ground_move(delta)
 		pigeon.regenerate_energy(delta)
+		return
+
+	state_machine.actor.stop()
