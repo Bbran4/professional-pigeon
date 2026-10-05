@@ -9,4 +9,6 @@ display_name = "Bread"
 description = "A delicious and suspiciously valuable pigeon resource."
 resource_type = 0
 base_value = 1
-spawn_weight = 100.0
+base_spawn_amount = 2
+spawn_chance = 100.0
+spawn_upgrade_id = &"bread_spawns"
