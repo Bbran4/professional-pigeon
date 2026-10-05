@@ -7,7 +7,8 @@ enum Intent {
 	IDLE,
 	WALK,
 	FALL,
-	FLY
+	FLY,
+	SWOOP
 }
 
 @export var initial_state: State
