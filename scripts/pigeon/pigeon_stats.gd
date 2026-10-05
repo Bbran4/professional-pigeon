@@ -47,8 +47,11 @@ class_name PigeonStats
 
 ## Ground sprint / air burst
 @export var sprint_ground_speed: float = 300.0
-@export var sprint_ground_duration: float = 0.18
+@export var sprint_ground_duration: float = 2.0
+@export var sprint_ground_cooldown: float = 5.0
 @export var sprint_ground_acceleration: float = 2800.0
+@export var sprint_air_duration: float = 1.0
+@export var sprint_air_cooldown: float = 10.0
 @export var sprint_air_acceleration: float = 2600.0
 @export var sprint_air_speed: float = 420.0
 
