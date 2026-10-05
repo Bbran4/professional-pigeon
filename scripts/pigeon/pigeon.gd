@@ -1,10 +1,26 @@
 extends Actor
 class_name Pigeon
 
+signal flapped(from_ground: bool)
+signal landed(impact_speed: float)
+signal started_dive
+signal started_swoop
+
 @export var stats: PigeonStats
 
 var current_energy: float
+var flap_held: bool = false
+var facing: int = 1
+var is_gliding: bool = false
+var is_diving: bool = false
+
 var _energy_regeneration_timer: float = 0.0
+var _coyote_timer: float = 0.0
+var _flap_buffer_timer: float = 0.0
+var _flap_cut_armed: bool = false
+var _was_on_floor: bool = false
+var _peak_fall_speed: float = 0.0
+var _skill_tree: SkillTree
 
 @onready var energy_indicator: EnergyIndicator = $EnergyIndicator
 
@@ -13,55 +29,77 @@ func _ready() -> void:
 	if stats == null:
 		stats = PigeonStats.new()
 
+	_skill_tree = get_node_or_null("SkillTree") as SkillTree
 	current_energy = get_max_energy()
 
 
+func _physics_process(delta: float) -> void:
+	# These timers are maintained independently of the state machine so both
+	# player and future AI controllers get identical movement behaviour.
+	_coyote_timer = maxf(_coyote_timer - delta, 0.0)
+	_flap_buffer_timer = maxf(_flap_buffer_timer - delta, 0.0)
+
+	var on_floor := is_on_floor()
+	if on_floor:
+		_coyote_timer = stats.coyote_time
+
+		if not _was_on_floor:
+			landed.emit(_peak_fall_speed)
+			_peak_fall_speed = 0.0
+			# A buffered flap makes landing feel responsive without making the
+			# player mash the button on the exact landing frame.
+			if _flap_buffer_timer > 0.0:
+				_flap_buffer_timer = 0.0
+				try_flap()
+	else:
+		_peak_fall_speed = maxf(_peak_fall_speed, velocity.y)
+
+	# Releasing flap early produces a short hop instead of a full-height flap.
+	if _flap_cut_armed and not flap_held and velocity.y < 0.0:
+		velocity.y *= stats.flap_release_cut
+		_flap_cut_armed = false
+	elif velocity.y >= 0.0:
+		_flap_cut_armed = false
+
+	_was_on_floor = on_floor
+
+
 func get_skill_tree() -> SkillTree:
-	return get_node_or_null("SkillTree") as SkillTree
+	return _skill_tree
+
+
+func _effect(effect_id: StringName) -> float:
+	if _skill_tree == null:
+		return 0.0
+	return _skill_tree.get_effect_value(effect_id)
 
 
 func get_max_energy() -> float:
-	var skill_tree := get_skill_tree()
-	if skill_tree == null:
-		return stats.max_energy
-
-	return stats.max_energy + skill_tree.get_effect_value(&"max_energy_add")
+	return stats.max_energy + _effect(&"max_energy_add")
 
 
 func get_flight_speed() -> float:
-	var skill_tree := get_skill_tree()
-	if skill_tree == null:
-		return stats.flight_speed
-
-	return stats.flight_speed + skill_tree.get_effect_value(&"flight_speed_add")
+	return stats.flight_speed + _effect(&"flight_speed_add")
 
 
 func get_flap_strength() -> float:
-	var skill_tree := get_skill_tree()
-	if skill_tree == null:
-		return stats.flap_strength
-
-	return stats.flap_strength + skill_tree.get_effect_value(&"flap_strength_add")
+	return stats.flap_strength + _effect(&"flap_strength_add")
 
 
 func get_energy_regeneration_interval() -> float:
-	var skill_tree := get_skill_tree()
-	if skill_tree == null:
-		return maxf(stats.energy_regeneration_interval, 0.1)
-
-	return maxf(
-		stats.energy_regeneration_interval
-			+ skill_tree.get_effect_value(&"energy_regen_interval_add"),
-		0.1
-	)
+	return maxf(stats.energy_regeneration_interval + _effect(&"energy_regen_interval_add"), 0.1)
 
 
 func get_energy_regeneration_amount() -> float:
-	var skill_tree := get_skill_tree()
-	if skill_tree == null:
-		return stats.energy_regeneration_amount
+	return stats.energy_regeneration_amount + _effect(&"energy_regen_amount_add")
 
-	return stats.energy_regeneration_amount + skill_tree.get_effect_value(&"energy_regen_amount_add")
+
+func can_dive() -> bool:
+	return stats.can_dive or _effect(&"unlock_dive") > 0.0
+
+
+func can_glide() -> bool:
+	return stats.can_glide or _effect(&"unlock_glide") > 0.0
 
 
 func show_energy_indicator() -> void:
@@ -83,13 +121,36 @@ func get_move_speed() -> float:
 	return stats.walk_speed
 
 
+func update_facing() -> void:
+	super.update_facing()
+
+	if move_direction.x != 0.0:
+		facing = 1 if move_direction.x > 0.0 else -1
+
+
+func buffer_flap() -> void:
+	_flap_buffer_timer = stats.flap_buffer_time
+
+
+func try_flap() -> bool:
+	var from_ground := _coyote_timer > 0.0
+
+	if not from_ground:
+		if current_energy <= 0.0:
+			return false
+		drain_energy(1.0)
+
+	_coyote_timer = 0.0
+	flap()
+	flapped.emit(from_ground)
+	return true
+
+
 func flap() -> void:
 	velocity.y = -get_flap_strength()
-
-
-func fly() -> void:
-	velocity.x = move_direction.x * get_flight_speed()
-	move_and_slide()
+	_flap_cut_armed = true
+	is_gliding = false
+	is_diving = false
 
 
 func drain_energy(amount: float) -> void:
@@ -118,3 +179,97 @@ func regenerate_energy(delta: float) -> void:
 		if current_energy >= get_max_energy():
 			_energy_regeneration_timer = 0.0
 			break
+
+
+func steer_horizontal(max_speed: float, acceleration: float, friction: float, delta: float) -> void:
+	var input := move_direction.x
+	var target := input * max_speed
+	var rate: float
+
+	if absf(velocity.x) > max_speed and (input == 0.0 or signf(input) == signf(velocity.x)):
+		rate = stats.overspeed_friction
+	elif input != 0.0 and velocity.x != 0.0 and signf(input) != signf(velocity.x):
+		rate = acceleration * stats.turn_multiplier
+	elif input != 0.0:
+		rate = acceleration
+	else:
+		rate = friction
+
+	velocity.x = move_toward(velocity.x, target, rate * delta)
+
+
+func ground_move(delta: float) -> void:
+	steer_horizontal(
+		get_move_speed(),
+		stats.ground_acceleration,
+		stats.ground_friction,
+		delta
+	)
+	velocity.y = 0.0
+	move_and_slide()
+
+
+func air_move(delta: float) -> void:
+	_apply_air_gravity(delta)
+
+	var speed := get_flight_speed()
+	if is_gliding:
+		speed *= stats.glide_speed_multiplier
+
+	steer_horizontal(speed, stats.air_acceleration, stats.air_friction, delta)
+	move_and_slide()
+
+
+func _apply_air_gravity(delta: float) -> void:
+	if is_diving:
+		velocity.y = move_toward(velocity.y, stats.dive_speed, stats.dive_acceleration * delta)
+		return
+
+	is_gliding = _can_glide_now()
+
+	if is_gliding:
+		drain_energy(stats.glide_energy_per_second * delta)
+		velocity.y = move_toward(velocity.y, stats.glide_fall_speed, stats.glide_brake * delta)
+		return
+
+	var g := stats.gravity * gravity_scale
+	if flap_held and absf(velocity.y) < stats.apex_threshold:
+		g *= stats.apex_gravity_multiplier
+	elif velocity.y > 0.0:
+		g *= stats.fall_gravity_multiplier
+
+	velocity.y = minf(velocity.y + g * delta, stats.max_fall_speed)
+
+
+func _can_glide_now() -> bool:
+	if not flap_held or velocity.y <= 0.0 or not can_glide():
+		return false
+
+	return stats.glide_energy_per_second <= 0.0 or current_energy > 0.0
+
+
+func start_dive() -> bool:
+	if not can_dive() or is_on_floor():
+		return false
+
+	is_diving = true
+	is_gliding = false
+	_flap_cut_armed = false
+	velocity.x = float(facing) * stats.dive_horizontal_speed
+	velocity.y = stats.dive_speed
+	started_dive.emit()
+	return true
+
+
+func end_dive() -> void:
+	is_diving = false
+
+
+func begin_swoop() -> void:
+	end_dive()
+	velocity.x = float(facing) * stats.swoop_speed
+	started_swoop.emit()
+
+
+func fly() -> void:
+	air_move(get_physics_process_delta_time())
