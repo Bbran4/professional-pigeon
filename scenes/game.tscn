@@ -208,7 +208,7 @@ script = ExtResource("7_run_hud")
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 250.0
-offset_bottom = 138.0
+offset_bottom = 168.0
 
 [node name="Panel" type="Panel" parent="RunHUD/MarginContainer" unique_id=1556345713]
 layout_mode = 2
@@ -238,6 +238,13 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_hud_food")
 text = "Food: 0"
+horizontal_alignment = 1
+[node name="CoinLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_hud_food")
+text = "Coin: 0"
 horizontal_alignment = 1
 
 [node name="UpgradeScreenLayer" type="CanvasLayer" parent="." unique_id=1274348906]
@@ -275,10 +282,20 @@ text = "Pigeon Skill Tree"
 layout_mode = 0
 offset_left = 430.0
 offset_top = 12.0
-offset_right = 650.0
+offset_right = 540.0
 offset_bottom = 46.0
 theme_override_font_sizes/font_size = 18
 text = "Food: 0"
+horizontal_alignment = 1
+
+[node name="CoinLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+layout_mode = 0
+offset_left = 550.0
+offset_top = 12.0
+offset_right = 680.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 18
+text = "Coin: 0"
 horizontal_alignment = 1
 
 [node name="HelpLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=906267126]
