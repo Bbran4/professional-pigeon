@@ -7,4 +7,6 @@ script = ExtResource("1_resource_data")
 id = &"bread"
 display_name = "Bread"
 description = "A delicious and suspiciously valuable pigeon resource."
+resource_type = 0
 base_value = 1
+spawn_weight = 100.0
