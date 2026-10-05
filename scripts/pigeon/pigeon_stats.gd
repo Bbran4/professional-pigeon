@@ -49,6 +49,7 @@ class_name PigeonStats
 @export var sprint_ground_speed: float = 300.0
 @export var sprint_ground_duration: float = 0.18
 @export var sprint_ground_acceleration: float = 2800.0
+@export var sprint_ground_hop_strength: float = 250.0
 @export var sprint_air_acceleration: float = 2600.0
 @export var sprint_air_speed: float = 420.0
 
