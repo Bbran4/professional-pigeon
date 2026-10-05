@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape_bread"]
 size = Vector2(28, 18)
 
-[node name="Bread" type="Area2D" groups=["bread"]]
+[node name="Bread" type="Area2D" groups=["bread", "collectible"]]
 script = ExtResource("1_bread_script")
 resource = ExtResource("2_bread_resource")
 
