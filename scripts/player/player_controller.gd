@@ -16,27 +16,36 @@ func _process(_delta: float) -> void:
 	var pigeon := actor as Pigeon
 	var player := actor as Player
 
-	if player and Input.is_action_just_pressed("collect"):
-		player.collect_bread()
-
 	actor.move_direction = Vector2(horizontal, 0.0)
 	actor.update_facing()
 
-	if pigeon and Input.is_action_just_pressed("move_down") and actor.is_on_floor():
-		drop_through_platforms()
-		return
+	if pigeon:
+		pigeon.flap_held = Input.is_action_pressed("move_up")
 
-	if pigeon and Input.is_action_just_pressed("move_up") and pigeon.current_energy > 0.0:
-		pigeon.drain_energy(1.0)
-		state_machine.transition(StateMachine.Intent.FLY)
-		pigeon.flap()
-		return
+		if Input.is_action_just_pressed("move_up"):
+			if pigeon.is_on_floor() or state_machine.current_state is FallingState:
+				pigeon.buffer_flap()
+			if pigeon.try_flap():
+				state_machine.transition(StateMachine.Intent.FLY)
+				return
+
+		if Input.is_action_just_pressed("move_down"):
+			if pigeon.is_on_floor():
+				drop_through_platforms()
+				return
+			elif pigeon.start_dive():
+				state_machine.transition(StateMachine.Intent.FALL)
+				return
+
+	if player and Input.is_action_just_pressed("collect"):
+		player.collect_bread()
 
 	if state_machine.current_state is FlightState:
 		return
 
 	if not actor.is_on_floor():
-		state_machine.transition(StateMachine.Intent.FALL)
+		if not pigeon or not pigeon.is_diving:
+			state_machine.transition(StateMachine.Intent.FALL)
 	elif horizontal == 0.0:
 		state_machine.transition(StateMachine.Intent.IDLE)
 	else:
