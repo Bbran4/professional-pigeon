@@ -2,6 +2,7 @@ extends Control
 class_name UpgradeScreen
 
 @onready var food_label: Label = $TopBar/FoodLabel
+@onready var coin_label: Label = $TopBar/CoinLabel
 @onready var skill_manager: SkillManager = $SkillManager
 @onready var back_button: Button = $TopBar/BackButton
 
@@ -12,6 +13,7 @@ var end_panel: Control
 func _ready() -> void:
 	back_button.pressed.connect(_on_back_pressed)
 	ProgressionManager.food_changed.connect(_on_progression_changed)
+	ProgressionManager.coin_changed.connect(_on_coin_changed)
 	refresh()
 
 
@@ -26,9 +28,14 @@ func open(player: Player, run_end_panel: Control) -> void:
 
 func refresh() -> void:
 	food_label.text = "Food: %d" % ProgressionManager.food
+	coin_label.text = "Coin: %d" % ProgressionManager.coin
 
 
 func _on_progression_changed(_food: int) -> void:
+	refresh()
+
+
+func _on_coin_changed(_coin: int) -> void:
 	refresh()
 
 
