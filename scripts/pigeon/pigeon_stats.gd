@@ -1,16 +1,57 @@
 extends Resource
 class_name PigeonStats
 
-## Movement
-@export var walk_speed: float = 100.0
+## Ground movement
+@export var walk_speed: float = 140.0
+@export var ground_acceleration: float = 1400.0
+@export var ground_friction: float = 1800.0
+
+## Air movement
 @export var flight_speed: float = 200.0
+@export var air_acceleration: float = 1100.0
+@export var air_friction: float = 600.0
+## How strongly the pigeon snaps around when reversing direction.
+@export var turn_multiplier: float = 2.0
+## Friction applied when carrying more horizontal speed than the flight cap.
+@export var overspeed_friction: float = 450.0
+
+## Gravity shaping
+@export var gravity: float = 900.0
+@export var fall_gravity_multiplier: float = 1.7
+## Reduced gravity near the apex while the flap button is held.
+@export var apex_gravity_multiplier: float = 0.55
+@export var apex_threshold: float = 70.0
+@export var max_fall_speed: float = 560.0
+
+## Flap
 @export var flap_strength: float = 350.0
+## Releasing the flap early cuts the remaining upward velocity.
+@export_range(0.0, 1.0, 0.05) var flap_release_cut: float = 0.45
+## Small forgiveness window after walking off a ledge.
+@export var coyote_time: float = 0.10
+## Small input forgiveness window before landing.
+@export var flap_buffer_time: float = 0.12
 
 ## Energy
 @export var max_energy: float = 3.0
 @export var energy_regeneration_interval: float = 1.0
 @export var energy_regeneration_amount: float = 1.0
 
-## Abilities
+## Glide
+@export var can_glide: bool = true
+@export var glide_fall_speed: float = 70.0
+@export var glide_brake: float = 1500.0
+@export var glide_speed_multiplier: float = 1.2
+## Energy consumed per second while gliding. Set to 0 for free gliding.
+@export var glide_energy_per_second: float = 0.5
+
+## Dive and swoop
 @export var can_dive: bool = false
+@export var dive_speed: float = 700.0
+@export var dive_acceleration: float = 3000.0
+@export var dive_horizontal_speed: float = 150.0
+@export var swoop_speed: float = 380.0
+@export var swoop_duration: float = 0.35
+
+## Other abilities
 @export var can_peck: bool = true
