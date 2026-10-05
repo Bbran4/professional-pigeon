@@ -1,8 +1,6 @@
 extends Resource
 class_name SkillData
 
-## Static definition for one skill in the progression tree.
-
 enum Category {
 	FOOD,
 	PLAYER_UPGRADES,
@@ -16,6 +14,7 @@ enum Category {
 @export_multiline var description: String = ""
 @export var category: Category = Category.FOOD
 @export_range(0, 100000, 1) var food_cost: int = 0
+@export_range(0, 100000, 1) var coin_cost: int = 0
 @export var prerequisites: Array[StringName] = []
 @export var effect_id: StringName
 @export var effect_value: float = 0.0
