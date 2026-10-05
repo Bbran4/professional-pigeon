@@ -1,19 +1,21 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://b5fd4nocvqgl1"]
 
-[ext_resource type="Script" path="res://scripts/resources/collectible.gd" id="1_collectible"]
+[ext_resource type="Script" uid="uid://sqcod11t5anq" path="res://scripts/resources/collectible.gd" id="1_collectible"]
+[ext_resource type="Resource" path="res://data/resources/worms.tres" id="2_vyqex"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape_worms"]
 radius = 4.0
 height = 18.0
 
-[node name="Worms" type="Area2D" groups=["collectible"]]
+[node name="Worms" type="Area2D" unique_id=1880285202 groups=["collectible"]]
 script = ExtResource("1_collectible")
+resource = ExtResource("2_vyqex")
 
-[node name="Visual" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-8, -3, -3, -8, 4, -6, 8, 0, 4, 7, -3, 8, -8, 3)
+[node name="Visual" type="Polygon2D" parent="." unique_id=2126664652]
 color = Color(0.68, 0.43, 0.25, 1)
+polygon = PackedVector2Array(-8, -3, -3, -8, 4, -6, 8, 0, 4, 7, -3, 8, -8, 3)
 
-[node name="InteractionPrompt" type="Label" parent="."]
+[node name="InteractionPrompt" type="Label" parent="." unique_id=545611564]
 offset_left = -100.0
 offset_top = -38.0
 offset_right = 100.0
@@ -26,5 +28,5 @@ theme_override_font_sizes/font_size = 12
 text = "Press [E] to collect"
 horizontal_alignment = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=972309917]
 shape = SubResource("CapsuleShape_worms")

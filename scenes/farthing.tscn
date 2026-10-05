@@ -1,18 +1,20 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://cndxfd5701kcs"]
 
-[ext_resource type="Script" path="res://scripts/resources/collectible.gd" id="1_collectible"]
+[ext_resource type="Script" uid="uid://sqcod11t5anq" path="res://scripts/resources/collectible.gd" id="1_collectible"]
+[ext_resource type="Resource" path="res://data/resources/farthing.tres" id="2_mvhg3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape_farthing"]
 radius = 9.0
 
-[node name="Farthing" type="Area2D" groups=["collectible"]]
+[node name="Farthing" type="Area2D" unique_id=792111884 groups=["collectible"]]
 script = ExtResource("1_collectible")
+resource = ExtResource("2_mvhg3")
 
-[node name="Visual" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-8, -2, -5, -7, 2, -9, 8, -4, 9, 3, 5, 8, -2, 9, -8, 4)
+[node name="Visual" type="Polygon2D" parent="." unique_id=1801240585]
 color = Color(0.58, 0.42, 0.2, 1)
+polygon = PackedVector2Array(-8, -2, -5, -7, 2, -9, 8, -4, 9, 3, 5, 8, -2, 9, -8, 4)
 
-[node name="InteractionPrompt" type="Label" parent="."]
+[node name="InteractionPrompt" type="Label" parent="." unique_id=674578479]
 offset_left = -100.0
 offset_top = -38.0
 offset_right = 100.0
@@ -25,5 +27,5 @@ theme_override_font_sizes/font_size = 12
 text = "Press [E] to collect"
 horizontal_alignment = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=756020228]
 shape = SubResource("CircleShape_farthing")
