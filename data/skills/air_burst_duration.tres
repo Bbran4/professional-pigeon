@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"air_burst_duration"
+display_name = "Longer Air Burst"
+description = "Increase air burst duration by 0.25 seconds per level."
+category = 2
+food_cost = 10
+effect_id = &"sprint_air_duration_add"
+effect_value = 0.25
+max_level = 3
