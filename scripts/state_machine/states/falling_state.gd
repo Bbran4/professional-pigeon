@@ -5,17 +5,27 @@ class_name FallingState
 func enter(_previous_state: State) -> void:
 	state_machine.actor.play_animation(&"fly")
 
+	var pigeon := state_machine.actor as Pigeon
+	if pigeon:
+		pigeon.show_energy_indicator()
+
 
 func exit() -> void:
-	pass
+	var pigeon := state_machine.actor as Pigeon
+	if pigeon:
+		pigeon.hide_energy_indicator()
+		pigeon.end_dive()
 
 
 func physics_update(delta: float) -> void:
-	var actor := state_machine.actor
-	actor.apply_gravity(delta)
+	var pigeon := state_machine.actor as Pigeon
+	if pigeon:
+		pigeon.air_move(delta)
 
-	actor.velocity.x = actor.move_direction.x * actor.get_move_speed()
-	actor.move_and_slide()
+		if pigeon.is_on_floor():
+			if pigeon.is_diving:
+				pigeon.begin_swoop()
+			transition(StateMachine.Intent.IDLE)
+		return
 
-	if actor.is_on_floor():
-		transition(StateMachine.Intent.IDLE)
+	state_machine.actor.apply_gravity(delta)
