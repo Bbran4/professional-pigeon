@@ -1,9 +1,9 @@
 extends Pigeon
 class_name Player
 
-signal bread_collected
+signal collectible_collected
 
-var nearby_bread: Bread
+var nearby_collectible: Collectible
 
 @onready var inventory: PlayerInventory = $Inventory
 
@@ -14,26 +14,26 @@ func _process(_delta: float) -> void:
 
 func update_interaction_prompt() -> void:
 	var detector := get_node_or_null("BreadDetector") as Area2D
-	var closest_bread: Bread
+	var closest_collectible: Collectible
 	var closest_distance := INF
 
 	if detector:
 		for area: Area2D in detector.get_overlapping_areas():
-			var bread := area as Bread
-			if bread == null:
+			var collectible := area as Collectible
+			if collectible == null:
 				continue
 
-			var distance := global_position.distance_squared_to(bread.global_position)
+			var distance := global_position.distance_squared_to(collectible.global_position)
 			if distance < closest_distance:
 				closest_distance = distance
-				closest_bread = bread
+				closest_collectible = collectible
 
-	if nearby_bread and is_instance_valid(nearby_bread):
-		nearby_bread.set_prompt_visible(false)
+	if nearby_collectible and is_instance_valid(nearby_collectible):
+		nearby_collectible.set_prompt_visible(false)
 
-	nearby_bread = closest_bread
-	if nearby_bread:
-		nearby_bread.set_prompt_visible(true)
+	nearby_collectible = closest_collectible
+	if nearby_collectible:
+		nearby_collectible.set_prompt_visible(true)
 
 
 func collect_bread() -> bool:
@@ -41,29 +41,34 @@ func collect_bread() -> bool:
 	if detector == null:
 		return false
 
-	var closest_bread: Bread
+	var closest_collectible: Collectible
 	var closest_distance := INF
 
 	for area: Area2D in detector.get_overlapping_areas():
-		var bread := area as Bread
-		if bread == null:
+		var collectible := area as Collectible
+		if collectible == null:
 			continue
 
-		var distance := global_position.distance_squared_to(bread.global_position)
+		var distance := global_position.distance_squared_to(collectible.global_position)
 		if distance < closest_distance:
 			closest_distance = distance
-			closest_bread = bread
+			closest_collectible = collectible
 
-	if closest_bread == null:
+	if closest_collectible == null or closest_collectible.resource == null:
 		return false
 
-	var bread_value := 1
+	var value := closest_collectible.get_value()
 	var skill_tree := get_skill_tree()
-	if skill_tree:
-		bread_value += int(skill_tree.get_effect_value(&"bread_value_add"))
-	inventory.add_food(bread_value)
-	closest_bread.collect()
-	bread_collected.emit()
+
+	if closest_collectible.get_resource_type() == ResourceData.ResourceType.FOOD:
+		if closest_collectible.resource.id == &"bread" and skill_tree:
+			value += int(skill_tree.get_effect_value(&"bread_value_add"))
+		inventory.add_food(value)
+	else:
+		inventory.add_coin(value)
+
+	closest_collectible.collect()
+	collectible_collected.emit()
 	return true
 
 
