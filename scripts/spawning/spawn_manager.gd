@@ -3,7 +3,6 @@ class_name SpawnManager
 
 @export var collectible_scenes: Array[PackedScene] = []
 @export var collectible_resources: Array[ResourceData] = []
-@export var collectible_count: int = 20
 @export var ground_y: float = 568.0
 @export var world_start: float = 24.0
 @export var world_end: float = 5976.0
@@ -20,44 +19,64 @@ func spawn_collectibles() -> void:
 		push_error("SpawnManager requires collectible scenes and resources.")
 		return
 
-	var count := collectible_count + get_additional_food_spawns()
-	var spawn_positions := get_random_spawn_positions(count)
+	var spawn_requests: Array[Dictionary] = []
 
-	for spawn_position in spawn_positions:
-		var scene_index := choose_resource_index()
-		if scene_index < 0 or scene_index >= collectible_scenes.size():
-			continue
-
-		var collectible := collectible_scenes[scene_index].instantiate() as Collectible
-		if collectible == null:
-			continue
-
-		collectible.resource = collectible_resources[scene_index]
-		collectible.position = spawn_position
-		add_child(collectible)
-
-
-func choose_resource_index() -> int:
-	var total_weight := 0.0
-	for resource in collectible_resources:
-		if resource:
-			total_weight += maxf(resource.spawn_weight, 0.0)
-
-	if total_weight <= 0.0:
-		return -1
-
-	var roll := randf_range(0.0, total_weight)
-	var accumulated := 0.0
-
-	for i in range(collectible_resources.size()):
+	for i in range(mini(collectible_scenes.size(), collectible_resources.size())):
 		var resource := collectible_resources[i]
-		if resource == null:
+		if resource == null or not is_resource_unlocked(resource):
 			continue
-		accumulated += maxf(resource.spawn_weight, 0.0)
-		if roll <= accumulated:
-			return i
 
-	return collectible_resources.size() - 1
+		if randf_range(0.0, 100.0) > resource.spawn_chance:
+			continue
+
+		var amount := get_spawn_amount(resource)
+		if amount <= 0:
+			continue
+
+		spawn_requests.append({
+			"scene_index": i,
+			"amount": amount
+		})
+
+	var total_amount := 0
+	for request in spawn_requests:
+		total_amount += int(request.amount)
+
+	var spawn_positions := get_random_spawn_positions(total_amount)
+	var position_index := 0
+
+	for request in spawn_requests:
+		var scene_index := int(request.scene_index)
+		var amount := int(request.amount)
+
+		for _i in range(amount):
+			if position_index >= spawn_positions.size():
+				return
+
+			var collectible := collectible_scenes[scene_index].instantiate() as Collectible
+			if collectible == null:
+				continue
+
+			collectible.resource = collectible_resources[scene_index]
+			collectible.position = spawn_positions[position_index]
+			add_child(collectible)
+			position_index += 1
+
+
+func is_resource_unlocked(resource: ResourceData) -> bool:
+	if resource.unlock_skill_id == &"":
+		return true
+
+	return ProgressionManager.get_skill_level(resource.unlock_skill_id) > 0
+
+
+func get_spawn_amount(resource: ResourceData) -> int:
+	var amount := resource.base_spawn_amount
+
+	if resource.spawn_upgrade_id != &"":
+		amount += int(ProgressionManager.get_skill_level(resource.spawn_upgrade_id))
+
+	return maxi(amount, 0)
 
 
 func get_random_spawn_positions(amount: int) -> Array[Vector2]:
@@ -82,7 +101,3 @@ func get_random_spawn_positions(amount: int) -> Array[Vector2]:
 			positions.append(Vector2(candidate, ground_y))
 
 	return positions
-
-
-func get_additional_food_spawns() -> int:
-	return ProgressionManager.get_skill_level(&"bread_spawns")
