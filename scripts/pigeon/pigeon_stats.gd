@@ -44,10 +44,11 @@ class_name PigeonStats
 @export var glide_speed_multiplier: float = 1.2
 ## Gliding is free. Energy is reserved for active flapping/sprinting.
 @export var glide_energy_per_second: float = 0.0
+@export var glide_duration: float = 1.0
 
 ## Ground sprint / air burst
 @export var sprint_ground_speed: float = 300.0
-@export var sprint_ground_duration: float = 2.0
+@export var sprint_ground_duration: float = 1.0
 @export var sprint_ground_cooldown: float = 5.0
 @export var sprint_ground_acceleration: float = 2800.0
 @export var sprint_air_duration: float = 1.0
