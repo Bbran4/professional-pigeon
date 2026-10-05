@@ -161,13 +161,13 @@ func flap() -> void:
 
 
 func start_sprint() -> bool:
+	# Ground sprint is a normal horizontal sprint. Air sprint remains the
+	# high-speed burst that consumes all remaining energy.
 	if is_on_floor():
 		var direction := signf(move_direction.x)
 		if direction == 0.0:
 			direction = float(facing)
 
-		# Ground sprint is a held hop-sprint rather than a flat dash. Each hop
-		# launches the pigeon and carries the player in their travel direction.
 		is_sprinting = true
 		sprint_timer = stats.sprint_ground_duration
 		velocity.x = move_toward(
@@ -175,8 +175,6 @@ func start_sprint() -> bool:
 			direction * stats.sprint_ground_speed,
 			stats.sprint_ground_acceleration * get_physics_process_delta_time()
 		)
-		velocity.y = -stats.sprint_ground_hop_strength
-		_flap_cut_armed = false
 		return true
 
 	# Air sprint is a burst, not a separate energy pool. Empty the remaining
