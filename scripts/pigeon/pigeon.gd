@@ -13,6 +13,7 @@ var flap_held: bool = false
 var facing: int = 1
 var is_gliding: bool = false
 var is_diving: bool = false
+var swoop_timer: float = 0.0
 
 var _energy_regeneration_timer: float = 0.0
 var _coyote_timer: float = 0.0
@@ -38,6 +39,7 @@ func _physics_process(delta: float) -> void:
 	# player and future AI controllers get identical movement behaviour.
 	_coyote_timer = maxf(_coyote_timer - delta, 0.0)
 	_flap_buffer_timer = maxf(_flap_buffer_timer - delta, 0.0)
+	swoop_timer = maxf(swoop_timer - delta, 0.0)
 
 	var on_floor := is_on_floor()
 	if on_floor:
@@ -267,8 +269,26 @@ func end_dive() -> void:
 
 func begin_swoop() -> void:
 	end_dive()
+	swoop_timer = stats.swoop_duration
 	velocity.x = float(facing) * stats.swoop_speed
 	started_swoop.emit()
+
+
+func is_swooping() -> bool:
+	return swoop_timer > 0.0
+
+
+func swoop_move(delta: float) -> void:
+	var input := move_direction.x
+	var target_speed := stats.swoop_speed
+	if input != 0.0:
+		target_speed *= signf(input)
+	else:
+		target_speed = 0.0
+
+	velocity.x = move_toward(velocity.x, target_speed, stats.ground_acceleration * delta)
+	velocity.y = 0.0
+	move_and_slide()
 
 
 func fly() -> void:
