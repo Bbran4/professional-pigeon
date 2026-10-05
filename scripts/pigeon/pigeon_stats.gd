@@ -33,7 +33,7 @@ class_name PigeonStats
 @export var flap_buffer_time: float = 0.12
 
 ## Energy
-@export var max_energy: float = 3.0
+@export var max_energy: float = 4.0
 @export var energy_regeneration_interval: float = 1.0
 @export var energy_regeneration_amount: float = 1.0
 
@@ -42,8 +42,15 @@ class_name PigeonStats
 @export var glide_fall_speed: float = 70.0
 @export var glide_brake: float = 1500.0
 @export var glide_speed_multiplier: float = 1.2
-## Energy consumed per second while gliding. Set to 0 for free gliding.
-@export var glide_energy_per_second: float = 0.5
+## Gliding is free. Energy is reserved for active flapping/sprinting.
+@export var glide_energy_per_second: float = 0.0
+
+## Ground sprint / air burst
+@export var sprint_ground_speed: float = 300.0
+@export var sprint_ground_duration: float = 0.18
+@export var sprint_ground_acceleration: float = 2800.0
+@export var sprint_air_acceleration: float = 2600.0
+@export var sprint_air_speed: float = 420.0
 
 ## Dive and swoop
 @export var can_dive: bool = false
