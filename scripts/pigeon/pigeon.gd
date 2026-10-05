@@ -42,9 +42,9 @@ func _physics_process(delta: float) -> void:
 	_coyote_timer = maxf(_coyote_timer - delta, 0.0)
 	_flap_buffer_timer = maxf(_flap_buffer_timer - delta, 0.0)
 	swoop_timer = maxf(swoop_timer - delta, 0.0)
-sprint_timer = maxf(sprint_timer - delta, 0.0)
-if sprint_timer <= 0.0:
-	is_sprinting = false
+	sprint_timer = maxf(sprint_timer - delta, 0.0)
+	if sprint_timer <= 0.0:
+		is_sprinting = false
 
 	var on_floor := is_on_floor()
 	if on_floor:
@@ -145,11 +145,7 @@ func try_flap() -> bool:
 	# Every active flap costs energy, including the initial ground flap.
 	if current_energy <= 0.0:
 		return false
-
-	if not from_ground:
-		if current_energy <= 0.0:
-			return false
-		drain_energy(1.0)
+	drain_energy(1.0)
 
 	_coyote_timer = 0.0
 	flap()
@@ -169,9 +165,18 @@ func start_sprint() -> bool:
 		var direction := signf(move_direction.x)
 		if direction == 0.0:
 			direction = float(facing)
+
+		# Ground sprint is a held hop-sprint rather than a flat dash. Each hop
+		# launches the pigeon and carries the player in their travel direction.
 		is_sprinting = true
 		sprint_timer = stats.sprint_ground_duration
-		velocity.x = direction * stats.sprint_ground_speed
+		velocity.x = move_toward(
+			velocity.x,
+			direction * stats.sprint_ground_speed,
+			stats.sprint_ground_acceleration * get_physics_process_delta_time()
+		)
+		velocity.y = -stats.sprint_ground_hop_strength
+		_flap_cut_armed = false
 		return true
 
 	# Air sprint is a burst, not a separate energy pool. Empty the remaining
