@@ -187,9 +187,12 @@ func start_sprint() -> bool:
 	sprint_timer = 0.12
 	var energy := current_energy
 	current_energy = 0.0
+	var direction := signf(velocity.x)
+	if direction == 0.0:
+		direction = float(facing)
 	velocity.x = move_toward(
 		velocity.x,
-		float(facing) * stats.sprint_air_speed,
+		direction * stats.sprint_air_speed,
 		stats.sprint_air_acceleration * maxf(energy, 1.0)
 	)
 	return true
