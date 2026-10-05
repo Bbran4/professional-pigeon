@@ -16,7 +16,8 @@ var is_diving: bool = false
 var is_sprinting: bool = false
 var sprint_held: bool = false
 var sprint_timer: float = 0.0
-var sprint_cooldown_timer: float = 0.0
+var sprint_ground_cooldown_timer: float = 0.0
+var sprint_air_cooldown_timer: float = 0.0
 var sprint_is_air: bool = false
 var swoop_timer: float = 0.0
 
@@ -45,12 +46,16 @@ func _physics_process(delta: float) -> void:
 	_coyote_timer = maxf(_coyote_timer - delta, 0.0)
 	_flap_buffer_timer = maxf(_flap_buffer_timer - delta, 0.0)
 	swoop_timer = maxf(swoop_timer - delta, 0.0)
-	sprint_cooldown_timer = maxf(sprint_cooldown_timer - delta, 0.0)
+	sprint_ground_cooldown_timer = maxf(sprint_ground_cooldown_timer - delta, 0.0)
+	sprint_air_cooldown_timer = maxf(sprint_air_cooldown_timer - delta, 0.0)
 	if is_sprinting:
 		sprint_timer = maxf(sprint_timer - delta, 0.0)
 		if not sprint_held or sprint_timer <= 0.0:
 			is_sprinting = false
-			sprint_cooldown_timer = stats.sprint_air_cooldown if sprint_is_air else stats.sprint_ground_cooldown
+			if sprint_is_air:
+				sprint_air_cooldown_timer = stats.sprint_air_cooldown
+			else:
+				sprint_ground_cooldown_timer = stats.sprint_ground_cooldown
 
 	var on_floor := is_on_floor()
 	if on_floor:
@@ -167,19 +172,48 @@ func flap() -> void:
 
 
 func start_sprint() -> bool:
-	if is_sprinting or sprint_cooldown_timer > 0.0:
+	if is_sprinting:
 		return false
 
 	if is_on_floor():
+		if sprint_ground_cooldown_timer > 0.0:
+			return false
 		is_sprinting = true
 		sprint_is_air = false
 		sprint_timer = stats.sprint_ground_duration
 		return true
 
+	if sprint_air_cooldown_timer > 0.0:
+		return false
+
 	is_sprinting = true
 	sprint_is_air = true
 	sprint_timer = stats.sprint_air_duration
 	return true
+
+
+func get_ground_sprint_cooldown_ratio() -> float:
+	if stats.sprint_ground_cooldown <= 0.0:
+		return 1.0
+	return 1.0 - (sprint_ground_cooldown_timer / stats.sprint_ground_cooldown)
+
+
+func get_air_sprint_cooldown_ratio() -> float:
+	if stats.sprint_air_cooldown <= 0.0:
+		return 1.0
+	return 1.0 - (sprint_air_cooldown_timer / stats.sprint_air_cooldown)
+
+
+func get_ground_sprint_active_ratio() -> float:
+	if not is_sprinting or sprint_is_air or stats.sprint_ground_duration <= 0.0:
+		return 0.0
+	return sprint_timer / stats.sprint_ground_duration
+
+
+func get_air_sprint_active_ratio() -> float:
+	if not is_sprinting or not sprint_is_air or stats.sprint_air_duration <= 0.0:
+		return 0.0
+	return sprint_timer / stats.sprint_air_duration
 
 
 func drain_energy(amount: float) -> void:
