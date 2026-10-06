@@ -12,8 +12,8 @@ var end_panel: Control
 
 func _ready() -> void:
 	back_button.pressed.connect(_on_back_pressed)
-	ProgressionManager.food_changed.connect(_on_progression_changed)
-	ProgressionManager.coin_changed.connect(_on_coin_changed)
+	ProgressionManager.food_changed.connect(refresh.unbind(1))
+	ProgressionManager.coin_changed.connect(refresh.unbind(1))
 	refresh()
 
 
@@ -29,14 +29,6 @@ func open(player: Player, run_end_panel: Control) -> void:
 func refresh() -> void:
 	food_label.text = "Food: %d" % ProgressionManager.food
 	coin_label.text = "Coin: %d" % ProgressionManager.coin
-
-
-func _on_progression_changed(_food: int) -> void:
-	refresh()
-
-
-func _on_coin_changed(_coin: int) -> void:
-	refresh()
 
 
 func _on_back_pressed() -> void:
