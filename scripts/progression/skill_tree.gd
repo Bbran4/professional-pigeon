@@ -8,12 +8,18 @@ signal purchase_rejected(skill_id: StringName, reason: String)
 
 var skills: Array[SkillData] = []
 var skills_by_id: Dictionary = {}
+var _effect_cache: Dictionary = {}
 
 
 func _ready() -> void:
 	if catalog != null:
 		skills = catalog.skills
 	_rebuild_lookup()
+	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+
+
+func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
+	_effect_cache.clear()
 
 
 func _rebuild_lookup() -> void:
@@ -40,6 +46,9 @@ func get_level(skill_id: StringName) -> int:
 
 
 func get_effect_value(effect_id: StringName) -> float:
+	if _effect_cache.has(effect_id):
+		return _effect_cache[effect_id]
+
 	var total := 0.0
 
 	for skill in skills:
@@ -47,6 +56,7 @@ func get_effect_value(effect_id: StringName) -> float:
 			continue
 		total += skill.effect_value * get_level(skill.id)
 
+	_effect_cache[effect_id] = total
 	return total
 
 
