@@ -16,6 +16,7 @@ enum Intent {
 var actor: Actor
 var current_state: State
 var previous_state: State
+var states_by_intent: Dictionary = {}
 
 
 func _ready() -> void:
@@ -29,7 +30,9 @@ func _ready() -> void:
 		var state := child as State
 		if state == null:
 			continue
+
 		state.state_machine = self
+		states_by_intent[state.intent] = state
 
 	if initial_state == null:
 		push_error("StateMachine requires an initial state.")
@@ -49,16 +52,12 @@ func _physics_process(delta: float) -> void:
 
 
 func transition(intent: Intent) -> void:
-	for child: Node in get_children():
-		var state := child as State
-		if state == null:
-			continue
+	var state: State = states_by_intent.get(intent)
+	if state == null:
+		push_error("StateMachine could not find a state for intent: " + str(intent))
+		return
 
-		if state.intent == intent:
-			change_state(state)
-			return
-
-	push_error("StateMachine could not find a state for intent: " + str(intent))
+	change_state(state)
 
 
 func change_state(new_state: State) -> void:
