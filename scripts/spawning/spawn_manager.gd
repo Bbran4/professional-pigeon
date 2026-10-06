@@ -3,9 +3,6 @@ class_name SpawnManager
 
 @export var collectible_scenes: Array[PackedScene] = []
 @export var collectible_resources: Array[ResourceData] = []
-@export var ground_y: float = 568.0
-@export var world_start: float = 24.0
-@export var world_end: float = 5976.0
 @export var minimum_spawn_spacing: float = 100.0
 
 
@@ -81,7 +78,7 @@ func get_spawn_amount(resource: ResourceData) -> int:
 
 func get_random_spawn_positions(amount: int) -> Array[Vector2]:
 	var positions: Array[Vector2] = []
-	if amount <= 0 or world_end <= world_start:
+	if amount <= 0 or WorldConfig.SPAWN_WORLD_END <= WorldConfig.SPAWN_WORLD_START:
 		return positions
 
 	var attempts := 0
@@ -89,7 +86,7 @@ func get_random_spawn_positions(amount: int) -> Array[Vector2]:
 
 	while positions.size() < amount and attempts < max_attempts:
 		attempts += 1
-		var candidate := randf_range(world_start, world_end)
+		var candidate := randf_range(WorldConfig.SPAWN_WORLD_START, WorldConfig.SPAWN_WORLD_END)
 		var is_too_close := false
 
 		for existing in positions:
@@ -98,6 +95,6 @@ func get_random_spawn_positions(amount: int) -> Array[Vector2]:
 				break
 
 		if not is_too_close:
-			positions.append(Vector2(candidate, ground_y))
+			positions.append(Vector2(candidate, WorldConfig.GROUND_TOP))
 
 	return positions
