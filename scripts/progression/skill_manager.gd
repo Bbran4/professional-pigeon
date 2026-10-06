@@ -23,9 +23,9 @@ func _ready() -> void:
 		push_error("SkillManager requires a SkillCanvas.")
 		return
 
-	ProgressionManager.food_changed.connect(_on_progression_changed)
-	ProgressionManager.coin_changed.connect(_on_coin_changed)
-	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+	ProgressionManager.food_changed.connect(_refresh_buttons.unbind(1))
+	ProgressionManager.coin_changed.connect(_refresh_buttons.unbind(1))
+	ProgressionManager.skill_level_changed.connect(_refresh_buttons.unbind(2))
 
 	if skill_tree != null:
 		_setup_skill_buttons()
@@ -81,18 +81,6 @@ func _zoom_at_mouse(delta: float, mouse_position: Vector2) -> void:
 	var canvas_position_before := (mouse_position - skill_canvas.position) / old_zoom
 	skill_canvas.scale = Vector2.ONE * zoom
 	skill_canvas.position = mouse_position - canvas_position_before * zoom
-
-
-func _on_progression_changed(_food: int) -> void:
-	_refresh_buttons()
-
-
-func _on_coin_changed(_coin: int) -> void:
-	_refresh_buttons()
-
-
-func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
-	_refresh_buttons()
 
 
 func _refresh_buttons() -> void:
