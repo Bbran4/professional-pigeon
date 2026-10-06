@@ -10,13 +10,9 @@ var remaining_collectibles: int
 var active: bool = true
 
 @onready var player: Player = $"../Player"
-@onready var result_panel: Control = $"../RunEndLayer/RunEndPanel"
-@onready var food_label: Label = $"../RunEndLayer/RunEndPanel/Panel/FoodLabel"
-@onready var reason_label: Label = $"../RunEndLayer/RunEndPanel/Panel/ReasonLabel"
 
 
 func _ready() -> void:
-	result_panel.hide()
 	call_deferred("start_run")
 
 
@@ -32,7 +28,6 @@ func _process(delta: float) -> void:
 
 func start_run() -> void:
 	active = true
-	result_panel.hide()
 	time_remaining = run_duration
 	remaining_collectibles = get_tree().get_nodes_in_group("collectible").size()
 
@@ -73,21 +68,8 @@ func end_run(reason: String) -> void:
 	ProgressionManager.add_coin(coin_collected)
 	player.inventory.clear()
 
-	reason_label.text = get_end_reason_text(reason)
-	food_label.text = "Food: +%d   |   Coin: +%d" % [food_collected, coin_collected]
-	result_panel.show()
-
 	run_ended.emit(reason, food_collected, coin_collected)
-
-	print("Run ended: ", reason, " | Food: ", food_collected, " | Coin: ", coin_collected)
 
 
 func restart_run() -> void:
 	get_tree().reload_current_scene()
-
-
-func get_end_reason_text(reason: String) -> String:
-	if reason == "all_collectibles_collected":
-		return "Everything collected!"
-
-	return "Time's up!"
