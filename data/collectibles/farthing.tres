@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CollectibleData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/collectibles/collectible_data.gd" id="1_collectible_data"]
+
+[resource]
+script = ExtResource("1_collectible_data")
+id = &"farthing"
+display_name = "Farthing"
+description = "A small copper coin."
+collectible_type = 1
+base_value = 1
+base_spawn_amount = 1
+spawn_chance = 50.0
+unlock_skill_id = &"unlock_coin"
+spawn_upgrade_id = &"farthing_spawns"
+visual_color = Color(0.58, 0.42, 0.2, 1)
+visual_polygon = PackedVector2Array(-8, -2, -5, -7, 2, -9, 8, -4, 9, 3, 5, 8, -2, 9, -8, 4)
