@@ -19,7 +19,7 @@ func _ready() -> void:
 	$FarmHouse.position = Vector2(0, 309)
 	$BuildingTwo.position = Vector2(650, 388)
 	$BuildingThree.position = Vector2(950, 248)
-	player.position = Vector2(270, 290)
+	player.position = Vector2(252, 173)
 
 	_build_village()
 

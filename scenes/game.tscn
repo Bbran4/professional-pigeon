@@ -135,7 +135,7 @@ one_way_collision = true
 [node name="SpawnManager" parent="." unique_id=1444331125 instance=ExtResource("4_spawn")]
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
-position = Vector2(270, 290)
+position = Vector2(252, 173)
 stats = SubResource("Resource_kvuet")
 
 [node name="RunManager" type="Node" parent="." unique_id=701323077]
@@ -143,7 +143,6 @@ script = ExtResource("5_run_manager")
 
 [node name="RunEndLayer" type="CanvasLayer" parent="." unique_id=1543046195]
 layer = 20
-visible = false
 
 [node name="RunEndPanel" type="Control" parent="RunEndLayer" unique_id=1390672750]
 layout_mode = 3
@@ -207,7 +206,6 @@ text = "Restart Run"
 
 [node name="RunHUD" type="CanvasLayer" parent="." unique_id=244068897]
 layer = 10
-visible = false
 script = ExtResource("7_run_hud")
 
 [node name="MarginContainer" type="MarginContainer" parent="RunHUD" unique_id=1305050688]
@@ -272,7 +270,6 @@ label_text = "A"
 
 [node name="UpgradeScreenLayer" type="CanvasLayer" parent="." unique_id=1274348906]
 layer = 30
-visible = false
 
 [node name="UpgradeScreen" type="Control" parent="UpgradeScreenLayer" unique_id=1413036099]
 visible = false
