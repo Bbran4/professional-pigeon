@@ -12,4 +12,4 @@
 [node name="SpawnManager" type="Node2D"]
 script = ExtResource("1_spawn_manager")
 collectible_scene = ExtResource("2_collectible")
-collectible_resources = Array[Resource]([ExtResource("3_bread_resource"), ExtResource("4_seeds_resource"), ExtResource("5_worms_resource"), ExtResource("6_farthing_resource"), ExtResource("7_penny_resource"), ExtResource("8_noble_resource")])
+collectible_data = Array[Resource]([ExtResource("3_bread_resource"), ExtResource("4_seeds_resource"), ExtResource("5_worms_resource"), ExtResource("6_farthing_resource"), ExtResource("7_penny_resource"), ExtResource("8_noble_resource")])
