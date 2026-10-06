@@ -50,18 +50,16 @@ func _physics_process(delta: float) -> void:
 	sprint_ground_cooldown_timer = maxf(sprint_ground_cooldown_timer - delta, 0.0)
 	sprint_air_cooldown_timer = maxf(sprint_air_cooldown_timer - delta, 0.0)
 
-	if is_sprinting:
-		sprint_timer = maxf(sprint_timer - delta, 0.0)
-		if not sprint_held or sprint_timer <= 0.0:
-			is_sprinting = false
-			if sprint_is_air:
-				sprint_air_cooldown_timer = stats.sprint_air_cooldown
-			else:
-				sprint_ground_cooldown_timer = stats.sprint_ground_cooldown
-
-	
 	var on_floor := is_on_floor()
 	time_off_floor = 0.0 if on_floor else time_off_floor + delta
+
+	if is_sprinting:
+		sprint_timer = maxf(sprint_timer - delta, 0.0)
+		var ground_sprint_left_floor := not sprint_is_air and time_off_floor > stats.floor_grace_time
+		var air_sprint_landed := sprint_is_air and on_floor
+		if not sprint_held or sprint_timer <= 0.0 or ground_sprint_left_floor or air_sprint_landed:
+			_end_sprint()
+		
 	if on_floor:
 		_coyote_timer = stats.coyote_time
 		is_gliding = false
@@ -87,7 +85,15 @@ func _physics_process(delta: float) -> void:
 
 	_was_on_floor = on_floor
 
-
+func _end_sprint() -> void:
+	if not is_sprinting:
+		return
+	is_sprinting = false
+	if sprint_is_air:
+		sprint_air_cooldown_timer = stats.sprint_air_cooldown
+	else:
+		sprint_ground_cooldown_timer = stats.sprint_ground_cooldown
+		
 func get_skill_tree() -> SkillTree:
 	return _skill_tree
 
@@ -243,7 +249,7 @@ func steer_horizontal(max_speed: float, acceleration: float, friction: float, de
 func ground_move(delta: float) -> void:
 	var speed := get_move_speed()
 	var acceleration := stats.ground_acceleration
-	if is_sprinting:
+	if is_sprinting and not sprint_is_air:
 		speed = stats.sprint_ground_speed
 		acceleration = stats.sprint_ground_acceleration
 
@@ -264,12 +270,14 @@ func air_move(delta: float) -> void:
 	_apply_air_gravity(delta)
 
 	var speed := get_flight_speed()
-	if is_sprinting:
+	var acceleration := stats.air_acceleration
+	if is_sprinting and sprint_is_air:
 		speed = maxf(speed, stats.sprint_air_speed)
+		acceleration = stats.sprint_air_acceleration
 	if is_gliding:
 		speed *= stats.glide_speed_multiplier
 
-	steer_horizontal(speed, stats.air_acceleration, stats.air_friction, delta)
+	steer_horizontal(speed, acceleration, stats.air_friction, delta)
 	move_and_slide()
 
 

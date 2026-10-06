@@ -135,7 +135,6 @@ one_way_collision = true
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
 position = Vector2(252, 173)
-stats = null
 
 [node name="RunManager" type="Node" parent="." unique_id=701323077]
 script = ExtResource("5_run_manager")

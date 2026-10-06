@@ -26,7 +26,7 @@ func _physics_process(_delta: float) -> void:
 		pigeon.flap_held = Input.is_action_pressed("move_up")
 		pigeon.sprint_held = Input.is_action_pressed("sprint")
 
-		if pigeon.sprint_held and not pigeon.is_sprinting:
+		if Input.is_action_just_pressed("sprint") and not pigeon.is_sprinting:
 			if pigeon.start_sprint() and not pigeon.is_on_floor():
 				state_machine.transition(StateMachine.Intent.FALL)
 				return

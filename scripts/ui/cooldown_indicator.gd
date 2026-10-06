@@ -47,9 +47,7 @@ func _draw() -> void:
 	var font := ThemeDB.fallback_font
 	var font_size := 10
 	var text := label_text
-	if active:
-		text = "%.1f" % cooldown_seconds
-	elif progress < 1.0:
+	if active or (progress < 1.0 and cooldown_seconds > 0.05):
 		text = "%.1f" % cooldown_seconds
 
 	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)

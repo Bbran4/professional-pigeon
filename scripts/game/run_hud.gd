@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 
 	_update_burst(ground_burst_indicator, pigeon, false)
 	_update_burst(air_burst_indicator, pigeon, true)
-
+	print(pigeon.is_sprinting, " ", pigeon.sprint_is_air, " ", pigeon.sprint_timer, " ", pigeon.sprint_ground_cooldown_timer)
 
 func _update_burst(indicator: CooldownIndicator, pigeon: Pigeon, air: bool) -> void:
 	var active := pigeon.is_sprinting and pigeon.sprint_is_air == air
