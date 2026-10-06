@@ -2,7 +2,7 @@ extends Node2D
 class_name SpawnManager
 
 @export var collectible_scene: PackedScene
-@export var collectible_resources: Array[ResourceData] = []
+@export var collectible_resources: Array[CollectibleData] = []
 @export var minimum_spawn_spacing: float = 100.0
 
 func _ready() -> void:
@@ -16,7 +16,7 @@ func spawn_collectibles() -> void:
 
 	var spawn_requests: Array[Dictionary] = []
 	for resource in collectible_resources:
-		if resource == null or not is_resource_unlocked(resource):
+		if resource == null or not is_collectible_unlocked(resource):
 			continue
 		if randf_range(0.0, 100.0) > resource.spawn_chance:
 			continue
@@ -33,7 +33,7 @@ func spawn_collectibles() -> void:
 	var position_index := 0
 
 	for request in spawn_requests:
-		var resource: ResourceData = request.resource
+		var resource: CollectibleData = request.resource
 		var amount := int(request.amount)
 		for _i in range(amount):
 			if position_index >= spawn_positions.size():
@@ -46,12 +46,12 @@ func spawn_collectibles() -> void:
 			add_child(collectible)
 			position_index += 1
 
-func is_resource_unlocked(resource: ResourceData) -> bool:
+func is_collectible_unlocked(resource: CollectibleData) -> bool:
 	if resource.unlock_skill_id == &"":
 		return true
 	return ProgressionManager.get_skill_level(resource.unlock_skill_id) > 0
 
-func get_spawn_amount(resource: ResourceData) -> int:
+func get_spawn_amount(resource: CollectibleData) -> int:
 	var amount := resource.base_spawn_amount
 	if resource.spawn_upgrade_id != &"":
 		amount += int(ProgressionManager.get_skill_level(resource.spawn_upgrade_id))
