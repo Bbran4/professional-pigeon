@@ -23,8 +23,8 @@ func _apply_collectible_data() -> void:
 	visual.polygon = data.visual_polygon
 	collision.polygon = data.visual_polygon
 
-func set_prompt_visible(is_visible: bool) -> void:
-	interaction_prompt.visible = is_visible
+func set_prompt_visible(show_prompt: bool) -> void:
+	interaction_prompt.visible = show_prompt
 
 func collect() -> void:
 	queue_free()

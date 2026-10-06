@@ -71,19 +71,6 @@ func is_unlocked(skill_id: StringName) -> bool:
 
 	return true
 
-
-func can_purchase(skill_id: StringName) -> bool:
-	var skill := get_skill(skill_id)
-	if skill == null or not is_unlocked(skill_id):
-		return false
-
-	var current_level := get_level(skill_id)
-	if current_level >= skill.max_level:
-		return false
-
-	return ProgressionManager.can_spend(get_next_food_cost(skill_id), get_next_coin_cost(skill_id))
-
-
 func get_next_food_cost(skill_id: StringName) -> int:
 	var skill := get_skill(skill_id)
 	if skill == null:
@@ -97,35 +84,33 @@ func get_next_coin_cost(skill_id: StringName) -> int:
 		return 0
 	return skill.coin_cost * (get_level(skill_id) + 1)
 
-
-func get_next_cost(skill_id: StringName) -> int:
-	return get_next_food_cost(skill_id)
-
-
-func purchase(skill_id: StringName) -> bool:
-	var skill := get_skill(skill_id)
-	if skill == null:
-		return _reject(skill_id, "Skill does not exist.")
-
-	if not is_unlocked(skill_id):
-		return _reject(skill_id, "Required skills have not been purchased.")
-
-	var current_level := get_level(skill_id)
-	if current_level >= skill.max_level:
-		return _reject(skill_id, "Skill is already at maximum level.")
-
-	var food_cost := get_next_food_cost(skill_id)
-	var coin_cost := get_next_coin_cost(skill_id)
-
-	if not ProgressionManager.spend(food_cost, coin_cost):
-		return _reject(skill_id, "Not enough Food or Coin.")
-
-	var new_level := current_level + 1
-	ProgressionManager.set_skill_level(skill_id, new_level)
-	skill_purchased.emit(skill_id, new_level)
-	return true
-
-
 func _reject(skill_id: StringName, reason: String) -> bool:
 	purchase_rejected.emit(skill_id, reason)
 	return false
+func _get_purchase_error(skill_id: StringName) -> String:
+	var skill := get_skill(skill_id)
+	if skill == null:
+		return "Skill does not exist."
+	if not is_unlocked(skill_id):
+		return "Required skills have not been purchased."
+	if get_level(skill_id) >= skill.max_level:
+		return "Skill is already at maximum level."
+	if not ProgressionManager.can_spend(get_next_food_cost(skill_id), get_next_coin_cost(skill_id)):
+		return "Not enough Food or Coin."
+	return ""
+
+
+func can_purchase(skill_id: StringName) -> bool:
+	return _get_purchase_error(skill_id).is_empty()
+
+
+func purchase(skill_id: StringName) -> bool:
+	var error := _get_purchase_error(skill_id)
+	if not error.is_empty():
+		return _reject(skill_id, error)
+
+	ProgressionManager.spend(get_next_food_cost(skill_id), get_next_coin_cost(skill_id))
+	var new_level := get_level(skill_id) + 1
+	ProgressionManager.set_skill_level(skill_id, new_level)
+	skill_purchased.emit(skill_id, new_level)
+	return true

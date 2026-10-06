@@ -38,7 +38,7 @@ func refresh() -> void:
 		cost_text += " + %d Coin" % coin_cost
 
 	text = "%s\nLevel %d/%d | %s" % [skill.display_name, level, skill.max_level, cost_text]
-	disabled = not skill_tree.is_unlocked(skill_id) or not skill_tree.can_purchase(skill_id)
+	disabled = not skill_tree.can_purchase(skill_id)
 
 
 func _on_pressed() -> void:

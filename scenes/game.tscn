@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cfbifrtt8fl6r"]
 
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://dk602rip5g0nd" path="res://assets/House/House 1.png" id="2_dinhu"]
-[ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="3_lnu2h"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
 [ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
 [ext_resource type="Script" uid="uid://dnrb7pknv1sf" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
@@ -28,10 +27,6 @@ size = Vector2(300, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_roof_c"]
 size = Vector2(260, 10)
-
-[sub_resource type="Resource" id="Resource_kvpfn"]
-resource_local_to_scene = true
-script = ExtResource("3_lnu2h")
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_hud_panel"]
 content_margin_left = 14.0
@@ -140,7 +135,7 @@ one_way_collision = true
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
 position = Vector2(252, 173)
-stats = SubResource("Resource_kvpfn")
+stats = null
 
 [node name="RunManager" type="Node" parent="." unique_id=701323077]
 script = ExtResource("5_run_manager")
@@ -148,7 +143,7 @@ script = ExtResource("5_run_manager")
 [node name="RunEndLayer" type="CanvasLayer" parent="." unique_id=1543046195]
 layer = 20
 
-[node name="RunEndPanel" type="Control" parent="RunEndLayer" unique_id=1390672750]
+[node name="RunEndPanel" type="Control" parent="RunEndLayer" unique_id=1390672750 node_paths=PackedStringArray("run_manager", "upgrade_screen")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -157,6 +152,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_run_end_panel")
+run_manager = NodePath("../../RunManager")
+upgrade_screen = NodePath("../../UpgradeScreenLayer/UpgradeScreen")
 
 [node name="Panel" type="Panel" parent="RunEndLayer/RunEndPanel" unique_id=1179473201]
 layout_mode = 0

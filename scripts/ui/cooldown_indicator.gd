@@ -11,9 +11,17 @@ var cooldown_seconds: float = 0.0
 
 
 func set_progress(value: float, is_active: bool, remaining: float) -> void:
-	progress = clampf(value, 0.0, 1.0)
+	var new_progress := clampf(value, 0.0, 1.0)
+	var new_seconds := maxf(remaining, 0.0)
+
+	if is_equal_approx(new_progress, progress) \
+			and is_active == active \
+			and is_equal_approx(new_seconds, cooldown_seconds):
+		return
+
+	progress = new_progress
 	active = is_active
-	cooldown_seconds = maxf(remaining, 0.0)
+	cooldown_seconds = new_seconds
 	queue_redraw()
 
 

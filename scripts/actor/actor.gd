@@ -22,10 +22,6 @@ func move() -> void:
 	move_and_slide()
 
 
-func apply_gravity(delta: float) -> void:
-	velocity += get_gravity() * gravity_scale * delta
-
-
 func stop() -> void:
 	velocity = Vector2.ZERO
 

@@ -10,7 +10,6 @@ var skill_tree: SkillTree
 
 var zoom: float = 1.0
 var panning: bool = false
-var last_mouse_position: Vector2
 
 
 func setup(tree: SkillTree) -> void:
@@ -43,33 +42,37 @@ func _setup_skill_buttons() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not visible or skill_canvas == null:
+	if not is_visible_in_tree() or skill_canvas == null:
 		return
 
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
 
 		if mouse_event.button_index == MOUSE_BUTTON_MIDDLE:
+			if mouse_event.pressed and not _is_mouse_inside():
+				return
 			panning = mouse_event.pressed
-			last_mouse_position = mouse_event.position
 			get_viewport().set_input_as_handled()
 			return
 
-		if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			_zoom_at_mouse(zoom_step, mouse_event.position)
-			get_viewport().set_input_as_handled()
-			return
-
-		if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			_zoom_at_mouse(-zoom_step, mouse_event.position)
-			get_viewport().set_input_as_handled()
-			return
+		if mouse_event.pressed and _is_mouse_inside():
+			if mouse_event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				_zoom_at_mouse(zoom_step, get_local_mouse_position())
+				get_viewport().set_input_as_handled()
+				return
+			if mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				_zoom_at_mouse(-zoom_step, get_local_mouse_position())
+				get_viewport().set_input_as_handled()
+				return
 
 	if event is InputEventMouseMotion and panning:
 		var motion := event as InputEventMouseMotion
 		skill_canvas.position += motion.relative * pan_speed
 		get_viewport().set_input_as_handled()
 
+
+func _is_mouse_inside() -> bool:
+	return Rect2(Vector2.ZERO, size).has_point(get_local_mouse_position())
 
 func _zoom_at_mouse(delta: float, mouse_position: Vector2) -> void:
 	var old_zoom := zoom

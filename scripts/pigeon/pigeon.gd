@@ -31,8 +31,6 @@ var _was_on_floor: bool = false
 var _peak_fall_speed: float = 0.0
 var _skill_tree: SkillTree
 
-@onready var energy_indicator: EnergyIndicator = $EnergyIndicator
-
 
 func _ready() -> void:
 	super._ready()
@@ -128,20 +126,6 @@ func can_glide() -> bool:
 	return stats.can_glide or _effect(&"unlock_glide") > 0.0
 
 
-func show_energy_indicator() -> void:
-	if energy_indicator == null:
-		return
-
-	energy_indicator.visible = current_energy < get_max_energy()
-
-
-func hide_energy_indicator() -> void:
-	if energy_indicator == null:
-		return
-
-	energy_indicator.visible = false
-
-
 func get_move_speed() -> float:
 	return stats.walk_speed
 
@@ -199,19 +183,6 @@ func start_sprint() -> bool:
 	sprint_timer = get_air_sprint_duration()
 	return true
 
-
-func get_ground_sprint_cooldown_ratio() -> float:
-	if stats.sprint_ground_cooldown <= 0.0:
-		return 1.0
-	return 1.0 - (sprint_ground_cooldown_timer / stats.sprint_ground_cooldown)
-
-
-func get_air_sprint_cooldown_ratio() -> float:
-	if stats.sprint_air_cooldown <= 0.0:
-		return 1.0
-	return 1.0 - (sprint_air_cooldown_timer / stats.sprint_air_cooldown)
-
-
 func get_ground_sprint_duration() -> float:
 	return maxf(stats.sprint_ground_duration + _effect(&"sprint_ground_duration_add"), 0.1)
 
@@ -222,20 +193,6 @@ func get_air_sprint_duration() -> float:
 
 func get_glide_duration() -> float:
 	return maxf(stats.glide_duration + _effect(&"glide_duration_add"), 0.1)
-
-
-func get_ground_sprint_active_ratio() -> float:
-	var duration := get_ground_sprint_duration()
-	if not is_sprinting or sprint_is_air:
-		return 0.0
-	return sprint_timer / duration
-
-
-func get_air_sprint_active_ratio() -> float:
-	var duration := get_air_sprint_duration()
-	if not is_sprinting or not sprint_is_air:
-		return 0.0
-	return sprint_timer / duration
 
 
 func drain_energy(amount: float) -> void:
@@ -389,6 +346,19 @@ func swoop_move(delta: float) -> void:
 	velocity.y = 0.0
 	move_and_slide()
 
+func get_sprint_ratio(air: bool) -> float:
+	if is_sprinting and sprint_is_air == air:
+		var duration := get_air_sprint_duration() if air else get_ground_sprint_duration()
+		return sprint_timer / duration
 
-func fly() -> void:
-	air_move(get_physics_process_delta_time())
+	var cooldown := stats.sprint_air_cooldown if air else stats.sprint_ground_cooldown
+	if cooldown <= 0.0:
+		return 1.0
+	var remaining := sprint_air_cooldown_timer if air else sprint_ground_cooldown_timer
+	return 1.0 - remaining / cooldown
+
+
+func get_sprint_remaining(air: bool) -> float:
+	if is_sprinting and sprint_is_air == air:
+		return sprint_timer
+	return sprint_air_cooldown_timer if air else sprint_ground_cooldown_timer

@@ -21,14 +21,10 @@ func _process(_delta: float) -> void:
 	if pigeon == null:
 		return
 
-	var ground_active := pigeon.is_sprinting and not pigeon.sprint_is_air
-	var air_active := pigeon.is_sprinting and pigeon.sprint_is_air
+	_update_burst(ground_burst_indicator, pigeon, false)
+	_update_burst(air_burst_indicator, pigeon, true)
 
-	var ground_progress := pigeon.get_ground_sprint_active_ratio() if ground_active else pigeon.get_ground_sprint_cooldown_ratio()
-	var air_progress := pigeon.get_air_sprint_active_ratio() if air_active else pigeon.get_air_sprint_cooldown_ratio()
 
-	var ground_remaining := pigeon.sprint_timer if ground_active else pigeon.sprint_ground_cooldown_timer
-	var air_remaining := pigeon.sprint_timer if air_active else pigeon.sprint_air_cooldown_timer
-
-	ground_burst_indicator.set_progress(ground_progress, ground_active, ground_remaining)
-	air_burst_indicator.set_progress(air_progress, air_active, air_remaining)
+func _update_burst(indicator: CooldownIndicator, pigeon: Pigeon, air: bool) -> void:
+	var active := pigeon.is_sprinting and pigeon.sprint_is_air == air
+	indicator.set_progress(pigeon.get_sprint_ratio(air), active, pigeon.get_sprint_remaining(air))

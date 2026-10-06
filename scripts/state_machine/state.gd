@@ -5,19 +5,16 @@ var state_machine: StateMachine
 @export var intent: StateMachine.Intent
 
 
-func enter(previous_state: State) -> void:
+func enter(_previous_state: State) -> void:
 	pass
-
 
 func exit() -> void:
 	pass
 
-
-func update(delta: float) -> void:
+func update(_delta: float) -> void:
 	pass
 
-
-func physics_update(delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	pass
 
 

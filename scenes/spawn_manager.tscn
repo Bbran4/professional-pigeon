@@ -1,15 +1,16 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene format=3 uid="uid://drmgabto5wlfc"]
 
-[ext_resource type="Script" path="res://scripts/spawning/spawn_manager.gd" id="1_spawn_manager"]
-[ext_resource type="PackedScene" path="res://scenes/collectible.tscn" id="2_collectible"]
-[ext_resource type="Resource" path="res://data/collectibles/bread.tres" id="3_bread_resource"]
+[ext_resource type="Script" uid="uid://c3387a8b72l44" path="res://scripts/spawning/spawn_manager.gd" id="1_spawn_manager"]
+[ext_resource type="PackedScene" uid="uid://c77vsvwo8my77" path="res://scenes/collectible.tscn" id="2_collectible"]
+[ext_resource type="Resource" uid="uid://dxovt65qgsyqf" path="res://data/collectibles/bread.tres" id="3_bread_resource"]
 [ext_resource type="Resource" path="res://data/collectibles/seeds.tres" id="4_seeds_resource"]
 [ext_resource type="Resource" path="res://data/collectibles/worms.tres" id="5_worms_resource"]
 [ext_resource type="Resource" path="res://data/collectibles/farthing.tres" id="6_farthing_resource"]
 [ext_resource type="Resource" path="res://data/collectibles/penny.tres" id="7_penny_resource"]
 [ext_resource type="Resource" path="res://data/collectibles/noble.tres" id="8_noble_resource"]
+[ext_resource type="Script" uid="uid://bkk4wy745xmcc" path="res://scripts/collectibles/collectible_data.gd" id="9_data"]
 
-[node name="SpawnManager" type="Node2D"]
+[node name="SpawnManager" type="Node2D" unique_id=297076254]
 script = ExtResource("1_spawn_manager")
 collectible_scene = ExtResource("2_collectible")
-collectible_data = Array[Resource]([ExtResource("3_bread_resource"), ExtResource("4_seeds_resource"), ExtResource("5_worms_resource"), ExtResource("6_farthing_resource"), ExtResource("7_penny_resource"), ExtResource("8_noble_resource")])
+collectible_data = Array[ExtResource("9_data")]([ExtResource("3_bread_resource"), ExtResource("4_seeds_resource"), ExtResource("5_worms_resource"), ExtResource("6_farthing_resource"), ExtResource("7_penny_resource"), ExtResource("8_noble_resource")])

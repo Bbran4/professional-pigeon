@@ -7,7 +7,7 @@ signal run_ended(reason: String, food_collected: int, coin_collected: int)
 
 var time_remaining: float
 var remaining_collectibles: int
-var active: bool = true
+var active: bool = false
 
 @onready var player: Player = $"../Player"
 

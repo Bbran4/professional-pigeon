@@ -6,7 +6,6 @@ class_name SpawnManager
 @export var minimum_spawn_spacing: float = 100.0
 
 func _ready() -> void:
-	randomize()
 	spawn_collectibles()
 
 func spawn_collectibles() -> void:

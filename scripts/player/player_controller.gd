@@ -6,8 +6,11 @@ class_name PlayerController
 
 var is_dropping_through: bool = false
 
+func _ready() -> void:
+	# Run before the StateMachine so input is applied in the same physics frame.
+	process_physics_priority = -1
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if state_machine == null:
 		return
 
@@ -45,7 +48,7 @@ func _process(_delta: float) -> void:
 				return
 
 	if player and Input.is_action_just_pressed("collect"):
-		player.collect_bread()
+		player.collect_nearest()
 
 	if state_machine.current_state is FlightState:
 		return

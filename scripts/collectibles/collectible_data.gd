@@ -15,6 +15,7 @@ enum CollectibleType {
 @export_range(0.0, 100.0, 0.1) var spawn_chance: float = 100.0
 @export var unlock_skill_id: StringName
 @export var spawn_upgrade_id: StringName
+## Skill effect that adds to this collectible's value (e.g. bread_value_add).
 @export var value_effect_id: StringName
 
 ## Presentation and collision data for the generic collectible scene.

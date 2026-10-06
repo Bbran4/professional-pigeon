@@ -1,13 +1,14 @@
 extends Control
 class_name UpgradeScreen
 
+signal closed
+
 @onready var food_label: Label = $TopBar/FoodLabel
 @onready var coin_label: Label = $TopBar/CoinLabel
 @onready var skill_manager: SkillManager = $SkillManager
 @onready var back_button: Button = $TopBar/BackButton
 
 var skill_tree: SkillTree
-var end_panel: Control
 
 
 func _ready() -> void:
@@ -17,10 +18,8 @@ func _ready() -> void:
 	refresh()
 
 
-func open(player: Player, run_end_panel: Control) -> void:
+func open(player: Player) -> void:
 	skill_tree = player.get_skill_tree()
-	end_panel = run_end_panel
-	end_panel.hide()
 	skill_manager.setup(skill_tree)
 	show()
 	refresh()
@@ -33,5 +32,4 @@ func refresh() -> void:
 
 func _on_back_pressed() -> void:
 	hide()
-	if end_panel:
-		end_panel.show()
+	closed.emit()

@@ -37,6 +37,7 @@ func _draw() -> void:
 	var row_count := int(ceil(float(max_energy) / float(DOTS_PER_ROW)))
 
 	for i in range(max_energy):
+		@warning_ignore("integer_division")
 		var row := i / DOTS_PER_ROW
 		var column := i % DOTS_PER_ROW
 		var dots_in_row := mini(DOTS_PER_ROW, max_energy - row * DOTS_PER_ROW)
