@@ -16,7 +16,7 @@ func _ready() -> void:
 	ground_shape.size = Vector2(WORLD_WIDTH, 80)
 	$Ground/CollisionShape2D.position = Vector2(WORLD_WIDTH * 0.5, 40)
 
-	$StartingBuilding.position = Vector2(0, 309)
+	$FarmHouse.position = Vector2(0, 309)
 	$BuildingTwo.position = Vector2(650, 388)
 	$BuildingThree.position = Vector2(950, 248)
 	player.position = Vector2(270, 290)

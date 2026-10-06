@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://cfbifrtt8fl6r"]
 
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://dk602rip5g0nd" path="res://assets/House/House 1.png" id="2_dinhu"]
 [ext_resource type="Script" uid="uid://c002t7r6xcr7f" path="res://scripts/game/game.gd" id="2_game"]
 [ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="3_lnu2h"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
 [ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
 [ext_resource type="Script" uid="uid://dnrb7pknv1sf" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
 [ext_resource type="Script" uid="uid://c013n7hqyxt0k" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
-[ext_resource type="Script" path="res://scripts/ui/cooldown_indicator.gd" id="11_cooldown"]
 [ext_resource type="Script" uid="uid://b32pmjtjdgu6" path="res://scripts/progression/upgrade_screen.gd" id="8_upgrade"]
 [ext_resource type="Script" uid="uid://c0owjdr38lyk8" path="res://scripts/progression/skill_manager.gd" id="9_skill_manager"]
 [ext_resource type="Script" uid="uid://bedfuu4k8lhcq" path="res://scripts/progression/skill_button.gd" id="10_skill_button"]
+[ext_resource type="Script" uid="uid://di4y4xe5txtm" path="res://scripts/ui/cooldown_indicator.gd" id="11_cooldown"]
 
 [sub_resource type="Gradient" id="Gradient_background"]
 colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
@@ -23,16 +24,13 @@ height = 648
 [sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
 size = Vector2(6000, 80)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape_roof_a"]
-size = Vector2(420, 10)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape_roof_b"]
 size = Vector2(300, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_roof_c"]
 size = Vector2(260, 10)
 
-[sub_resource type="Resource" id="Resource_vtaks"]
+[sub_resource type="Resource" id="Resource_kvuet"]
 resource_local_to_scene = true
 script = ExtResource("3_lnu2h")
 
@@ -93,16 +91,21 @@ polygon = PackedVector2Array(0, 0, 6000, 0, 6000, 80, 0, 80)
 position = Vector2(3000, 40)
 shape = SubResource("RectangleShape_ground")
 
-[node name="StartingBuilding" type="StaticBody2D" parent="." unique_id=313037322]
+[node name="FarmHouse" type="StaticBody2D" parent="." unique_id=313037322]
 position = Vector2(0, 309)
 
-[node name="Visual" type="Polygon2D" parent="StartingBuilding" unique_id=1215256032]
-color = Color(0.49847698, 0.37880498, 0.44915748, 1)
-polygon = PackedVector2Array(0, 0, 420, 0, 420, 260, 0, 260)
+[node name="Sprite2D" type="Sprite2D" parent="FarmHouse" unique_id=1414751332]
+position = Vector2(264, 66)
+texture = ExtResource("2_dinhu")
 
-[node name="RoofCollision" type="CollisionShape2D" parent="StartingBuilding" unique_id=774470004 groups=["drop_through_platform"]]
-position = Vector2(210, 5)
-shape = SubResource("RectangleShape_roof_a")
+[node name="CollisionRoof" type="CollisionPolygon2D" parent="FarmHouse" unique_id=560143077]
+position = Vector2(203.21536, -98.18787)
+polygon = PackedVector2Array(-109.21536, -80.81213, -53.215363, -52.812134, 46.784637, -18.812134, 228.78464, -68.81213, 241.78464, -61.812134, 268.78464, 13.187866, 310.78464, 109.18787, 299.78464, 119.18787, 229.78464, -54.812134, 47.784637, -4.812134, -111.21536, -61.812134, -248.21536, 173.18787, -257.21536, 168.18787, -228.21536, 127.18787, -141.21536, -42.812134, -142.21536, -70.81213, -128.21536, -71.81213)
+one_way_collision = true
+
+[node name="CollisionPatio" type="CollisionPolygon2D" parent="FarmHouse" unique_id=1157168684]
+position = Vector2(203.21536, -98.18787)
+polygon = PackedVector2Array(96.78464, 241.18787, 97.78464, 229.18787, 218.78464, 231.18787, 381.78464, 225.18787, 381.78464, 239.18787, 218.78464, 246.18787)
 one_way_collision = true
 
 [node name="BuildingTwo" type="StaticBody2D" parent="." unique_id=1534039350]
@@ -133,13 +136,14 @@ one_way_collision = true
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
 position = Vector2(270, 290)
-stats = SubResource("Resource_vtaks")
+stats = SubResource("Resource_kvuet")
 
 [node name="RunManager" type="Node" parent="." unique_id=701323077]
 script = ExtResource("5_run_manager")
 
 [node name="RunEndLayer" type="CanvasLayer" parent="." unique_id=1543046195]
 layer = 20
+visible = false
 
 [node name="RunEndPanel" type="Control" parent="RunEndLayer" unique_id=1390672750]
 layout_mode = 3
@@ -203,6 +207,7 @@ text = "Restart Run"
 
 [node name="RunHUD" type="CanvasLayer" parent="." unique_id=244068897]
 layer = 10
+visible = false
 script = ExtResource("7_run_hud")
 
 [node name="MarginContainer" type="MarginContainer" parent="RunHUD" unique_id=1305050688]
@@ -240,33 +245,34 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_hud_food")
 text = "Food: 0"
 horizontal_alignment = 1
-[node name="CoinLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox"]
+
+[node name="CoinLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox" unique_id=1533613408]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_hud_food")
 text = "Coin: 0"
 horizontal_alignment = 1
-[node name="BurstIndicators" type="HBoxContainer" parent="RunHUD/MarginContainer/Panel/VBox"]
+
+[node name="BurstIndicators" type="HBoxContainer" parent="RunHUD/MarginContainer/Panel/VBox" unique_id=1379060616]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="GroundBurst" type="Control" parent="RunHUD/MarginContainer/Panel/VBox/BurstIndicators"]
+[node name="GroundBurst" type="Control" parent="RunHUD/MarginContainer/Panel/VBox/BurstIndicators" unique_id=1892738867]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 script = ExtResource("11_cooldown")
-label_text = "S"
 
-[node name="AirBurst" type="Control" parent="RunHUD/MarginContainer/Panel/VBox/BurstIndicators"]
+[node name="AirBurst" type="Control" parent="RunHUD/MarginContainer/Panel/VBox/BurstIndicators" unique_id=1128903613]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 script = ExtResource("11_cooldown")
 label_text = "A"
 
-
 [node name="UpgradeScreenLayer" type="CanvasLayer" parent="." unique_id=1274348906]
 layer = 30
+visible = false
 
 [node name="UpgradeScreen" type="Control" parent="UpgradeScreenLayer" unique_id=1413036099]
 visible = false
@@ -306,7 +312,7 @@ theme_override_font_sizes/font_size = 18
 text = "Food: 0"
 horizontal_alignment = 1
 
-[node name="CoinLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar"]
+[node name="CoinLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=1215049948]
 layout_mode = 0
 offset_left = 550.0
 offset_top = 12.0
@@ -412,8 +418,7 @@ offset_bottom = 315.0
 script = ExtResource("10_skill_button")
 skill_id = &"bread_value"
 
-
-[node name="UnlockSeedsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="UnlockSeedsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1782836107]
 layout_mode = 0
 offset_left = 850.0
 offset_top = 400.0
@@ -422,7 +427,7 @@ offset_bottom = 465.0
 script = ExtResource("10_skill_button")
 skill_id = &"unlock_seeds"
 
-[node name="SeedsSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="SeedsSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1295671460]
 layout_mode = 0
 offset_left = 850.0
 offset_top = 550.0
@@ -431,7 +436,7 @@ offset_bottom = 615.0
 script = ExtResource("10_skill_button")
 skill_id = &"seeds_spawns"
 
-[node name="UnlockWormsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="UnlockWormsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=598917536]
 layout_mode = 0
 offset_left = 1150.0
 offset_top = 400.0
@@ -440,7 +445,7 @@ offset_bottom = 465.0
 script = ExtResource("10_skill_button")
 skill_id = &"unlock_worms"
 
-[node name="WormsSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="WormsSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1564974246]
 layout_mode = 0
 offset_left = 1150.0
 offset_top = 550.0
@@ -449,7 +454,7 @@ offset_bottom = 615.0
 script = ExtResource("10_skill_button")
 skill_id = &"worms_spawns"
 
-[node name="UnlockCoinButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="UnlockCoinButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1073255136]
 layout_mode = 0
 offset_left = 850.0
 offset_top = 700.0
@@ -458,7 +463,7 @@ offset_bottom = 765.0
 script = ExtResource("10_skill_button")
 skill_id = &"unlock_coin"
 
-[node name="FarthingSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="FarthingSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1672699891]
 layout_mode = 0
 offset_left = 1150.0
 offset_top = 700.0
@@ -467,7 +472,7 @@ offset_bottom = 765.0
 script = ExtResource("10_skill_button")
 skill_id = &"farthing_spawns"
 
-[node name="PennySpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="PennySpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1127790316]
 layout_mode = 0
 offset_left = 1150.0
 offset_top = 800.0
@@ -476,7 +481,7 @@ offset_bottom = 865.0
 script = ExtResource("10_skill_button")
 skill_id = &"penny_spawns"
 
-[node name="NobleSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas"]
+[node name="NobleSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=2146193920]
 layout_mode = 0
 offset_left = 1150.0
 offset_top = 900.0
