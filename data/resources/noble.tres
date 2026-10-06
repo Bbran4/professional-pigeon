@@ -13,3 +13,5 @@ base_spawn_amount = 1
 spawn_chance = 5.0
 unlock_skill_id = &"unlock_coin"
 spawn_upgrade_id = &"noble_spawns"
+visual_color = Color(0.9, 0.68, 0.18, 1)
+visual_polygon = PackedVector2Array(-9, -2, -5, -8, 2, -10, 9, -4, 10, 3, 5, 9, -3, 10, -9, 4)
