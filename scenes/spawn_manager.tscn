@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/spawning/spawn_manager.gd" id="1_spawn_manager"]
 [ext_resource type="PackedScene" path="res://scenes/collectible.tscn" id="2_collectible"]
-[ext_resource type="Resource" path="res://data/resources/bread.tres" id="3_bread_resource"]
-[ext_resource type="Resource" path="res://data/resources/seeds.tres" id="4_seeds_resource"]
-[ext_resource type="Resource" path="res://data/resources/worms.tres" id="5_worms_resource"]
-[ext_resource type="Resource" path="res://data/resources/farthing.tres" id="6_farthing_resource"]
-[ext_resource type="Resource" path="res://data/resources/penny.tres" id="7_penny_resource"]
-[ext_resource type="Resource" path="res://data/resources/noble.tres" id="8_noble_resource"]
+[ext_resource type="Resource" path="res://data/collectibles/bread.tres" id="3_bread_resource"]
+[ext_resource type="Resource" path="res://data/collectibles/seeds.tres" id="4_seeds_resource"]
+[ext_resource type="Resource" path="res://data/collectibles/worms.tres" id="5_worms_resource"]
+[ext_resource type="Resource" path="res://data/collectibles/farthing.tres" id="6_farthing_resource"]
+[ext_resource type="Resource" path="res://data/collectibles/penny.tres" id="7_penny_resource"]
+[ext_resource type="Resource" path="res://data/collectibles/noble.tres" id="8_noble_resource"]
 
 [node name="SpawnManager" type="Node2D"]
 script = ExtResource("1_spawn_manager")
