@@ -1,20 +1,15 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/spawning/spawn_manager.gd" id="1_spawn_manager"]
-[ext_resource type="PackedScene" path="res://scenes/bread.tscn" id="2_bread"]
-[ext_resource type="PackedScene" path="res://scenes/seeds.tscn" id="3_seeds"]
-[ext_resource type="PackedScene" path="res://scenes/worms.tscn" id="4_worms"]
-[ext_resource type="PackedScene" path="res://scenes/farthing.tscn" id="5_farthing"]
-[ext_resource type="PackedScene" path="res://scenes/penny.tscn" id="6_penny"]
-[ext_resource type="PackedScene" path="res://scenes/noble.tscn" id="7_noble"]
-[ext_resource type="Resource" path="res://data/resources/bread.tres" id="8_bread_resource"]
-[ext_resource type="Resource" path="res://data/resources/seeds.tres" id="9_seeds_resource"]
-[ext_resource type="Resource" path="res://data/resources/worms.tres" id="10_worms_resource"]
-[ext_resource type="Resource" path="res://data/resources/farthing.tres" id="11_farthing_resource"]
-[ext_resource type="Resource" path="res://data/resources/penny.tres" id="12_penny_resource"]
-[ext_resource type="Resource" path="res://data/resources/noble.tres" id="13_noble_resource"]
+[ext_resource type="PackedScene" path="res://scenes/collectible.tscn" id="2_collectible"]
+[ext_resource type="Resource" path="res://data/resources/bread.tres" id="3_bread_resource"]
+[ext_resource type="Resource" path="res://data/resources/seeds.tres" id="4_seeds_resource"]
+[ext_resource type="Resource" path="res://data/resources/worms.tres" id="5_worms_resource"]
+[ext_resource type="Resource" path="res://data/resources/farthing.tres" id="6_farthing_resource"]
+[ext_resource type="Resource" path="res://data/resources/penny.tres" id="7_penny_resource"]
+[ext_resource type="Resource" path="res://data/resources/noble.tres" id="8_noble_resource"]
 
 [node name="SpawnManager" type="Node2D"]
 script = ExtResource("1_spawn_manager")
-collectible_scenes = Array[PackedScene]([ExtResource("2_bread"), ExtResource("3_seeds"), ExtResource("4_worms"), ExtResource("5_farthing"), ExtResource("6_penny"), ExtResource("7_noble")])
-collectible_resources = Array[Resource]([ExtResource("8_bread_resource"), ExtResource("9_seeds_resource"), ExtResource("10_worms_resource"), ExtResource("11_farthing_resource"), ExtResource("12_penny_resource"), ExtResource("13_noble_resource")])
+collectible_scene = ExtResource("2_collectible")
+collectible_resources = Array[Resource]([ExtResource("3_bread_resource"), ExtResource("4_seeds_resource"), ExtResource("5_worms_resource"), ExtResource("6_farthing_resource"), ExtResource("7_penny_resource"), ExtResource("8_noble_resource")])
