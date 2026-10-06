@@ -3,7 +3,7 @@ class_name CollectibleData
 
 enum CollectibleType {
 	FOOD,
-	COIN
+	COIN	
 }
 
 @export var id: StringName
@@ -15,6 +15,7 @@ enum CollectibleType {
 @export_range(0.0, 100.0, 0.1) var spawn_chance: float = 100.0
 @export var unlock_skill_id: StringName
 @export var spawn_upgrade_id: StringName
+@export var value_effect_id: StringName
 
 ## Presentation and collision data for the generic collectible scene.
 @export var visual_color: Color = Color.WHITE

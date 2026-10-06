@@ -29,7 +29,7 @@ size = Vector2(300, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape_roof_c"]
 size = Vector2(260, 10)
 
-[sub_resource type="Resource" id="Resource_kvuet"]
+[sub_resource type="Resource" id="Resource_kvpfn"]
 resource_local_to_scene = true
 script = ExtResource("3_lnu2h")
 
@@ -140,7 +140,7 @@ one_way_collision = true
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
 position = Vector2(252, 173)
-stats = SubResource("Resource_kvuet")
+stats = SubResource("Resource_kvpfn")
 
 [node name="RunManager" type="Node" parent="." unique_id=701323077]
 script = ExtResource("5_run_manager")
