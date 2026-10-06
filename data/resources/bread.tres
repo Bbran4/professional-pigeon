@@ -12,3 +12,5 @@ base_value = 1
 base_spawn_amount = 2
 spawn_chance = 100.0
 spawn_upgrade_id = &"bread_spawns"
+visual_color = Color(0.2, 0.8, 0.2, 1)
+visual_polygon = PackedVector2Array(-14, -5, -9, -9, 4, -9, 14, -3, 12, 6, 4, 9, -9, 8, -14, 3)
