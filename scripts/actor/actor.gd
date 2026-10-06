@@ -2,6 +2,8 @@ extends CharacterBody2D
 class_name Actor
 
 @export var gravity_scale: float = 1.0
+## Keeps ground-based actors attached to sloped surfaces while walking.
+@export var ground_snap_length: float = 8.0
 
 var move_direction: Vector2 = Vector2.ZERO
 
