@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://scripts/resources/bread.gd" id="1_bread_script"]
+[ext_resource type="Script" path="res://scripts/resources/collectible.gd" id="1_collectible"]
 [ext_resource type="Resource" path="res://data/resources/bread.tres" id="2_bread_resource"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_bread"]
 size = Vector2(28, 18)
 
 [node name="Bread" type="Area2D" groups=["bread", "collectible"]]
-script = ExtResource("1_bread_script")
+script = ExtResource("1_collectible")
 resource = ExtResource("2_bread_resource")
 
 [node name="Visual" type="Polygon2D" parent="."]
