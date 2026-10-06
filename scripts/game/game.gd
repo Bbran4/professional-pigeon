@@ -1,26 +1,8 @@
 extends Node2D
 
-const WORLD_WIDTH := 6000.0
 const GROUND_TOP := 568.0
 
-@onready var player: Player = $Player
-
-
 func _ready() -> void:
-	$Ground.position = Vector2(0, GROUND_TOP)
-	$Ground/Visual.polygon = PackedVector2Array([
-		Vector2.ZERO, Vector2(WORLD_WIDTH, 0),
-		Vector2(WORLD_WIDTH, 80), Vector2(0, 80)
-	])
-	var ground_shape := $Ground/CollisionShape2D.shape as RectangleShape2D
-	ground_shape.size = Vector2(WORLD_WIDTH, 80)
-	$Ground/CollisionShape2D.position = Vector2(WORLD_WIDTH * 0.5, 40)
-
-	$FarmHouse.position = Vector2(0, 309)
-	$BuildingTwo.position = Vector2(650, 388)
-	$BuildingThree.position = Vector2(950, 248)
-	player.position = Vector2(252, 173)
-
 	_build_village()
 
 

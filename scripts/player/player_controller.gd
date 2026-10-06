@@ -50,8 +50,15 @@ func _process(_delta: float) -> void:
 		return
 
 	if not actor.is_on_floor():
-		if not pigeon or not pigeon.is_diving:
-			state_machine.transition(StateMachine.Intent.FALL)
+		if pigeon and pigeon.is_diving:
+			return
+
+		var in_ground_state := state_machine.current_state is IdleState \
+			or state_machine.current_state is WalkState
+		if pigeon and in_ground_state and pigeon.time_off_floor < pigeon.stats.floor_grace_time:
+			return # brief floor loss on a slope, stay in the ground state
+
+		state_machine.transition(StateMachine.Intent.FALL)
 	elif horizontal == 0.0:
 		state_machine.transition(StateMachine.Intent.IDLE)
 	else:

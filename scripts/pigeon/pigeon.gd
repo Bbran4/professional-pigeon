@@ -21,6 +21,7 @@ var sprint_ground_cooldown_timer: float = 0.0
 var sprint_air_cooldown_timer: float = 0.0
 var sprint_is_air: bool = false
 var swoop_timer: float = 0.0
+var time_off_floor: float = 0.0
 
 var _energy_regeneration_timer: float = 0.0
 var _coyote_timer: float = 0.0
@@ -34,6 +35,7 @@ var _skill_tree: SkillTree
 
 
 func _ready() -> void:
+	super._ready()
 	if stats == null:
 		stats = PigeonStats.new()
 
@@ -49,6 +51,7 @@ func _physics_process(delta: float) -> void:
 	swoop_timer = maxf(swoop_timer - delta, 0.0)
 	sprint_ground_cooldown_timer = maxf(sprint_ground_cooldown_timer - delta, 0.0)
 	sprint_air_cooldown_timer = maxf(sprint_air_cooldown_timer - delta, 0.0)
+
 	if is_sprinting:
 		sprint_timer = maxf(sprint_timer - delta, 0.0)
 		if not sprint_held or sprint_timer <= 0.0:
@@ -58,7 +61,9 @@ func _physics_process(delta: float) -> void:
 			else:
 				sprint_ground_cooldown_timer = stats.sprint_ground_cooldown
 
+	
 	var on_floor := is_on_floor()
+	time_off_floor = 0.0 if on_floor else time_off_floor + delta
 	if on_floor:
 		_coyote_timer = stats.coyote_time
 		is_gliding = false
@@ -292,7 +297,10 @@ func ground_move(delta: float) -> void:
 		stats.ground_friction,
 		delta
 	)
-	velocity.y = 0.0
+	if is_on_floor():
+		velocity.y = 0.0
+	else:
+		velocity.y = minf(velocity.y + stats.gravity * delta, stats.max_fall_speed)
 	move_and_slide()
 
 

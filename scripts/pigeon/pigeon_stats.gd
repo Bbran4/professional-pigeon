@@ -29,6 +29,7 @@ class_name PigeonStats
 @export_range(0.0, 1.0, 0.05) var flap_release_cut: float = 0.45
 ## Small forgiveness window after walking off a ledge.
 @export var coyote_time: float = 0.10
+@export var floor_grace_time: float = 0.08	
 ## Small input forgiveness window before landing.
 @export var flap_buffer_time: float = 0.12
 
