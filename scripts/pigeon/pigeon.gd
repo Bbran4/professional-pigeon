@@ -133,7 +133,7 @@ func show_energy_indicator() -> void:
 		return
 
 	energy_indicator.reset_color()
-	energy_indicator.visible = true
+	energy_indicator.visible = current_energy < get_max_energy()
 
 
 func hide_energy_indicator() -> void:

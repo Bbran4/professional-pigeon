@@ -37,7 +37,8 @@ func _process(_delta: float) -> void:
 
 		if Input.is_action_just_pressed("move_down"):
 			if pigeon.is_on_floor():
-				drop_through_platforms()
+				if _is_standing_on_drop_through(pigeon):
+					drop_through_platforms()
 				return
 			elif pigeon.start_dive():
 				state_machine.transition(StateMachine.Intent.FALL)
@@ -64,6 +65,19 @@ func _process(_delta: float) -> void:
 	else:
 		state_machine.transition(StateMachine.Intent.WALK)
 
+func _is_standing_on_drop_through(pigeon: Pigeon) -> bool:
+	for i in range(pigeon.get_slide_collision_count()):
+		var collision := pigeon.get_slide_collision(i)
+		var body := collision.get_collider() as CollisionObject2D
+		if body == null:
+			continue
+
+		var owner_id := body.shape_find_owner(collision.get_collider_shape_index())
+		var shape_node := body.shape_owner_get_owner(owner_id)
+		if shape_node and shape_node.is_in_group("drop_through_platform"):
+			return true
+
+	return false
 
 func drop_through_platforms() -> void:
 	if is_dropping_through:
