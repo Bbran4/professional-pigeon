@@ -54,14 +54,14 @@ func collect_bread() -> bool:
 			closest_distance = distance
 			closest_collectible = collectible
 
-	if closest_collectible == null or closest_collectible.resource == null:
+	if closest_collectible == null or closest_collectible.data == null:
 		return false
 
 	var value := closest_collectible.get_value()
 	var skill_tree := get_skill_tree()
 
-	if closest_collectible.get_resource_type() == ResourceData.ResourceType.FOOD:
-		if closest_collectible.resource.id == &"bread" and skill_tree:
+	if closest_collectible.get_collectible_type() == CollectibleData.CollectibleType.FOOD:
+		if closest_collectible.data.id == &"bread" and skill_tree:
 			value += int(skill_tree.get_effect_value(&"bread_value_add"))
 		inventory.add_food(value)
 	else:
