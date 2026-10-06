@@ -2,7 +2,7 @@ extends Node2D
 class_name SpawnManager
 
 @export var collectible_scene: PackedScene
-@export var collectible_resources: Array[CollectibleData] = []
+@export var collectible_data: Array[CollectibleData] = []
 @export var minimum_spawn_spacing: float = 100.0
 
 func _ready() -> void:
@@ -10,12 +10,12 @@ func _ready() -> void:
 	spawn_collectibles()
 
 func spawn_collectibles() -> void:
-	if collectible_scene == null or collectible_resources.is_empty():
+	if collectible_scene == null or collectible_data.is_empty():
 		push_error("SpawnManager requires a collectible scene and resources.")
 		return
 
 	var spawn_requests: Array[Dictionary] = []
-	for resource in collectible_resources:
+	for resource in collectible_data:
 		if resource == null or not is_collectible_unlocked(resource):
 			continue
 		if randf_range(0.0, 100.0) > resource.spawn_chance:
@@ -41,7 +41,7 @@ func spawn_collectibles() -> void:
 			var collectible := collectible_scene.instantiate() as Collectible
 			if collectible == null:
 				continue
-			collectible.resource = resource
+			collectible.data = resource
 			collectible.position = spawn_positions[position_index]
 			add_child(collectible)
 			position_index += 1
