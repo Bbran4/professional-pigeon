@@ -98,13 +98,13 @@ position = Vector2(0, 309)
 position = Vector2(264, 66)
 texture = ExtResource("2_dinhu")
 
-[node name="CollisionRoof" type="CollisionPolygon2D" parent="FarmHouse" unique_id=560143077]
+[node name="CollisionRoof" type="CollisionPolygon2D" parent="FarmHouse" unique_id=560143077 groups=["drop_through_platform"]]
 position = Vector2(203.21536, -98.18787)
 polygon = PackedVector2Array(-109.21536, -80.81213, -53.215363, -52.812134, 46.784637, -18.812134, 228.78464, -68.81213, 241.78464, -61.812134, 268.78464, 13.187866, 310.78464, 109.18787, 299.78464, 119.18787, 229.78464, -54.812134, 47.784637, -4.812134, -111.21536, -61.812134, -248.21536, 173.18787, -257.21536, 168.18787, -228.21536, 127.18787, -141.21536, -42.812134, -142.21536, -70.81213, -128.21536, -71.81213)
 one_way_collision = true
 one_way_collision_margin = 4.0
 
-[node name="CollisionPatio" type="CollisionPolygon2D" parent="FarmHouse" unique_id=1157168684]
+[node name="CollisionPatio" type="CollisionPolygon2D" parent="FarmHouse" unique_id=1157168684 groups=["drop_through_platform"]]
 position = Vector2(203.21536, -98.18787)
 polygon = PackedVector2Array(96.78464, 241.18787, 97.78464, 229.18787, 218.78464, 231.18787, 381.78464, 225.18787, 381.78464, 239.18787, 218.78464, 246.18787)
 one_way_collision = true

@@ -72,16 +72,16 @@ func drop_through_platforms() -> void:
 	is_dropping_through = true
 	state_machine.transition(StateMachine.Intent.FALL)
 
-	for platform in get_tree().get_nodes_in_group("drop_through_platform"):
-		var collision_shape := platform as CollisionShape2D
-		if collision_shape:
-			collision_shape.set_deferred("disabled", true)
+	_set_platforms_disabled(true)
 
 	await get_tree().create_timer(drop_through_duration).timeout
 
-	for platform in get_tree().get_nodes_in_group("drop_through_platform"):
-		var collision_shape := platform as CollisionShape2D
-		if collision_shape:
-			collision_shape.set_deferred("disabled", false)
+	_set_platforms_disabled(false)
 
 	is_dropping_through = false
+
+
+func _set_platforms_disabled(value: bool) -> void:
+	for platform in get_tree().get_nodes_in_group("drop_through_platform"):
+		if platform is CollisionShape2D or platform is CollisionPolygon2D:
+			platform.set_deferred("disabled", value)
