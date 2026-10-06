@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CollectibleData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/collectibles/collectible_data.gd" id="1_collectible_data"]
+
+[resource]
+script = ExtResource("1_collectible_data")
+id = &"worms"
+display_name = "Worms"
+description = "A wriggling medieval delicacy."
+collectible_type = 0
+base_value = 3
+base_spawn_amount = 1
+spawn_chance = 20.0
+unlock_skill_id = &"unlock_worms"
+spawn_upgrade_id = &"worms_spawns"
+visual_color = Color(0.68, 0.43, 0.25, 1)
+visual_polygon = PackedVector2Array(-8, -3, -3, -8, 4, -6, 8, 0, 4, 7, -3, 8, -8, 3)
