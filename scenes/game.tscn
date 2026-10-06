@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://dk602rip5g0nd" path="res://assets/House/House 1.png" id="2_dinhu"]
-[ext_resource type="PackedScene" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
+[ext_resource type="PackedScene" uid="uid://drmgabto5wlfc" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
 [ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
 [ext_resource type="Script" uid="uid://dnrb7pknv1sf" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
 [ext_resource type="Script" uid="uid://c013n7hqyxt0k" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
@@ -97,7 +97,7 @@ texture = ExtResource("2_dinhu")
 
 [node name="CollisionRoof" type="CollisionPolygon2D" parent="FarmHouse" unique_id=560143077 groups=["drop_through_platform"]]
 position = Vector2(203.21536, -98.18787)
-polygon = PackedVector2Array(-109.21536, -80.81213, -53.215363, -52.812134, 46.784637, -18.812134, 228.78464, -68.81213, 241.78464, -61.812134, 268.78464, 13.187866, 310.78464, 109.18787, 299.78464, 119.18787, 229.78464, -54.812134, 47.784637, -4.812134, -111.21536, -61.812134, -248.21536, 173.18787, -257.21536, 168.18787, -228.21536, 127.18787, -141.21536, -42.812134, -142.21536, -70.81213, -128.21536, -71.81213)
+polygon = PackedVector2Array(-109.21536, -80.81213, -53.215363, -52.812134, 46.784637, -18.812134, 228.78464, -68.81213, 241.78464, -61.812134, 268.78464, 13.187866, 310.78464, 109.18787, 299.78464, 119.18787, 229.78464, -54.812134, 47.784637, -4.812134, -111.21536, -61.812134, -248.21536, 173.18787, -257.21536, 168.18787, -228.21536, 127.18787, -144.21536, -38.812134, -145.21536, -72.81213, -128.21536, -76.81213)
 one_way_collision = true
 one_way_collision_margin = 4.0
 
