@@ -8,6 +8,11 @@ class_name Actor
 var move_direction: Vector2 = Vector2.ZERO
 
 
+func _ready() -> void:
+	floor_snap_length = ground_snap_length
+	floor_stop_on_slope = true
+
+
 func get_move_speed() -> float:
 	return 100.0
 
