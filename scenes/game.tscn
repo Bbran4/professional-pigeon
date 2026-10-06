@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://dk602rip5g0nd" path="res://assets/House/House 1.png" id="2_dinhu"]
-[ext_resource type="Script" uid="uid://c002t7r6xcr7f" path="res://scripts/game/game.gd" id="2_game"]
 [ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="3_lnu2h"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
 [ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
@@ -73,7 +72,6 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [node name="Game" type="Node2D" unique_id=10413488]
-script = ExtResource("2_game")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=614093645]
 z_index = -10
