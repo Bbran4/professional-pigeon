@@ -16,6 +16,7 @@ signal feeding_finished
 var active := false
 var bread_remaining := 0
 var throw_timer := 0.0
+var active_bread: Array[Node2D] = []
 
 func start_day() -> void:
 	active = true
@@ -26,6 +27,10 @@ func end_day() -> void:
 	active = false
 	bread_remaining = 0
 	throw_timer = 0.0
+	for bread in active_bread:
+		if is_instance_valid(bread):
+			bread.hide()
+	active_bread.clear()
 
 func _process(delta: float) -> void:
 	if not active or bread_remaining <= 0:
@@ -51,7 +56,13 @@ func _throw_bread() -> void:
 		return
 
 	get_parent().add_child(bread)
+	active_bread.append(bread)
+	bread.tree_exited.connect(_on_bread_exited.bind(bread))
 	bread.global_position = Vector2(randf_range(throw_x_min, throw_x_max), ground_y)
 	bread.show()
 	bread_remaining -= 1
 	bread_thrown.emit(bread)
+
+
+func _on_bread_exited(bread: Node2D) -> void:
+	active_bread.erase(bread)
