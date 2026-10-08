@@ -31,7 +31,7 @@ offset_left = 560.0
 offset_top = 180.0
 offset_right = 750.0
 offset_bottom = 280.0
-skill_id = &"first_recruit"
+skill_id = &"human_feeder"
 
 [node name="LargerFlock" parent="." instance=ExtResource("3_node")]
 offset_left = 940.0
@@ -39,7 +39,7 @@ offset_top = 180.0
 offset_right = 1130.0
 offset_bottom = 280.0
 skill_id = &"larger_flock"
-prerequisite_ids = Array[StringName]([&"first_recruit"])
+prerequisite_ids = Array[StringName]([&"human_feeder"])
 
 [node name="UnlockSeeds" parent="." instance=ExtResource("3_node")]
 offset_left = 940.0
