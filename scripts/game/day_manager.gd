@@ -14,6 +14,7 @@ var active: bool = false
 @onready var bread: Node2D = $"../Bread"
 
 func _ready() -> void:
+	pigeon.ate_bread.connect(_on_pigeon_ate_bread)
 	bread.hide()
 	pigeon.end_day()
 	day_updated.emit(time_remaining, points, 1)
@@ -42,6 +43,9 @@ func add_points(amount: int) -> void:
 		return
 	points += amount
 	day_updated.emit(time_remaining, points, 1)
+
+func _on_pigeon_ate_bread(amount: int) -> void:
+	add_points(amount)
 
 func end_day() -> void:
 	if not active:
