@@ -1,8 +1,12 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/game/day_manager.gd" id="1_day"]
-[ext_resource type="Script" path="res://scripts/game/park_pigeon.gd" id="2_pigeon"]
-[ext_resource type="Script" path="res://scripts/game/park_hud.gd" id="3_hud"]
+[ext_resource type="PackedScene" path="res://scenes/park/tree.tscn" id="1_tree"]
+[ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
+[ext_resource type="PackedScene" path="res://scenes/park/bread.tscn" id="3_bread"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="4_player"]
+[ext_resource type="Script" path="res://scripts/game/park_pigeon_brain.gd" id="5_brain"]
+[ext_resource type="Script" path="res://scripts/game/day_manager.gd" id="6_day"]
+[ext_resource type="Script" path="res://scripts/game/park_hud.gd" id="7_hud"]
 
 [sub_resource type="Gradient" id="Gradient_sky"]
 colors = PackedColorArray(0.42, 0.67, 0.88, 1, 0.82, 0.9, 0.95, 1)
@@ -13,7 +17,7 @@ width = 1152
 height = 648
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
-size = Vector2(1152, 80)
+size = Vector2(1152, 288)
 
 [node name="Park" type="Node2D"]
 
@@ -27,100 +31,54 @@ z_index = -5
 polygon = PackedVector2Array(0, 360, 1152, 360, 1152, 648, 0, 648)
 color = Color(0.28, 0.47, 0.25, 1)
 
-[node name="Path" type="Polygon2D" parent="."]
-z_index = -4
-polygon = PackedVector2Array(0, 470, 1152, 430, 1152, 545, 0, 585)
-color = Color(0.68, 0.59, 0.43, 1)
-
 [node name="BackGrass" type="Polygon2D" parent="."]
 z_index = -6
 polygon = PackedVector2Array(0, 335, 1152, 335, 1152, 385, 0, 385)
 color = Color(0.22, 0.4, 0.21, 1)
 
+[node name="Path" type="Polygon2D" parent="."]
+z_index = -4
+polygon = PackedVector2Array(0, 470, 1152, 430, 1152, 545, 0, 585)
+color = Color(0.68, 0.59, 0.43, 1)
+
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(576, 608)
+position = Vector2(576, 504)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape_ground")
 
-[node name="Tree" type="Node2D" parent="."]
+[node name="Tree" parent="." instance=ExtResource("1_tree")]
 position = Vector2(185, 285)
 z_index = 2
 
-[node name="Trunk" type="Polygon2D" parent="Tree"]
-polygon = PackedVector2Array(-24, 75, 25, 75, 18, -35, -16, -35)
-color = Color(0.32, 0.19, 0.1, 1)
-
-[node name="BranchLeft" type="Polygon2D" parent="Tree"]
-polygon = PackedVector2Array(-10, -25, -70, -72, -62, -84, 2, -43)
-color = Color(0.32, 0.19, 0.1, 1)
-
-[node name="BranchRight" type="Polygon2D" parent="Tree"]
-polygon = PackedVector2Array(5, -28, 58, -78, 67, -68, 18, -12)
-color = Color(0.32, 0.19, 0.1, 1)
-
-[node name="CrownLeft" type="Polygon2D" parent="Tree"]
-polygon = PackedVector2Array(-92, -75, -68, -119, -28, -133, 12, -116, 24, -78, 2, -42, -45, -40)
-color = Color(0.18, 0.38, 0.18, 1)
-
-[node name="CrownMiddle" type="Polygon2D" parent="Tree"]
-polygon = PackedVector2Array(-38, -95, -18, -143, 22, -158, 62, -140, 80, -100, 63, -58, 16, -48)
-color = Color(0.22, 0.45, 0.2, 1)
-
-[node name="CrownRight" type="Polygon2D" parent="Tree"]
-polygon = PackedVector2Array(28, -75, 53, -116, 91, -125, 125, -101, 132, -62, 102, -34, 55, -38)
-color = Color(0.16, 0.34, 0.16, 1)
-
-[node name="Bench" type="Node2D" parent="."]
-position = Vector2(760, 445)
+[node name="Bench" parent="." instance=ExtResource("2_bench")]
+position = Vector2(760, 330)
 z_index = 4
 
-[node name="Seat" type="Polygon2D" parent="Bench"]
-polygon = PackedVector2Array(-78, -8, 78, -8, 78, 8, -78, 8)
-color = Color(0.42, 0.25, 0.12, 1)
-
-[node name="Back" type="Polygon2D" parent="Bench"]
-polygon = PackedVector2Array(-78, -8, -62, -52, -50, -48, -64, 0, 64, 0, 50, -48, 62, -52, 78, -8)
-color = Color(0.5, 0.31, 0.15, 1)
-
-[node name="LegLeft" type="Polygon2D" parent="Bench"]
-polygon = PackedVector2Array(-60, 8, -45, 8, -48, 48, -62, 48)
-color = Color(0.2, 0.16, 0.12, 1)
-
-[node name="LegRight" type="Polygon2D" parent="Bench"]
-polygon = PackedVector2Array(45, 8, 60, 8, 62, 48, 48, 48)
-color = Color(0.2, 0.16, 0.12, 1)
-
-[node name="Bread" type="Node2D" parent="."]
-position = Vector2(520, 475)
+[node name="Bread" parent="." instance=ExtResource("3_bread")]
+position = Vector2(520, 335)
 z_index = 3
 
-[node name="Crust" type="Polygon2D" parent="Bread"]
-polygon = PackedVector2Array(-34, -16, -18, -25, 16, -24, 34, -11, 32, 15, 14, 24, -20, 22, -35, 8)
-color = Color(0.72, 0.38, 0.12, 1)
-
-[node name="Loaf" type="Polygon2D" parent="Bread"]
-polygon = PackedVector2Array(-27, -13, -13, -20, 13, -19, 27, -8, 25, 11, 10, 18, -17, 17, -27, 5)
-color = Color(0.95, 0.75, 0.38, 1)
-
-[node name="BreadLabel" type="Label" parent="Bread"]
-position = Vector2(-45, 28)
-size = Vector2(90, 24)
-text = "BREAD"
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 11
-
-[node name="ParkPigeon" type="Node2D" parent="."]
-position = Vector2(185, 160)
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(185, 250)
 z_index = 5
-script = ExtResource("2_pigeon")
+
+[node name="Camera2D" parent="Player"]
+enabled = false
+process_mode = 4
+
+[node name="PlayerController" parent="Player"]
+process_mode = 4
+
+[node name="ParkPigeonBrain" type="Node" parent="Player"]
+script = ExtResource("5_brain")
 
 [node name="DayManager" type="Node" parent="."]
-script = ExtResource("1_day")
+script = ExtResource("6_day")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 10
-script = ExtResource("3_hud")
+script = ExtResource("7_hud")
 
 [node name="Margin" type="MarginContainer" parent="HUD"]
 offset_left = 24.0
