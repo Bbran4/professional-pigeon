@@ -11,7 +11,7 @@ class_name ParkHud
 
 func _ready() -> void:
 	start_button.pressed.connect(_on_start_pressed)
-    upgrades_button.pressed.connect(_on_upgrades_pressed)
+	upgrades_button.pressed.connect(_on_upgrades_pressed)
 	day_manager.day_updated.connect(_on_day_updated)
 	day_manager.day_ended.connect(_on_day_ended)
 	_on_day_updated(0.0, 0, 1)
