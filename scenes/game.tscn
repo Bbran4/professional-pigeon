@@ -49,6 +49,7 @@ script = ExtResource("5_brain")
 
 [node name="BreadThrower" type="Node2D" parent="." unique_id=212241885]
 script = ExtResource("9_thrower")
+z_index = 20
 bread_scene = ExtResource("3_bread")
 throw_origin = Vector2(70, 570)
 park_bounds = Rect2(40, 100, 1072, 500)
