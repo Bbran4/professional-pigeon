@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/game/unlock_screen.gd" id="1_unlock"]
+
+[node name="UnlockScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_unlock")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 130.0
+offset_right = 892.0
+offset_bottom = 518.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "PARK UNLOCKS"
+horizontal_alignment = 1
+
+[node name="Intro" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Build your park by unlocking new ways to attract pigeons."
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "HUMAN FEEDER"
+horizontal_alignment = 1
+
+[node name="UnlockButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "UNLOCK FREE"
+
+[node name="ParkButton" type="Button" parent="Panel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ENTER PARK"
