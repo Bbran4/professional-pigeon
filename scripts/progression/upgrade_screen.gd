@@ -6,11 +6,8 @@ signal closed
 @onready var food_label: Label = $TopBar/FoodLabel
 @onready var coin_label: Label = $TopBar/CoinLabel
 @onready var skill_manager: SkillManager = $SkillManager
+@onready var skill_tree: SkillTree = $SkillManager/SkillTree
 @onready var back_button: Button = $TopBar/BackButton
-@onready var skill_manager: SkillManager = $SkillManager
-@onready var source_player: Player = $SkillManager/SkillTree
-
-var skill_tree: SkillTree
 
 
 func _ready() -> void:
