@@ -33,10 +33,6 @@ class_name PigeonStats
 ## Small input forgiveness window before landing.
 @export var flap_buffer_time: float = 0.12
 
-## Energy
-@export var max_energy: float = 4.0
-@export var energy_regeneration_interval: float = 1.0
-@export var energy_regeneration_amount: float = 1.0
 
 ## Glide
 @export var can_glide: bool = true
