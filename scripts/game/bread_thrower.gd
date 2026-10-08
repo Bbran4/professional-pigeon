@@ -98,7 +98,7 @@ func _on_bread_exited(bread: ThrownBread) -> void:
 	_active_bread.erase(bread)
 
 
-func _get_stock_capacity() -> int:
+func get_stock_capacity() -> int:
 	var upgraded_capacity := int(ProgressionManager.get_skill_level(&"bread_stock"))
 	if upgraded_capacity <= 0:
 		return 0
