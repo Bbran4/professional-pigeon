@@ -130,7 +130,7 @@ func _try_next_food() -> void:
 		return
 
 	while not pending_food.is_empty():
-		var next_food := pending_food.pop_front()
+		var next_food: Node2D = pending_food.pop_front() as Node2D
 		if not is_instance_valid(next_food) or not next_food.visible:
 			continue
 
