@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://bhw11ktd5jypp" path="res://assets/Pigeon Sprite-Sheet/pigeon_fiy-Sheet.png" id="10_fly"]
 [ext_resource type="Script" uid="uid://cgopvtfshbwhm" path="res://scripts/state_machine/states/falling_state.gd" id="11_falling"]
 [ext_resource type="Script" uid="uid://f6ie12n34kp2" path="res://scripts/player/player_inventory.gd" id="12_inventory"]
-[ext_resource type="Script" uid="uid://d2fns1tm17wgx" path="res://scripts/pigeon/energy_indicator.gd" id="13_energy"]
 [ext_resource type="Script" uid="uid://cka58ox55d5n6" path="res://scripts/progression/skill_tree.gd" id="14_skill_tree"]
 [ext_resource type="Resource" uid="uid://dsjv870im25ba" path="res://data/skills/skill_catalog.tres" id="15_skill_catalog"]
 [ext_resource type="Script" uid="uid://rxvmism46gob" path="res://scripts/pigeon/follow_camera.gd" id="16_camera"]
@@ -22,7 +21,6 @@
 resource_local_to_scene = true
 script = ExtResource("6_stats")
 walk_speed = 100.0
-max_energy = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fly_0"]
 atlas = ExtResource("10_fly")
@@ -164,8 +162,6 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1122536711]
 shape = SubResource("CapsuleShape2D_player")
 
-[node name="EnergyIndicator" type="Node2D" parent="." unique_id=1439769657]
-script = ExtResource("13_energy")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=294527289]
 script = ExtResource("16_camera")
