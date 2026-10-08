@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 		end_day()
 
 func start_day() -> void:
-	if not ProgressionManager.is_unlocked(&"human_feeder"):
+	if ProgressionManager.get_skill_level(&"human_feeder") <= 0:
 		return
 	if active:
 		return
