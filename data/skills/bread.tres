@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"bread"
+display_name = "Bread"
+description = "Unlock manual bread throwing. You can throw up to 5 pieces of bread each day."
+category = 0
+food_cost = 0
+effect_id = &"bread_stock"
+effect_value = 5.0
+max_level = 1
