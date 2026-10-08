@@ -3,12 +3,10 @@ extends Node
 signal food_changed(food: int)
 signal coin_changed(coin: int)
 signal skill_level_changed(skill_id: StringName, new_level: int)
-signal unlock_changed(unlock_id: StringName, unlocked: bool)
 
 var food: int = 0
 var coin: int = 0
 var skill_levels: Dictionary = {}
-var unlocks: Dictionary = {}
 
 
 func add_food(amount: int) -> void:
@@ -70,15 +68,3 @@ func get_skill_level(skill_id: StringName) -> int:
 func set_skill_level(skill_id: StringName, level: int) -> void:
 	skill_levels[skill_id] = level
 	skill_level_changed.emit(skill_id, level)
-
-
-func is_unlocked(unlock_id: StringName) -> bool:
-	return bool(unlocks.get(unlock_id, false))
-
-
-func unlock(unlock_id: StringName) -> bool:
-	if is_unlocked(unlock_id):
-		return false
-	unlocks[unlock_id] = true
-	unlock_changed.emit(unlock_id, true)
-	return true
