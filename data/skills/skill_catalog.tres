@@ -1,16 +1,7 @@
 [gd_resource type="Resource" script_class="SkillCatalog" format=3 uid="uid://dsjv870im25ba"]
 
 [ext_resource type="Script" uid="uid://b3ae4o6yy0p1x" path="res://scripts/progression/skill_catalog.gd" id="1_catalog"]
-[ext_resource type="Resource" path="res://data/skills/better_scavenging.tres" id="2"]
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="2_skill"]
-[ext_resource type="Resource" path="res://data/skills/full_pockets.tres" id="3"]
-[ext_resource type="Resource" path="res://data/skills/food_finder.tres" id="4"]
-[ext_resource type="Resource" path="res://data/skills/faster_flight.tres" id="5"]
-[ext_resource type="Resource" path="res://data/skills/stronger_flaps.tres" id="6"]
-[ext_resource type="Resource" path="res://data/skills/dive.tres" id="8"]
-[ext_resource type="Resource" path="res://data/skills/peck.tres" id="9"]
-[ext_resource type="Resource" path="res://data/skills/rush_hour.tres" id="10"]
-[ext_resource type="Resource" path="res://data/skills/double_crumbs.tres" id="11"]
 [ext_resource type="Resource" path="res://data/skills/first_recruit.tres" id="12"]
 [ext_resource type="Resource" path="res://data/skills/larger_flock.tres" id="13"]
 [ext_resource type="Resource" path="res://data/skills/bread_spawns.tres" id="14"]
@@ -23,10 +14,7 @@
 [ext_resource type="Resource" path="res://data/skills/farthing_spawns.tres" id="23"]
 [ext_resource type="Resource" path="res://data/skills/penny_spawns.tres" id="24"]
 [ext_resource type="Resource" path="res://data/skills/noble_spawns.tres" id="25"]
-[ext_resource type="Resource" path="res://data/skills/longer_glide.tres" id="26"]
-[ext_resource type="Resource" path="res://data/skills/ground_sprint_duration.tres" id="27"]
-[ext_resource type="Resource" path="res://data/skills/air_burst_duration.tres" id="28"]
 
 [resource]
 script = ExtResource("1_catalog")
-skills = Array[ExtResource("2_skill")]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15"), ExtResource("18"), ExtResource("19"), ExtResource("20"), ExtResource("21"), ExtResource("22"), ExtResource("23"), ExtResource("24"), ExtResource("25"), ExtResource("26"), ExtResource("27"), ExtResource("28")])
+skills = Array[ExtResource("2_skill")]([ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15"), ExtResource("18"), ExtResource("19"), ExtResource("20"), ExtResource("21"), ExtResource("22"), ExtResource("23"), ExtResource("24"), ExtResource("25")])
