@@ -17,7 +17,7 @@ func _ready() -> void:
 		push_error("SkillManager requires a SkillTree.")
 		return
 	_connect_progression_signals()
-	_center_on_human_feeder()
+	_center_on_bread()
 	skill_tree._refresh_nodes()
 
 
@@ -32,10 +32,10 @@ func _connect_progression_signals() -> void:
 		ProgressionManager.skill_level_changed.connect(_refresh_tree.unbind(2))
 
 
-func _center_on_human_feeder() -> void:
+func _center_on_bread() -> void:
 	if skill_tree == null:
 		return
-	var human_feeder := skill_tree.get_node_or_null("HumanFeeder") as Control
+	var human_feeder := skill_tree.get_node_or_null("Bread") as Control
 	if human_feeder == null:
 		return
 	zoom = 1.0
