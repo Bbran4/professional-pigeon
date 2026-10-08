@@ -7,8 +7,6 @@ signal started_dive
 signal started_swoop
 
 @export var stats: PigeonStats
-
-var current_energy: float
 var flap_held: bool = false
 var facing: int = 1
 var is_gliding: bool = false
@@ -23,7 +21,6 @@ var sprint_is_air: bool = false
 var swoop_timer: float = 0.0
 var time_off_floor: float = 0.0
 
-var _energy_regeneration_timer: float = 0.0
 var _coyote_timer: float = 0.0
 var _flap_buffer_timer: float = 0.0
 var _flap_cut_armed: bool = false
@@ -38,7 +35,6 @@ func _ready() -> void:
 		stats = PigeonStats.new()
 
 	_skill_tree = get_node_or_null("SkillTree") as SkillTree
-	current_energy = get_max_energy()
 
 
 func _physics_process(delta: float) -> void:
@@ -104,24 +100,12 @@ func _effect(effect_id: StringName) -> float:
 	return _skill_tree.get_effect_value(effect_id)
 
 
-func get_max_energy() -> float:
-	return stats.max_energy + _effect(&"max_energy_add")
-
-
 func get_flight_speed() -> float:
 	return stats.flight_speed + _effect(&"flight_speed_add")
 
 
 func get_flap_strength() -> float:
 	return stats.flap_strength + _effect(&"flap_strength_add")
-
-
-func get_energy_regeneration_interval() -> float:
-	return maxf(stats.energy_regeneration_interval + _effect(&"energy_regen_interval_add"), 0.1)
-
-
-func get_energy_regeneration_amount() -> float:
-	return stats.energy_regeneration_amount + _effect(&"energy_regen_amount_add")
 
 
 func can_dive() -> bool:
@@ -149,11 +133,6 @@ func buffer_flap() -> void:
 
 func try_flap() -> bool:
 	var from_ground := _coyote_timer > 0.0
-
-	# Every active flap costs energy, including the initial ground flap.
-	if current_energy <= 0.0:
-		return false
-	drain_energy(1.0)
 
 	_coyote_timer = 0.0
 	flap()
@@ -199,34 +178,6 @@ func get_air_sprint_duration() -> float:
 
 func get_glide_duration() -> float:
 	return maxf(stats.glide_duration + _effect(&"glide_duration_add"), 0.1)
-
-
-func drain_energy(amount: float) -> void:
-	current_energy = maxf(current_energy - amount, 0.0)
-
-
-func regenerate_energy(delta: float) -> void:
-	if not is_on_floor():
-		_energy_regeneration_timer = 0.0
-		return
-
-	if current_energy >= get_max_energy():
-		_energy_regeneration_timer = 0.0
-		return
-
-	_energy_regeneration_timer += delta
-	var interval := get_energy_regeneration_interval()
-
-	while _energy_regeneration_timer >= interval:
-		_energy_regeneration_timer -= interval
-		current_energy = minf(
-			current_energy + get_energy_regeneration_amount(),
-			get_max_energy()
-		)
-
-		if current_energy >= get_max_energy():
-			_energy_regeneration_timer = 0.0
-			break
 
 
 func steer_horizontal(max_speed: float, acceleration: float, friction: float, delta: float) -> void:
