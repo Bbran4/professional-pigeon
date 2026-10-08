@@ -153,12 +153,6 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1122536711]
 shape = SubResource("CapsuleShape2D_player")
 
-[node name="SkillTree" type="Control" parent="." unique_id=1361312729]
-layout_mode = 3
-anchors_preset = 0
-mouse_filter = 2
-script = ExtResource("14_skill_tree")
-catalog = ExtResource("15_skill_catalog")
 
 [node name="StateMachine" type="Node" parent="." unique_id=653671037 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_machine")
