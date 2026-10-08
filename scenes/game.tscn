@@ -75,11 +75,11 @@ stats = SubResource("Resource_0tnpc")
 [node name="ParkPigeonBrain" type="Node" parent="Player" unique_id=212241884]
 script = ExtResource("5_brain")
 
-[node name="Camera2D" parent="Player" index="2"]
+[node name="Camera2D" parent="Player"]
 enabled = false
 process_mode = 4
 
-[node name="PlayerController" parent="Player" index="9"]
+[node name="PlayerController" parent="Player"]
 process_mode = 4
 
 [node name="DayManager" type="Node" parent="." unique_id=1031930032]
