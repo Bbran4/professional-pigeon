@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://d24jw81sgbgo8"]
 
-[ext_resource type="Script" path="res://scripts/progression/upgrade_screen.gd" id="1_screen"]
-[ext_resource type="PackedScene" path="res://scenes/progression/skill_tree.tscn" id="2_tree"]
-[ext_resource type="Script" path="res://scripts/progression/skill_manager.gd" id="3_manager"]
+[ext_resource type="Script" uid="uid://b32pmjtjdgu6" path="res://scripts/progression/upgrade_screen.gd" id="1_screen"]
+[ext_resource type="PackedScene" uid="uid://pftnidioacjg" path="res://scenes/progression/skill_tree.tscn" id="2_tree"]
+[ext_resource type="Script" uid="uid://c0owjdr38lyk8" path="res://scripts/progression/skill_manager.gd" id="3_manager"]
 
-[node name="UpgradeScreen" type="Control"]
+[node name="UpgradeScreen" type="Control" unique_id=723673106]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_screen")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1658474308]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,14 +22,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TopBar" type="Panel" parent="."]
+[node name="TopBar" type="Panel" parent="." unique_id=1931811504]
 layout_mode = 0
-anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 82.0
 grow_horizontal = 2
 
-[node name="Title" type="Label" parent="TopBar"]
+[node name="Title" type="Label" parent="TopBar" unique_id=861124657]
 layout_mode = 0
 offset_left = 28.0
 offset_top = 18.0
@@ -38,7 +37,7 @@ offset_bottom = 54.0
 theme_override_font_sizes/font_size = 26
 text = "PARK PROGRESSION"
 
-[node name="FoodLabel" type="Label" parent="TopBar"]
+[node name="FoodLabel" type="Label" parent="TopBar" unique_id=2144754319]
 layout_mode = 0
 offset_left = 390.0
 offset_top = 24.0
@@ -47,7 +46,7 @@ offset_bottom = 54.0
 theme_override_font_sizes/font_size = 20
 text = "Food: 0"
 
-[node name="CoinLabel" type="Label" parent="TopBar"]
+[node name="CoinLabel" type="Label" parent="TopBar" unique_id=1995229345]
 layout_mode = 0
 offset_left = 555.0
 offset_top = 24.0
@@ -56,9 +55,8 @@ offset_bottom = 54.0
 theme_override_font_sizes/font_size = 20
 text = "Coin: 0"
 
-[node name="StartDayButton" type="Button" parent="TopBar"]
+[node name="StartDayButton" type="Button" parent="TopBar" unique_id=853104194]
 layout_mode = 0
-anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -190.0
@@ -69,7 +67,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 18
 text = "START NEW DAY"
 
-[node name="SkillManager" type="Control" parent="."]
+[node name="SkillManager" type="Control" parent="." unique_id=106104407]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,7 +77,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_manager")
 
-[node name="SkillTree" parent="SkillManager" instance=ExtResource("2_tree")]
+[node name="SkillTree" parent="SkillManager" unique_id=311553775 instance=ExtResource("2_tree")]
 layout_mode = 0
 offset_left = -650.0
 offset_top = -300.0

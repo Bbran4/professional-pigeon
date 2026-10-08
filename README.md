@@ -10,35 +10,11 @@
 
 **Give pigeons food. Watch what happens. Make it bigger.**
 
-The player does **not** directly control a pigeon.
-
-Instead, the player manages the conditions that make the park come alive.
+The player does **not** directly control a pigeon. Instead, the player manages the conditions that make the park come alive, and can lightly *nudge* the chaos with a few optional interactions (throwing bread, startling pigeons).
 
 You begin with a quiet city park, a small supply of basic food, and a single pigeon.
 
-The player starts a day, provides food, and watches the pigeon arrive, fly down from a tree, search for food, eat, and generate resources.
-
-Those resources can then be spent on upgrades that make the next day more productive.
-
-More food.
-
-More pigeons.
-
-Faster feeding.
-
-New food sources.
-
-New places for pigeons to gather.
-
-Water baths.
-
-Pigeon houses.
-
-New bird types.
-
-New park features.
-
-Eventually, the quiet park becomes a bustling pigeon ecosystem.
+The player starts a day, provides food, and watches the pigeon arrive, fly down from a tree, search for food, eat, and generate resources. Those resources are spent on upgrades that make the next day more productive, and more ridiculous.
 
 The player is not the hero.
 
@@ -46,15 +22,23 @@ The player is not the hero.
 
 ---
 
+# Design Pillars
+
+1. **Pigeons are the content.** Behaviour, personality and animation matter more than menus.
+2. **The park is the progress bar.** Upgrades should visibly change the world.
+3. **Watching is the game, poking is the garnish.** The game must be fun with zero input, and *more* fun with a little.
+4. **Escalation is the joke.** Treat absurd pigeon activity as completely normal.
+5. **Complexity is earned.** Do not add systems until the loop is fun without them.
+
+---
+
 # Core Concept
 
 Professional Pigeon is built around a short, repeatable incremental loop:
 
-**Start Day → Provide Food → Pigeons Arrive → Pigeons Eat → Earn Resources → Buy Upgrades → Start Next Day**
+**Start Day → Provide Food → Pigeons Arrive → Pigeons Eat → Earn Points → Buy Upgrades → Start Next Day**
 
-The player mostly interacts through buttons and menus.
-
-The fun comes from watching the world respond.
+During the day the player may optionally **throw bread** and **startle pigeons** (see [Player Interaction](#player-interaction)).
 
 A successful upgrade should not only make a number larger. It should make the park **look and behave differently**.
 
@@ -64,20 +48,20 @@ A successful upgrade should not only make a number larger. It should make the pa
 
 Each run represents one **day in the park**.
 
-The initial day lasts **60 seconds**.
-
-At the beginning of a day, the player starts the run.
+The prototype day currently lasts **10 seconds**. This is intentionally short so the loop can be iterated on quickly. Day length is a progression stat (see [Day Length](#day-length)), and the long-term target for an early-game day is **60 seconds**.
 
 During the day:
 
-1. Food is introduced into the park.
+1. Food is introduced into the park (by the human feeder and, optionally, by the player).
 2. Pigeons notice the food.
 3. Pigeons arrive from the surrounding environment.
-4. Pigeons fly, land, walk, search and eat.
-5. Eating generates resources.
+4. Pigeons fly, land, walk, search, compete and eat.
+5. Eating generates points.
 6. More pigeons can arrive as the player's upgrades improve.
 7. The park becomes increasingly active.
 8. The day ends when the timer reaches zero.
+
+> **Rule:** a day ends when the timer runs out, *not* when the food runs out. The feeder keeps throwing bread on a schedule for the whole day.
 
 The player then receives a results screen showing what happened.
 
@@ -89,17 +73,57 @@ Example:
 - Food eaten: 23
 - Points earned: 184
 - Maximum pigeons present: 11
+- Highlight: *Gerald stole 4 crumbs from Pam.*
 - New unlocks available
 
-The player spends their accumulated resources on upgrades and starts the next day.
+---
+
+# Player Interaction
+
+The player is the unseen manager of the park, but a good idle game gives you something to poke at while you wait. These interactions are **optional**: the game must be fully playable without them, and they should become progressively automated by upgrades.
+
+### Tap to Throw Bread
+
+Tap/click a spot in the park to throw bread there.
+
+- Limited by a **bread stock** that refills over time (or per day), so it is an active bonus rather than a requirement.
+- Lets the player decide *where* pigeons gather, which makes feeding areas and bird feeders matter.
+- Becomes automated later ("Auto-Thrower"), which feels powerful *because* the player used to do it by hand.
+
+### Startle: Click
+
+Clicking a pigeon startles it. It flaps off, then returns after a short delay.
+
+- Pure juice at first: funny, satisfying, harmless.
+- Gives the player a way to break up a pigeon hogging the food.
+
+### Startle: Hover (Scare Zone)
+
+Moving the mouse near pigeons scares them away from the cursor.
+
+Design notes, because this one needs care:
+
+- **Hovering is a trade-off, not a free action.** Scaring pigeons away from food slows eating, so the player must choose *where* to scare and *when*.
+- It must not conflict with tap-to-throw. Throwing bread should still feel good, and scaring should never prevent it. Suggested approach: a small scare radius around the cursor that only affects pigeons on the ground, with an obvious visual cue (a subtle ring or a cursor change).
+- It should have a purpose beyond novelty. Good uses: pushing a bossy pigeon off a pile so shy pigeons can eat, shooing pigeons off a spot, and later, scaring away threats like gulls or cats.
+- It should be **toggleable or disableable** for accessibility, and easy to avoid on touch devices (where "hover" does not exist; use a tap/press-and-hold equivalent).
+- If it turns out to be annoying (accidental scares while reaching for the UI), restrict it to a "scare mode" or only while a key/button is held.
+
+### Golden Bread (Special Drops)
+
+Occasionally a special item appears (golden bread, a dropped sandwich, a lucky crumb). Clicking it gives a bonus. This is the classic "reward attention without demanding it" mechanic.
+
+### Interaction Principles
+
+- Never required to progress.
+- Always cheap, immediate and funny.
+- Every manual interaction should have a matching automation upgrade later.
 
 ---
 
 # The Important Part: Watching Numbers Go Up
 
 Incremental games work because progression is both **numerical and visible**.
-
-Professional Pigeon should make that progression obvious.
 
 The player might begin with:
 
@@ -131,11 +155,9 @@ The park itself becomes the progress bar.
 
 The first environment is a **city park**.
 
-The initial view should be a relatively contained 2D scene rather than a traditional platforming level.
+The initial view is a relatively contained 2D scene rather than a traditional platforming level.
 
-The player character may be visible, such as a person sitting on a park bench, but the character is not directly controlled.
-
-The player is essentially the unseen manager of the park.
+A person may be visible, such as someone sitting on a park bench throwing bread, but they are presentation rather than a controllable character.
 
 The park can contain:
 
@@ -147,14 +169,13 @@ The park can contain:
 - Bird feeders
 - Water
 - Pigeon houses
+- Statues
 - Decorative objects
 - Background buildings
 - Other park visitors
 - Pigeons
 
-The initial park should remain deliberately simple.
-
-New systems should be introduced as the player progresses.
+The initial park should remain deliberately simple. New systems should be introduced as the player progresses.
 
 ---
 
@@ -178,22 +199,15 @@ A pigeon should be capable of simple natural behaviours such as:
 - Flying away
 - Returning to a preferred area
 - Reacting to other pigeons
+- Reacting to the player's cursor
 
-The player should be able to sit back and watch the flock develop naturally.
+## Pigeon Behaviour
 
----
-
-# Pigeon Behaviour
-
-The first pigeon prototype should be simple.
-
-A basic pigeon might follow a state-driven behaviour loop:
+The first pigeon prototype follows a state-driven behaviour loop:
 
 **Perch → Notice Food → Fly Down → Land → Search → Eat → Idle → Fly Away**
 
-As the game develops, additional behaviours can be introduced.
-
-Examples:
+As the game develops, behaviours are layered on:
 
 **Food nearby**
 
@@ -201,7 +215,7 @@ Examples:
 
 **Another pigeon nearby**
 
-> Join the group.
+> Join the group, or compete with it.
 
 **Water available**
 
@@ -211,51 +225,47 @@ Examples:
 
 > Fly away.
 
+**Cursor nearby / clicked**
+
+> Startle and flee, then return.
+
 **Pigeon house available**
 
 > Return to it.
 
-The goal is not to create a complicated simulation.
+The goal is not a complicated simulation. The goal is **believable, entertaining behaviour**.
 
-The goal is to create **believable, entertaining behaviour**.
+## Personality
 
----
+Pigeons should not be 20 copies of the same loop. Give each pigeon a small set of personality traits that change how it behaves:
 
-# Pigeon Population
+- **Greedy:** moves faster toward food and eats more per visit.
+- **Shy:** waits at the edge of a crowd and flees easily.
+- **Bossy:** chases other pigeons off food.
+- **Lazy:** idles more, walks rather than flies.
+- **Jumpy:** startles at the slightest movement.
+
+Traits should be **visible** (posture, speed, small cosmetic differences) and ideally **named**. A pigeon the player recognises, such as the one that always gets chased off or the one that hoards, is worth more than a +10% upgrade.
+
+## Competition and Crowding
+
+Pigeons racing for the same crumb is one of the funniest, most watchable things the game can produce. It also explains, in the world itself, why more food, more space and more feeding areas matter.
+
+- Multiple pigeons targeting the same food should be resolved visibly (a race, a chase, a steal).
+- Crowded food should produce shoving, hopping and flapping.
+- Bossy pigeons can monopolise a pile until the player scares them off.
+
+## Pigeon Population
 
 The first major progression goal is simply to attract more pigeons.
 
-Early progression might look like:
-
-### Stage 1
-
-**1 pigeon**
-
-One food source.
-
-### Stage 2
-
-**3 pigeons**
-
-More food becomes available.
-
-### Stage 3
-
-**5-10 pigeons**
-
-Multiple feeding opportunities.
-
-### Stage 4
-
-**10-20 pigeons**
-
-The park starts to feel busy.
-
-### Stage 5
-
-**20+ pigeons**
-
-The player begins managing an actual flock.
+| Stage | Pigeons | Notes |
+|-------|---------|-------|
+| 1 | 1 | One food source |
+| 2 | 3 | More food becomes available |
+| 3 | 5-10 | Multiple feeding opportunities |
+| 4 | 10-20 | The park starts to feel busy |
+| 5 | 20+ | The player manages an actual flock |
 
 Population growth should be visible and satisfying.
 
@@ -269,19 +279,16 @@ The first food source is intentionally simple:
 
 ## Bread
 
-Bread can be spawned into the park during a day.
+Bread can be spawned into the park during a day, by the human feeder or by the player.
 
-Pigeons detect it, move toward it and eat it.
+Pigeons detect it, move toward it and eat it. Eating bread generates points.
 
-Eating bread generates the player's primary run resource.
-
-Later, additional food types can be unlocked.
-
-Possible food sources include:
+Later, additional food types can be unlocked:
 
 - Bread
 - Seeds
 - Grain
+- Worms
 - Fruit
 - Crumbs
 - Pastries
@@ -303,21 +310,13 @@ The player should always know:
 
 **What does this unlock?**
 
-The initial game should use as few currencies as possible.
+## Currency Plan
 
-Possible resources include:
+The prototype currently uses *Food* both as the thing pigeons eat **and** the thing the player spends, which will confuse players. The plan is to separate them:
 
-### Points
-
-The main progression currency generated by pigeon activity.
-
-### Coins
-
-A secondary persistent currency that can eventually be used for larger purchases and systems.
-
-### Food
-
-The physical resource placed into the park.
+- **Food (item):** the physical thing placed in the park. Bread, seeds, worms.
+- **Points (currency):** earned when pigeons eat. Banked at the end of each day and spent on upgrades. This is the **only** currency in the early game.
+- **Coins (later):** a second persistent currency, only introduced if a system genuinely needs it (e.g. larger purchases, new parks).
 
 Additional currencies should only be introduced when they create a meaningful new decision.
 
@@ -329,55 +328,52 @@ The game should not become a spreadsheet with pigeons painted on it.
 
 Upgrades are the main source of long-term progression.
 
-The important principle is:
-
 > **Upgrades should change what happens in the park, not merely increase numbers.**
 
-Examples:
+**Rule of thumb:** for every purely numeric upgrade, there should be one that unlocks something the player can *see*.
 
-### More Food
+### Numeric upgrades (keep these few and meaningful)
 
-Increase the amount of food provided during each day.
+- More Bread
+- Faster Feeding (shorter gaps between throws)
+- Longer Day
+- Better Food (higher value)
 
-### Faster Feeding
+### Visible upgrades
 
-Reduce the time between food being provided.
+- **Bird Feeder:** pigeons perch and queue.
+- **Water Bath:** new drinking and bathing animations and a new pigeon state.
+- **Pigeon House:** pigeons have somewhere to return to.
+- **Statue:** pigeons gather on it and generate a passive bonus.
+- **Second Feeder:** a different human with different throwing behaviour (kids throw wildly, an old man scatters seeds in a pattern).
+- **Bigger Park:** more room for the flock.
+- **Auto-Thrower:** automates the player's tap-to-throw.
+- **Bread Stock:** more bread to throw manually.
+- **Scare Range:** a larger hover-scare radius (and, later, scare strength).
 
-### Better Food
+### Interaction upgrades
 
-Unlock food that produces more resources.
+- Bigger bread stock
+- Faster stock refill
+- Golden bread appears more often
+- Automation of manual actions
 
-### More Pigeons
+---
 
-Increase the number of pigeons that can be attracted.
+# Meaningful Choices
 
-### Larger Feeding Area
+A skill tree where you eventually buy everything is not a tree. Where possible, add real decisions:
 
-Give pigeons more places to gather.
-
-### Bird Feeder
-
-Create a permanent feeding location.
-
-### Water Bath
-
-Introduce drinking and bathing behaviour.
-
-### Pigeon House
-
-Give pigeons a place to return to.
-
-### Bigger Park
-
-Expand the available environment.
-
-Each upgrade should ideally produce an observable change.
+- **Branching paths:** e.g. a "Bread Baron" path (more food, bigger payouts) versus a "Pigeon Whisperer" path (more pigeons, better behaviour).
+- **Trade-offs:** a bigger flock means more chaos and a chance of negative events (a dropped sandwich, a fight, a stolen lunch).
+- **Day modifiers** chosen before starting a day:
+  - *Rainy day:* fewer pigeons, but each is worth more.
+  - *Lunch rush:* more humans, more bread, more chaos.
+  - *Quiet morning:* longer day, fewer events.
 
 ---
 
 # Unlock Progression
-
-The player gradually transforms the park.
 
 A possible progression path:
 
@@ -386,6 +382,10 @@ A possible progression path:
 ↓
 
 **More Bread**
+
+↓
+
+**Tap to Throw**
 
 ↓
 
@@ -443,7 +443,7 @@ Later:
 
 Later:
 
-> Several pigeons feeding.
+> Several pigeons feeding and squabbling.
 
 Later:
 
@@ -465,9 +465,11 @@ The player's park should gradually become a living representation of their progr
 
 There is no traditional player-controlled character.
 
-A person may be visible in the environment, for example sitting on a bench and throwing food, but this is presentation rather than direct gameplay control.
+A person may be visible in the environment, for example sitting on a bench and throwing food, but this is presentation rather than direct control.
 
-The player's interaction is primarily:
+The player's interaction is:
+
+**Primary (menus):**
 
 - Start Day
 - Buy Upgrade
@@ -475,17 +477,22 @@ The player's interaction is primarily:
 - Start Next Day
 - Manage persistent progression
 
+**Optional (in the park):**
+
+- Tap to throw bread
+- Click pigeons to startle them
+- Hover to scare pigeons away
+- Click special drops
+
 There is no platforming.
 
 There is no direct pigeon movement control.
 
 There is no traditional combat.
 
-There is no requirement for the player to manually collect every resource.
+There is no requirement for the player to do anything during a day.
 
-The player creates the conditions.
-
-**The pigeons do the rest.**
+The player creates the conditions. **The pigeons do the rest.**
 
 ---
 
@@ -501,7 +508,7 @@ Numbers increase.
 
 Pigeons move around.
 
-Resources accumulate.
+Points accumulate.
 
 The player buys an upgrade.
 
@@ -519,17 +526,13 @@ The goal is to create the pleasant incremental feeling of:
 
 Automation should gradually reduce the amount of manual intervention required.
 
-For example:
-
 ### Beginning
 
-Player starts the day.
-
-Food is provided manually.
+Player starts the day. The human feeder throws bread on a timer. The player can optionally throw extra bread.
 
 ### Later
 
-Food is automatically provided at intervals.
+Bread is thrown automatically at intervals (Auto-Thrower).
 
 ### Later
 
@@ -539,21 +542,21 @@ Multiple food sources activate automatically.
 
 Pigeons naturally return to the park.
 
+### Later still
+
+Days start automatically, and the park runs while the player is away (offline progress).
+
 ### Eventually
 
 The park becomes a largely self-sustaining ecosystem.
 
-Automation is not about removing the game.
-
-It is about making the player's growing ecosystem feel increasingly powerful.
+Automation is not about removing the game. It is about making the player's growing ecosystem feel increasingly powerful.
 
 ---
 
 # The Skill Tree
 
-The existing progression system will remain an important part of the game.
-
-The skill tree should be adapted to the new idle structure.
+The existing progression system remains an important part of the game, but it needs to be **pruned and reshaped** for the idle structure.
 
 Rather than upgrading a player character, upgrades should affect:
 
@@ -563,30 +566,58 @@ Rather than upgrading a player character, upgrades should affect:
 - Pigeon attraction
 - Pigeon population
 - Feeding efficiency
-- Resource generation
+- Point generation
 - Park features
 - Day length
 - Automation
+- Interaction (bread stock, scare range)
 - New pigeon types
 - New environments
 
-The skill tree should provide meaningful choices rather than simply being a list of percentage increases.
+The tree should provide meaningful choices rather than a list of percentage increases.
+
+### Skills to Remove or Rework
+
+Several existing skills are leftovers from the side-scrolling prototype and no longer fit:
+
+- Faster Flight, Stronger Flaps
+- Dive, Peck
+- Longer Glide, Longer Sprint, Longer Air Burst
+- Full Pockets (carry capacity)
+- Food Finder, Double Crumbs, Rush Hour, Better Scavenging (rework into park equivalents)
+
+### Target Starter Tree (roughly six upgrades)
+
+1. **More Bread** (more bread per day)
+2. **Faster Feeding** (shorter delay between throws)
+3. **Longer Day** (10s → longer)
+4. **More Pigeons** (population cap)
+5. **Bread Stock** (more bread to throw by hand)
+6. **Bird Feeder** (first visible park feature)
+
+Expand only once this small tree is fun.
 
 ---
 
 # Day Length
 
-The initial day lasts **60 seconds**.
-
-Later upgrades can increase the length of a day.
+The prototype day lasts **10 seconds** so the loop can be tested quickly. Later upgrades increase the length of a day.
 
 For example:
 
-**60 seconds**
+**10 seconds**
 
 ↓
 
-**75 seconds**
+**20 seconds**
+
+↓
+
+**30 seconds**
+
+↓
+
+**60 seconds**
 
 ↓
 
@@ -598,10 +629,6 @@ For example:
 
 ↓
 
-**3 minutes**
-
-↓
-
 **5 minutes**
 
 Longer days allow more activity to occur and make stronger upgrades more valuable.
@@ -610,67 +637,21 @@ Day length should be balanced carefully so that increasing it feels useful witho
 
 ---
 
-# Natural Pigeon Activity
+# Events and Pacing Within a Day
 
-A major development goal is making pigeons enjoyable to watch.
+A day should have a shape, not just a timer.
 
-Pigeons should not simply appear directly on top of food.
+- **Quiet start:** one or two pigeons, a little bread.
+- **Mid-day rush:** more pigeons, more food, more competition.
+- **Dramatic finish:** a late event such as a dog, a child chasing pigeons, or a golden bread drop.
 
-A better sequence is:
-
-**Pigeon perched in tree**
-
-↓
-
-**Notices food**
-
-↓
-
-**Flies down**
-
-↓
-
-**Lands**
-
-↓
-
-**Walks toward food**
-
-↓
-
-**Searches**
-
-↓
-
-**Eats**
-
-↓
-
-**Looks around**
-
-↓
-
-**Returns to activity**
-
-Small behaviours like these are important.
-
-The player is spending much of their time watching the park.
-
-The animation and behaviour therefore need to carry part of the game's entertainment.
-
----
-
-# Events and Reactions
-
-Once the core pigeon-and-food loop works, the park can gain additional interactions.
-
-Possible future systems include:
+Possible future event systems:
 
 - Cats
 - Dogs
 - Children
 - Park visitors
-- Other birds
+- Other birds (gulls)
 - Rain
 - Wind
 - Special food drops
@@ -680,9 +661,22 @@ Possible future systems include:
 
 These should be added only after the basic loop is fun.
 
-The rule is simple:
-
 > **Do not add complexity just because we can.**
+
+---
+
+# Day Results and Highlights
+
+The results screen should reinforce "pigeons are the show."
+
+In addition to totals, show **highlights** generated from what actually happened:
+
+- "Gerald stole 4 crumbs from Pam."
+- "A record 11 pigeons were present at once."
+- "Brenda was scared off 6 times and kept coming back."
+- "The golden bread was claimed by a pigeon with no manners."
+
+This makes every day feel distinct and gives the flock stories.
 
 ---
 
@@ -704,17 +698,27 @@ Possible locations:
 - Castle Grounds
 - Countryside
 
-Each location should introduce something genuinely new.
+Each location should introduce something genuinely new. A new background alone is not enough.
 
-A new background alone is not enough.
+---
+
+# Prestige and Long-Term Structure
+
+Most successful incremental games have a reset mechanic. The title *Professional Pigeon* suggests a natural framing: **a career ladder.**
+
+An early sketch:
+
+**Hobbyist → Amateur → Professional → Expert → Legend**
+
+Moving to a new city or park could reset the park but keep **Reputation**, giving a mechanical reason for "Multiple Parks" to exist.
+
+This is a planning note, not a build target. It exists so currency and save-data decisions made now don't block it later.
 
 ---
 
 # Pigeon Types
 
 Different pigeon types can eventually be introduced.
-
-Examples:
 
 - Common Pigeon
 - Fat Pigeon
@@ -725,9 +729,9 @@ Examples:
 - Giant Pigeon
 - Rare Pigeon
 
-Different pigeon types may have different behaviours or resource bonuses.
+Different types may have different behaviours or resource bonuses.
 
-However, this system should come **after** the basic pigeon loop has been proven.
+This system should come **after** the basic pigeon loop has been proven, and should build on the personality system rather than replace it.
 
 ---
 
@@ -735,7 +739,7 @@ However, this system should come **after** the basic pigeon loop has been proven
 
 The game should be humorous without requiring constant jokes.
 
-The comedy should come from the escalation of an otherwise ordinary park.
+The comedy comes from the escalation of an otherwise ordinary park.
 
 At the beginning:
 
@@ -755,13 +759,18 @@ Eventually:
 
 The humour comes from treating increasingly absurd pigeon activity as completely normal.
 
+### Comedy Tools
+
+- A running, deadpan **news ticker**: "Local council baffled by pigeon surge."
+- Absurd late-game unlocks: pigeon union, pigeon mayor, pigeon-run bakery, professional certifications.
+- Dry, understated UI text.
+- Named pigeons with consistent personalities.
+
 ---
 
 # Long-Term Progression
 
-The long-term goal is not simply to produce larger numbers.
-
-It is to transform the park.
+The long-term goal is not simply to produce larger numbers. It is to transform the park.
 
 The player starts with:
 
@@ -807,9 +816,7 @@ The visual direction should prioritize:
 - Warm, inviting environments
 - Easy-to-understand UI
 
-Pigeons should be visually appealing and immediately readable.
-
-The park should be interesting enough to watch without overwhelming the player.
+Pigeons should be visually appealing and immediately readable. The park should be interesting enough to watch without overwhelming the player.
 
 ---
 
@@ -831,9 +838,7 @@ GDScript
 
 A contained 2D park scene viewed from the side.
 
-The game is no longer designed around traditional side-scrolling platformer movement.
-
-The camera should primarily frame the park as a stage on which the autonomous systems play out.
+The game is no longer designed around traditional side-scrolling platformer movement. The camera frames the park as a stage on which the autonomous systems play out.
 
 ---
 
@@ -851,21 +856,27 @@ Game
 │
 ├── Pigeons
 │   ├── Pigeon Data
-│   ├── Pigeon AI
+│   ├── Pigeon AI (one brain per pigeon)
 │   ├── Pigeon States
-│   ├── Pigeon Behaviour
+│   ├── Pigeon Personality
 │   └── Pigeon Types
 │
+├── Interaction
+│   ├── Bread Throwing
+│   ├── Startle (click / hover)
+│   └── Special Drops
+│
 ├── Resources
-│   ├── Food
+│   ├── Food (items)
 │   ├── Points
-│   └── Coins
+│   └── Coins (later)
 │
 ├── Day System
 │   ├── Day Timer
 │   ├── Day Start
 │   ├── Day End
-│   └── Day Results
+│   ├── Day Events
+│   └── Day Results / Highlights
 │
 ├── Spawning
 │   ├── Food Spawning
@@ -885,11 +896,24 @@ Game
 │   └── Progress Displays
 │
 └── Persistence
-    ├── Save Data
-    └── Load Data
+	├── Save Data
+	└── Load Data
 ```
 
 The exact architecture will evolve during development.
+
+## Key Technical Change: Multi-Pigeon Support
+
+The single biggest technical hurdle is moving from "one special pigeon" to "many autonomous pigeons."
+
+Currently, `ParkPigeonBrain` is a child of a single `Player` node and controls that one pigeon through a scripted sequence (teleport to perch, fly, walk, eat, fly away, hide). To support a flock:
+
+- Make the brain **per-pigeon**, owned by each pigeon instance.
+- Add a **`PigeonSpawner`** that creates and removes pigeons based on upgrades.
+- Rename/retire `Player` and `PlayerController` (the "Player" is really an autonomous pigeon).
+- Replace the linear script with a **small decision loop** (see Pigeon Behaviour) so pigeons can react to food, each other and the cursor.
+- Add a **food reservation / claim** system so multiple pigeons can contest the same food visibly.
+- Add a **startle** input path (click and hover) that any pigeon can respond to.
 
 ---
 
@@ -900,7 +924,7 @@ Where practical, game content should remain data-driven.
 Examples:
 
 - Food types
-- Pigeon types
+- Pigeon types and personality traits
 - Pigeon stats
 - Spawn quantities
 - Spawn intervals
@@ -909,6 +933,7 @@ Examples:
 - Park facilities
 - Day modifiers
 - Resource values
+- Event definitions
 
 This allows new content to be added without rewriting the core systems.
 
@@ -922,7 +947,7 @@ Persistent progression is important because the game is built around repeated da
 
 The game should save and load information such as:
 
-- Total resources
+- Total points
 - Purchased upgrades
 - Unlocked food
 - Unlocked pigeon types
@@ -939,62 +964,64 @@ The player's progress should survive between sessions.
 
 # What We Keep From the Existing Project
 
-The previous prototype already contains useful systems and concepts.
-
-The following can be retained or adapted:
+The previous prototype already contains useful systems and concepts:
 
 - Resource data
 - Collectible data model
 - Data-driven resource definitions
 - Progression system
-- Skill tree
+- Skill tree (pruned)
 - Upgrade system
 - Persistent progression concepts
 - Pigeon class
 - Pigeon state machine architecture
 - Spawn manager concepts
-- Run timer
-- Run HUD
-- Run results
+- Day/run timer
+- HUD
+- Day results
 - Save/load architecture
 
-The purpose of the redesign is **not** to throw away working systems unnecessarily.
-
-Instead, systems should be adapted to support the new idle park loop.
+The purpose of the redesign is **not** to throw away working systems unnecessarily. Systems should be adapted to support the new idle park loop.
 
 ---
 
 # What We Remove or Replace
 
-The previous game was designed as a side-scrolling platformer with direct player movement.
-
-Those systems are no longer central.
-
-The following should be removed or substantially redesigned:
+The previous game was a side-scrolling platformer with direct player movement. Those systems are no longer central. The following should be removed or substantially redesigned:
 
 - Direct player movement
-- Player controller
+- `PlayerController`
 - Player platforming
 - Manual pigeon control
-- Player-centric interaction
+- Collect-by-pressing-E (`CollectDetector`, interaction prompts)
+- Player inventory as a per-run pickup bag
+- Platformer-era skills (flight, dive, glide, sprint, peck)
 - Platforming level design
 - Character traversal as the primary gameplay loop
 
-The player should no longer need to move around the world to make the game work.
+---
+
+# Known Cleanup Items
+
+Small issues spotted in the current prototype, worth fixing early:
+
+- **Day ends too soon.** `DayManager` currently ends the day when the feeder runs out of bread, so with `carry_capacity = 1` a day is one bread and one pigeon. The day should end on the timer only.
+- **Debug `print()` in `RunHud._process`.** Spams the console every frame.
+- **Mixed tabs and spaces.** `SkillManager` and `SkillNode` use spaces; the rest of the project uses tabs.
+- **Skill ID mismatch.** In `skill_tree.tscn`, the node `FirstRecruit` uses `skill_id = &"human_feeder"`, but `UnlockSeeds` lists `&"first_recruit"` as a prerequisite, so it can never unlock. (`larger_flock.tres` and a few other skill resources have the same problem.)
+- **Two unlock systems.** `ProgressionManager.unlocks` (used by `UnlockScreen`) and `skill_levels` (used by the skill tree) both track unlocks. Consolidate on one.
+- **Scene parse risk.** `player.tscn` contains a literal `\n` on the `SkillTree` node line, which may break scene parsing.
+- **Naming overlap.** "Food" is both an item and a currency (see [Currency Plan](#currency-plan)).
 
 ---
 
 # Prototype Development Order
 
-The first goal is **not** to build the entire game.
-
-The first goal is to prove that watching pigeons create an increasingly productive park is fun.
+The first goal is **not** to build the entire game. The first goal is to prove that watching pigeons create an increasingly productive park is fun.
 
 ## Phase 1: Park Scene
 
 Create a simple park.
-
-Goals:
 
 - Park background
 - Ground
@@ -1004,13 +1031,9 @@ Goals:
 - Placeholder food
 - Placeholder pigeon
 
----
-
 ## Phase 2: One Pigeon
 
 Build the simplest believable pigeon.
-
-Goals:
 
 - Perch
 - Fly
@@ -1021,22 +1044,15 @@ Goals:
 - Idle
 - Leave
 
-The pigeon should be autonomous.
+The pigeon is autonomous. The player does not control it.
 
-The player should not control it.
-
----
-
-## Phase 3: First 60-Second Day
+## Phase 3: First Full Day
 
 Implement the core day loop.
 
-Goals:
-
 - Start Day button
-- 60-second timer
-- Food spawning
-- Pigeon spawning
+- Day timer (currently 10 seconds, with the day ending on the timer)
+- Feeder throws bread on a schedule
 - Food consumption
 - Points generation
 - Day ending
@@ -1044,46 +1060,52 @@ Goals:
 
 At this point the game should already be playable.
 
----
+## Phase 3.5: First Active Verb
+
+Add the smallest possible interaction and see whether it improves the day.
+
+- Tap to throw bread (with a limited stock)
+- Click a pigeon to startle it
+- Hover to scare (prototype and evaluate)
 
 ## Phase 4: More Pigeons
 
 Make population growth visible.
 
-Goals:
-
+- Per-pigeon brains and a pigeon spawner
 - Increase pigeon spawn quantity
 - Prevent excessive overlap
-- Allow multiple pigeons to eat
+- Allow multiple pigeons to eat and compete
 - Improve natural movement
 - Make a growing flock visually satisfying
 
-The first major target is:
+The first major target:
 
 > **Can one pigeon become twenty pigeons in a way that feels satisfying?**
-
----
 
 ## Phase 5: First Upgrades
 
 Introduce the smallest possible progression system.
 
-Initial upgrades might include:
-
-- More Food
+- More Bread
 - More Pigeons
-- Faster Food
+- Faster Feeding
 - Longer Day
+- Bread Stock
 
 The player should immediately see the effect of purchases.
 
----
+## Phase 6: Personality and Highlights
 
-## Phase 6: Park Features
+Make the flock worth watching.
+
+- Basic personality traits
+- Named pigeons
+- Highlights on the results screen
+
+## Phase 7: Park Features
 
 Introduce the first environmental unlocks.
-
-Examples:
 
 - Bird Feeder
 - Water Bath
@@ -1091,26 +1113,18 @@ Examples:
 
 Each feature should introduce new visual activity.
 
----
-
-## Phase 7: More Food
+## Phase 8: More Food
 
 Introduce additional food types.
-
-Goals:
 
 - Food unlocks
 - Different food values
 - Different spawn rates
 - Different pigeon preferences
 
----
-
-## Phase 8: Better Pigeon Behaviour
+## Phase 9: Better Pigeon Behaviour
 
 Expand the autonomous simulation.
-
-Goals:
 
 - Pigeon flocking
 - Food preferences
@@ -1119,17 +1133,17 @@ Goals:
 - Returning home
 - Simple reactions
 
----
-
-## Phase 9: Secondary Systems
+## Phase 10: Secondary Systems
 
 Only once the core loop is proven should we introduce:
 
+- Day events and modifiers
 - Other birds
 - Cats
 - Dogs
 - Humans
 - Park events
+- Prestige / reputation
 - Multiple currencies
 - Multiple locations
 
@@ -1150,7 +1164,7 @@ Pigeons Arrive
 	↓
 Pigeons Eat
 	↓
-Earn Resources
+Earn Points
 	↓
 Buy Upgrade
 	↓
@@ -1159,39 +1173,21 @@ Start Next Day
 
 If this is not satisfying with placeholder art, additional content will not fix it.
 
----
-
 ## Visual Progression Matters
 
-Numbers should increase, but the world should change too.
-
-A good upgrade should ideally produce something the player can see.
-
----
+Numbers should increase, but the world should change too. A good upgrade should ideally produce something the player can see.
 
 ## Keep the Player Out of the Way
 
-The player is the manager, not the character performing every task.
-
-The less the player has to manually control, the more important the simulation becomes.
-
----
+The player is the manager, not the character performing every task. Optional interactions should add fun without becoming chores.
 
 ## Pigeons Are the Content
 
-The park exists to give the pigeons somewhere interesting to behave.
-
-Pigeons should therefore receive more attention than complicated menus.
-
----
+The park exists to give the pigeons somewhere interesting to behave. Pigeons should receive more attention than complicated menus.
 
 ## Avoid Meaningless Number Inflation
 
-Large numbers are satisfying.
-
-But numbers alone are not enough.
-
-Progression should unlock:
+Large numbers are satisfying, but numbers alone are not enough. Progression should unlock:
 
 - More pigeons
 - More food
@@ -1201,8 +1197,6 @@ Progression should unlock:
 - New environments
 - New interactions
 - More automation
-
----
 
 ## Every Upgrade Should Ask a Question
 
@@ -1214,13 +1208,13 @@ Not:
 
 > "This gives me another 5% because the spreadsheet says so."
 
----
+## Every Manual Action Deserves an Automation
+
+If the player can do something by hand, there should eventually be an upgrade that does it for them.
 
 ## Keep Complexity Earned
 
-Cats, dogs, children, other birds and elaborate park systems can come later.
-
-The first version only needs:
+Cats, dogs, children, other birds and elaborate park systems can come later. The first version only needs:
 
 **Food.**
 
@@ -1230,7 +1224,7 @@ The first version only needs:
 
 **Upgrades.**
 
-**A 60-second day.**
+**A short day.**
 
 If that is fun, we have something worth building.
 
@@ -1242,25 +1236,40 @@ The project is currently being reworked from its original side-scrolling pigeon 
 
 ## Core Loop
 
-- [x] 60-second run/day concept
-- [ ] Start Day
-- [ ] Food spawning
-- [ ] Autonomous pigeon arrival
-- [ ] Pigeon eating
-- [ ] Resource generation
-- [ ] Day completion
-- [ ] Day results
-- [ ] Upgrade between days
+- [x] Day/run concept (currently 10 seconds for fast iteration)
+- [x] Start Day button
+- [x] Human feeder unlock
+- [x] Feeder throws bread
+- [x] Pigeon flies to bread and eats it
+- [x] Points generation (basic)
+- [x] Day results (basic)
+- [ ] Day ends on timer, not when food runs out
+- [ ] Continuous bread throwing for the whole day
+- [ ] Autonomous pigeon arrival (multiple)
+- [ ] Day highlights
+- [ ] Upgrade between days (park-relevant tree)
+
+## Player Interaction
+
+- [ ] Tap to throw bread
+- [ ] Bread stock and refill
+- [ ] Click to startle pigeons
+- [ ] Hover to scare pigeons
+- [ ] Touch-friendly alternative to hover
+- [ ] Golden bread / special drops
+- [ ] Auto-thrower upgrade
 
 ## Pigeons
 
 - [x] Existing pigeon class
 - [x] Existing state-machine foundation
-- [ ] Autonomous pigeon behaviour
-- [ ] Flying from tree
-- [ ] Landing
-- [ ] Food seeking
-- [ ] Eating
+- [x] Basic scripted pigeon behaviour (perch, fly, walk, eat, leave)
+- [ ] Per-pigeon brains
+- [ ] Pigeon spawner
+- [ ] Food claiming / competition
+- [ ] Startle and return behaviour
+- [ ] Personality traits
+- [ ] Named pigeons
 - [ ] Natural idle behaviour
 - [ ] Multiple simultaneous pigeons
 - [ ] Pigeon population progression
@@ -1268,46 +1277,49 @@ The project is currently being reworked from its original side-scrolling pigeon 
 ## Resources
 
 - [x] Existing data-driven resource/collectible foundation
+- [ ] Separate Food (item) from Points (currency)
 - [ ] Adapt resources to idle production
-- [ ] Food spawning
-- [ ] Food consumption
-- [ ] Points generation
 - [ ] Persistent currency
-- [ ] Additional food types
+- [ ] Additional food types (seeds, worms already defined)
 
 ## Progression
 
 - [x] Existing skill/progression system
 - [x] Existing upgrade concepts
-- [ ] Rework upgrades around park progression
+- [ ] Remove platformer-era skills
+- [ ] Fix skill ID / prerequisite mismatches
+- [ ] Consolidate unlock systems
+- [ ] Starter tree (~6 upgrades)
 - [ ] Food quantity upgrades
 - [ ] Pigeon quantity upgrades
 - [ ] Day length upgrades
 - [ ] Automation upgrades
 - [ ] Park feature unlocks
+- [ ] Branching / exclusive choices
 - [ ] New food unlocks
 - [ ] Pigeon type unlocks
 
 ## Park
 
-- [ ] First park environment
-- [ ] Tree
-- [ ] Bench
+- [x] First park scene (tree, bench, ground, path)
 - [ ] Feeding area
 - [ ] Bird feeder
 - [ ] Water bath
 - [ ] Pigeon house
+- [ ] Statue
 - [ ] Expanded park
 - [ ] Additional locations
 
 ## UI
 
-- [ ] Day timer
-- [ ] Resource display
-- [ ] Pigeon population display
-- [ ] Start Day button
-- [ ] Day Results screen
-- [ ] Upgrade screen
+- [x] Day timer
+- [x] Points display
+- [x] Start Day button
+- [x] Basic results label
+- [ ] Pigeon population display (live)
+- [ ] Full Day Results screen with highlights
+- [ ] Bread stock display
+- [ ] News ticker
 - [ ] Persistent progression display
 
 ## Persistence
@@ -1316,11 +1328,12 @@ The project is currently being reworked from its original side-scrolling pigeon 
 - [ ] Load system
 - [ ] Persistent upgrades
 - [ ] Persistent unlocks
-- [ ] Persistent resources
+- [ ] Persistent currency
 - [ ] Best day statistics
 
 ## Future
 
+- [ ] Day events and modifiers
 - [ ] Other pigeon types
 - [ ] Other birds
 - [ ] Cats
@@ -1328,8 +1341,8 @@ The project is currently being reworked from its original side-scrolling pigeon 
 - [ ] Humans
 - [ ] Park events
 - [ ] Multiple parks
-- [ ] Advanced automation
-- [ ] Long-term prestige/progression
+- [ ] Advanced automation / offline progress
+- [ ] Prestige / reputation ("career ladder")
 
 ---
 
@@ -1353,19 +1366,23 @@ A person sitting on the bench.
 
 ### The day
 
-60 seconds.
+10 seconds for now, growing toward 60.
 
 ### The food
 
-Bread.
+Bread, thrown on a timer by the human, plus bread the player can tap to throw.
 
 ### The pigeon
 
-One pigeon.
+One pigeon, then a few.
 
 ### The behaviour
 
 **Tree → Fly Down → Land → Find Bread → Eat → Earn Points**
+
+### The nudge
+
+Click or hover to startle the pigeon. It flaps off and comes back.
 
 ### The upgrade
 

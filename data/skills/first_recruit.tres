@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://cghp2vnflmjtm"]
 
-[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
 script = ExtResource("1_skill")
@@ -8,7 +8,5 @@ id = &"human_feeder"
 display_name = "Human Feeder"
 description = "Unlock a human feeder who throws bread into the park. Carry capacity: 1 bread."
 category = 4
-food_cost = 0
 effect_id = &"human_feeder"
 effect_value = 1
-max_level = 1

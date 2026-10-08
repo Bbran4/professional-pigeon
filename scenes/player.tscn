@@ -14,7 +14,6 @@
 [ext_resource type="Script" uid="uid://f6ie12n34kp2" path="res://scripts/player/player_inventory.gd" id="12_inventory"]
 [ext_resource type="Script" uid="uid://cka58ox55d5n6" path="res://scripts/progression/skill_tree.gd" id="14_skill_tree"]
 [ext_resource type="Resource" uid="uid://dsjv870im25ba" path="res://data/skills/skill_catalog.tres" id="15_skill_catalog"]
-[ext_resource type="Script" uid="uid://rxvmism46gob" path="res://scripts/pigeon/follow_camera.gd" id="16_camera"]
 [ext_resource type="Script" uid="uid://d1j7sb7xqig8a" path="res://scripts/state_machine/states/swoop_state.gd" id="17_swoop"]
 
 [sub_resource type="Resource" id="PigeonStats_player"]
@@ -162,10 +161,6 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1122536711]
 shape = SubResource("CapsuleShape2D_player")
 
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=294527289]
-script = ExtResource("16_camera")
-
 [node name="Inventory" type="Node" parent="." unique_id=1373723292]
 script = ExtResource("12_inventory")
 
@@ -174,7 +169,10 @@ script = ExtResource("12_inventory")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectDetector" unique_id=548787660]
 shape = SubResource("CircleShape2D_bread_detector")
 
-[node name="SkillTree" type="Control" parent="." unique_id=1361312729]\nmouse_filter = 2
+[node name="SkillTree" type="Control" parent="." unique_id=1361312729]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("14_skill_tree")
 catalog = ExtResource("15_skill_catalog")
 
