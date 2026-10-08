@@ -20,12 +20,17 @@ var perch_position := Vector2.ZERO
 
 @onready var pigeon: Player = get_parent() as Player
 @onready var state_machine: StateMachine = $"../StateMachine"
+@onready var player_controller: PlayerController = $"../PlayerController"
 
 func _ready() -> void:
+	# The park pigeon is autonomous. Disable player input so the controller cannot
+	# override the brain and make the pigeon fall or change state on its own.
+	player_controller.set_physics_process(false)
 	state_machine.set_process(false)
 	state_machine.set_physics_process(false)
 
 func start_day(perch: Vector2) -> void:
+	player_controller.set_physics_process(false)
 	perch_position = perch
 	active = true
 	returning = false
