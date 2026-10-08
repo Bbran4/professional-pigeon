@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_skill")
-id = &"first_recruit"
-display_name = "First Recruit"
-description = "Unlock the ability to recruit your first worker pigeon."
+id = &"human_feeder"
+display_name = "Human Feeder"
+description = "Unlock a human feeder who throws bread into the park."
 category = 4
-food_cost = 10
-effect_id = &"unlock_recruitment"
+food_cost = 0
+effect_id = &"human_feeder"
 effect_value = 1
 max_level = 1
