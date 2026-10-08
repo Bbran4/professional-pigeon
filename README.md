@@ -1,723 +1,299 @@
 # PROFESSIONAL PIGEON
 
-> «A 2D incremental game about stealing food, recruiting pigeons, building an empire, and becoming the most important bird in the kingdom.»
+> **A 2D incremental idle game about feeding pigeons, building a flock, and turning an ordinary park into an increasingly ridiculous pigeon ecosystem.**
 
 ---
 
 ## Overview
 
-**PROFESSIONAL PIGEON** is a 2D single-player incremental game about one ordinary pigeon with an extraordinary ambition:
+**PROFESSIONAL PIGEON** is a 2D single-player incremental idle game built around a deliberately simple idea:
 
-**Become the Pigeon King.**
+**Give pigeons food. Watch what happens. Make it bigger.**
 
-You begin with nothing.
+The player does **not** directly control a pigeon.
 
-No kingdom.
+Instead, the player manages the conditions that make the park come alive.
 
-No followers.
+You begin with a quiet city park, a small supply of basic food, and a single pigeon.
 
-No throne.
+The player starts a day, provides food, and watches the pigeon arrive, fly down from a tree, search for food, eat, and generate resources.
 
-Not even a particularly impressive supply of breadcrumbs.
+Those resources can then be spent on upgrades that make the next day more productive.
 
-You are simply a pigeon trying to survive in a medieval world full of humans, animals, food, shiny objects and opportunities.
+More food.
 
-At first, you do everything yourself.
+More pigeons.
 
-You search for food.
+Faster feeding.
 
-You steal things.
+New food sources.
 
-You carry objects.
+New places for pigeons to gather.
 
-You scout new locations.
+Water baths.
 
-You cause problems.
+Pigeon houses.
 
-Eventually, you discover that there are other pigeons willing to work for you.
+New bird types.
 
-So you recruit them.
+New park features.
 
-Then you recruit more.
+Eventually, the quiet park becomes a bustling pigeon ecosystem.
 
-Soon, the jobs you once performed yourself are being handled by your growing pigeon workforce.
+The player is not the hero.
 
-Eventually, you aren't really doing much at all.
-
-You're sitting in your throne room.
-
-Giving orders.
-
-Being important.
-
-Being a pigeon.
-
-The ultimate goal is to build a functioning pigeon kingdom where your growing army of unique pigeons handles increasingly large operations on your behalf.
+**The pigeons are the show.**
 
 ---
 
 # Core Concept
 
-Professional Pigeon is built around a simple incremental progression:
+Professional Pigeon is built around a short, repeatable incremental loop:
 
-**Do the work → earn resources → recruit pigeons → automate the work → unlock new opportunities → expand your influence**
+**Start Day → Provide Food → Pigeons Arrive → Pigeons Eat → Earn Resources → Buy Upgrades → Start Next Day**
 
-The player's role gradually changes throughout the game.
+The player mostly interacts through buttons and menus.
 
-### Early Game
+The fun comes from watching the world respond.
 
-You are the worker.
-
-> Find food.
-> Steal food.
-> Carry food.
-> Sell food.
-> Repeat.
-
-### Mid Game
-
-You become the manager.
-
-> Send pigeons to collect food.
-> Send pigeons to steal valuables.
-> Send pigeons to scout new locations.
-
-### Late Game
-
-You become the ruler.
-
-> Your pigeons handle everything.
-
-You spend your time managing the kingdom, discovering new opportunities, recruiting exceptional pigeons and expanding your throne room.
-
-The progression is therefore not simply about becoming a stronger pigeon.
-
-It is about becoming **less necessary**.
-
-That is the heart of the incremental system.
+A successful upgrade should not only make a number larger. It should make the park **look and behave differently**.
 
 ---
 
-# Design Pillars
+# The Day Loop
 
-## 1. Start Small
+Each run represents one **day in the park**.
 
-The player should begin with almost nothing.
+The initial day lasts **60 seconds**.
 
-One pigeon.
+At the beginning of a day, the player starts the run.
 
-One small area.
+During the day:
 
-One basic resource.
+1. Food is introduced into the park.
+2. Pigeons notice the food.
+3. Pigeons arrive from the surrounding environment.
+4. Pigeons fly, land, walk, search and eat.
+5. Eating generates resources.
+6. More pigeons can arrive as the player's upgrades improve.
+7. The park becomes increasingly active.
+8. The day ends when the timer reaches zero.
 
-A handful of simple actions.
+The player then receives a results screen showing what happened.
 
-The player should understand the game within minutes.
+Example:
 
----
+**DAY 7 COMPLETE**
 
-## 2. Automate What You Do
+- Pigeons attracted: 14
+- Food eaten: 23
+- Points earned: 184
+- Maximum pigeons present: 11
+- New unlocks available
 
-The most important progression system is automation.
-
-Initially, the player performs actions manually.
-
-Over time, pigeons take over those tasks.
-
-For example:
-
-### Beginning
-
-**Player → Collect Bread**
-
-### Later
-
-**Player → Hire Pigeon → Pigeon Collects Bread**
-
-### Later Still
-
-**Pigeon Manager → Multiple Pigeons Collect Bread**
-
-Eventually:
-
-**Bread Collection → Fully Automated**
-
-The player should constantly be replacing manual work with increasingly capable pigeons.
+The player spends their accumulated resources on upgrades and starts the next day.
 
 ---
 
-## 3. Every Pigeon Should Have Personality
+# The Important Part: Watching Numbers Go Up
 
-Pigeons should not simply be anonymous workers represented by numbers.
+Incremental games work because progression is both **numerical and visible**.
 
-The kingdom should be populated by **individual pigeons**.
+Professional Pigeon should make that progression obvious.
 
-Each unique pigeon can have:
+The player might begin with:
 
-* A name
-* A personality
-* A visual identity
-* Unique abilities
-* Strengths
-* Weaknesses
-* Favourite activities
-* Special interactions
-* A unique contribution to the kingdom
+> **1 pigeon**
+
+Then:
+
+> **3 pigeons**
+
+Then:
+
+> **8 pigeons**
+
+Then:
+
+> **20 pigeons**
+
+The numbers increase, but so does the visual activity on screen.
+
+One pigeon eating a piece of bread is the beginning.
+
+Twenty pigeons fighting over a pile of food is progress.
+
+The park itself becomes the progress bar.
+
+---
+
+# The Park
+
+The first environment is a **city park**.
+
+The initial view should be a relatively contained 2D scene rather than a traditional platforming level.
+
+The player character may be visible, such as a person sitting on a park bench, but the character is not directly controlled.
+
+The player is essentially the unseen manager of the park.
+
+The park can contain:
+
+- Trees
+- Grass
+- Paths
+- Benches
+- Food
+- Bird feeders
+- Water
+- Pigeon houses
+- Decorative objects
+- Background buildings
+- Other park visitors
+- Pigeons
+
+The initial park should remain deliberately simple.
+
+New systems should be introduced as the player progresses.
+
+---
+
+# Pigeons
+
+Pigeons are the heart of the game.
+
+They should behave like autonomous little creatures rather than animated counters.
+
+A pigeon should be capable of simple natural behaviours such as:
+
+- Flying down from a tree
+- Landing
+- Walking
+- Looking for food
+- Pecking at food
+- Drinking
+- Bathing
+- Idling
+- Looking around
+- Flying away
+- Returning to a preferred area
+- Reacting to other pigeons
+
+The player should be able to sit back and watch the flock develop naturally.
+
+---
+
+# Pigeon Behaviour
+
+The first pigeon prototype should be simple.
+
+A basic pigeon might follow a state-driven behaviour loop:
+
+**Perch → Notice Food → Fly Down → Land → Search → Eat → Idle → Fly Away**
+
+As the game develops, additional behaviours can be introduced.
 
 Examples:
 
-### Gary
+**Food nearby**
 
-Excellent bread thief.
+> Walk toward it.
 
-Terrible at carrying anything else.
+**Another pigeon nearby**
 
-### Susan
+> Join the group.
 
-Extremely strong.
+**Water available**
 
-Has no sense of direction.
+> Drink or bathe.
 
-### Sir Feathers
+**Too much activity**
 
-Formerly owned by a knight.
+> Fly away.
 
-Still believes himself to be nobility.
+**Pigeon house available**
 
-### Greg
+> Return to it.
 
-Nobody knows what Greg does.
+The goal is not to create a complicated simulation.
 
-He keeps finding money.
-
-### The Twins
-
-Always work together.
-
-Nobody has ever successfully separated them.
-
-The goal is for players to eventually have favourite pigeons.
+The goal is to create **believable, entertaining behaviour**.
 
 ---
 
-# Pigeon Progression
+# Pigeon Population
 
-Pigeons are the foundation of the player's growing empire.
+The first major progression goal is simply to attract more pigeons.
 
-A pigeon can be assigned to different activities.
+Early progression might look like:
 
-Possible activities include:
+### Stage 1
 
-* Food gathering
-* Scavenging
-* Stealing
-* Carrying
-* Scouting
-* Trading
-* Recruiting
-* Guarding
-* Delivering
-* Exploring
-* Managing other pigeons
+**1 pigeon**
 
-Different pigeons will perform different tasks more effectively.
+One food source.
 
-The player therefore builds a workforce rather than simply purchasing generic upgrades.
+### Stage 2
 
----
+**3 pigeons**
 
-# The Pigeon Workforce
+More food becomes available.
 
-The workforce should evolve naturally.
+### Stage 3
 
-### Stage 1: You
+**5-10 pigeons**
 
-The player performs everything manually.
+Multiple feeding opportunities.
 
-### Stage 2: Helpers
+### Stage 4
 
-The player recruits the first pigeons.
+**10-20 pigeons**
 
-### Stage 3: Specialists
+The park starts to feel busy.
 
-Unique pigeons begin handling specific activities.
+### Stage 5
 
-### Stage 4: Departments
+**20+ pigeons**
 
-Groups of pigeons begin managing larger operations.
+The player begins managing an actual flock.
 
-### Stage 5: Kingdom
-
-The player oversees an entire pigeon civilization.
-
-The progression should always feel like:
-
-**"I don't have to do that anymore."**
-
-That feeling is central to the game.
+Population growth should be visible and satisfying.
 
 ---
 
-# Resources
+# Food
 
-Resources should remain understandable and meaningful.
+Food is the primary driver of the early game.
 
-Possible resources include:
+The first food source is intentionally simple:
 
-### Food
+## Bread
 
-The basic resource.
+Bread can be spawned into the park during a day.
 
-Used to feed pigeons and support operations.
+Pigeons detect it, move toward it and eat it.
 
-Examples:
+Eating bread generates the player's primary run resource.
 
-* Bread
-* Grain
-* Seeds
-* Fruit
-* Meat scraps
-* Pastries
+Later, additional food types can be unlocked.
 
-### Coins
+Possible food sources include:
 
-Obtained by selling valuable items, completing activities and interacting with the human economy.
+- Bread
+- Seeds
+- Grain
+- Fruit
+- Crumbs
+- Pastries
+- Other increasingly valuable food
 
-### Shiny Objects
-
-A special collectible resource valued by pigeons.
-
-Examples:
-
-* Coins
-* Rings
-* Jewellery
-* Buttons
-* Cutlery
-* Keys
-* Decorative objects
-
-### Reputation
-
-Represents the player's influence within the pigeon world.
-
-### Territory
-
-Represents areas controlled or influenced by the player's pigeon kingdom.
-
-The exact resource list should remain deliberately small.
-
-The goal is to avoid turning the game into a spreadsheet simulator.
+Different foods can attract different pigeons or produce different rewards.
 
 ---
 
-# The World
+# Resource Progression
 
-The game takes place in a medieval fantasy world populated by humans, animals, monsters and pigeons.
-
-The pigeon sees the world differently from the player.
-
-A human sees:
-
-> Marketplace
-
-A pigeon sees:
-
-> **Unlimited Bread**
-
-A human sees:
-
-> Royal Palace
-
-A pigeon sees:
-
-> **Extremely Expensive Things That Are Not Being Guarded Properly**
-
-A human sees:
-
-> Castle Roof
-
-A pigeon sees:
-
-> **Prime Territory**
-
----
-
-# World Progression
-
-The player's influence expands across increasingly important locations.
-
-Possible areas include:
-
-* Village
-* Farm
-* Marketplace
-* Town
-* Castle
-* Cathedral
-* Harbour
-* Royal Palace
-* Military Camp
-* Merchant District
-* Capital City
-
-Each location introduces new opportunities, resources, pigeons and challenges.
-
-The world should become increasingly valuable as the player's pigeon kingdom grows.
-
----
-
-# Exploration
-
-Exploration should provide opportunities rather than simply placing collectibles around a map.
-
-The player may discover:
-
-* New pigeon recruits
-* Hidden food sources
-* Valuable objects
-* Secret locations
-* New territories
-* Human activities to exploit
-* Rare pigeons
-* Special events
-* New automation opportunities
-* Strange pigeon-related discoveries
-
-Exploration should regularly produce the feeling:
-
-> **"Wait... I can use that?"**
-
----
-
-# Human Interaction
-
-Humans are not the player's enemies by default.
-
-They are mostly an enormous collection of opportunities.
-
-Humans can:
-
-* Drop food
-* Leave valuables unattended
-* Build useful structures
-* Sell items
-* Accidentally provide resources
-* Chase pigeons
-* Feed pigeons
-* Attempt to remove pigeons
-
-Different humans should react differently to the player's growing pigeon presence.
-
-Some may love pigeons.
-
-Some may tolerate pigeons.
-
-Some may absolutely despise pigeons.
-
-The player's reputation with humans can create different opportunities and challenges.
-
----
-
-# Pigeon Kingdom
-
-As the player's influence grows, the player establishes their own pigeon kingdom.
-
-This introduces a major persistent progression layer.
-
-The kingdom can contain:
-
-* Pigeon housing
-* Food storage
-* Training areas
-* Treasure storage
-* Recruitment areas
-* Meeting rooms
-* Royal chambers
-* Defensive structures
-* The throne room
-
-The kingdom should visually evolve as the player progresses.
-
-What begins as:
-
-**A few pigeons sitting on a roof**
-
-can eventually become:
-
-**A fully functioning pigeon kingdom.**
-
----
-
-# The Throne Room
-
-The throne room is one of the major long-term goals.
-
-The player eventually becomes:
-
-# THE PIGEON KING
-
-The throne room should act as a visual representation of the player's progress.
-
-It can contain:
-
-* The player's throne
-* Important pigeons
-* Collected treasures
-* Decorations
-* Trophies
-* Rare objects
-* Kingdom achievements
-* Special pigeons
-* Completely unnecessary furniture
-
-The throne should evolve throughout the game.
-
-Possible progression:
-
-**Wooden box**
-
-↓
-
-**Stolen chair**
-
-↓
-
-**Nice chair**
-
-↓
-
-**Royal chair**
-
-↓
-
-**Ridiculously elaborate pigeon throne**
-
-The player should eventually be able to walk into their throne room and immediately see how far they have come.
-
----
-
-# Automation
-
-Automation is the primary progression system.
-
-Every major activity should eventually be capable of being automated.
-
-Examples:
-
-### Food
-
-Player gathers bread.
-
-↓
-
-Hire Bread Pigeon.
-
-↓
-
-Bread Pigeon gathers bread.
-
-↓
-
-Hire more pigeons.
-
-↓
-
-Bread gathering becomes automated.
-
----
-
-### Scavenging
-
-Player searches for valuable objects.
-
-↓
-
-Hire Scavenger Pigeon.
-
-↓
-
-Scavenger searches automatically.
-
-↓
-
-Rare scavenger pigeons improve discovery.
-
----
-
-### Exploration
-
-Player manually scouts an area.
-
-↓
-
-Hire Scout Pigeon.
-
-↓
-
-Scout discovers locations.
-
-↓
-
-Special scout pigeons reveal rare opportunities.
-
----
-
-# Upgrades
-
-Upgrades should primarily unlock **new capabilities** rather than endlessly increasing numerical values.
-
-Possible upgrades include:
-
-* Larger carrying capacity
-* Faster movement
-* Better food detection
-* Better scavenging
-* Longer scouting range
-* More pigeon housing
-* Improved recruitment
-* New territories
-* New activities
-* New automation systems
-* Improved pigeon management
-* New kingdom buildings
-
-Upgrades should make the player's operation feel more capable.
-
----
-
-# Pigeon Recruitment
-
-Recruitment is one of the game's major progression systems.
-
-Pigeons can be discovered throughout the world.
-
-Some may be:
-
-* Found during exploration
-* Rescued
-* Recruited from other groups
-* Discovered in unusual locations
-* Rewarded for completing objectives
-* Purchased or traded for
-* Hidden behind special conditions
-
-Rare pigeons should feel like discoveries rather than simple purchases.
-
----
-
-# Pigeon Personalities
-
-Unique pigeons can have personality traits that affect how they behave.
-
-Possible traits:
-
-* Brave
-* Lazy
-* Greedy
-* Loyal
-* Curious
-* Cowardly
-* Aggressive
-* Confident
-* Easily distracted
-* Extremely hungry
-* Suspiciously intelligent
-
-Traits can create both benefits and drawbacks.
-
-A greedy pigeon might collect more valuables but consume more food.
-
-A lazy pigeon might work slowly but require less food.
-
-A brave pigeon might be excellent at dangerous scouting.
-
-The exact personality system will evolve during development.
-
-
----
-
-# Events
-
-The world should occasionally generate events that temporarily change the player's opportunities.
-
-Examples:
-
-* Market day
-* Royal banquet
-* Harvest festival
-* Wedding
-* Tournament
-* Caravan arrival
-* Military parade
-* Storm
-* Food shortage
-* Pigeon migration
-* Cat infestation
-
-Events should provide short-term opportunities without requiring constant player attention.
-
----
-
-# Challenges
-
-The game should include challenges that encourage players to develop their kingdom.
-
-Possible challenges:
-
-* Collect a certain amount of food
-* Recruit a specific pigeon
-* Discover a location
-* Steal a particular object
-* Establish a new territory
-* Complete an activity without being caught
-* Reach a kingdom milestone
-* Find rare treasures
-
-Challenges should provide meaningful rewards and give the player short-term goals.
-
----
-
-# Prestige / Rebirth
-
-A prestige system is optional and should only be introduced if it improves the game.
-
-A possible system could involve the player **passing the crown to a successor**.
-
-The player could reset their current kingdom while keeping certain permanent benefits.
-
-Possible permanent progression:
-
-* Royal traditions
-* Ancient pigeon knowledge
-* Special pigeons
-* Kingdom bonuses
-* New starting options
-* Cosmetic throne upgrades
-* Historical achievements
-
-Prestige should represent the **history of the pigeon kingdom**, rather than simply resetting numbers.
-
-The player should feel like each reign contributed to something larger.
-
----
-
-# Economy
-
-The world contains a simple economy.
-
-The player can:
-
-* Collect food
-* Find valuables
-* Sell items
-* Trade
-* Complete activities
-* Discover resources
-* Recruit pigeons
-* Expand operations
-
-The economy should remain understandable.
+Resources should remain simple and understandable.
 
 The player should always know:
 
@@ -727,89 +303,513 @@ The player should always know:
 
 **What does this unlock?**
 
+The initial game should use as few currencies as possible.
+
+Possible resources include:
+
+### Points
+
+The main progression currency generated by pigeon activity.
+
+### Coins
+
+A secondary persistent currency that can eventually be used for larger purchases and systems.
+
+### Food
+
+The physical resource placed into the park.
+
+Additional currencies should only be introduced when they create a meaningful new decision.
+
+The game should not become a spreadsheet with pigeons painted on it.
+
 ---
 
-# Inventory
+# Upgrades
 
-The player can collect miscellaneous objects.
+Upgrades are the main source of long-term progression.
 
-Possible items include:
+The important principle is:
 
-* Food
-* Coins
-* Jewellery
-* Keys
-* Tools
-* Decorations
-* Quest items
-* Rare objects
-* Pigeon-related items
+> **Upgrades should change what happens in the park, not merely increase numbers.**
 
-Some objects may have practical value.
+Examples:
 
-Others may simply be valuable because pigeons apparently think they're valuable.
+### More Food
+
+Increase the amount of food provided during each day.
+
+### Faster Feeding
+
+Reduce the time between food being provided.
+
+### Better Food
+
+Unlock food that produces more resources.
+
+### More Pigeons
+
+Increase the number of pigeons that can be attracted.
+
+### Larger Feeding Area
+
+Give pigeons more places to gather.
+
+### Bird Feeder
+
+Create a permanent feeding location.
+
+### Water Bath
+
+Introduce drinking and bathing behaviour.
+
+### Pigeon House
+
+Give pigeons a place to return to.
+
+### Bigger Park
+
+Expand the available environment.
+
+Each upgrade should ideally produce an observable change.
+
+---
+
+# Unlock Progression
+
+The player gradually transforms the park.
+
+A possible progression path:
+
+**Bread**
+
+↓
+
+**More Bread**
+
+↓
+
+**More Pigeons**
+
+↓
+
+**Bird Feeder**
+
+↓
+
+**Seeds**
+
+↓
+
+**Water Bath**
+
+↓
+
+**Pigeon House**
+
+↓
+
+**New Food**
+
+↓
+
+**New Pigeon Types**
+
+↓
+
+**New Park Features**
+
+↓
+
+**New Park**
+
+The exact progression will be discovered through prototyping and balancing.
+
+---
+
+# Visual Progression
+
+Visual progression is one of the game's most important design pillars.
+
+The player should be able to look at the park and immediately see that their upgrades matter.
+
+Early:
+
+> Empty park. One pigeon.
+
+Later:
+
+> Food scattered across the grass.
+
+Later:
+
+> Several pigeons feeding.
+
+Later:
+
+> Bird feeders and water baths.
+
+Later:
+
+> Pigeon houses.
+
+Later:
+
+> A crowded park full of birds.
+
+The player's park should gradually become a living representation of their progress.
+
+---
+
+# The Player
+
+There is no traditional player-controlled character.
+
+A person may be visible in the environment, for example sitting on a bench and throwing food, but this is presentation rather than direct gameplay control.
+
+The player's interaction is primarily:
+
+- Start Day
+- Buy Upgrade
+- Unlock Feature
+- Start Next Day
+- Manage persistent progression
+
+There is no platforming.
+
+There is no direct pigeon movement control.
+
+There is no traditional combat.
+
+There is no requirement for the player to manually collect every resource.
+
+The player creates the conditions.
+
+**The pigeons do the rest.**
+
+---
+
+# Idle Gameplay
+
+The game should remain satisfying even when the player is doing very little.
+
+The player presses a button.
+
+The park reacts.
+
+Numbers increase.
+
+Pigeons move around.
+
+Resources accumulate.
+
+The player buys an upgrade.
+
+The next day becomes more productive.
+
+The loop repeats.
+
+The goal is to create the pleasant incremental feeling of:
+
+> **"Just one more upgrade."**
+
+---
+
+# Automation
+
+Automation should gradually reduce the amount of manual intervention required.
+
+For example:
+
+### Beginning
+
+Player starts the day.
+
+Food is provided manually.
+
+### Later
+
+Food is automatically provided at intervals.
+
+### Later
+
+Multiple food sources activate automatically.
+
+### Later
+
+Pigeons naturally return to the park.
+
+### Eventually
+
+The park becomes a largely self-sustaining ecosystem.
+
+Automation is not about removing the game.
+
+It is about making the player's growing ecosystem feel increasingly powerful.
+
+---
+
+# The Skill Tree
+
+The existing progression system will remain an important part of the game.
+
+The skill tree should be adapted to the new idle structure.
+
+Rather than upgrading a player character, upgrades should affect:
+
+- Food production
+- Food spawn quantity
+- Food spawn frequency
+- Pigeon attraction
+- Pigeon population
+- Feeding efficiency
+- Resource generation
+- Park features
+- Day length
+- Automation
+- New pigeon types
+- New environments
+
+The skill tree should provide meaningful choices rather than simply being a list of percentage increases.
+
+---
+
+# Day Length
+
+The initial day lasts **60 seconds**.
+
+Later upgrades can increase the length of a day.
+
+For example:
+
+**60 seconds**
+
+↓
+
+**75 seconds**
+
+↓
+
+**90 seconds**
+
+↓
+
+**2 minutes**
+
+↓
+
+**3 minutes**
+
+↓
+
+**5 minutes**
+
+Longer days allow more activity to occur and make stronger upgrades more valuable.
+
+Day length should be balanced carefully so that increasing it feels useful without simply making the game slower.
+
+---
+
+# Natural Pigeon Activity
+
+A major development goal is making pigeons enjoyable to watch.
+
+Pigeons should not simply appear directly on top of food.
+
+A better sequence is:
+
+**Pigeon perched in tree**
+
+↓
+
+**Notices food**
+
+↓
+
+**Flies down**
+
+↓
+
+**Lands**
+
+↓
+
+**Walks toward food**
+
+↓
+
+**Searches**
+
+↓
+
+**Eats**
+
+↓
+
+**Looks around**
+
+↓
+
+**Returns to activity**
+
+Small behaviours like these are important.
+
+The player is spending much of their time watching the park.
+
+The animation and behaviour therefore need to carry part of the game's entertainment.
+
+---
+
+# Events and Reactions
+
+Once the core pigeon-and-food loop works, the park can gain additional interactions.
+
+Possible future systems include:
+
+- Cats
+- Dogs
+- Children
+- Park visitors
+- Other birds
+- Rain
+- Wind
+- Special food drops
+- Crowds
+- Park events
+- Seasonal changes
+
+These should be added only after the basic loop is fun.
+
+The rule is simple:
+
+> **Do not add complexity just because we can.**
+
+---
+
+# Multiple Parks
+
+The first park is the tutorial environment and the foundation of the game.
+
+Later, new locations can introduce different visual themes and gameplay opportunities.
+
+Possible locations:
+
+- City Park
+- Town Square
+- Market
+- Farm
+- Train Station
+- Harbour
+- Rooftops
+- Castle Grounds
+- Countryside
+
+Each location should introduce something genuinely new.
+
+A new background alone is not enough.
+
+---
+
+# Pigeon Types
+
+Different pigeon types can eventually be introduced.
+
+Examples:
+
+- Common Pigeon
+- Fat Pigeon
+- Fast Pigeon
+- Hungry Pigeon
+- Fancy Pigeon
+- Messenger Pigeon
+- Giant Pigeon
+- Rare Pigeon
+
+Different pigeon types may have different behaviours or resource bonuses.
+
+However, this system should come **after** the basic pigeon loop has been proven.
 
 ---
 
 # Comedy
 
-The game should be funny without becoming a constant parody.
+The game should be humorous without requiring constant jokes.
 
-The world itself should remain reasonably believable.
+The comedy should come from the escalation of an otherwise ordinary park.
 
-The comedy comes from seeing a normal medieval world through the perspective of a pigeon.
+At the beginning:
 
-Examples:
+> One person feeds one pigeon.
 
-A knight:
+Later:
 
-> "Stand aside, beast!"
+> A dozen pigeons are aggressively occupying the park.
 
-The pigeon:
+Later still:
 
-> **Steals his lunch.**
+> There is a dedicated pigeon house.
 
-A merchant:
+Eventually:
 
-> "Who keeps taking my coins?"
+> The player has somehow created a pigeon civilization.
 
-The pigeon kingdom:
+The humour comes from treating increasingly absurd pigeon activity as completely normal.
 
-> **Expanding rapidly.**
+---
 
-A royal advisor:
+# Long-Term Progression
 
-> "Your Majesty, the pigeon population has increased dramatically."
+The long-term goal is not simply to produce larger numbers.
 
-The king:
+It is to transform the park.
 
-> "Again?"
+The player starts with:
 
-The player:
+**A person.**
 
-> **Pigeon King sits silently on throne.**
+**A bench.**
 
-The humour should come from **understatement, character behaviour and escalation**.
+**A pigeon.**
+
+**Some bread.**
+
+Eventually they have:
+
+**A thriving pigeon ecosystem.**
+
+**Multiple food sources.**
+
+**Dedicated pigeon facilities.**
+
+**Large flocks.**
+
+**Multiple parks.**
+
+**Different pigeon species.**
+
+**A ridiculous amount of food.**
+
+The progression should always feel tangible.
 
 ---
 
 # Art Direction
 
-The game is intended to use a stylized 2D art style.
+The game will use a stylized 2D art style.
 
-The visual direction should support:
+The visual direction should prioritize:
 
-* Clear silhouettes
-* Readable environments
-* Expressive pigeons
-* Distinctive characters
-* Strong animation
-* Comedic visual details
-* Medieval fantasy environments
+- Clear silhouettes
+- Expressive pigeons
+- Readable environments
+- Strong animation
+- Humorous details
+- Warm, inviting environments
+- Easy-to-understand UI
 
-Pigeons should be visually recognizable and expressive.
+Pigeons should be visually appealing and immediately readable.
 
-Unique pigeons should be identifiable at a glance.
+The park should be interesting enough to watch without overwhelming the player.
 
 ---
 
@@ -825,13 +825,15 @@ GDScript
 
 ## Game Type
 
-2D Single-Player Incremental Game
+2D Single-Player Incremental Idle Game
 
-## Camera
+## Presentation
 
-The game will primarily use a 2D side-scrolling presentation.
+A contained 2D park scene viewed from the side.
 
-The exact camera and world structure will evolve during prototyping.
+The game is no longer designed around traditional side-scrolling platformer movement.
+
+The camera should primarily frame the park as a stage on which the autonomous systems play out.
 
 ---
 
@@ -841,54 +843,50 @@ The project should be organized around modular systems.
 
 ```text
 Game
-├── Player
-│   ├── Movement
-│   ├── Interaction
-│   └── Progression
+├── Park
+│   ├── Environment
+│   ├── Food
+│   ├── Water
+│   └── Facilities
 │
 ├── Pigeons
 │   ├── Pigeon Data
 │   ├── Pigeon AI
-│   ├── Pigeon Recruitment
-│   ├── Pigeon Tasks
-│   ├── Pigeon Traits
-│   └── Pigeon Relationships
+│   ├── Pigeon States
+│   ├── Pigeon Behaviour
+│   └── Pigeon Types
 │
 ├── Resources
 │   ├── Food
-│   ├── Currency
-│   ├── Valuables
-│   └── Territory
+│   ├── Points
+│   └── Coins
 │
-├── Automation
-│   ├── Tasks
-│   ├── Workers
-│   ├── Production
-│   └── Managers
+├── Day System
+│   ├── Day Timer
+│   ├── Day Start
+│   ├── Day End
+│   └── Day Results
 │
-├── World
-│   ├── Areas
-│   ├── NPCs
-│   ├── Buildings
-│   ├── Events
-│   └── Discoveries
-│
-├── Kingdom
-│   ├── Buildings
-│   ├── Territory
-│   ├── Throne Room
-│   └── Decorations
+├── Spawning
+│   ├── Food Spawning
+│   ├── Pigeon Spawning
+│   └── Future Entity Spawning
 │
 ├── Progression
 │   ├── Upgrades
 │   ├── Unlocks
-│   ├── Achievements
-│   └── Prestige
+│   ├── Skill Tree
+│   └── Persistent Progress
+│
+├── UI
+│   ├── Run HUD
+│   ├── Upgrade Screen
+│   ├── Day Results
+│   └── Progress Displays
 │
 └── Persistence
     ├── Save Data
-    ├── Load Data
-    └── World State
+    └── Load Data
 ```
 
 The exact architecture will evolve during development.
@@ -897,539 +895,568 @@ The exact architecture will evolve during development.
 
 # Data-Driven Design
 
-Where practical, game content should be data-driven.
+Where practical, game content should remain data-driven.
 
 Examples:
 
-* Pigeons
-* Pigeon traits
-* Activities
-* Resources
-* Items
-* Locations
-* Buildings
-* Upgrades
-* Events
-* Achievements
-* Kingdom progression
+- Food types
+- Pigeon types
+- Pigeon stats
+- Spawn quantities
+- Spawn intervals
+- Upgrade definitions
+- Unlock requirements
+- Park facilities
+- Day modifiers
+- Resource values
 
-This should allow new content to be added without rewriting core systems.
+This allows new content to be added without rewriting the core systems.
+
+The existing collectible data model can be repurposed where appropriate rather than discarded unnecessarily.
 
 ---
 
-# Save System
+# Persistence
 
-The game should support persistent saving and loading.
+Persistent progression is important because the game is built around repeated days.
 
-Persistent information may include:
+The game should save and load information such as:
 
-* Player progress
-* Resources
-* Recruited pigeons
-* Pigeon traits
-* Pigeon relationships
-* Completed activities
-* Unlocked locations
-* Kingdom buildings
-* Throne room
-* Upgrades
-* Achievements
-* Prestige history
-* World discoveries
+- Total resources
+- Purchased upgrades
+- Unlocked food
+- Unlocked pigeon types
+- Unlocked park features
+- Day progression
+- Best day results
+- Park progression
+- Future locations
+- Other permanent unlocks
 
-The save system should be designed early enough that new progression systems can be added without requiring a complete rewrite.
+The player's progress should survive between sessions.
+
+---
+
+# What We Keep From the Existing Project
+
+The previous prototype already contains useful systems and concepts.
+
+The following can be retained or adapted:
+
+- Resource data
+- Collectible data model
+- Data-driven resource definitions
+- Progression system
+- Skill tree
+- Upgrade system
+- Persistent progression concepts
+- Pigeon class
+- Pigeon state machine architecture
+- Spawn manager concepts
+- Run timer
+- Run HUD
+- Run results
+- Save/load architecture
+
+The purpose of the redesign is **not** to throw away working systems unnecessarily.
+
+Instead, systems should be adapted to support the new idle park loop.
+
+---
+
+# What We Remove or Replace
+
+The previous game was designed as a side-scrolling platformer with direct player movement.
+
+Those systems are no longer central.
+
+The following should be removed or substantially redesigned:
+
+- Direct player movement
+- Player controller
+- Player platforming
+- Manual pigeon control
+- Player-centric interaction
+- Platforming level design
+- Character traversal as the primary gameplay loop
+
+The player should no longer need to move around the world to make the game work.
 
 ---
 
 # Prototype Development Order
 
-The first objective is **not** to build the entire kingdom.
+The first goal is **not** to build the entire game.
 
-The first objective is to prove that the fundamental incremental loop is fun.
+The first goal is to prove that watching pigeons create an increasingly productive park is fun.
 
-## Phase 1: Pigeon Movement
+## Phase 1: Park Scene
 
-Build the pigeon first.
-
-Goals:
-
-* Basic movement
-* Idle
-* Walking
-* Flying
-* Landing
-* Direction/facing
-* Basic animation
-* Simple interaction
-
-The pigeon should feel enjoyable to control.
-
----
-
-## Phase 2: First Resource
-
-Introduce the simplest possible resource.
-
-Example:
-
-**Bread**
+Create a simple park.
 
 Goals:
 
-* Find bread
-* Collect bread
-* Store bread
-* Display bread
-* Spend bread
-
-The entire first gameplay loop should be playable.
+- Park background
+- Ground
+- Tree
+- Bench
+- Basic camera framing
+- Placeholder food
+- Placeholder pigeon
 
 ---
 
-## Phase 3: First Automated Pigeon
+## Phase 2: One Pigeon
 
-Introduce the first recruitable pigeon.
+Build the simplest believable pigeon.
 
 Goals:
 
-* Find pigeon
-* Recruit pigeon
-* Assign task
-* Pigeon performs task
-* Resource is generated automatically
+- Perch
+- Fly
+- Land
+- Walk
+- Find food
+- Eat
+- Idle
+- Leave
 
-This is the most important prototype milestone.
+The pigeon should be autonomous.
 
-The player should immediately understand:
-
-> **"I used to do that myself. Now my pigeon does it."**
+The player should not control it.
 
 ---
 
-## Phase 4: Multiple Activities
+## Phase 3: First 60-Second Day
 
-Introduce additional activities.
+Implement the core day loop.
+
+Goals:
+
+- Start Day button
+- 60-second timer
+- Food spawning
+- Pigeon spawning
+- Food consumption
+- Points generation
+- Day ending
+- Results screen
+
+At this point the game should already be playable.
+
+---
+
+## Phase 4: More Pigeons
+
+Make population growth visible.
+
+Goals:
+
+- Increase pigeon spawn quantity
+- Prevent excessive overlap
+- Allow multiple pigeons to eat
+- Improve natural movement
+- Make a growing flock visually satisfying
+
+The first major target is:
+
+> **Can one pigeon become twenty pigeons in a way that feels satisfying?**
+
+---
+
+## Phase 5: First Upgrades
+
+Introduce the smallest possible progression system.
+
+Initial upgrades might include:
+
+- More Food
+- More Pigeons
+- Faster Food
+- Longer Day
+
+The player should immediately see the effect of purchases.
+
+---
+
+## Phase 6: Park Features
+
+Introduce the first environmental unlocks.
 
 Examples:
 
-* Food gathering
-* Scavenging
-* Carrying
-* Exploration
+- Bird Feeder
+- Water Bath
+- Pigeon House
 
-The player should begin deciding which pigeons should perform which tasks.
+Each feature should introduce new visual activity.
 
 ---
 
-## Phase 5: Unique Pigeons
+## Phase 7: More Food
 
-Introduce named pigeons with different abilities and personalities.
+Introduce additional food types.
 
 Goals:
 
-* Pigeon data
-* Unique names
-* Traits
-* Visual differences
-* Task effectiveness
-* Recruitment system
+- Food unlocks
+- Different food values
+- Different spawn rates
+- Different pigeon preferences
 
 ---
 
-## Phase 6: First Territory
+## Phase 8: Better Pigeon Behaviour
 
-Expand the world beyond the starting area.
+Expand the autonomous simulation.
 
 Goals:
 
-* New location
-* New resources
-* New activities
-* New pigeon recruits
-* New opportunities
+- Pigeon flocking
+- Food preferences
+- Perching
+- Bathing
+- Returning home
+- Simple reactions
 
 ---
 
-## Phase 7: Pigeon Kingdom
+## Phase 9: Secondary Systems
 
-Introduce the player's first permanent base.
+Only once the core loop is proven should we introduce:
 
-Goals:
-
-* Pigeon housing
-* Food storage
-* Pigeon management
-* Basic buildings
-* Kingdom progression
-
----
-
-## Phase 8: Throne Room
-
-Introduce the long-term visual goal.
-
-Goals:
-
-* Throne room
-* Player throne
-* Pigeon displays
-* Decorations
-* Kingdom milestones
-* Royal progression
-
----
-
-## Phase 9: Expanded Automation
-
-Add deeper automation.
-
-Goals:
-
-* Task managers
-* Groups of pigeons
-* Automated resource collection
-* Automated scouting
-* Automated trading
-* Expanded pigeon management
-
----
-
-## Phase 10: World Expansion
-
-Expand the world and introduce more locations.
-
-Goals:
-
-* Towns
-* Castles
-* Markets
-* Farms
-* Roads
-* New NPCs
-* New pigeon types
-* Rare discoveries
-* Special events
-
----
-
-## Phase 11: Long-Term Progression
-
-Add systems that give players reasons to continue after the initial kingdom is established.
-
-Possible systems:
-
-* Achievements
-* Rare pigeons
-* Special territories
-* Kingdom upgrades
-* Historical milestones
-* Prestige
-* Advanced automation
-* Rare collectibles
+- Other birds
+- Cats
+- Dogs
+- Humans
+- Park events
+- Multiple currencies
+- Multiple locations
 
 ---
 
 # Development Principles
 
-## Build the Incremental Loop First
+## Prove the Loop First
 
-The most important loop is:
+The fundamental loop is:
 
 ```text
-Perform Activity
-      ↓
-Earn Resource
-      ↓
-Recruit Pigeon
-      ↓
-Automate Activity
-      ↓
-Unlock New Activity
-      ↓
-Expand
+Start Day
+    ↓
+Provide Food
+    ↓
+Pigeons Arrive
+    ↓
+Pigeons Eat
+    ↓
+Earn Resources
+    ↓
+Buy Upgrade
+    ↓
+Start Next Day
 ```
 
-If this isn't satisfying with placeholder art, additional content won't fix it.
+If this is not satisfying with placeholder art, additional content will not fix it.
 
 ---
 
-## Automation Should Feel Like Progress
+## Visual Progression Matters
 
-When the player hires a pigeon to perform a task, that should feel like a genuine milestone.
+Numbers should increase, but the world should change too.
 
-The game should communicate:
+A good upgrade should ideally produce something the player can see.
 
-> **"You don't need to do this anymore."**
+---
 
-This is one of the primary rewards in the game.
+## Keep the Player Out of the Way
+
+The player is the manager, not the character performing every task.
+
+The less the player has to manually control, the more important the simulation becomes.
+
+---
+
+## Pigeons Are the Content
+
+The park exists to give the pigeons somewhere interesting to behave.
+
+Pigeons should therefore receive more attention than complicated menus.
 
 ---
 
 ## Avoid Meaningless Number Inflation
 
-The game should not rely on endlessly increasing numbers.
+Large numbers are satisfying.
 
-Progression should instead come from:
+But numbers alone are not enough.
 
-* New pigeons
-* New activities
-* New locations
-* New resources
-* New automation
-* New buildings
-* New abilities
-* New opportunities
-* New kingdom features
+Progression should unlock:
 
-Numbers should support progression rather than become the progression.
-
----
-
-## Make Pigeons Memorable
-
-Pigeons are the heart of the game.
-
-The player should remember individual pigeons.
-
-If a player says:
-
-> "Greg found the royal necklace again."
-
-that means the pigeon system is working.
+- More pigeons
+- More food
+- New behaviours
+- New facilities
+- New pigeon types
+- New environments
+- New interactions
+- More automation
 
 ---
 
-## Reward Exploration
+## Every Upgrade Should Ask a Question
 
-Exploration should uncover meaningful opportunities.
+Good upgrades make the player think:
 
-A player should occasionally find something that changes how they play.
+> "What happens if I buy this?"
 
-A rare pigeon.
+Not:
 
-A new activity.
-
-A hidden resource.
-
-A strange object.
-
-A shortcut.
-
-A secret location.
-
-Or something completely unnecessary.
+> "This gives me another 5% because the spreadsheet says so."
 
 ---
 
-## Keep the World Believable Enough
+## Keep Complexity Earned
 
-The medieval world should function as a real place.
+Cats, dogs, children, other birds and elaborate park systems can come later.
 
-Humans have:
+The first version only needs:
 
-* Jobs
-* Markets
-* Homes
-* Farms
-* Castles
-* Taverns
-* Roads
-* Problems
+**Food.**
 
-The pigeon kingdom is the ridiculous element.
+**Pigeons.**
 
-This contrast makes the comedy stronger.
+**Points.**
+
+**Upgrades.**
+
+**A 60-second day.**
+
+If that is fun, we have something worth building.
 
 ---
 
 # Development Status
 
-The project is currently in early concept / prototype development.
+The project is currently being reworked from its original side-scrolling pigeon game into an **incremental idle park simulation**.
 
-## Core
+## Core Loop
 
-* [ ] Godot project structure
-* [ ] Player pigeon
-* [ ] Pigeon movement
-* [ ] Pigeon animation
-* [ ] Interaction system
-* [ ] Camera
-* [ ] Starting area
-
-## Incremental Systems
-
-* [ ] Resource system
-* [ ] Manual resource collection
-* [ ] Pigeon recruitment
-* [ ] Pigeon tasks
-* [ ] Automation
-* [ ] Multiple resource types
-* [ ] Upgrade system
-* [ ] Unlock system
+- [x] 60-second run/day concept
+- [ ] Start Day
+- [ ] Food spawning
+- [ ] Autonomous pigeon arrival
+- [ ] Pigeon eating
+- [ ] Resource generation
+- [ ] Day completion
+- [ ] Day results
+- [ ] Upgrade between days
 
 ## Pigeons
 
-* [ ] Pigeon data
-* [ ] Unique pigeons
-* [ ] Pigeon traits
-* [ ] Pigeon personalities
-* [ ] Pigeon recruitment
-* [ ] Pigeon relationships
-* [ ] Pigeon task assignment
+- [x] Existing pigeon class
+- [x] Existing state-machine foundation
+- [ ] Autonomous pigeon behaviour
+- [ ] Flying from tree
+- [ ] Landing
+- [ ] Food seeking
+- [ ] Eating
+- [ ] Natural idle behaviour
+- [ ] Multiple simultaneous pigeons
+- [ ] Pigeon population progression
 
-## World
+## Resources
 
-* [ ] Starting area
-* [ ] Village
-* [ ] Marketplace
-* [ ] Farm
-* [ ] Town
-* [ ] Castle
-* [ ] Additional territories
-* [ ] NPCs
-* [ ] Events
-* [ ] Exploration
+- [x] Existing data-driven resource/collectible foundation
+- [ ] Adapt resources to idle production
+- [ ] Food spawning
+- [ ] Food consumption
+- [ ] Points generation
+- [ ] Persistent currency
+- [ ] Additional food types
 
-## Kingdom
+## Progression
 
-* [ ] Pigeon housing
-* [ ] Food storage
-* [ ] Kingdom buildings
-* [ ] Territory
-* [ ] Throne room
-* [ ] Throne
-* [ ] Decorations
-* [ ] Royal progression
+- [x] Existing skill/progression system
+- [x] Existing upgrade concepts
+- [ ] Rework upgrades around park progression
+- [ ] Food quantity upgrades
+- [ ] Pigeon quantity upgrades
+- [ ] Day length upgrades
+- [ ] Automation upgrades
+- [ ] Park feature unlocks
+- [ ] New food unlocks
+- [ ] Pigeon type unlocks
+
+## Park
+
+- [ ] First park environment
+- [ ] Tree
+- [ ] Bench
+- [ ] Feeding area
+- [ ] Bird feeder
+- [ ] Water bath
+- [ ] Pigeon house
+- [ ] Expanded park
+- [ ] Additional locations
+
+## UI
+
+- [ ] Day timer
+- [ ] Resource display
+- [ ] Pigeon population display
+- [ ] Start Day button
+- [ ] Day Results screen
+- [ ] Upgrade screen
+- [ ] Persistent progression display
 
 ## Persistence
 
-* [ ] Save system
-* [ ] Load system
-* [ ] Pigeon persistence
-* [ ] Resource persistence
-* [ ] Kingdom persistence
-* [ ] World state
+- [ ] Save system
+- [ ] Load system
+- [ ] Persistent upgrades
+- [ ] Persistent unlocks
+- [ ] Persistent resources
+- [ ] Best day statistics
+
+## Future
+
+- [ ] Other pigeon types
+- [ ] Other birds
+- [ ] Cats
+- [ ] Dogs
+- [ ] Humans
+- [ ] Park events
+- [ ] Multiple parks
+- [ ] Advanced automation
+- [ ] Long-term prestige/progression
 
 ---
 
-# Prototype Build Order
+# First Playable Target
 
-The first playable prototype should be extremely small.
+The first genuinely playable version should be tiny.
 
-### Step 1
+### The screen
 
-Control one pigeon.
+A park.
 
-### Step 2
+A tree.
 
-Find bread.
+A bench.
 
-### Step 3
+A person sitting on the bench.
 
-Collect bread.
+### The button
 
-### Step 4
+**START DAY**
 
-Spend bread.
+### The day
 
-### Step 5
+60 seconds.
 
-Find another pigeon.
+### The food
 
-### Step 6
+Bread.
 
-Recruit that pigeon.
+### The pigeon
 
-### Step 7
+One pigeon.
 
-Assign it to collect bread.
+### The behaviour
 
-### Step 8
+**Tree → Fly Down → Land → Find Bread → Eat → Earn Points**
 
-Watch the pigeon collect bread automatically.
+### The upgrade
 
-### Step 9
+**More Bread**
 
-Use the resources generated by that pigeon to unlock something new.
+Then repeat.
 
-### Step 10
+The next goal is to make:
 
-Repeat.
+**1 pigeon → 3 pigeons → 5 pigeons → 10 pigeons → 20 pigeons**
 
-If that loop feels good, the game has a foundation.
+feel satisfying.
 
-Everything else can grow from it.
+If watching that happen is fun, we have the foundation of Professional Pigeon.
 
 ---
 
 # Long-Term Vision
 
-Professional Pigeon should eventually allow the player to look back at their humble beginnings and realize how ridiculous their operation has become.
+Professional Pigeon should eventually let the player look at their original quiet park and realize how absurdly far it has come.
 
 At the beginning:
 
-**One pigeon collecting breadcrumbs.**
+**One bench.**
+
+**One person.**
+
+**One pigeon.**
+
+**One piece of bread.**
 
 Later:
 
-**Several pigeons gathering food.**
+**A flock.**
 
-Later:
+**Multiple feeding areas.**
 
-**Dedicated pigeons scavenging valuable objects.**
+**Water baths.**
 
-Later:
+**Pigeon houses.**
 
-**Pigeon scouts discovering new territories.**
+**Different foods.**
 
-Later:
-
-**Pigeon managers coordinating entire operations.**
+**Different pigeon types.**
 
 Eventually:
 
-**A functioning pigeon kingdom.**
+**A thriving pigeon ecosystem spread across multiple locations.**
 
-And somewhere in the middle of all this, the player acquires a throne.
+The player is not building a kingdom because they control every pigeon.
 
-They sit down.
+They are building an ecosystem because they have learned how to make pigeons come back.
 
-Their pigeons continue working.
+And then they make more pigeons come back.
 
-The player does nothing.
+And more.
 
-Because they are royalty now.
+And more.
+
+Until the park belongs to them.
+
+Not officially.
+
+But everyone knows.
 
 ---
 
-# One Final Rule
+# The Design Goal
 
-The player should always feel like they are **building something**.
+The ultimate feeling we want is:
 
-Not simply making a number bigger.
+> **"I wonder what happens if I upgrade this."**
 
-They are building:
+Then:
 
-**A workforce.**
+> **"That's more pigeons."**
 
-**A collection of characters.**
+Then:
 
-**A territory.**
+> **"That's a lot more pigeons."**
 
-**A kingdom.**
+Then:
 
-**A ridiculous legacy.**
+> **"Why are there so many pigeons?"**
 
-And eventually...
+And finally:
 
-# A PIGEON EMPIRE.
+> **"I have made a terrible mistake."**
 
-The player started as a pigeon.
+**Start the day.**
 
-They became a professional.
+**Feed the pigeons.**
 
-Then a leader.
-
-Then a king.
-
-The birds did the rest.
+**Watch the numbers go up.**
