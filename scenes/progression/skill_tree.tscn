@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_tree.gd" id="1_tree"]
+[ext_resource type="Resource" path="res://data/skills/skill_catalog.tres" id="2_catalog"]
+[ext_resource type="PackedScene" path="res://scenes/progression/skill_node.tscn" id="3_node"]
+
+[node name="SkillTree" type="Control"]
+custom_minimum_size = Vector2(2400, 1600)
+offset_right = 2400.0
+offset_bottom = 1600.0
+mouse_filter = 2
+script = ExtResource("1_tree")
+catalog = ExtResource("2_catalog")
+
+[node name="BreadSpawns" parent="." instance=ExtResource("3_node")]
+offset_left = 180.0
+offset_top = 180.0
+offset_right = 370.0
+offset_bottom = 280.0
+skill_id = &"bread_spawns"
+
+[node name="BreadValue" parent="." instance=ExtResource("3_node")]
+offset_left = 180.0
+offset_top = 420.0
+offset_right = 370.0
+offset_bottom = 520.0
+skill_id = &"bread_value"
+
+[node name="FirstRecruit" parent="." instance=ExtResource("3_node")]
+offset_left = 560.0
+offset_top = 180.0
+offset_right = 750.0
+offset_bottom = 280.0
+skill_id = &"first_recruit"
+
+[node name="LargerFlock" parent="." instance=ExtResource("3_node")]
+offset_left = 940.0
+offset_top = 180.0
+offset_right = 1130.0
+offset_bottom = 280.0
+skill_id = &"larger_flock"
+prerequisite_ids = Array[StringName]([&"first_recruit"])
+
+[node name="UnlockSeeds" parent="." instance=ExtResource("3_node")]
+offset_left = 940.0
+offset_top = 420.0
+offset_right = 1130.0
+offset_bottom = 520.0
+skill_id = &"unlock_seeds"
+prerequisite_ids = Array[StringName]([&"first_recruit"])
+
+[node name="SeedsSpawns" parent="." instance=ExtResource("3_node")]
+offset_left = 1320.0
+offset_top = 420.0
+offset_right = 1510.0
+offset_bottom = 520.0
+skill_id = &"seeds_spawns"
+prerequisite_ids = Array[StringName]([&"unlock_seeds"])
+
+[node name="UnlockWorms" parent="." instance=ExtResource("3_node")]
+offset_left = 1320.0
+offset_top = 660.0
+offset_right = 1510.0
+offset_bottom = 760.0
+skill_id = &"unlock_worms"
+prerequisite_ids = Array[StringName]([&"unlock_seeds"])
+
+[node name="WormsSpawns" parent="." instance=ExtResource("3_node")]
+offset_left = 1700.0
+offset_top = 660.0
+offset_right = 1890.0
+offset_bottom = 760.0
+skill_id = &"worms_spawns"
+prerequisite_ids = Array[StringName]([&"unlock_worms"])
+
+[node name="UnlockCoin" parent="." instance=ExtResource("3_node")]
+offset_left = 1320.0
+offset_top = 180.0
+offset_right = 1510.0
+offset_bottom = 280.0
+skill_id = &"unlock_coin"
+prerequisite_ids = Array[StringName]([&"larger_flock"])
