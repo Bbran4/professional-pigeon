@@ -1,4 +1,3 @@
-@tool
 extends Control
 class_name SkillTree
 
@@ -25,24 +24,16 @@ func _ready() -> void:
 	queue_redraw()
 
 
-func _process(_delta: float) -> void:
-	if Engine.is_editor_hint():
-		queue_redraw()
-
-
 func _load_catalog() -> void:
 	skills.clear()
-
 	if catalog != null:
 		skills = catalog.skills
-
 	_rebuild_lookup()
 
 
 func _connect_progression_signals() -> void:
 	if ProgressionManager.skill_level_changed.is_connected(_on_skill_level_changed):
 		return
-
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 
 
@@ -54,16 +45,13 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 
 func _collect_nodes() -> void:
 	nodes_by_id.clear()
-
 	for child in get_children():
 		var node := child as SkillNode
 		if node == null or node.skill_id == &"":
 			continue
-
 		if nodes_by_id.has(node.skill_id):
 			push_warning("SkillTree contains duplicate node ID: " + String(node.skill_id))
 			continue
-
 		nodes_by_id[node.skill_id] = node
 		node.setup(self)
 
@@ -77,7 +65,6 @@ func _refresh_nodes() -> void:
 
 func _rebuild_lookup() -> void:
 	skills_by_id.clear()
-
 	for skill in skills:
 		if skill == null:
 			continue
@@ -101,14 +88,11 @@ func get_level(skill_id: StringName) -> int:
 func get_effect_value(effect_id: StringName) -> float:
 	if _effect_cache.has(effect_id):
 		return _effect_cache[effect_id]
-
 	var total := 0.0
-
 	for skill in skills:
 		if skill == null or skill.effect_id != effect_id:
 			continue
 		total += skill.effect_value * get_level(skill.id)
-
 	_effect_cache[effect_id] = total
 	return total
 
@@ -117,11 +101,9 @@ func get_prerequisites(skill_id: StringName) -> Array[StringName]:
 	var node := nodes_by_id.get(skill_id) as SkillNode
 	if node != null:
 		return node.get_prerequisites()
-
 	var skill := get_skill(skill_id)
 	if skill == null:
 		return []
-
 	return skill.prerequisites
 
 
@@ -129,11 +111,9 @@ func is_unlocked(skill_id: StringName) -> bool:
 	var skill := get_skill(skill_id)
 	if skill == null:
 		return false
-
 	for prerequisite_id in get_prerequisites(skill_id):
 		if get_level(prerequisite_id) <= 0:
 			return false
-
 	return true
 
 
@@ -155,19 +135,12 @@ func _get_purchase_error(skill_id: StringName) -> String:
 	var skill := get_skill(skill_id)
 	if skill == null:
 		return "Skill does not exist."
-
 	if not is_unlocked(skill_id):
 		return "Required skills have not been purchased."
-
 	if get_level(skill_id) >= skill.max_level:
 		return "Skill is already at maximum level."
-
-	if not ProgressionManager.can_spend(
-		get_next_food_cost(skill_id),
-		get_next_coin_cost(skill_id)
-	):
+	if not ProgressionManager.can_spend(get_next_food_cost(skill_id), get_next_coin_cost(skill_id)):
 		return "Not enough Food or Coin."
-
 	return ""
 
 
@@ -180,12 +153,7 @@ func purchase(skill_id: StringName) -> bool:
 	if not error.is_empty():
 		purchase_rejected.emit(skill_id, error)
 		return false
-
-	ProgressionManager.spend(
-		get_next_food_cost(skill_id),
-		get_next_coin_cost(skill_id)
-	)
-
+	ProgressionManager.spend(get_next_food_cost(skill_id), get_next_coin_cost(skill_id))
 	var new_level := get_level(skill_id) + 1
 	ProgressionManager.set_skill_level(skill_id, new_level)
 	skill_purchased.emit(skill_id, new_level)
@@ -197,28 +165,17 @@ func _draw() -> void:
 		var node := child as SkillNode
 		if node == null:
 			continue
-
 		var from_position := node.position + node.size * 0.5
-
 		for prerequisite_id in node.get_prerequisites():
 			var prerequisite := nodes_by_id.get(prerequisite_id) as SkillNode
 			if prerequisite == null:
 				continue
-
 			var to_position := prerequisite.position + prerequisite.size * 0.5
 			var purchased := get_level(prerequisite_id) > 0 and get_level(node.skill_id) > 0
 			var available := is_unlocked(node.skill_id)
-
 			var line_color := locked_connection_color
 			if purchased:
 				line_color = purchased_connection_color
 			elif available:
 				line_color = connection_color
-
-			draw_line(
-				from_position,
-				to_position,
-				line_color,
-				connection_width,
-				true
-			)
+			draw_line(from_position, to_position, line_color, connection_width, true)
