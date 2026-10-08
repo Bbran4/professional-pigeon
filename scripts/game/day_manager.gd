@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 		points,
 		1,
 		thrower.bread_remaining,
-		thrower._get_stock_capacity()
+		thrower.get_stock_capacity()
 	)
 
 	if time_remaining <= 0.0:
