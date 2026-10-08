@@ -11,130 +11,105 @@
 [ext_resource type="Script" uid="uid://bedfuu4k8lhcq" path="res://scripts/progression/skill_button.gd" id="10_skill_button"]
 [ext_resource type="Script" uid="uid://di4y4xe5txtm" path="res://scripts/ui/cooldown_indicator.gd" id="11_cooldown"]
 
-[sub_resource type="Gradient" id="Gradient_background"]
-colors = PackedColorArray(0.1, 0.15, 0.22, 1, 0.25, 0.35, 0.5, 1)
+[sub_resource type="Gradient" id="Gradient_sky"]
+colors = PackedColorArray(0.42, 0.67, 0.88, 1, 0.82, 0.9, 0.95, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture_background"]
-gradient = SubResource("Gradient_background")
-width = 6000
+[sub_resource type="GradientTexture2D" id="GradientTexture_sky"]
+gradient = SubResource("Gradient_sky")
+width = 1152
 height = 648
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
-size = Vector2(7070, 80)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape_roof_b"]
-size = Vector2(300, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape_roof_c"]
-size = Vector2(260, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_hud_panel"]
-content_margin_left = 14.0
-content_margin_top = 10.0
-content_margin_right = 14.0
-content_margin_bottom = 10.0
-bg_color = Color(0.055, 0.075, 0.11, 0.92)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.35, 0.45, 0.58, 0.9)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_hud_timer"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-bg_color = Color(0.12, 0.18, 0.27, 0.95)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_hud_food"]
-content_margin_left = 8.0
-content_margin_top = 4.0
-content_margin_right = 8.0
-content_margin_bottom = 4.0
-bg_color = Color(0.12, 0.2, 0.12, 0.95)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[node name="Game" type="Node2D" unique_id=10413488]
+size = Vector2(1152, 80)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=614093645]
-z_index = -10
-position = Vector2(-539, -977)
-scale = Vector2(1.1796666, 2.5077162)
-texture = SubResource("GradientTexture_background")
-centered = false
+z_index = -20
+position = Vector2(576, 324)
+texture = SubResource("GradientTexture_sky")
+
+[node name="ParkGround" type="Polygon2D" parent="." unique_id=1604817760]
+z_index = -5
+polygon = PackedVector2Array(0, 360, 1152, 360, 1152, 648, 0, 648)
+color = Color(0.28, 0.47, 0.25, 1)
+
+[node name="Path" type="Polygon2D" parent="." unique_id=1604817761]
+z_index = -4
+polygon = PackedVector2Array(0, 470, 1152, 430, 1152, 545, 0, 585)
+color = Color(0.68, 0.59, 0.43, 1)
+
+[node name="BackGrass" type="Polygon2D" parent="." unique_id=1604817762]
+z_index = -6
+polygon = PackedVector2Array(0, 335, 1152, 335, 1152, 385, 0, 385)
+color = Color(0.22, 0.4, 0.21, 1)
 
 [node name="Ground" type="StaticBody2D" parent="." unique_id=1372897692]
-position = Vector2(0, 568)
-
-[node name="Visual" type="Polygon2D" parent="Ground" unique_id=1604817760]
-position = Vector2(-539, 0)
-scale = Vector2(1.1802325, 1.1500359)
-color = Color(0.48000407, 0.41780668, 0.32629156, 1)
-polygon = PackedVector2Array(0, 0, 6000, 0, 5999.9995, 38.333496, 6000, 80, 0, 80)
+position = Vector2(576, 608)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=1980253687]
-position = Vector2(2998, 108)
 shape = SubResource("RectangleShape_ground")
 
-[node name="FarmHouse" type="StaticBody2D" parent="." unique_id=313037322]
-position = Vector2(0, 309)
+[node name="Tree" type="Node2D" parent="." unique_id=310000001]
+position = Vector2(185, 285)
+z_index = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="FarmHouse" unique_id=1414751332]
-position = Vector2(264, 66)
-texture = ExtResource("2_dinhu")
+[node name="Trunk" type="Polygon2D" parent="Tree" unique_id=310000002]
+polygon = PackedVector2Array(-24, 75, 25, 75, 18, -35, -16, -35)
+color = Color(0.32, 0.19, 0.1, 1)
 
-[node name="CollisionRoof" type="CollisionPolygon2D" parent="FarmHouse" unique_id=560143077 groups=["drop_through_platform"]]
-position = Vector2(203.21536, -98.18787)
-polygon = PackedVector2Array(-109.21536, -80.81213, -53.215363, -52.812134, 46.784637, -18.812134, 228.78464, -68.81213, 241.78464, -61.812134, 268.78464, 13.187866, 310.78464, 109.18787, 299.78464, 119.18787, 229.78464, -54.812134, 47.784637, -4.812134, -111.21536, -61.812134, -248.21536, 173.18787, -257.21536, 168.18787, -228.21536, 127.18787, -144.21536, -38.812134, -145.21536, -72.81213, -128.21536, -76.81213)
-one_way_collision = true
-one_way_collision_margin = 4.0
+[node name="BranchLeft" type="Polygon2D" parent="Tree" unique_id=310000003]
+polygon = PackedVector2Array(-10, -25, -70, -72, -62, -84, 2, -43)
+color = Color(0.32, 0.19, 0.1, 1)
 
-[node name="CollisionPatio" type="CollisionPolygon2D" parent="FarmHouse" unique_id=1157168684 groups=["drop_through_platform"]]
-position = Vector2(203.21536, -98.18787)
-polygon = PackedVector2Array(94.78464, 244.18787, 95.78464, 227.18787, 217.78464, 229.18787, 383.78464, 223.18787, 383.78464, 240.18787, 218.78464, 249.18787)
-one_way_collision = true
-one_way_collision_margin = 4.0
+[node name="BranchRight" type="Polygon2D" parent="Tree" unique_id=310000004]
+polygon = PackedVector2Array(5, -28, 58, -78, 67, -68, 18, -12)
+color = Color(0.32, 0.19, 0.1, 1)
 
-[node name="BuildingTwo" type="StaticBody2D" parent="." unique_id=1534039350]
-position = Vector2(650, 388)
+[node name="CrownLeft" type="Polygon2D" parent="Tree" unique_id=310000005]
+polygon = PackedVector2Array(-92, -75, -68, -119, -28, -133, 12, -116, 24, -78, 2, -42, -45, -40)
+color = Color(0.18, 0.38, 0.18, 1)
 
-[node name="Visual" type="Polygon2D" parent="BuildingTwo" unique_id=1521914218]
-color = Color(0.3227448, 0.4099707, 0.61605483, 1)
-polygon = PackedVector2Array(0, 0, 300, 0, 300, 180, 0, 180)
+[node name="CrownMiddle" type="Polygon2D" parent="Tree" unique_id=310000006]
+polygon = PackedVector2Array(-38, -95, -18, -143, 22, -158, 62, -140, 80, -100, 63, -58, 16, -48)
+color = Color(0.22, 0.45, 0.2, 1)
 
-[node name="RoofCollision" type="CollisionShape2D" parent="BuildingTwo" unique_id=1535392231 groups=["drop_through_platform"]]
-position = Vector2(150, 5)
-shape = SubResource("RectangleShape_roof_b")
-one_way_collision = true
+[node name="CrownRight" type="Polygon2D" parent="Tree" unique_id=310000007]
+polygon = PackedVector2Array(28, -75, 53, -116, 91, -125, 125, -101, 132, -62, 102, -34, 55, -38)
+color = Color(0.16, 0.34, 0.16, 1)
 
-[node name="BuildingThree" type="StaticBody2D" parent="." unique_id=1745929904]
-position = Vector2(950, 248)
+[node name="Bench" type="Node2D" parent="." unique_id=310000010]
+position = Vector2(690, 445)
+z_index = 4
 
-[node name="Visual" type="Polygon2D" parent="BuildingThree" unique_id=1507439961]
-color = Color(0.4856602, 0.41958183, 0.2809997, 1)
-polygon = PackedVector2Array(0, 0, 260, 0, 260, 320, 0, 320)
+[node name="Seat" type="Polygon2D" parent="Bench" unique_id=310000011]
+polygon = PackedVector2Array(-78, -8, 78, -8, 78, 8, -78, 8)
+color = Color(0.42, 0.25, 0.12, 1)
 
-[node name="RoofCollision" type="CollisionShape2D" parent="BuildingThree" unique_id=816111953 groups=["drop_through_platform"]]
-position = Vector2(130, 5)
-shape = SubResource("RectangleShape_roof_c")
-one_way_collision = true
+[node name="Back" type="Polygon2D" parent="Bench" unique_id=310000012]
+polygon = PackedVector2Array(-78, -8, -62, -52, -50, -48, -64, 0, 64, 0, 50, -48, 62, -52, 78, -8)
+color = Color(0.5, 0.31, 0.15, 1)
+
+[node name="LegLeft" type="Polygon2D" parent="Bench" unique_id=310000013]
+polygon = PackedVector2Array(-60, 8, -45, 8, -48, 48, -62, 48)
+color = Color(0.2, 0.16, 0.12, 1)
+
+[node name="LegRight" type="Polygon2D" parent="Bench" unique_id=310000014]
+polygon = PackedVector2Array(45, 8, 60, 8, 62, 48, 48, 48)
+color = Color(0.2, 0.16, 0.12, 1)
+
+[node name="ParkSign" type="Label" parent="." unique_id=310000020]
+position = Vector2(485, 82)
+size = Vector2(182, 44)
+text = "PROFESSIONAL PIGEON PARK"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.16, 0.24, 0.15, 1)
+theme_override_font_sizes/font_size = 18
 
 [node name="SpawnManager" parent="." unique_id=1444331125 instance=ExtResource("4_spawn")]
+visible = false
 
 [node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
-position = Vector2(252, 173)
+visible = false
+position = Vector2(576, 500)
 
 [node name="RunManager" type="Node" parent="." unique_id=701323077]
 script = ExtResource("5_run_manager")
