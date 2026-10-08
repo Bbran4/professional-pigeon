@@ -60,7 +60,7 @@ func start_day() -> void:
 		points,
 		1,
 		thrower.bread_remaining,
-		thrower._get_stock_capacity()
+		thrower.get_stock_capacity()
 	)
 
 
@@ -74,7 +74,7 @@ func add_points(amount: int) -> void:
 		points,
 		1,
 		thrower.bread_remaining,
-		thrower._get_stock_capacity()
+		thrower.get_stock_capacity()
 	)
 
 
