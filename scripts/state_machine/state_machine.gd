@@ -6,7 +6,6 @@ signal state_changed(previous_state: State, new_state: State)
 enum Intent {
 	IDLE,
 	WALK,
-	FALL,
 	FLY,
 }
 
