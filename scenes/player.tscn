@@ -174,7 +174,7 @@ script = ExtResource("12_inventory")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectDetector" unique_id=548787660]
 shape = SubResource("CircleShape2D_bread_detector")
 
-[node name="SkillTree" type="Node" parent="." unique_id=1361312729]
+[node name="SkillTree" type="Control" parent="." unique_id=1361312729]\nmouse_filter = 2
 script = ExtResource("14_skill_tree")
 catalog = ExtResource("15_skill_catalog")
 
