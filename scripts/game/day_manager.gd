@@ -85,5 +85,8 @@ func end_day() -> void:
 	feeder.end_day()
 	brain.end_day()
 
+	# Day points become persistent Food that can be spent in the skill tree.
+	ProgressionManager.add_food(points)
+
 	day_updated.emit(0.0, points, 1)
 	day_ended.emit(points)
