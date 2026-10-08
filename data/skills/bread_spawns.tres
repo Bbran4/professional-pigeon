@@ -11,4 +11,5 @@ category = 0
 food_cost = 2
 effect_id = &"bread_spawns"
 effect_value = 1.0
+prerequisites = Array[StringName]([&"bread"])
 max_level = 3
