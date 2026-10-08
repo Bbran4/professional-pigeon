@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/game/human_feeder.gd" id="1_feeder"]
+
+[node name="HumanFeeder" type="Node2D"]
+script = ExtResource("1_feeder")
+
+[node name="Body" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-14, -38, 14, -38, 18, 8, -18, 8)
+
+[node name="Head" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-11, -62, 11, -62, 14, -40, 0, -30, -14, -40)
+
+[node name="Arm" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(8, -30, 15, -25, 35, -8, 30, -2, 5, -18)
+
+[node name="Legs" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-10, 8, -2, 8, -4, 35, -12, 35, 0, 8, 8, 8, 12, 35, 4, 35)
