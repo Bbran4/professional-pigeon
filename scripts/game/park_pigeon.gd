@@ -110,7 +110,7 @@ func _draw() -> void:
 	draw_circle(Vector2(14.5, -10.0), 1.2, Color("202020"))
 	draw_colored_polygon(PackedVector2Array([Vector2(20,-8), Vector2(31,-4), Vector2(20,0)]), beak)
 	var wing := PackedVector2Array()
-	for i in 24:
+	for i in range(24):
 		var angle := TAU * float(i) / 24.0
 		wing.append(Vector2(-4, 2) + Vector2(cos(angle) * 13.0, sin(angle) * 8.0))
 	draw_colored_polygon(wing, dark)
