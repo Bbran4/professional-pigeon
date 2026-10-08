@@ -36,8 +36,9 @@ func _process(delta: float) -> void:
 		thrower.get_stock_capacity()
 	)
 
-	if time_remaining <= 0.0:
-		end_day()
+	# The timer is only a pacing display. A day completes when the player has
+	# used all available bread and every piece of placed food has been eaten.
+	_check_day_completion()
 
 
 func start_day() -> void:
@@ -84,11 +85,30 @@ func _on_bread_landed(bread: ThrownBread) -> void:
 
 	food_remaining += 1
 	brain.set_food(bread)
+	_check_day_completion()
 
 
 func _on_pigeon_ate_food(amount: int) -> void:
 	food_remaining = maxi(food_remaining - 1, 0)
 	add_points(amount)
+	_check_day_completion()
+
+
+func _check_day_completion() -> void:
+	if not active:
+		return
+
+	# bread_remaining reaches zero when the player has thrown every available
+	# piece. We also wait for any bread still in flight to land before checking
+	# food_remaining, so the final throw cannot end the day prematurely.
+	if thrower.bread_remaining > 0:
+		return
+	if thrower.has_active_bread():
+		return
+	if food_remaining > 0:
+		return
+
+	end_day()
 
 
 func end_day() -> void:
