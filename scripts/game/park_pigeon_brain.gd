@@ -38,9 +38,9 @@ func start_day(perch: Vector2) -> void:
 	pigeon.velocity = Vector2.ZERO
 	pigeon.move_direction = Vector2.ZERO
 	pigeon.flap_held = false
-	state_machine.set_process(true)
-	state_machine.set_physics_process(true)
-	state_machine.transition(StateMachine.Intent.IDLE)
+	# Keep the pigeon perched until food actually appears.
+	state_machine.set_process(false)
+	state_machine.set_physics_process(false)
 
 func set_food(food: Node2D) -> void:
 	if not active:
@@ -78,7 +78,8 @@ func _physics_process(delta: float) -> void:
 			pigeon.global_position = perch_position
 			pigeon.velocity = Vector2.ZERO
 			pigeon.move_direction = Vector2.ZERO
-			state_machine.transition(StateMachine.Intent.IDLE)
+			state_machine.set_process(false)
+			state_machine.set_physics_process(false)
 			_try_next_food()
 		return
 
@@ -141,5 +142,7 @@ func _try_next_food() -> void:
 		pigeon.velocity = Vector2.ZERO
 		pigeon.move_direction = Vector2.ZERO
 		pigeon.try_flap()
+		state_machine.set_process(true)
+		state_machine.set_physics_process(true)
 		state_machine.transition(StateMachine.Intent.FLY)
 		return
