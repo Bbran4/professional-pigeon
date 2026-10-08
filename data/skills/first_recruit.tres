@@ -6,7 +6,7 @@
 script = ExtResource("1_skill")
 id = &"human_feeder"
 display_name = "Human Feeder"
-description = "Unlock a human feeder who throws bread into the park."
+description = "Unlock a human feeder who throws bread into the park. Carry capacity: 1 bread."
 category = 4
 food_cost = 0
 effect_id = &"human_feeder"
