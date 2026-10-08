@@ -9,12 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://pxhv8lqggmch" path="res://assets/Pigeon Sprite-Sheet/pigeon_eat-Sheet.png" id="8_eat"]
 [ext_resource type="Texture2D" uid="uid://du82wv7ki1gbg" path="res://assets/Pigeon Sprite-Sheet/pigeon_walking-Sheet.png" id="9_walk"]
 [ext_resource type="Texture2D" uid="uid://bhw11ktd5jypp" path="res://assets/Pigeon Sprite-Sheet/pigeon_fiy-Sheet.png" id="10_fly"]
-[ext_resource type="Script" uid="uid://cgopvtfshbwhm" path="res://scripts/state_machine/states/falling_state.gd" id="11_falling"]
 
 [sub_resource type="Resource" id="PigeonStats_player"]
 resource_local_to_scene = true
 script = ExtResource("6_stats")
-walk_speed = 100.0
+walk_speed = 110.0
+flight_speed = 260.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fly_0"]
 atlas = ExtResource("10_fly")
@@ -132,14 +132,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_walk_2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_walk_3")
-}],
-"loop": 1,
 "name": &"walk",
 "speed": 8.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
+radius = 12.0
+height = 24.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1601563977]
 script = ExtResource("1_pigeon")
@@ -153,7 +152,6 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1122536711]
 shape = SubResource("CapsuleShape2D_player")
 
-
 [node name="StateMachine" type="Node" parent="." unique_id=653671037 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_machine")
 initial_state = NodePath("IdleState")
@@ -165,10 +163,6 @@ script = ExtResource("4_idle")
 script = ExtResource("5_walk")
 intent = 1
 
-[node name="FallingState" type="Node" parent="StateMachine" unique_id=232866361]
-script = ExtResource("11_falling")
-intent = 2
-
 [node name="FlightState" type="Node" parent="StateMachine" unique_id=230779082]
 script = ExtResource("7_flight")
-intent = 3
+intent = 2
