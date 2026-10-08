@@ -21,7 +21,7 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 func refresh() -> void:
 	food_label.text = "Food: %d" % ProgressionManager.food
 	coin_label.text = "Coin: %d" % ProgressionManager.coin
-	start_day_button.disabled = ProgressionManager.get_skill_level(&"human_feeder") <= 0
+	start_day_button.disabled = ProgressionManager.get_skill_level(&"bread") <= 0
 
 
 func _on_start_day_pressed() -> void:
