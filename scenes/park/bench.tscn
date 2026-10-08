@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[node name="Bench" type="Node2D"]
+
+[node name="Seat" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-78, -8, 78, -8, 78, 8, -78, 8)
+color = Color(0.42, 0.25, 0.12, 1)
+
+[node name="Back" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-78, -8, -62, -52, -50, -48, -64, 0, 64, 0, 50, -48, 62, -52, 78, -8)
+color = Color(0.5, 0.31, 0.15, 1)
+
+[node name="LegLeft" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-60, 8, -45, 8, -48, 48, -62, 48)
+color = Color(0.2, 0.16, 0.12, 1)
+
+[node name="LegRight" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(45, 8, 60, 8, 62, 48, 48, 48)
+color = Color(0.2, 0.16, 0.12, 1)
