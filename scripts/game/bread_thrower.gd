@@ -26,9 +26,9 @@ func _ready() -> void:
 
 func start_day() -> void:
 	active = true
-	bread_remaining = _get_stock_capacity()
+	bread_remaining = get_stock_capacity()
 	aim_position = _clamp_to_park(get_global_mouse_position())
-	stock_changed.emit(bread_remaining, _get_stock_capacity())
+	stock_changed.emit(bread_remaining, get_stock_capacity())
 	set_process(true)
 	queue_redraw()
 
@@ -40,7 +40,7 @@ func end_day() -> void:
 		if is_instance_valid(bread):
 			bread.queue_free()
 	_active_bread.clear()
-	stock_changed.emit(bread_remaining, _get_stock_capacity())
+	stock_changed.emit(bread_remaining, get_stock_capacity())
 	set_process(false)
 	queue_redraw()
 
@@ -84,7 +84,7 @@ func _throw_at(target: Vector2) -> void:
 
 	_active_bread.append(bread)
 	bread_remaining -= 1
-	stock_changed.emit(bread_remaining, _get_stock_capacity())
+	stock_changed.emit(bread_remaining, get_stock_capacity())
 	queue_redraw()
 
 
