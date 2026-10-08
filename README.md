@@ -61,7 +61,7 @@ During the day:
 7. The park becomes increasingly active.
 8. The day ends when the timer reaches zero.
 
-> **Rule:** a day ends when the timer runs out, *not* when the food runs out. The feeder keeps throwing bread on a schedule for the whole day.
+> **Rule:** a day ends when the timer runs out, *not* when the food runs out. The player can throw bread throughout the day, up to the current bread stock limit.
 
 The player then receives a results screen showing what happened.
 
