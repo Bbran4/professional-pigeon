@@ -35,12 +35,12 @@ func _connect_progression_signals() -> void:
 func _center_on_bread() -> void:
 	if skill_tree == null:
 		return
-	var human_feeder := skill_tree.get_node_or_null("Bread") as Control
-	if human_feeder == null:
+	var bread_node := skill_tree.get_node_or_null("Bread") as Control
+	if bread_node == null:
 		return
 	zoom = 1.0
 	skill_tree.scale = Vector2.ONE
-	var tree_node_center := human_feeder.position + human_feeder.size * 0.5
+	var tree_node_center := bread_node.position + bread_node.size * 0.5
 	skill_tree.position = size * 0.5 - tree_node_center
 
 
