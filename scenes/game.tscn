@@ -5,79 +5,58 @@
 [ext_resource type="PackedScene" path="res://scenes/park/bread.tscn" id="3_bread"]
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://djrcdxbxhmfyn" path="res://scripts/game/park_pigeon_brain.gd" id="5_brain"]
-[ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="5_gee14"]
-[ext_resource type="PackedScene" path="res://scenes/park/human.tscn" id="6_human"]
+[ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="5_stats"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
-[ext_resource type="PackedScene" path="res://scenes/progression/upgrade_screen.tscn" id="9_upgrades"]
+[ext_resource type="Script" path="res://scripts/game/bread_thrower.gd" id="9_thrower"]
 
-[sub_resource type="Gradient" id="Gradient_sky"]
-colors = PackedColorArray(0.42, 0.67, 0.88, 1, 0.82, 0.9, 0.95, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture_sky"]
-gradient = SubResource("Gradient_sky")
-width = 1152
-height = 648
-
-[sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
-size = Vector2(1152, 288)
-
-[sub_resource type="Resource" id="Resource_vtaks"]
+[sub_resource type="Resource" id="Resource_pigeon_stats"]
 resource_local_to_scene = true
-script = ExtResource("5_gee14")
-walk_speed = 100.0
+script = ExtResource("5_stats")
+walk_speed = 110.0
+flight_speed = 260.0
 
 [node name="Park" type="Node2D" unique_id=462212071]
-
-[node name="Background" type="Sprite2D" parent="." unique_id=931906897]
-z_index = -20
-position = Vector2(576, 324)
-texture = SubResource("GradientTexture_sky")
+y_sort_enabled = true
 
 [node name="ParkGround" type="Polygon2D" parent="." unique_id=726344885]
-z_index = -5
+z_index = -10
 color = Color(0.28, 0.47, 0.25, 1)
-polygon = PackedVector2Array(0, 360, 1152, 360, 1152, 648, 0, 648)
-
-[node name="BackGrass" type="Polygon2D" parent="." unique_id=669319875]
-z_index = -6
-color = Color(0.22, 0.4, 0.21, 1)
-polygon = PackedVector2Array(0, 335, 1152, 335, 1152, 385, 0, 385)
+polygon = PackedVector2Array(0, 82, 1152, 82, 1152, 648, 0, 648)
 
 [node name="Path" type="Polygon2D" parent="." unique_id=808141376]
-z_index = -4
+z_index = -9
 color = Color(0.68, 0.59, 0.43, 1)
-polygon = PackedVector2Array(0, 470, 1152, 430, 1152, 545, 0, 585)
+polygon = PackedVector2Array(0, 330, 1152, 280, 1152, 390, 0, 440)
 
-[node name="Ground" type="StaticBody2D" parent="." unique_id=2136017112]
-position = Vector2(576, 504)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=227623827]
-shape = SubResource("RectangleShape_ground")
+[node name="PathPatch" type="Polygon2D" parent="." unique_id=808141377]
+z_index = -8
+color = Color(0.62, 0.53, 0.38, 1)
+polygon = PackedVector2Array(460, 82, 690, 82, 820, 648, 610, 648)
 
 [node name="Tree" parent="." unique_id=443909036 instance=ExtResource("1_tree")]
-z_index = 2
-position = Vector2(185, 285)
+position = Vector2(185, 185)
 
 [node name="Bench" parent="." unique_id=627715693 instance=ExtResource("2_bench")]
-z_index = 4
-position = Vector2(760, 330)
-
-[node name="HumanFeeder" parent="." unique_id=1406860475 instance=ExtResource("6_human")]
-z_index = 4
-position = Vector2(760, 390)
-bread_scene = ExtResource("3_bread")
+position = Vector2(780, 210)
 
 [node name="Player" parent="." unique_id=28304278 instance=ExtResource("4_player")]
-z_index = 5
-position = Vector2(185, 250)
-stats = SubResource("Resource_vtaks")
+position = Vector2(185, 185)
+stats = SubResource("Resource_pigeon_stats")
 
 [node name="ParkPigeonBrain" type="Node" parent="Player" unique_id=212241884]
 script = ExtResource("5_brain")
 
+[node name="BreadThrower" type="Node2D" parent="." unique_id=212241885]
+script = ExtResource("9_thrower")
+bread_scene = ExtResource("3_bread")
+throw_origin = Vector2(70, 570)
+park_bounds = Rect2(40, 100, 1072, 500)
+max_throw_distance = 850.0
+
 [node name="DayManager" type="Node" parent="." unique_id=1031930032]
 script = ExtResource("7_day")
+day_duration = 60.0
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=128581925]
 layer = 10
@@ -86,8 +65,8 @@ script = ExtResource("8_hud")
 [node name="Margin" type="MarginContainer" parent="HUD" unique_id=1591156793]
 offset_left = 24.0
 offset_top = 24.0
-offset_right = 270.0
-offset_bottom = 170.0
+offset_right = 285.0
+offset_bottom = 185.0
 
 [node name="Panel" type="Panel" parent="HUD/Margin" unique_id=1657038793]
 layout_mode = 2
@@ -114,6 +93,12 @@ theme_override_font_sizes/font_size = 18
 text = "Pigeons: 1"
 horizontal_alignment = 1
 
+[node name="Bread" type="Label" parent="HUD/Margin/Panel/VBox" unique_id=76041492]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Bread: 0 / 0"
+horizontal_alignment = 1
+
 [node name="StartDay" type="Button" parent="HUD" unique_id=1982270229]
 offset_left = 486.0
 offset_top = 540.0
@@ -130,6 +115,14 @@ offset_bottom = 70.0
 theme_override_font_sizes/font_size = 18
 text = "UNLOCKS"
 
+[node name="Hint" type="Label" parent="HUD" unique_id=1982270231]
+offset_left = 360.0
+offset_top = 585.0
+offset_right = 792.0
+offset_bottom = 620.0
+theme_override_font_sizes/font_size = 16
+text = "Click the park to throw bread"
+horizontal_alignment = 1
 
 [node name="Result" type="Label" parent="HUD" unique_id=291074007]
 visible = false
