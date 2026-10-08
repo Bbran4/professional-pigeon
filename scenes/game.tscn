@@ -1,15 +1,8 @@
-[gd_scene format=3 uid="uid://cfbifrtt8fl6r"]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="1_player"]
-[ext_resource type="Texture2D" uid="uid://dk602rip5g0nd" path="res://assets/House/House 1.png" id="2_dinhu"]
-[ext_resource type="PackedScene" uid="uid://drmgabto5wlfc" path="res://scenes/spawn_manager.tscn" id="4_spawn"]
-[ext_resource type="Script" uid="uid://733ql3dnxlfu" path="res://scripts/game/run_manager.gd" id="5_run_manager"]
-[ext_resource type="Script" uid="uid://dnrb7pknv1sf" path="res://scripts/game/run_end_panel.gd" id="6_run_end_panel"]
-[ext_resource type="Script" uid="uid://c013n7hqyxt0k" path="res://scripts/game/run_hud.gd" id="7_run_hud"]
-[ext_resource type="Script" uid="uid://b32pmjtjdgu6" path="res://scripts/progression/upgrade_screen.gd" id="8_upgrade"]
-[ext_resource type="Script" uid="uid://c0owjdr38lyk8" path="res://scripts/progression/skill_manager.gd" id="9_skill_manager"]
-[ext_resource type="Script" uid="uid://bedfuu4k8lhcq" path="res://scripts/progression/skill_button.gd" id="10_skill_button"]
-[ext_resource type="Script" uid="uid://di4y4xe5txtm" path="res://scripts/ui/cooldown_indicator.gd" id="11_cooldown"]
+[ext_resource type="Script" path="res://scripts/game/day_manager.gd" id="1_day"]
+[ext_resource type="Script" path="res://scripts/game/park_pigeon.gd" id="2_pigeon"]
+[ext_resource type="Script" path="res://scripts/game/park_hud.gd" id="3_hud"]
 
 [sub_resource type="Gradient" id="Gradient_sky"]
 colors = PackedColorArray(0.42, 0.67, 0.88, 1, 0.82, 0.9, 0.95, 1)
@@ -22,442 +15,157 @@ height = 648
 [sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
 size = Vector2(1152, 80)
 
-[node name="Background" type="Sprite2D" parent="." unique_id=614093645]
+[node name="Park" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
 z_index = -20
 position = Vector2(576, 324)
 texture = SubResource("GradientTexture_sky")
 
-[node name="ParkGround" type="Polygon2D" parent="." unique_id=1604817760]
+[node name="ParkGround" type="Polygon2D" parent="."]
 z_index = -5
 polygon = PackedVector2Array(0, 360, 1152, 360, 1152, 648, 0, 648)
 color = Color(0.28, 0.47, 0.25, 1)
 
-[node name="Path" type="Polygon2D" parent="." unique_id=1604817761]
+[node name="Path" type="Polygon2D" parent="."]
 z_index = -4
 polygon = PackedVector2Array(0, 470, 1152, 430, 1152, 545, 0, 585)
 color = Color(0.68, 0.59, 0.43, 1)
 
-[node name="BackGrass" type="Polygon2D" parent="." unique_id=1604817762]
+[node name="BackGrass" type="Polygon2D" parent="."]
 z_index = -6
 polygon = PackedVector2Array(0, 335, 1152, 335, 1152, 385, 0, 385)
 color = Color(0.22, 0.4, 0.21, 1)
 
-[node name="Ground" type="StaticBody2D" parent="." unique_id=1372897692]
+[node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(576, 608)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=1980253687]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape_ground")
 
-[node name="Tree" type="Node2D" parent="." unique_id=310000001]
+[node name="Tree" type="Node2D" parent="."]
 position = Vector2(185, 285)
 z_index = 2
 
-[node name="Trunk" type="Polygon2D" parent="Tree" unique_id=310000002]
+[node name="Trunk" type="Polygon2D" parent="Tree"]
 polygon = PackedVector2Array(-24, 75, 25, 75, 18, -35, -16, -35)
 color = Color(0.32, 0.19, 0.1, 1)
 
-[node name="BranchLeft" type="Polygon2D" parent="Tree" unique_id=310000003]
+[node name="BranchLeft" type="Polygon2D" parent="Tree"]
 polygon = PackedVector2Array(-10, -25, -70, -72, -62, -84, 2, -43)
 color = Color(0.32, 0.19, 0.1, 1)
 
-[node name="BranchRight" type="Polygon2D" parent="Tree" unique_id=310000004]
+[node name="BranchRight" type="Polygon2D" parent="Tree"]
 polygon = PackedVector2Array(5, -28, 58, -78, 67, -68, 18, -12)
 color = Color(0.32, 0.19, 0.1, 1)
 
-[node name="CrownLeft" type="Polygon2D" parent="Tree" unique_id=310000005]
+[node name="CrownLeft" type="Polygon2D" parent="Tree"]
 polygon = PackedVector2Array(-92, -75, -68, -119, -28, -133, 12, -116, 24, -78, 2, -42, -45, -40)
 color = Color(0.18, 0.38, 0.18, 1)
 
-[node name="CrownMiddle" type="Polygon2D" parent="Tree" unique_id=310000006]
+[node name="CrownMiddle" type="Polygon2D" parent="Tree"]
 polygon = PackedVector2Array(-38, -95, -18, -143, 22, -158, 62, -140, 80, -100, 63, -58, 16, -48)
 color = Color(0.22, 0.45, 0.2, 1)
 
-[node name="CrownRight" type="Polygon2D" parent="Tree" unique_id=310000007]
+[node name="CrownRight" type="Polygon2D" parent="Tree"]
 polygon = PackedVector2Array(28, -75, 53, -116, 91, -125, 125, -101, 132, -62, 102, -34, 55, -38)
 color = Color(0.16, 0.34, 0.16, 1)
 
-[node name="Bench" type="Node2D" parent="." unique_id=310000010]
-position = Vector2(690, 445)
+[node name="Bench" type="Node2D" parent="."]
+position = Vector2(760, 445)
 z_index = 4
 
-[node name="Seat" type="Polygon2D" parent="Bench" unique_id=310000011]
+[node name="Seat" type="Polygon2D" parent="Bench"]
 polygon = PackedVector2Array(-78, -8, 78, -8, 78, 8, -78, 8)
 color = Color(0.42, 0.25, 0.12, 1)
 
-[node name="Back" type="Polygon2D" parent="Bench" unique_id=310000012]
+[node name="Back" type="Polygon2D" parent="Bench"]
 polygon = PackedVector2Array(-78, -8, -62, -52, -50, -48, -64, 0, 64, 0, 50, -48, 62, -52, 78, -8)
 color = Color(0.5, 0.31, 0.15, 1)
 
-[node name="LegLeft" type="Polygon2D" parent="Bench" unique_id=310000013]
+[node name="LegLeft" type="Polygon2D" parent="Bench"]
 polygon = PackedVector2Array(-60, 8, -45, 8, -48, 48, -62, 48)
 color = Color(0.2, 0.16, 0.12, 1)
 
-[node name="LegRight" type="Polygon2D" parent="Bench" unique_id=310000014]
+[node name="LegRight" type="Polygon2D" parent="Bench"]
 polygon = PackedVector2Array(45, 8, 60, 8, 62, 48, 48, 48)
 color = Color(0.2, 0.16, 0.12, 1)
 
-[node name="ParkSign" type="Label" parent="." unique_id=310000020]
-position = Vector2(485, 82)
-size = Vector2(182, 44)
-text = "PROFESSIONAL PIGEON PARK"
+[node name="Bread" type="Node2D" parent="."]
+position = Vector2(520, 475)
+z_index = 3
+
+[node name="Crust" type="Polygon2D" parent="Bread"]
+polygon = PackedVector2Array(-34, -16, -18, -25, 16, -24, 34, -11, 32, 15, 14, 24, -20, 22, -35, 8)
+color = Color(0.72, 0.38, 0.12, 1)
+
+[node name="Loaf" type="Polygon2D" parent="Bread"]
+polygon = PackedVector2Array(-27, -13, -13, -20, 13, -19, 27, -8, 25, 11, 10, 18, -17, 17, -27, 5)
+color = Color(0.95, 0.75, 0.38, 1)
+
+[node name="BreadLabel" type="Label" parent="Bread"]
+position = Vector2(-45, 28)
+size = Vector2(90, 24)
+text = "BREAD"
 horizontal_alignment = 1
-theme_override_colors/font_color = Color(0.16, 0.24, 0.15, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 11
 
-[node name="SpawnManager" parent="." unique_id=1444331125 instance=ExtResource("4_spawn")]
-visible = false
+[node name="ParkPigeon" type="Node2D" parent="."]
+position = Vector2(185, 160)
+z_index = 5
+script = ExtResource("2_pigeon")
 
-[node name="Player" parent="." unique_id=1147697321 instance=ExtResource("1_player")]
-visible = false
-position = Vector2(576, 500)
+[node name="DayManager" type="Node" parent="."]
+script = ExtResource("1_day")
 
-[node name="RunManager" type="Node" parent="." unique_id=701323077]
-script = ExtResource("5_run_manager")
-
-[node name="RunEndLayer" type="CanvasLayer" parent="." unique_id=1543046195]
-layer = 20
-
-[node name="RunEndPanel" type="Control" parent="RunEndLayer" unique_id=1390672750 node_paths=PackedStringArray("run_manager", "upgrade_screen")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("6_run_end_panel")
-run_manager = NodePath("../../RunManager")
-upgrade_screen = NodePath("../../UpgradeScreenLayer/UpgradeScreen")
-
-[node name="Panel" type="Panel" parent="RunEndLayer/RunEndPanel" unique_id=1179473201]
-layout_mode = 0
-offset_left = 376.0
-offset_top = 190.0
-offset_right = 776.0
-offset_bottom = 450.0
-
-[node name="TitleLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel" unique_id=882159249]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 20.0
-offset_right = 300.0
-offset_bottom = 54.0
-text = "Run Complete!"
-horizontal_alignment = 1
-
-[node name="ReasonLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel" unique_id=665034546]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 60.0
-offset_right = 350.0
-offset_bottom = 90.0
-text = "Time's up!"
-horizontal_alignment = 1
-
-[node name="FoodLabel" type="Label" parent="RunEndLayer/RunEndPanel/Panel" unique_id=449456455]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 92.0
-offset_right = 375.0
-offset_bottom = 122.0
-text = "Food earned: 0  |  Total Food: 0"
-horizontal_alignment = 1
-
-[node name="UpgradesButton" type="Button" parent="RunEndLayer/RunEndPanel/Panel" unique_id=1217410187]
-layout_mode = 0
-offset_left = 75.0
-offset_top = 135.0
-offset_right = 325.0
-offset_bottom = 180.0
-text = "Go to Upgrades"
-
-[node name="RestartButton" type="Button" parent="RunEndLayer/RunEndPanel/Panel" unique_id=107655077]
-layout_mode = 0
-offset_left = 75.0
-offset_top = 195.0
-offset_right = 325.0
-offset_bottom = 240.0
-text = "Restart Run"
-
-[node name="RunHUD" type="CanvasLayer" parent="." unique_id=244068897]
+[node name="HUD" type="CanvasLayer" parent="."]
 layer = 10
-script = ExtResource("7_run_hud")
+script = ExtResource("3_hud")
 
-[node name="MarginContainer" type="MarginContainer" parent="RunHUD" unique_id=1305050688]
+[node name="Margin" type="MarginContainer" parent="HUD"]
 offset_left = 24.0
 offset_top = 24.0
-offset_right = 250.0
-offset_bottom = 224.0
+offset_right = 270.0
+offset_bottom = 170.0
 
-[node name="Panel" type="Panel" parent="RunHUD/MarginContainer" unique_id=1556345713]
+[node name="Panel" type="Panel" parent="HUD/Margin"]
+
+[node name="VBox" type="VBoxContainer" parent="HUD/Margin/Panel"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBox_hud_panel")
+theme_override_constants/separation = 6
 
-[node name="VBox" type="VBoxContainer" parent="RunHUD/MarginContainer/Panel" unique_id=742106707]
-layout_mode = 0
-theme_override_constants/separation = 8
-
-[node name="TimerLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox" unique_id=102497807]
+[node name="Timer" type="Label" parent="HUD/Margin/Panel/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBox_hud_timer")
-text = "Time: 60"
-horizontal_alignment = 1
-
-[node name="FoodLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox" unique_id=63277825]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 1, 0.82, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBox_hud_food")
-text = "Food: 0"
-horizontal_alignment = 1
-
-[node name="CoinLabel" type="Label" parent="RunHUD/MarginContainer/Panel/VBox" unique_id=1533613408]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
-theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBox_hud_food")
-text = "Coin: 0"
-horizontal_alignment = 1
-
-[node name="BurstIndicators" type="HBoxContainer" parent="RunHUD/MarginContainer/Panel/VBox" unique_id=1379060616]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="GroundBurst" type="Control" parent="RunHUD/MarginContainer/Panel/VBox/BurstIndicators" unique_id=1892738867]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-script = ExtResource("11_cooldown")
-
-[node name="AirBurst" type="Control" parent="RunHUD/MarginContainer/Panel/VBox/BurstIndicators" unique_id=1128903613]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-script = ExtResource("11_cooldown")
-label_text = "A"
-
-[node name="UpgradeScreenLayer" type="CanvasLayer" parent="." unique_id=1274348906]
-layer = 30
-
-[node name="UpgradeScreen" type="Control" parent="UpgradeScreenLayer" unique_id=1413036099]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("8_upgrade")
-
-[node name="TopBar" type="Panel" parent="UpgradeScreenLayer/UpgradeScreen" unique_id=969848763]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 1132.0
-offset_bottom = 78.0
-mouse_filter = 2
-
-[node name="TitleLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=426530994]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 10.0
-offset_right = 300.0
-offset_bottom = 48.0
 theme_override_font_sizes/font_size = 22
-text = "Pigeon Skill Tree"
+text = "Day: 0"
+horizontal_alignment = 1
 
-[node name="FoodLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=1086701980]
-layout_mode = 0
-offset_left = 430.0
-offset_top = 12.0
-offset_right = 540.0
-offset_bottom = 46.0
+[node name="Points" type="Label" parent="HUD/Margin/Panel/VBox"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Food: 0"
+text = "Points: 0"
 horizontal_alignment = 1
 
-[node name="CoinLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=1215049948]
-layout_mode = 0
-offset_left = 550.0
-offset_top = 12.0
-offset_right = 680.0
-offset_bottom = 46.0
+[node name="Pigeons" type="Label" parent="HUD/Margin/Panel/VBox"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Coin: 0"
+text = "Pigeons: 1"
 horizontal_alignment = 1
 
-[node name="HelpLabel" type="Label" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=906267126]
-layout_mode = 0
-offset_left = 680.0
-offset_top = 14.0
-offset_right = 900.0
-offset_bottom = 44.0
-text = "Wheel: Zoom  |  Middle Drag: Pan"
+[node name="StartDay" type="Button" parent="HUD"]
+offset_left = 486.0
+offset_top = 540.0
+offset_right = 666.0
+offset_bottom = 594.0
+text = "START DAY"
+theme_override_font_sizes/font_size = 20
+
+[node name="Result" type="Label" parent="HUD"]
+visible = false
+offset_left = 400.0
+offset_top = 475.0
+offset_right = 752.0
+offset_bottom = 515.0
+theme_override_font_sizes/font_size = 22
+text = "Day complete!"
 horizontal_alignment = 1
-
-[node name="BackButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/TopBar" unique_id=1856952757]
-layout_mode = 0
-offset_left = 930.0
-offset_top = 8.0
-offset_right = 1090.0
-offset_bottom = 50.0
-text = "Back"
-
-[node name="SkillManager" type="Control" parent="UpgradeScreenLayer/UpgradeScreen" unique_id=202417832]
-clip_contents = true
-anchors_preset = 0
-offset_left = 20.0
-offset_top = 88.0
-offset_right = 1132.0
-offset_bottom = 628.0
-mouse_filter = 1
-script = ExtResource("9_skill_manager")
-
-[node name="SkillCanvas" type="Control" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager" unique_id=825759651]
-anchors_preset = 0
-offset_right = 1800.0
-offset_bottom = 1050.0
-mouse_filter = 1
-
-[node name="FasterFlightButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1781976936]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 300.0
-offset_bottom = 165.0
-script = ExtResource("10_skill_button")
-skill_id = &"faster_flight"
-
-[node name="StrongerFlapsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1047828362]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 250.0
-offset_right = 300.0
-offset_bottom = 315.0
-script = ExtResource("10_skill_button")
-skill_id = &"stronger_flaps"
-
-[node name="EnergyReserveButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=190457732]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 400.0
-offset_right = 300.0
-offset_bottom = 465.0
-script = ExtResource("10_skill_button")
-skill_id = &"energy_reserve"
-
-[node name="FasterEnergyRegenerationButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=620364887]
-layout_mode = 0
-offset_left = 450.0
-offset_top = 250.0
-offset_right = 680.0
-offset_bottom = 315.0
-script = ExtResource("10_skill_button")
-skill_id = &"faster_energy_regeneration"
-
-[node name="MoreEnergyPerSecondButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=154717010]
-layout_mode = 0
-offset_left = 450.0
-offset_top = 400.0
-offset_right = 680.0
-offset_bottom = 465.0
-script = ExtResource("10_skill_button")
-skill_id = &"more_energy_per_second"
-
-[node name="BreadSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1934534279]
-layout_mode = 0
-offset_left = 850.0
-offset_top = 100.0
-offset_right = 1060.0
-offset_bottom = 165.0
-script = ExtResource("10_skill_button")
-skill_id = &"bread_spawns"
-
-[node name="BreadValueButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=683310244]
-layout_mode = 0
-offset_left = 850.0
-offset_top = 250.0
-offset_right = 1060.0
-offset_bottom = 315.0
-script = ExtResource("10_skill_button")
-skill_id = &"bread_value"
-
-[node name="UnlockSeedsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1782836107]
-layout_mode = 0
-offset_left = 850.0
-offset_top = 400.0
-offset_right = 1060.0
-offset_bottom = 465.0
-script = ExtResource("10_skill_button")
-skill_id = &"unlock_seeds"
-
-[node name="SeedsSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1295671460]
-layout_mode = 0
-offset_left = 850.0
-offset_top = 550.0
-offset_right = 1060.0
-offset_bottom = 615.0
-script = ExtResource("10_skill_button")
-skill_id = &"seeds_spawns"
-
-[node name="UnlockWormsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=598917536]
-layout_mode = 0
-offset_left = 1150.0
-offset_top = 400.0
-offset_right = 1360.0
-offset_bottom = 465.0
-script = ExtResource("10_skill_button")
-skill_id = &"unlock_worms"
-
-[node name="WormsSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1564974246]
-layout_mode = 0
-offset_left = 1150.0
-offset_top = 550.0
-offset_right = 1360.0
-offset_bottom = 615.0
-script = ExtResource("10_skill_button")
-skill_id = &"worms_spawns"
-
-[node name="UnlockCoinButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1073255136]
-layout_mode = 0
-offset_left = 850.0
-offset_top = 700.0
-offset_right = 1060.0
-offset_bottom = 765.0
-script = ExtResource("10_skill_button")
-skill_id = &"unlock_coin"
-
-[node name="FarthingSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1672699891]
-layout_mode = 0
-offset_left = 1150.0
-offset_top = 700.0
-offset_right = 1360.0
-offset_bottom = 765.0
-script = ExtResource("10_skill_button")
-skill_id = &"farthing_spawns"
-
-[node name="PennySpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=1127790316]
-layout_mode = 0
-offset_left = 1150.0
-offset_top = 800.0
-offset_right = 1360.0
-offset_bottom = 865.0
-script = ExtResource("10_skill_button")
-skill_id = &"penny_spawns"
-
-[node name="NobleSpawnsButton" type="Button" parent="UpgradeScreenLayer/UpgradeScreen/SkillManager/SkillCanvas" unique_id=2146193920]
-layout_mode = 0
-offset_left = 1150.0
-offset_top = 900.0
-offset_right = 1360.0
-offset_bottom = 965.0
-script = ExtResource("10_skill_button")
-skill_id = &"noble_spawns"
