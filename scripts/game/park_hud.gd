@@ -17,9 +17,9 @@ func _ready() -> void:
 	_on_day_updated(0.0, 0, 1)
 
 func _on_upgrades_pressed() -> void:
-    var upgrade_screen := get_node_or_null("../UpgradeScreen") as Control
-    if upgrade_screen != null:
-        upgrade_screen.show()
+	var upgrade_screen : Control = get_node_or_null("../UpgradeScreen")
+	if upgrade_screen != null:
+		upgrade_screen.show()
 
 
 func _on_start_pressed() -> void:
