@@ -1143,17 +1143,17 @@ The fundamental loop is:
 
 ```text
 Start Day
-    ↓
+	↓
 Provide Food
-    ↓
+	↓
 Pigeons Arrive
-    ↓
+	↓
 Pigeons Eat
-    ↓
+	↓
 Earn Resources
-    ↓
+	↓
 Buy Upgrade
-    ↓
+	↓
 Start Next Day
 ```
 

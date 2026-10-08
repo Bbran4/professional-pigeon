@@ -5,7 +5,7 @@ signal day_started(duration: float)
 signal day_updated(time_remaining: float, points: int, pigeon_count: int)
 signal day_ended(points: int)
 
-@export var day_duration: float = 60.0
+@export var day_duration: float = 10.0
 
 var time_remaining: float = 0.0
 var points: int = 0

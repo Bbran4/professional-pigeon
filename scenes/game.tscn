@@ -1,12 +1,13 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cissk5e6duv43"]
 
 [ext_resource type="PackedScene" path="res://scenes/park/tree.tscn" id="1_tree"]
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
 [ext_resource type="PackedScene" path="res://scenes/park/bread.tscn" id="3_bread"]
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="4_player"]
-[ext_resource type="Script" path="res://scripts/game/park_pigeon_brain.gd" id="5_brain"]
-[ext_resource type="Script" path="res://scripts/game/day_manager.gd" id="6_day"]
-[ext_resource type="Script" path="res://scripts/game/park_hud.gd" id="7_hud"]
+[ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
+[ext_resource type="Script" uid="uid://djrcdxbxhmfyn" path="res://scripts/game/park_pigeon_brain.gd" id="5_brain"]
+[ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="5_gee14"]
+[ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="6_day"]
+[ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="7_hud"]
 
 [sub_resource type="Gradient" id="Gradient_sky"]
 colors = PackedColorArray(0.42, 0.67, 0.88, 1, 0.82, 0.9, 0.95, 1)
@@ -19,106 +20,107 @@ height = 648
 [sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
 size = Vector2(1152, 288)
 
-[node name="Park" type="Node2D"]
+[sub_resource type="Resource" id="Resource_0tnpc"]
+resource_local_to_scene = true
+script = ExtResource("5_gee14")
+walk_speed = 100.0
+max_energy = 3.0
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Park" type="Node2D" unique_id=462212071]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=931906897]
 z_index = -20
 position = Vector2(576, 324)
 texture = SubResource("GradientTexture_sky")
 
-[node name="ParkGround" type="Polygon2D" parent="."]
+[node name="ParkGround" type="Polygon2D" parent="." unique_id=726344885]
 z_index = -5
-polygon = PackedVector2Array(0, 360, 1152, 360, 1152, 648, 0, 648)
 color = Color(0.28, 0.47, 0.25, 1)
+polygon = PackedVector2Array(0, 360, 1152, 360, 1152, 648, 0, 648)
 
-[node name="BackGrass" type="Polygon2D" parent="."]
+[node name="BackGrass" type="Polygon2D" parent="." unique_id=669319875]
 z_index = -6
-polygon = PackedVector2Array(0, 335, 1152, 335, 1152, 385, 0, 385)
 color = Color(0.22, 0.4, 0.21, 1)
+polygon = PackedVector2Array(0, 335, 1152, 335, 1152, 385, 0, 385)
 
-[node name="Path" type="Polygon2D" parent="."]
+[node name="Path" type="Polygon2D" parent="." unique_id=808141376]
 z_index = -4
-polygon = PackedVector2Array(0, 470, 1152, 430, 1152, 545, 0, 585)
 color = Color(0.68, 0.59, 0.43, 1)
+polygon = PackedVector2Array(0, 470, 1152, 430, 1152, 545, 0, 585)
 
-[node name="Ground" type="StaticBody2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="." unique_id=2136017112]
 position = Vector2(576, 504)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=227623827]
 shape = SubResource("RectangleShape_ground")
 
-[node name="Tree" parent="." instance=ExtResource("1_tree")]
-position = Vector2(185, 285)
+[node name="Tree" parent="." unique_id=443909036 instance=ExtResource("1_tree")]
 z_index = 2
+position = Vector2(185, 285)
 
-[node name="Bench" parent="." instance=ExtResource("2_bench")]
-position = Vector2(760, 330)
+[node name="Bench" parent="." unique_id=627715693 instance=ExtResource("2_bench")]
 z_index = 4
+position = Vector2(760, 330)
 
-[node name="Bread" parent="." instance=ExtResource("3_bread")]
-position = Vector2(520, 335)
+[node name="Bread" parent="." unique_id=1406860475 instance=ExtResource("3_bread")]
 z_index = 3
+position = Vector2(520, 335)
 
-[node name="Player" parent="." instance=ExtResource("4_player")]
-position = Vector2(185, 250)
+[node name="Player" parent="." unique_id=28304278 instance=ExtResource("4_player")]
 z_index = 5
+position = Vector2(185, 250)
+stats = SubResource("Resource_0tnpc")
 
-[node name="Camera2D" parent="Player"]
-enabled = false
-process_mode = 4
-
-[node name="PlayerController" parent="Player"]
-process_mode = 4
-
-[node name="ParkPigeonBrain" type="Node" parent="Player"]
+[node name="ParkPigeonBrain" type="Node" parent="Player" unique_id=212241884]
 script = ExtResource("5_brain")
 
-[node name="DayManager" type="Node" parent="."]
+[node name="DayManager" type="Node" parent="." unique_id=1031930032]
 script = ExtResource("6_day")
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=128581925]
 layer = 10
 script = ExtResource("7_hud")
 
-[node name="Margin" type="MarginContainer" parent="HUD"]
+[node name="Margin" type="MarginContainer" parent="HUD" unique_id=1591156793]
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 270.0
 offset_bottom = 170.0
 
-[node name="Panel" type="Panel" parent="HUD/Margin"]
-
-[node name="VBox" type="VBoxContainer" parent="HUD/Margin/Panel"]
+[node name="Panel" type="Panel" parent="HUD/Margin" unique_id=1657038793]
 layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="HUD/Margin/Panel" unique_id=837351474]
+layout_mode = 0
 theme_override_constants/separation = 6
 
-[node name="Timer" type="Label" parent="HUD/Margin/Panel/VBox"]
+[node name="Timer" type="Label" parent="HUD/Margin/Panel/VBox" unique_id=746649903]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Day: 0"
 horizontal_alignment = 1
 
-[node name="Points" type="Label" parent="HUD/Margin/Panel/VBox"]
+[node name="Points" type="Label" parent="HUD/Margin/Panel/VBox" unique_id=1485426452]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Points: 0"
 horizontal_alignment = 1
 
-[node name="Pigeons" type="Label" parent="HUD/Margin/Panel/VBox"]
+[node name="Pigeons" type="Label" parent="HUD/Margin/Panel/VBox" unique_id=76041491]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Pigeons: 1"
 horizontal_alignment = 1
 
-[node name="StartDay" type="Button" parent="HUD"]
+[node name="StartDay" type="Button" parent="HUD" unique_id=1982270229]
 offset_left = 486.0
 offset_top = 540.0
 offset_right = 666.0
 offset_bottom = 594.0
-text = "START DAY"
 theme_override_font_sizes/font_size = 20
+text = "START DAY"
 
-[node name="Result" type="Label" parent="HUD"]
+[node name="Result" type="Label" parent="HUD" unique_id=291074007]
 visible = false
 offset_left = 400.0
 offset_top = 475.0
