@@ -7,11 +7,11 @@ signal closed
 @onready var coin_label: Label = $TopBar/CoinLabel
 @onready var skill_manager: SkillManager = $SkillManager
 @onready var skill_tree: SkillTree = $SkillManager/SkillTree
-@onready var back_button: Button = $TopBar/BackButton
+@onready var start_day_button: Button = $TopBar/StartDayButton
 
 
 func _ready() -> void:
-	back_button.pressed.connect(_on_back_pressed)
+	start_day_button.pressed.connect(_on_start_day_pressed)
 	ProgressionManager.food_changed.connect(refresh.unbind(1))
 	ProgressionManager.coin_changed.connect(refresh.unbind(1))
 	refresh()
@@ -31,3 +31,7 @@ func refresh() -> void:
 func _on_back_pressed() -> void:
 	hide()
 	closed.emit()
+
+
+func _on_start_day_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/game.tscn")
