@@ -7,12 +7,20 @@ class_name ParkHud
 @onready var pigeons_label: Label = $Margin/Panel/VBox/Pigeons
 @onready var start_button: Button = $StartDay
 @onready var result_label: Label = $Result
+@onready var upgrades_button: Button = $Upgrades
 
 func _ready() -> void:
 	start_button.pressed.connect(_on_start_pressed)
+    upgrades_button.pressed.connect(_on_upgrades_pressed)
 	day_manager.day_updated.connect(_on_day_updated)
 	day_manager.day_ended.connect(_on_day_ended)
 	_on_day_updated(0.0, 0, 1)
+
+func _on_upgrades_pressed() -> void:
+    var upgrade_screen := get_node_or_null("../UpgradeScreen") as Control
+    if upgrade_screen != null:
+        upgrade_screen.show()
+
 
 func _on_start_pressed() -> void:
 	day_manager.start_day()
