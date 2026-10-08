@@ -14,12 +14,25 @@ mouse_filter = 2
 script = ExtResource("1_tree")
 catalog = ExtResource("2_catalog")
 
+[node name="Bread" parent="." unique_id=870462122 instance=ExtResource("3_node")]
+layout_mode = 0
+offset_left = 1080.0
+offset_top = 700.0
+offset_right = 1270.0
+offset_bottom = 800.0
+tooltip_text = "Unlock manual bread throwing. You can throw up to 5 pieces of bread each day."
+text = "Bread
+Level 0/1
+0 Food
+AVAILABLE"
+skill_id = &"bread"
+
 [node name="BreadSpawns" parent="." unique_id=1139208483 instance=ExtResource("3_node")]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 180.0
-offset_right = 370.0
-offset_bottom = 280.0
+offset_left = 700.0
+offset_top = 520.0
+offset_right = 890.0
+offset_bottom = 620.0
 tooltip_text = "Spawn one additional bread each run."
 disabled = true
 text = "More Bread
@@ -27,14 +40,14 @@ Level 0/3
 2 Food
 LOCKED"
 skill_id = &"bread_spawns"
-prerequisite_ids = Array[StringName]([&"human_feeder"])
+prerequisite_ids = Array[StringName]([&"bread"])
 
 [node name="BreadValue" parent="." unique_id=1328386720 instance=ExtResource("3_node")]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 420.0
-offset_right = 370.0
-offset_bottom = 520.0
+offset_left = 700.0
+offset_top = 880.0
+offset_right = 890.0
+offset_bottom = 980.0
 tooltip_text = "Each bread is worth one additional Food."
 disabled = true
 text = "More Valuable Bread
@@ -42,27 +55,14 @@ Level 0/3
 5 Food
 LOCKED"
 skill_id = &"bread_value"
-prerequisite_ids = Array[StringName]([&"human_feeder"])
-
-[node name="HumanFeeder" parent="." unique_id=870462122 instance=ExtResource("3_node")]
-layout_mode = 0
-offset_left = 560.0
-offset_top = 180.0
-offset_right = 750.0
-offset_bottom = 280.0
-tooltip_text = "Unlock a human feeder who throws bread into the park. Carry capacity: 1 bread."
-text = "Human Feeder
-Level 0/1
-0 Food
-AVAILABLE"
-skill_id = &"human_feeder"
+prerequisite_ids = Array[StringName]([&"bread"])
 
 [node name="LargerFlock" parent="." unique_id=500980413 instance=ExtResource("3_node")]
 layout_mode = 0
-offset_left = 940.0
-offset_top = 180.0
-offset_right = 1130.0
-offset_bottom = 280.0
+offset_left = 1460.0
+offset_top = 700.0
+offset_right = 1650.0
+offset_bottom = 800.0
 tooltip_text = "Increase the number of pigeons you can recruit."
 disabled = true
 text = "Larger Flock
@@ -70,79 +70,4 @@ Level 0/1
 20 Food
 LOCKED"
 skill_id = &"larger_flock"
-prerequisite_ids = Array[StringName]([&"human_feeder"])
-
-[node name="UnlockSeeds" parent="." unique_id=164451221 instance=ExtResource("3_node")]
-layout_mode = 0
-offset_left = 940.0
-offset_top = 420.0
-offset_right = 1130.0
-offset_bottom = 520.0
-tooltip_text = "Unlock Seeds as a Food source."
-disabled = true
-text = "Seeds
-Level 0/1
-5 Food
-LOCKED"
-skill_id = &"unlock_seeds"
-prerequisite_ids = Array[StringName]([&"human_feeder"])
-
-[node name="SeedsSpawns" parent="." unique_id=1644293167 instance=ExtResource("3_node")]
-layout_mode = 0
-offset_left = 1320.0
-offset_top = 420.0
-offset_right = 1510.0
-offset_bottom = 520.0
-tooltip_text = "Spawn one additional Seeds pickup each run."
-disabled = true
-text = "More Seeds
-Level 0/3
-3 Food
-LOCKED"
-skill_id = &"seeds_spawns"
-prerequisite_ids = Array[StringName]([&"unlock_seeds"])
-
-[node name="UnlockWorms" parent="." unique_id=999150070 instance=ExtResource("3_node")]
-layout_mode = 0
-offset_left = 1320.0
-offset_top = 660.0
-offset_right = 1510.0
-offset_bottom = 760.0
-tooltip_text = "Unlock Worms as a Food source."
-disabled = true
-text = "Worms
-Level 0/1
-10 Food
-LOCKED"
-skill_id = &"unlock_worms"
-prerequisite_ids = Array[StringName]([&"unlock_seeds"])
-
-[node name="UnlockCoin" parent="." unique_id=1191465690 instance=ExtResource("3_node")]
-layout_mode = 0
-offset_left = 1320.0
-offset_top = 180.0
-offset_right = 1510.0
-offset_bottom = 280.0
-tooltip_text = "Unlock medieval coins as a collectible resource."
-disabled = true
-text = "Coin
-Level 0/1
-15 Food
-LOCKED"
-skill_id = &"unlock_coin"
-prerequisite_ids = Array[StringName]([&"larger_flock"])
-
-[node name="WormsSpawns" parent="UnlockCoin" unique_id=9788187 instance=ExtResource("3_node")]
-layout_mode = 0
-offset_left = 380.0
-offset_top = 480.0
-offset_right = 570.0
-offset_bottom = 580.0
-tooltip_text = "Spawn one additional Worms pickup each run."
-disabled = true
-text = "More Worms
-Level 0/3
-5 Food
-LOCKED"
-skill_id = &"worms_spawns"
-prerequisite_ids = Array[StringName]([&"unlock_worms"])
+prerequisite_ids = Array[StringName]([&"bread"])
