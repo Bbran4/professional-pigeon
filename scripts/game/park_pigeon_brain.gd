@@ -2,6 +2,7 @@ extends Node
 class_name ParkPigeonBrain
 
 signal ate_food(points: int)
+signal food_depleted
 
 @export var eating_duration: float = 0.75
 @export var food_points: int = 1
@@ -43,19 +44,22 @@ func end_day() -> void:
 	pigeon.global_position = perch_position
 	state_machine.transition(StateMachine.Intent.IDLE)
 
-func _physics_process(_delta: float) -> void:
-	if not active or not is_instance_valid(target_food):
+func _physics_process(delta: float) -> void:
+	if not active:
+		return
+
+	if not is_instance_valid(target_food) or not target_food.visible:
 		return
 
 	var distance := pigeon.global_position.distance_to(target_food.global_position)
 
 	if eating_timer > 0.0:
-		eating_timer -= _delta
+		eating_timer -= delta
 		pigeon.move_direction = Vector2.ZERO
 		if eating_timer <= 0.0:
 			target_food.hide()
 			ate_food.emit(food_points)
-			state_machine.transition(StateMachine.Intent.IDLE)
+			food_depleted.emit()
 		return
 
 	var direction := signf(target_food.global_position.x - pigeon.global_position.x)
