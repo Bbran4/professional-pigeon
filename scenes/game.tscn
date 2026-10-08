@@ -62,7 +62,12 @@ position = Vector2(185, 285)
 z_index = 4
 position = Vector2(760, 330)
 
-[node name="HumanFeeder" parent="." unique_id=1406860475 instance=ExtResource("6_human")]\nz_index = 4\nposition = Vector2(760, 390)\nbread_scene = ExtResource("3_bread")\n\n[node name="Player" parent="." unique_id=28304278 instance=ExtResource("4_player")]
+[node name="HumanFeeder" parent="." unique_id=1406860475 instance=ExtResource("6_human")]
+z_index = 4
+position = Vector2(760, 390)
+bread_scene = ExtResource("3_bread")
+
+[node name="Player" parent="." unique_id=28304278 instance=ExtResource("4_player")]
 z_index = 5
 position = Vector2(185, 250)
 stats = SubResource("Resource_0tnpc")
