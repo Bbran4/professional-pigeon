@@ -7,6 +7,8 @@ signal closed
 @onready var coin_label: Label = $TopBar/CoinLabel
 @onready var skill_manager: SkillManager = $SkillManager
 @onready var back_button: Button = $TopBar/BackButton
+@onready var skill_manager: SkillManager = $SkillManager
+@onready var source_player: Player = $SkillManager/SkillTree
 
 var skill_tree: SkillTree
 
@@ -18,11 +20,10 @@ func _ready() -> void:
 	refresh()
 
 
-func open(player: Player) -> void:
-	skill_tree = player.get_skill_tree()
-	skill_manager.setup(skill_tree)
-	show()
-	refresh()
+func open(_player: Player = null) -> void:
+    show()
+    skill_manager.setup(skill_tree)
+    refresh()
 
 
 func refresh() -> void:
