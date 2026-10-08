@@ -128,11 +128,8 @@ offset_top = 24.0
 offset_right = 1128.0
 offset_bottom = 70.0
 theme_override_font_sizes/font_size = 18
-text = "UPGRADES"
+text = "UNLOCKS"
 
-[node name="UpgradeScreen" parent="HUD" unique_id=904163779 instance=ExtResource("9_upgrades")]
-visible = false
-layout_mode = 3
 
 [node name="Result" type="Label" parent="HUD" unique_id=291074007]
 visible = false
