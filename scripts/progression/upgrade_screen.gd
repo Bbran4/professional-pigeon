@@ -18,9 +18,9 @@ func _ready() -> void:
 
 
 func open(_player: Player = null) -> void:
-    show()
-    skill_manager.setup(skill_tree)
-    refresh()
+	show()
+	skill_manager.setup(skill_tree)
+	refresh()
 
 
 func refresh() -> void:

@@ -5,7 +5,7 @@ signal bread_thrown(bread: Node2D)
 signal feeding_finished
 
 @export var bread_scene: PackedScene
-@export var carry_capacity: int = 2
+@export var carry_capacity: int = 1
 @export var first_throw_delay: float = 0.75
 @export var min_throw_interval: float = 1.0
 @export var max_throw_interval: float = 2.25

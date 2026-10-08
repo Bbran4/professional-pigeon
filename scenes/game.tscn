@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" path="res://scenes/park/bread.tscn" id="3_bread"]
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://djrcdxbxhmfyn" path="res://scripts/game/park_pigeon_brain.gd" id="5_brain"]
-[ext_resource type="PackedScene" path="res://scenes/park/human.tscn" id="6_human"]
 [ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="5_gee14"]
+[ext_resource type="PackedScene" path="res://scenes/park/human.tscn" id="6_human"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
 [ext_resource type="PackedScene" path="res://scenes/progression/upgrade_screen.tscn" id="9_upgrades"]
@@ -22,7 +22,7 @@ height = 648
 [sub_resource type="RectangleShape2D" id="RectangleShape_ground"]
 size = Vector2(1152, 288)
 
-[sub_resource type="Resource" id="Resource_0tnpc"]
+[sub_resource type="Resource" id="Resource_vtaks"]
 resource_local_to_scene = true
 script = ExtResource("5_gee14")
 walk_speed = 100.0
@@ -71,17 +71,10 @@ bread_scene = ExtResource("3_bread")
 [node name="Player" parent="." unique_id=28304278 instance=ExtResource("4_player")]
 z_index = 5
 position = Vector2(185, 250)
-stats = SubResource("Resource_0tnpc")
+stats = SubResource("Resource_vtaks")
 
 [node name="ParkPigeonBrain" type="Node" parent="Player" unique_id=212241884]
 script = ExtResource("5_brain")
-
-[node name="Camera2D" parent="Player"]
-enabled = false
-process_mode = 4
-
-[node name="PlayerController" parent="Player"]
-process_mode = 4
 
 [node name="DayManager" type="Node" parent="." unique_id=1031930032]
 script = ExtResource("7_day")
@@ -137,8 +130,9 @@ offset_bottom = 70.0
 theme_override_font_sizes/font_size = 18
 text = "UPGRADES"
 
-[node name="UpgradeScreen" parent="HUD" instance=ExtResource("9_upgrades")]
+[node name="UpgradeScreen" parent="HUD" unique_id=904163779 instance=ExtResource("9_upgrades")]
 visible = false
+layout_mode = 3
 
 [node name="Result" type="Label" parent="HUD" unique_id=291074007]
 visible = false
