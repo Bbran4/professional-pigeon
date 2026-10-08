@@ -26,6 +26,7 @@ func open(_player: Player = null) -> void:
 func refresh() -> void:
 	food_label.text = "Food: %d" % ProgressionManager.food
 	coin_label.text = "Coin: %d" % ProgressionManager.coin
+	start_day_button.disabled = ProgressionManager.get_skill_level(&"human_feeder") <= 0
 
 
 func _on_back_pressed() -> void:
