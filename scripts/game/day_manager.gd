@@ -17,6 +17,7 @@ var active: bool = false
 
 func _ready() -> void:
 	brain.ate_food.connect(_on_pigeon_ate_food)
+	brain.food_depleted.connect(_on_food_depleted)
 	bread.hide()
 	brain.end_day()
 	day_updated.emit(time_remaining, points, 1)
@@ -54,6 +55,10 @@ func add_points(amount: int) -> void:
 
 func _on_pigeon_ate_food(amount: int) -> void:
 	add_points(amount)
+
+func _on_food_depleted() -> void:
+	if active:
+		end_day()
 
 func end_day() -> void:
 	if not active:
