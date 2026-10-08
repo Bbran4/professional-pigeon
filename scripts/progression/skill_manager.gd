@@ -15,6 +15,7 @@ func setup(tree: SkillTree) -> void:
     skill_tree = tree
     _connect_progression_signals()
     if is_inside_tree():
+        _center_on_human_feeder()
         skill_tree._refresh_nodes()
         skill_tree.queue_redraw()
 
@@ -39,7 +40,23 @@ func _ready() -> void:
         return
 
     _connect_progression_signals()
+    _center_on_human_feeder()
     skill_tree._refresh_nodes()
+
+
+func _center_on_human_feeder() -> void:
+    if skill_tree == null:
+        return
+
+    var human_feeder := skill_tree.get_node_or_null("HumanFeeder") as Control
+    if human_feeder == null:
+        return
+
+    zoom = 1.0
+    skill_tree.scale = Vector2.ONE
+
+    var tree_node_center := human_feeder.position + human_feeder.size * 0.5
+    skill_tree.position = size * 0.5 - tree_node_center
 
 
 func _unhandled_input(event: InputEvent) -> void:
