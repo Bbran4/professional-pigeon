@@ -99,10 +99,9 @@ func _on_bread_exited(bread: ThrownBread) -> void:
 
 
 func get_stock_capacity() -> int:
-	var upgraded_capacity := int(ProgressionManager.get_skill_level(&"bread_stock"))
-	if upgraded_capacity <= 0:
+	if ProgressionManager.get_skill_level(&"bread") <= 0:
 		return 0
-	return maxi(stock_capacity, upgraded_capacity)
+	return stock_capacity
 
 
 func _clamp_to_park(position: Vector2) -> Vector2:
