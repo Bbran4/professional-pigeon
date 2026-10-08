@@ -98,6 +98,10 @@ func _on_bread_exited(bread: ThrownBread) -> void:
 	_active_bread.erase(bread)
 
 
+func has_active_bread() -> bool:
+	return not _active_bread.is_empty()
+
+
 func get_stock_capacity() -> int:
 	if ProgressionManager.get_skill_level(&"bread") <= 0:
 		return 0
