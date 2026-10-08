@@ -14,7 +14,6 @@ func physics_update(delta: float) -> void:
 	var pigeon := state_machine.actor as Pigeon
 	if pigeon:
 		pigeon.ground_move(delta)
-		pigeon.regenerate_energy(delta)
 		return
 
 	state_machine.actor.move()
