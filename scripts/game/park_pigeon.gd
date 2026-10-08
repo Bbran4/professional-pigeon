@@ -3,7 +3,7 @@ class_name ParkPigeon
 
 signal ate_bread(points: int)
 
-enum State { PERCHED, FLYING_TO_FOOD, SEARCHING, EATING, IDLE }
+enum ParkState { PERCHED, FLYING_TO_FOOD, SEARCHING, EATING, IDLE }
 
 @export var points_per_bite: int = 1
 @export var flight_duration: float = 1.4
@@ -11,7 +11,7 @@ enum State { PERCHED, FLYING_TO_FOOD, SEARCHING, EATING, IDLE }
 @export var eating_duration: float = 0.65
 @export var idle_duration: float = 1.2
 
-var state: State = State.PERCHED
+var state: ParkState = ParkState.PERCHED
 var active := false
 var target_food: Node2D
 var state_timer := 0.0
@@ -28,15 +28,15 @@ func _process(delta: float) -> void:
 	if not active:
 		return
 	match state:
-		State.PERCHED:
+		ParkState.PERCHED:
 			_update_perched(delta)
-		State.FLYING_TO_FOOD:
+		ParkState.FLYING_TO_FOOD:
 			_update_flight(delta)
-		State.SEARCHING:
+		ParkState.SEARCHING:
 			_update_searching(delta)
-		State.EATING:
+		ParkState.EATING:
 			_update_eating(delta)
-		State.IDLE:
+		ParkState.IDLE:
 			_update_idle(delta)
 	queue_redraw()
 
@@ -44,14 +44,14 @@ func start_day(food: Node2D) -> void:
 	target_food = food
 	active = true
 	position = start_position
-	state = State.PERCHED
+	state = ParkState.PERCHED
 	state_timer = 0.6
 	flight_elapsed = 0.0
 	search_direction = 1.0
 
 func end_day() -> void:
 	active = false
-	state = State.PERCHED
+	state = ParkState.PERCHED
 	position = start_position
 	target_food = null
 	queue_redraw()
@@ -59,13 +59,13 @@ func end_day() -> void:
 func _update_perched(delta: float) -> void:
 	state_timer -= delta
 	if state_timer <= 0.0 and is_instance_valid(target_food):
-		state = State.FLYING_TO_FOOD
+		state = ParkState.FLYING_TO_FOOD
 		target_position = target_food.position
 		flight_elapsed = 0.0
 
 func _update_flight(delta: float) -> void:
 	if not is_instance_valid(target_food):
-		state = State.PERCHED
+		state = ParkState.PERCHED
 		return
 	flight_elapsed += delta
 	var t := clampf(flight_elapsed / flight_duration, 0.0, 1.0)
@@ -73,7 +73,7 @@ func _update_flight(delta: float) -> void:
 	var arc := sin(t * PI) * -90.0
 	position = start_position.lerp(target_position, eased) + Vector2(0.0, arc)
 	if t >= 1.0:
-		state = State.SEARCHING
+		state = ParkState.SEARCHING
 		state_timer = 0.35
 
 func _update_searching(delta: float) -> void:
@@ -82,21 +82,21 @@ func _update_searching(delta: float) -> void:
 	if absf(position.x - target_position.x) > 70.0:
 		search_direction *= -1.0
 	if state_timer <= 0.0:
-		state = State.EATING
+		state = ParkState.EATING
 		state_timer = eating_duration
 
 func _update_eating(delta: float) -> void:
 	state_timer -= delta
 	if state_timer <= 0.0:
 		ate_bread.emit(points_per_bite)
-		state = State.IDLE
+		state = ParkState.IDLE
 		state_timer = idle_duration
 
 func _update_idle(delta: float) -> void:
 	state_timer -= delta
 	position.x += sin(Time.get_ticks_msec() * 0.004) * 5.0 * delta
 	if state_timer <= 0.0:
-		state = State.SEARCHING
+		state = ParkState.SEARCHING
 		state_timer = 0.5
 
 func _draw() -> void:
