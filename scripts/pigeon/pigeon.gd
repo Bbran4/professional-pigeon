@@ -245,7 +245,6 @@ func _apply_air_gravity(delta: float) -> void:
 		glide_timer = get_glide_duration()
 
 	if is_gliding:
-		# Gliding is always free, including at zero energy.
 		velocity.y = move_toward(velocity.y, stats.glide_fall_speed, stats.glide_brake * delta)
 		return
 
@@ -262,7 +261,7 @@ func _can_glide_now() -> bool:
 	if not flap_held or velocity.y <= 0.0 or not can_glide():
 		return false
 
-	return stats.glide_energy_per_second <= 0.0 or current_energy > 0.0
+	return true
 
 
 func start_dive() -> bool:
