@@ -33,6 +33,7 @@ func start_day(perch: Vector2) -> void:
 	pending_food.clear()
 	eating_timer = 0.0
 	fly_away_timer = 0.0
+	pigeon.show()
 	pigeon.global_position = perch_position
 	pigeon.velocity = Vector2.ZERO
 	pigeon.move_direction = Vector2.ZERO
@@ -73,6 +74,7 @@ func _physics_process(delta: float) -> void:
 		pigeon.flap_held = false
 		if fly_away_timer <= 0.0:
 			returning = false
+			pigeon.hide()
 			pigeon.global_position = perch_position
 			pigeon.velocity = Vector2.ZERO
 			pigeon.move_direction = Vector2.ZERO
@@ -134,6 +136,10 @@ func _try_next_food() -> void:
 
 		target_food = next_food
 		eating_timer = 0.0
+		pigeon.show()
+		pigeon.global_position = perch_position
+		pigeon.velocity = Vector2.ZERO
+		pigeon.move_direction = Vector2.ZERO
 		pigeon.try_flap()
 		state_machine.transition(StateMachine.Intent.FLY)
 		return
