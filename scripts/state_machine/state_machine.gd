@@ -8,7 +8,6 @@ enum Intent {
 	WALK,
 	FALL,
 	FLY,
-	SWOOP
 }
 
 @export var initial_state: State
