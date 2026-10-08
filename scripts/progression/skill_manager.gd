@@ -11,6 +11,25 @@ var panning := false
 var _last_mouse_position := Vector2.ZERO
 
 
+func setup(tree: SkillTree) -> void:
+    skill_tree = tree
+    _connect_progression_signals()
+    if is_inside_tree():
+        skill_tree._refresh_nodes()
+        skill_tree.queue_redraw()
+
+
+func _connect_progression_signals() -> void:
+    if skill_tree == null:
+        return
+    if not ProgressionManager.food_changed.is_connected(_refresh_tree):
+        ProgressionManager.food_changed.connect(_refresh_tree.unbind(1))
+    if not ProgressionManager.coin_changed.is_connected(_refresh_tree):
+        ProgressionManager.coin_changed.connect(_refresh_tree.unbind(1))
+    if not ProgressionManager.skill_level_changed.is_connected(_refresh_tree):
+        ProgressionManager.skill_level_changed.connect(_refresh_tree.unbind(2))
+
+
 func _ready() -> void:
     if skill_tree == null:
         skill_tree = get_node_or_null("SkillTree") as SkillTree
@@ -19,9 +38,7 @@ func _ready() -> void:
         push_error("SkillManager requires a SkillTree.")
         return
 
-    ProgressionManager.food_changed.connect(_refresh_tree.unbind(1))
-    ProgressionManager.coin_changed.connect(_refresh_tree.unbind(1))
-    ProgressionManager.skill_level_changed.connect(_refresh_tree.unbind(2))
+    _connect_progression_signals()
     skill_tree._refresh_nodes()
 
 
