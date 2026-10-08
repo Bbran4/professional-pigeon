@@ -12,6 +12,7 @@ signal food_depleted
 
 var active := false
 var target_food: Node2D
+var pending_food: Array[Node2D] = []
 var eating_timer := 0.0
 var fly_away_timer := 0.0
 var returning := false
@@ -29,6 +30,7 @@ func start_day(perch: Vector2) -> void:
 	active = true
 	returning = false
 	target_food = null
+	pending_food.clear()
 	eating_timer = 0.0
 	fly_away_timer = 0.0
 	pigeon.global_position = perch_position
@@ -40,15 +42,12 @@ func start_day(perch: Vector2) -> void:
 	state_machine.transition(StateMachine.Intent.IDLE)
 
 func set_food(food: Node2D) -> void:
-	if not active or returning:
+	if not active:
 		return
-	if target_food != null and is_instance_valid(target_food) and target_food.visible:
+	if food == null or not is_instance_valid(food):
 		return
-
-	target_food = food
-	eating_timer = 0.0
-	pigeon.try_flap()
-	state_machine.transition(StateMachine.Intent.FLY)
+	pending_food.append(food)
+	_try_next_food()
 
 func end_day() -> void:
 	active = false
@@ -78,10 +77,12 @@ func _physics_process(delta: float) -> void:
 			pigeon.velocity = Vector2.ZERO
 			pigeon.move_direction = Vector2.ZERO
 			state_machine.transition(StateMachine.Intent.IDLE)
+			_try_next_food()
 		return
 
 	if target_food == null or not is_instance_valid(target_food) or not target_food.visible:
-		pigeon.move_direction = Vector2.ZERO
+		target_food = null
+		_try_next_food()
 		return
 
 	var distance := pigeon.global_position.distance_to(target_food.global_position)
@@ -120,3 +121,19 @@ func _start_fly_away() -> void:
 	pigeon.velocity = Vector2(fly_away_speed, -140.0)
 	pigeon.update_facing()
 	state_machine.transition(StateMachine.Intent.FLY)
+
+
+func _try_next_food() -> void:
+	if not active or returning or target_food != null:
+		return
+
+	while not pending_food.is_empty():
+		var next_food := pending_food.pop_front()
+		if not is_instance_valid(next_food) or not next_food.visible:
+			continue
+
+		target_food = next_food
+		eating_timer = 0.0
+		pigeon.try_flap()
+		state_machine.transition(StateMachine.Intent.FLY)
+		return
