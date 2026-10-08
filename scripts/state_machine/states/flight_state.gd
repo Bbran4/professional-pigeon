@@ -11,11 +11,4 @@ func physics_update(delta: float) -> void:
 	if pigeon == null:
 		return
 
-	pigeon.air_move(delta)
-
-	# FlightState owns the rising/apex portion of a flap. Once the pigeon is
-	# descending, FallingState takes over so dive/glide behaviour stays explicit.
-	if pigeon.is_on_floor():
-		transition(StateMachine.Intent.IDLE)
-	elif pigeon.velocity.y >= 0.0:
-		transition(StateMachine.Intent.FALL)
+	pigeon.move_top_down(pigeon.move_direction, pigeon.stats.flight_speed, delta)
