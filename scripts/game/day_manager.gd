@@ -12,15 +12,15 @@ var points: int = 0
 var active: bool = false
 var food_remaining := 0
 
-@onready var brain: ParkPigeonBrain = $"../Player/ParkPigeonBrain"
+@onready var spawner: PigeonSpawner = $"../PigeonSpawner"
 @onready var thrower: BreadThrower = $"../BreadThrower"
 
 
 func _ready() -> void:
 	thrower.bread_landed.connect(_on_bread_landed)
-	brain.ate_food.connect(_on_pigeon_ate_food)
-	brain.end_day()
-	day_updated.emit(time_remaining, points, 1, 0, 0)
+	spawner.ate_food.connect(_on_pigeon_ate_food)
+	spawner.end_day()
+	day_updated.emit(time_remaining, points, 0, 0, 0)
 
 
 func _process(delta: float) -> void:
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 	day_updated.emit(
 		time_remaining,
 		points,
-		1,
+		spawner.get_active_count(),
 		thrower.bread_remaining,
 		thrower.get_stock_capacity()
 	)
@@ -49,13 +49,13 @@ func start_day() -> void:
 	time_remaining = day_duration
 	active = true
 	thrower.start_day()
-	brain.start_day(Vector2(185, 185))
+	spawner.start_day()
 
 	day_started.emit(day_duration)
 	day_updated.emit(
 		time_remaining,
 		points,
-		1,
+		spawner.get_active_count(),
 		thrower.bread_remaining,
 		thrower.get_stock_capacity()
 	)
@@ -68,7 +68,7 @@ func add_points(amount: int) -> void:
 	day_updated.emit(
 		time_remaining,
 		points,
-		1,
+		spawner.get_active_count(),
 		thrower.bread_remaining,
 		thrower.get_stock_capacity()
 	)
@@ -78,7 +78,7 @@ func _on_bread_landed(bread: ThrownBread) -> void:
 	if not active:
 		return
 	food_remaining += 1
-	brain.set_food(bread)
+	spawner.set_food(bread)
 	_check_day_completion()
 
 
@@ -105,9 +105,9 @@ func end_day() -> void:
 		return
 	active = false
 	thrower.end_day()
-	brain.end_day()
+	spawner.end_day()
 
 	# Bank the day's earnings in the persistent Points currency.
 	ProgressionManager.add_points(points)
-	day_updated.emit(0.0, points, 1, 0, 0)
+	day_updated.emit(0.0, points, 0, 0, 0)
 	day_ended.emit(points)
