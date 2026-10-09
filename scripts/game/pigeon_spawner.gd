@@ -70,7 +70,7 @@ func _spawn_visitor() -> void:
 		push_error("PigeonSpawner: pigeon_scene root must be a Pigeon.")
 		return
 
-	add_child(pigeon)
+	get_parent().add_child(pigeon)
 	active_pigeon = pigeon
 
 	var brain_node := Node.new()
