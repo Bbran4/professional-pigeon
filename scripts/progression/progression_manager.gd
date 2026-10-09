@@ -1,19 +1,19 @@
 extends Node
 
-signal food_changed(food: int)
+signal points_changed(points: int)
 signal coin_changed(coin: int)
 signal skill_level_changed(skill_id: StringName, new_level: int)
 
-var food: int = 0
+var points: int = 0
 var coin: int = 0
 var skill_levels: Dictionary = {}
 
 
-func add_food(amount: int) -> void:
+func add_points(amount: int) -> void:
 	if amount <= 0:
 		return
-	food += amount
-	food_changed.emit(food)
+	points += amount
+	points_changed.emit(points)
 
 
 func add_coin(amount: int) -> void:
@@ -23,23 +23,23 @@ func add_coin(amount: int) -> void:
 	coin_changed.emit(coin)
 
 
-func can_spend_food(amount: int) -> bool:
-	return amount >= 0 and food >= amount
+func can_spend_points(amount: int) -> bool:
+	return amount >= 0 and points >= amount
 
 
 func can_spend_coin(amount: int) -> bool:
 	return amount >= 0 and coin >= amount
 
 
-func can_spend(food_amount: int, coin_amount: int) -> bool:
-	return can_spend_food(food_amount) and can_spend_coin(coin_amount)
+func can_spend(points_amount: int, coin_amount: int) -> bool:
+	return can_spend_points(points_amount) and can_spend_coin(coin_amount)
 
 
-func spend_food(amount: int) -> bool:
-	if not can_spend_food(amount):
+func spend_points(amount: int) -> bool:
+	if not can_spend_points(amount):
 		return false
-	food -= amount
-	food_changed.emit(food)
+	points -= amount
+	points_changed.emit(points)
 	return true
 
 
@@ -51,12 +51,12 @@ func spend_coin(amount: int) -> bool:
 	return true
 
 
-func spend(food_amount: int, coin_amount: int) -> bool:
-	if not can_spend(food_amount, coin_amount):
+func spend(points_amount: int, coin_amount: int) -> bool:
+	if not can_spend(points_amount, coin_amount):
 		return false
-	food -= food_amount
+	points -= points_amount
 	coin -= coin_amount
-	food_changed.emit(food)
+	points_changed.emit(points)
 	coin_changed.emit(coin)
 	return true
 
