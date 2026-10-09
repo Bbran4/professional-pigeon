@@ -13,7 +13,7 @@ enum Category {
 @export var display_name: String = ""
 @export_multiline var description: String = ""
 @export var category: Category = Category.FOOD
-@export_range(0, 100000, 1) var food_cost: int = 0
+@export_range(0, 100000, 1) var points_cost: int = 0
 @export_range(0, 100000, 1) var coin_cost: int = 0
 @export var prerequisites: Array[StringName] = []
 @export var effect_id: StringName
