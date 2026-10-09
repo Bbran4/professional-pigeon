@@ -35,9 +35,6 @@ func _process(delta: float) -> void:
 		thrower.bread_remaining,
 		thrower.get_stock_capacity()
 	)
-
-	# The timer is only a pacing display. A day completes when the player has
-	# used all available bread and every piece of placed food has been eaten.
 	_check_day_completion()
 
 
@@ -51,7 +48,6 @@ func start_day() -> void:
 	food_remaining = 0
 	time_remaining = day_duration
 	active = true
-
 	thrower.start_day()
 	brain.start_day(Vector2(185, 185))
 
@@ -68,7 +64,6 @@ func start_day() -> void:
 func add_points(amount: int) -> void:
 	if not active or amount <= 0:
 		return
-
 	points += amount
 	day_updated.emit(
 		time_remaining,
@@ -82,7 +77,6 @@ func add_points(amount: int) -> void:
 func _on_bread_landed(bread: ThrownBread) -> void:
 	if not active:
 		return
-
 	food_remaining += 1
 	brain.set_food(bread)
 	_check_day_completion()
@@ -97,30 +91,23 @@ func _on_pigeon_ate_food(amount: int) -> void:
 func _check_day_completion() -> void:
 	if not active:
 		return
-
-	# bread_remaining reaches zero when the player has thrown every available
-	# piece. We also wait for any bread still in flight to land before checking
-	# food_remaining, so the final throw cannot end the day prematurely.
 	if thrower.bread_remaining > 0:
 		return
 	if thrower.has_active_bread():
 		return
 	if food_remaining > 0:
 		return
-
 	end_day()
 
 
 func end_day() -> void:
 	if not active:
 		return
-
 	active = false
 	thrower.end_day()
 	brain.end_day()
 
-	# Day points become persistent Food that can be spent in the skill tree.
-	ProgressionManager.add_food(points)
-
+	# Bank the day's earnings in the persistent Points currency.
+	ProgressionManager.add_points(points)
 	day_updated.emit(0.0, points, 1, 0, 0)
 	day_ended.emit(points)
