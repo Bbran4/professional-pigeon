@@ -6,9 +6,9 @@
 script = ExtResource("1_skill")
 id = &"bread_value"
 display_name = "More Valuable Bread"
-description = "Each bread is worth one additional Food."
+description = "Each bread is worth one additional Point."
 category = 0
-food_cost = 5
+points_cost = 5
 effect_id = &"bread_value_add"
 effect_value = 1.0
 prerequisites = Array[StringName]([&"bread"])
