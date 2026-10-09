@@ -117,11 +117,11 @@ func is_unlocked(skill_id: StringName) -> bool:
 	return true
 
 
-func get_next_food_cost(skill_id: StringName) -> int:
+func get_next_points_cost(skill_id: StringName) -> int:
 	var skill := get_skill(skill_id)
 	if skill == null:
 		return 0
-	return skill.food_cost * (get_level(skill_id) + 1)
+	return skill.points_cost * (get_level(skill_id) + 1)
 
 
 func get_next_coin_cost(skill_id: StringName) -> int:
@@ -139,8 +139,8 @@ func _get_purchase_error(skill_id: StringName) -> String:
 		return "Required skills have not been purchased."
 	if get_level(skill_id) >= skill.max_level:
 		return "Skill is already at maximum level."
-	if not ProgressionManager.can_spend(get_next_food_cost(skill_id), get_next_coin_cost(skill_id)):
-		return "Not enough Food or Coin."
+	if not ProgressionManager.can_spend(get_next_points_cost(skill_id), get_next_coin_cost(skill_id)):
+		return "Not enough Points or Coin."
 	return ""
 
 
@@ -153,7 +153,7 @@ func purchase(skill_id: StringName) -> bool:
 	if not error.is_empty():
 		purchase_rejected.emit(skill_id, error)
 		return false
-	ProgressionManager.spend(get_next_food_cost(skill_id), get_next_coin_cost(skill_id))
+	ProgressionManager.spend(get_next_points_cost(skill_id), get_next_coin_cost(skill_id))
 	var new_level := get_level(skill_id) + 1
 	ProgressionManager.set_skill_level(skill_id, new_level)
 	skill_purchased.emit(skill_id, new_level)
