@@ -95,7 +95,7 @@ func _spawn_visitor() -> void:
 	var arrival := Vector2(park_bounds.position.x - 35.0, perch.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch.y - 80.0)
 	var exit := Vector2(park_bounds.end.x + 55.0, perch.y - 80.0) if from_left else Vector2(park_bounds.position.x - 55.0, perch.y - 80.0)
 
-	active_brain.call_deferred("start_day", perch, arrival, exit)
+	active_brain.start_day(perch, arrival, exit)
 	visitor_count_changed.emit(1)
 	_assign_next_food()
 
