@@ -48,7 +48,7 @@ A successful upgrade should not only make a number larger. It should make the pa
 
 Each run represents one **day in the park**.
 
-The prototype day currently lasts **60 seconds**. This is the first real target for the park loop, and later upgrades can increase it further.
+The prototype day displays a **60-second** countdown. This is a pacing target; the day ends when all available bread has been eaten, and later upgrades can change the pacing.
 
 During the day:
 
@@ -59,9 +59,9 @@ During the day:
 5. Eating generates points.
 6. More pigeons can arrive as the player's upgrades improve.
 7. The park becomes increasingly active.
-8. The day ends when the timer reaches zero.
+8. The day ends when all available bread has been thrown, landed, and eaten.
 
-> **Rule:** a day ends when the timer runs out, *not* when the food runs out. The player can throw bread throughout the day, up to the current bread stock limit.
+> **Rule:** the day ends after all available bread has been thrown, landed, and eaten. The 60-second timer is a pacing display, not the primary completion condition.
 
 The player then receives a results screen showing what happened.
 
@@ -312,10 +312,10 @@ The player should always know:
 
 ## Currency Plan
 
-The prototype currently uses *Food* both as the thing pigeons eat **and** the thing the player spends, which will confuse players. The plan is to separate them:
+The economy keeps physical food items separate from the currency the player spends:
 
 - **Food (item):** the physical thing placed in the park. Bread, seeds, worms.
-- **Points (currency):** earned when pigeons eat. Banked at the end of each day and spent on upgrades. This is the **only** currency in the early game.
+- **Points (currency):** earned when pigeons eat. Banked at the end of each day and spent on upgrades. This is the **only** early-game currency.
 - **Coins (later):** a second persistent currency, only introduced if a system genuinely needs it (e.g. larger purchases, new parks).
 
 Additional currencies should only be introduced when they create a meaningful new decision.
