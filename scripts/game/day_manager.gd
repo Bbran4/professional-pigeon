@@ -97,6 +97,9 @@ func _check_day_completion() -> void:
 		return
 	if food_remaining > 0:
 		return
+	# Let the final visitor finish its departure before ending the day.
+	if spawner.get_active_count() > 0:
+		return
 	end_day()
 
 
