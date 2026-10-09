@@ -4,8 +4,6 @@
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
 [ext_resource type="PackedScene" path="res://scenes/park/bread.tscn" id="3_bread"]
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
-[ext_resource type="Script" uid="uid://djrcdxbxhmfyn" path="res://scripts/game/park_pigeon_brain.gd" id="5_brain"]
-[ext_resource type="Script" uid="uid://ckmi51uo8nbrn" path="res://scripts/pigeon/pigeon_stats.gd" id="5_stats"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
 [ext_resource type="Script" path="res://scripts/game/bread_thrower.gd" id="9_thrower"]
