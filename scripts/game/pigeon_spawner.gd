@@ -25,12 +25,15 @@ var active_brain: ParkPigeonBrain
 var active_food: Node2D
 var pending_food: Array[Node2D] = []
 var previous_spot_index := -1
+var visitors_spawned_this_day := 0
 
 
 func start_day() -> void:
 	if day_active:
 		return
 	day_active = true
+	visitors_spawned_this_day = 0
+	previous_spot_index = -1
 	_spawn_visitor()
 
 
@@ -83,8 +86,11 @@ func _spawn_visitor() -> void:
 	active_brain.ate_food.connect(_on_ate_food)
 	active_brain.departed.connect(_on_visitor_departed)
 
-	var spot_index := _choose_spot_index()
-	var perch := landing_spots[spot_index]
+	var spot_index := 0 if visitors_spawned_this_day == 0 else _choose_spot_index()
+	visitors_spawned_this_day += 1
+	var perch := park_bounds.get_center()
+	if not landing_spots.is_empty():
+		perch = landing_spots[spot_index]
 	var from_left := randf() < 0.5
 	var arrival := Vector2(park_bounds.position.x - 35.0, perch.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch.y - 80.0)
 	var exit := Vector2(park_bounds.end.x + 55.0, perch.y - 80.0) if from_left else Vector2(park_bounds.position.x - 55.0, perch.y - 80.0)
@@ -96,7 +102,7 @@ func _spawn_visitor() -> void:
 
 func _choose_spot_index() -> int:
 	if landing_spots.is_empty():
-		return 0
+		return -1
 	if landing_spots.size() == 1:
 		previous_spot_index = 0
 		return 0
@@ -110,6 +116,8 @@ func _choose_spot_index() -> int:
 
 func _assign_next_food() -> void:
 	if not day_active or not is_instance_valid(active_brain) or is_instance_valid(active_food):
+		return
+	if active_brain.visitor_state == ParkPigeonBrain.VisitorState.DEPARTING:
 		return
 
 	while not pending_food.is_empty():
