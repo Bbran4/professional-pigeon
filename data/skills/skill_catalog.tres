@@ -101,7 +101,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"more_pigeons"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(1650, 850)
+tree_position = Vector2(1650, 1150)
 cost_growth = 1.5
 max_level = 1
 
@@ -116,7 +116,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"arrival_speed_1"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(1650, 1000)
+tree_position = Vector2(1650, 1300)
 cost_growth = 1.5
 max_level = 1
 
@@ -131,7 +131,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"arrival_speed_2"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(1650, 1150)
+tree_position = Vector2(1650, 1450)
 cost_growth = 1.5
 max_level = 1
 
