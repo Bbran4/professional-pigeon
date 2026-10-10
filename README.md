@@ -65,3 +65,7 @@ Progression is saved automatically to `user://professional_pigeon_save.json`. Th
 ### Visitor capacity
 
 The **More Pigeons** upgrade increases the number of simultaneous visitors by one per level, up to three. Visitors reserve distinct perch markers from the `perch_spots` group, and feeders are discovered through the `feeders` group, allowing additional benches and feeders to participate without hard-coded node paths. Visitors that cannot find food leave after their patience timeout instead of waiting forever.
+
+### Feather collection progression
+
+Feather collection scales with the flock through three upgrades: **Quick Collection** reduces hover time by 0.75 seconds per level (down to a 0.5-second minimum), **Wide Sweep** adds 20 pixels of collection radius per level, and **Pigeon Post** automatically collects visible feathers. Uncollected feathers no longer block starting a new day or opening the upgrades screen.
