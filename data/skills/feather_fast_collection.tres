@@ -13,6 +13,6 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"feather_collect_time_reduction"
 effect_value = 0.85
-tree_position = Vector2(1800, 1250)
+tree_position = Vector2(2050, 1450)
 cost_growth = 1.6
 max_level = 3
