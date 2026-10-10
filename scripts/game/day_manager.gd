@@ -108,6 +108,7 @@ func end_day() -> void:
 	active = false
 	spawner.end_day()
 	ProgressionManager.add_points(points)
+	ProgressionManager.save_game()
 	_emit_day_updated()
 	day_ended.emit(points)
 
