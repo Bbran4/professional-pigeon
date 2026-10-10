@@ -9,6 +9,7 @@ const SKILL_CATALOG: SkillCatalog = preload("res://data/skills/skill_catalog.tre
 var points: int = 0
 var coin: int = 0
 var skill_levels: Dictionary = {}
+var _effect_totals: Dictionary = {}
 var _loading_save := false
 
 const SAVE_PATH := "user://professional_pigeon_save.json"
@@ -80,19 +81,27 @@ func get_skill_level(skill_id: StringName) -> int:
 
 
 func set_skill_level(skill_id: StringName, level: int) -> void:
-	skill_levels[skill_id] = maxi(level, 0)
-	skill_level_changed.emit(skill_id, maxi(level, 0))
+	var safe_level := maxi(level, 0)
+	skill_levels[skill_id] = safe_level
+	_rebuild_effect_totals()
+	skill_level_changed.emit(skill_id, safe_level)
 	_save_if_ready()
 
 
 func get_effect_value(effect_id: StringName) -> float:
-	var total := 0.0
-	for skill in SKILL_CATALOG.skills:
-		if skill == null or skill.effect_id != effect_id:
-			continue
-		total += skill.effect_value * get_skill_level(skill.id)
-	return total
+	return float(_effect_totals.get(effect_id, 0.0))
 
+
+func _rebuild_effect_totals() -> void:
+	_effect_totals.clear()
+	for skill in SKILL_CATALOG.skills:
+		if skill == null or skill.effect_id == &"":
+			continue
+		var level := get_skill_level(skill.id)
+		if level <= 0:
+			continue
+		var current_total := float(_effect_totals.get(skill.effect_id, 0.0))
+		_effect_totals[skill.effect_id] = current_total + skill.effect_value * level
 
 
 func save_game() -> void:
@@ -133,6 +142,7 @@ func load_game() -> void:
 		for skill_id in saved_levels:
 			skill_levels[StringName(str(skill_id))] = maxi(int(saved_levels[skill_id]), 0)
 	_loading_save = false
+	_rebuild_effect_totals()
 	points_changed.emit(points)
 	coin_changed.emit(coin)
 	for skill_id in skill_levels:
