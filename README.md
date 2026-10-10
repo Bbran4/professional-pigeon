@@ -9,7 +9,7 @@ The current prototype uses a **60-second day**.
 1. Start the day.
 2. The active feeder attracts a pigeon.
 3. The pigeon arrives, eats a seed for 2 seconds, waits 2 seconds, drops a feather, then leaves.
-4. Keep the cursor over each feather for 3 seconds to collect it and earn Coin. Collect all feathers before starting another day or opening Unlocks.
+4. Hover over a feather to collect Coin. Collection speed and radius can be upgraded, and later upgrades automate pickup.
 5. Food eaten earns Points at the end of the day.
 6. Spend Points and Coin on skills, then start another day.
 
@@ -33,11 +33,16 @@ The tree includes branches for:
 
 - Bench Feeder and seed capacity
 - Seeds and worms
-- Coin and currency upgrades (farthings, pennies, and nobles)
+- Time and flow, food and Points, pigeon capacity, park expansion, and collectible progression
 
 The old manual-bread upgrades have been retired with the bread-throwing mechanic. Bread projectiles and bread stock are no longer part of the game loop.
 
-The Seeds upgrade increases feeder capacity after Seeds is unlocked. Worms, the Coin unlock node, and currency-denomination pickup upgrades are marked **Coming Soon** and cannot currently be purchased. Coin is still useful for the Bench Feeder and Larger Seed Tray upgrades.
+The tree now contains 50 catalog entries, including time, food, visitor, park, and collection upgrades. Farthing, penny, and noble pickups are no longer part of progression; feathers and other pickups share the `Collectible` base and award Coin through `coin_value`. Coin remains a spendable upgrade currency.
+
+## Development controls
+
+- Press **F3** in a debug build to add 1,000 Points.
+- Use **RESET SAVE** on the upgrade screen to clear saved Points, Coin, and skill levels after confirming.
 
 ## Saving and loading
 
@@ -69,3 +74,8 @@ The **More Pigeons** upgrade increases the number of simultaneous visitors by on
 ### Feather collection progression
 
 Feather collection scales with the flock through three upgrades: **Quick Collection** reduces hover time by 0.75 seconds per level (down to a 0.5-second minimum), **Wide Sweep** adds 20 pixels of collection radius per level, and **Pigeon Post** automatically collects visible feathers. Uncollected feathers no longer block starting a new day or opening the upgrades screen.
+
+
+### Upgrade pool
+
+The current catalog contains 50 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Points per seed, seed regeneration, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
