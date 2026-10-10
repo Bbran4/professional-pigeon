@@ -96,11 +96,14 @@ func get_effect_value(effect_id: StringName) -> float:
 
 
 func save_game() -> void:
+	var saved_levels: Dictionary = {}
+	for skill_id in skill_levels:
+		saved_levels[String(skill_id)] = int(skill_levels[skill_id])
 	var save_data := {
 		"version": 1,
 		"points": points,
 		"coin": coin,
-		"skill_levels": skill_levels,
+		"skill_levels": saved_levels,
 	}
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file == null:
