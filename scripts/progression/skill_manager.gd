@@ -11,13 +11,14 @@ var panning := false
 
 
 func _ready() -> void:
+	clip_contents = true
 	if skill_tree == null:
 		skill_tree = get_node_or_null("SkillTree") as SkillTree
 	if skill_tree == null:
 		push_error("SkillManager requires a SkillTree.")
 		return
 	_connect_progression_signals()
-	_center_on_starting_skill()
+	_center_on_starting_skill.call_deferred()
 	skill_tree._refresh_nodes()
 
 
@@ -105,10 +106,9 @@ func _clamp_tree_position() -> void:
 		return
 	var scaled_size := skill_tree.size * zoom
 	var min_position := size - scaled_size
-	skill_tree.position = Vector2(
-		clampf(skill_tree.position.x, min_position.x, 0.0),
-		clampf(skill_tree.position.y, min_position.y, 0.0)
-	)
+	var clamped_x := (size.x - scaled_size.x) * 0.5 if scaled_size.x <= size.x else clampf(skill_tree.position.x, min_position.x, 0.0)
+	var clamped_y := (size.y - scaled_size.y) * 0.5 if scaled_size.y <= size.y else clampf(skill_tree.position.y, min_position.y, 0.0)
+	skill_tree.position = Vector2(clamped_x, clamped_y)
 
 
 func _refresh_tree() -> void:
