@@ -13,14 +13,18 @@ var active: bool = false
 
 var feeder: SeedFeeder:
 	get:
+		var bench := get_node_or_null("../BenchFeeder") as BenchFeeder
+		if is_instance_valid(bench) and bench.is_visible_in_tree():
+			var bench_seed_feeder := bench.get_node_or_null("SeedFeeder") as SeedFeeder
+			if is_instance_valid(bench_seed_feeder):
+				return bench_seed_feeder
 		if not is_instance_valid(_feeder):
-			_feeder = get_node_or_null("../BenchFeeder/SeedFeeder") as SeedFeeder
+			_feeder = get_node_or_null("../StarterFeeder") as SeedFeeder
 		return _feeder
 
 var _feeder: SeedFeeder
 
 @onready var spawner: PigeonSpawner = $"../PigeonSpawner"
-@onready var bread_thrower: BreadThrower = $"../BreadThrower"
 
 
 func _ready() -> void:
@@ -43,13 +47,12 @@ func _process(delta: float) -> void:
 func start_day() -> void:
 	if active:
 		return
-	if feeder.seeds_remaining <= 0:
+	if is_instance_valid(feeder) and feeder.seeds_remaining <= 0:
 		feeder.refill(feeder.get_seed_capacity())
 	points = 0
 	time_remaining = day_duration
 	active = true
 	spawner.start_day()
-	bread_thrower.start_day()
 	day_started.emit(day_duration)
 	_emit_day_updated()
 
@@ -64,11 +67,9 @@ func _on_pigeon_ate_food(amount: int) -> void:
 func _check_day_completion() -> void:
 	if not active:
 		return
-	if feeder.seeds_remaining > 0:
+	if is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining > 0:
 		return
 	if spawner.get_active_count() > 0:
-		return
-	if spawner.has_pending_food() or bread_thrower.has_active_bread():
 		return
 	end_day()
 
@@ -78,7 +79,6 @@ func end_day() -> void:
 		return
 	active = false
 	spawner.end_day()
-	bread_thrower.end_day()
 	ProgressionManager.add_points(points)
 	_emit_day_updated()
 	day_ended.emit(points)
