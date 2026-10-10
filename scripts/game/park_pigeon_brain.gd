@@ -52,6 +52,9 @@ func start_day(perch: Vector2, arrival: Vector2, exit: Vector2) -> void:
 	waiting_timer = 0.0
 
 	pigeon.show()
+	if pigeon.stats != null:
+		pigeon.stats = pigeon.stats.duplicate() as PigeonStats
+		pigeon.stats.flight_speed += ProgressionManager.get_effect_value(&"flight_speed_add")
 	pigeon.global_position = arrival
 	pigeon.velocity = Vector2.ZERO
 	pigeon.move_direction = Vector2.ZERO
@@ -153,7 +156,7 @@ func _move_to_food(_delta: float) -> void:
 		pigeon.move_direction = Vector2.ZERO
 		state_machine.transition(StateMachine.Intent.IDLE)
 		visitor_state = VisitorState.FEEDING
-		eating_timer = eating_duration
+			eating_timer = _get_eating_duration(target_food)
 		waiting_timer = 0.0
 		return
 	_move_toward(target_food.global_position, food_distance, distance > 120.0)
@@ -188,8 +191,18 @@ func _begin_departure() -> void:
 	state_machine.transition(StateMachine.Intent.FLY)
 
 
-func _get_food_points(_food: Node2D) -> int:
-	return food_points
+func _get_food_points(food: Node2D) -> int:
+	var points := food_points + int(ProgressionManager.get_effect_value(&"points_per_seed_add"))
+	if randf() < ProgressionManager.get_effect_value(&"golden_seed_chance"):
+		points += int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
+	return points
+
+
+func _get_eating_duration(food: Node2D) -> float:
+	var duration := eating_duration - ProgressionManager.get_effect_value(&"eating_time_reduction")
+	if is_instance_valid(food) and food.has_meta("eating_duration"):
+		duration = float(food.get_meta("eating_duration"))
+	return maxf(0.25, duration)
 
 
 func _food_is_available(food: Node2D) -> bool:
