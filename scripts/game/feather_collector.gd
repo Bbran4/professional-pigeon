@@ -67,6 +67,7 @@ func _reset_current_feather() -> void:
 			progress_back.visible = false
 		if progress_fill != null:
 			progress_fill.visible = false
+			progress_fill.scale.x = 0.0
 
 	current_feather = null
 	collection_elapsed = 0.0
