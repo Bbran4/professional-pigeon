@@ -33,7 +33,7 @@ func _ready() -> void:
 
 func _spawn_park_upgrades() -> void:
 	var park := get_parent()
-	var bench_positions: Array[Vector2] = [Vector2(300, 500), Vector2(600, 500), Vector2(820, 300)]
+	var bench_positions: Array[Vector2] = [Vector2(300, 500), Vector2(600, 500), Vector2(990, 230)]
 	var bench_count := mini(int(ProgressionManager.get_effect_value(&"bench_count_add")), bench_positions.size())
 	for index in range(bench_count):
 		var bench := BENCH_SCENE.instantiate() as Node2D
