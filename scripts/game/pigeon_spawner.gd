@@ -23,12 +23,25 @@ var day_active := false
 var visitors: Array[Dictionary] = []
 var reserved_perches: Dictionary = {}
 var _spawn_delay_pending := false
+var _retry := 0.0
 
 
 func _ready() -> void:
+	set_process(true)
 	if feeder == null:
 		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
 	_spawn_park_upgrades.call_deferred()
+
+
+func _process(delta: float) -> void:
+	if not day_active:
+		_retry = 0.0
+		return
+	_retry += delta
+	if _retry >= 0.5:
+		_retry = 0.0
+		if not _spawn_delay_pending:
+			_spawn_available_visitors()
 
 
 func _spawn_park_upgrades() -> void:
@@ -172,14 +185,17 @@ func _reserve_perch() -> Dictionary:
 		var selected: Dictionary = candidates[randi_range(0, candidates.size() - 1)]
 		reserved_perches[str(selected.key)] = true
 		return selected
+	var landing_candidates: Array[Dictionary] = []
 	for index in range(landing_spots.size()):
 		var key := "landing_%d" % index
 		if reserved_perches.has(key):
 			continue
-		var selected := {"key": key, "position": landing_spots[index]}
-		reserved_perches[key] = true
-		return selected
-	return {}
+		landing_candidates.append({"key": key, "position": landing_spots[index]})
+	if landing_candidates.is_empty():
+		return {}
+	var selected: Dictionary = landing_candidates[randi_range(0, landing_candidates.size() - 1)]
+	reserved_perches[str(selected.key)] = true
+	return selected
 
 
 func _release_perch(key: String) -> void:
@@ -243,7 +259,12 @@ func _spawn_next_after_delay() -> void:
 	var delay := maxf(0.1, arrival_interval - ProgressionManager.get_effect_value(&"arrival_speed_reduction") - ProgressionManager.get_effect_value(&"fountain_unlock") * 0.2)
 	if randf() < ProgressionManager.get_effect_value(&"pair_arrivals"):
 		delay = 0.0
-	await get_tree().create_timer(delay).timeout
+	get_tree().create_timer(delay).timeout.connect(_on_spawn_delay_timeout, CONNECT_ONE_SHOT)
+
+
+func _on_spawn_delay_timeout() -> void:
+	if not is_inside_tree():
+		return
 	_spawn_delay_pending = false
 	if day_active:
 		_spawn_available_visitors()
