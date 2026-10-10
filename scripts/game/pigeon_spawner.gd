@@ -5,6 +5,7 @@ signal ate_food(points: int)
 signal visitor_count_changed(count: int)
 
 @export var pigeon_scene: PackedScene
+@export var feeder: SeedFeeder
 @export var arrival_interval: float = 0.8
 @export var park_bounds := Rect2(40.0, 100.0, 1072.0, 500.0)
 @export var landing_spots: Array[Vector2] = [
@@ -97,7 +98,11 @@ func _spawn_visitor() -> void:
 
 	active_brain.start_day(perch, arrival, exit)
 	visitor_count_changed.emit(1)
-	_assign_next_food()
+	if is_instance_valid(feeder) and feeder.can_feed():
+		active_food = feeder
+		active_brain.set_food(feeder)
+	else:
+		_assign_next_food()
 
 
 func _choose_spot_index() -> int:
@@ -142,7 +147,7 @@ func _on_visitor_departed() -> void:
 	active_brain = null
 	active_food = null
 	visitor_count_changed.emit(0)
-	if day_active:
+	if day_active and (not is_instance_valid(feeder) or feeder.can_feed()):
 		_spawn_next_after_delay()
 
 
