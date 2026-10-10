@@ -166,7 +166,7 @@ func _on_visitor_departed() -> void:
 	active_brain = null
 	active_food = null
 	visitor_count_changed.emit(0)
-	if day_active and _feeder_is_available():
+	if day_active and (_feeder_is_available() or not pending_food.is_empty()):
 		_spawn_next_after_delay()
 
 
@@ -174,6 +174,10 @@ func _spawn_next_after_delay() -> void:
 	await get_tree().create_timer(arrival_interval).timeout
 	if day_active and not is_instance_valid(active_pigeon):
 		_spawn_visitor()
+
+
+func has_pending_food() -> bool:
+	return not pending_food.is_empty()
 
 
 func _feeder_is_available() -> bool:
