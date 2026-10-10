@@ -42,18 +42,21 @@ func _center_on_starting_skill() -> void:
 	skill_tree.scale = Vector2.ONE
 	var tree_node_center := starting_node.position + starting_node.size * 0.5
 	skill_tree.position = size * 0.5 - tree_node_center
+	_clamp_tree_position()
 
 
 func _input(event: InputEvent) -> void:
-	if not is_visible_in_tree():
+	if not is_visible_in_tree() or skill_tree == null:
 		return
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
-		if mouse_event.button_index == MOUSE_BUTTON_MIDDLE:
-			panning = mouse_event.pressed
-			get_viewport().set_input_as_handled()
-			return
-		if not mouse_event.pressed:
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT:
+			if mouse_event.pressed:
+				panning = not _is_over_skill_node(mouse_event.position)
+			else:
+				panning = false
+			if panning or not mouse_event.pressed:
+				get_viewport().set_input_as_handled()
 			return
 		if mouse_event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			_zoom_at_mouse(zoom_step, mouse_event.position)
@@ -62,15 +65,27 @@ func _input(event: InputEvent) -> void:
 			_zoom_at_mouse(-zoom_step, mouse_event.position)
 			get_viewport().set_input_as_handled()
 		return
-	if panning and skill_tree != null and event is InputEventMouseMotion:
+	if panning and event is InputEventMouseMotion:
 		var motion := event as InputEventMouseMotion
 		skill_tree.position += motion.relative
+		_clamp_tree_position()
 		get_viewport().set_input_as_handled()
 
 
-func _zoom_at_mouse(delta: float, mouse_position: Vector2) -> void:
+func _is_over_skill_node(viewport_position: Vector2) -> bool:
+	var manager_position := get_global_transform_with_canvas().affine_inverse() * viewport_position
+	var tree_position := (manager_position - skill_tree.position) / zoom
+	for child in skill_tree.get_children():
+		var skill_node := child as Control
+		if skill_node != null and Rect2(skill_node.position, skill_node.size).has_point(tree_position):
+			return true
+	return false
+
+
+func _zoom_at_mouse(delta: float, viewport_position: Vector2) -> void:
 	if skill_tree == null:
 		return
+	var mouse_position := get_global_transform_with_canvas().affine_inverse() * viewport_position
 	var old_zoom := zoom
 	zoom = clampf(zoom + delta, min_zoom, max_zoom)
 	if is_equal_approx(old_zoom, zoom):
@@ -78,6 +93,18 @@ func _zoom_at_mouse(delta: float, mouse_position: Vector2) -> void:
 	var canvas_position_before := (mouse_position - skill_tree.position) / old_zoom
 	skill_tree.scale = Vector2.ONE * zoom
 	skill_tree.position = mouse_position - canvas_position_before * zoom
+	_clamp_tree_position()
+
+
+func _clamp_tree_position() -> void:
+	if skill_tree == null:
+		return
+	var scaled_size := skill_tree.size * zoom
+	var min_position := size - scaled_size
+	skill_tree.position = Vector2(
+		clampf(skill_tree.position.x, min_position.x, 0.0),
+		clampf(skill_tree.position.y, min_position.y, 0.0)
+	)
 
 
 func _refresh_tree() -> void:
