@@ -6,7 +6,7 @@
 script = ExtResource("1_skill")
 id = &"seeds_spawns"
 display_name = "More Seeds"
-description = "Spawn one additional Seeds pickup each run."
+description = "Increase the feeder seed supply by one per level after Seeds is unlocked."
 category = 0
 points_cost = 3
 prerequisites = Array[StringName]([&"unlock_seeds"])
