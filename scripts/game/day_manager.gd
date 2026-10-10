@@ -11,8 +11,15 @@ var time_remaining: float = 0.0
 var points: int = 0
 var active: bool = false
 
+var feeder: SeedFeeder:
+	get:
+		if not is_instance_valid(_feeder):
+			_feeder = get_node_or_null("../BenchFeeder/SeedFeeder") as SeedFeeder
+		return _feeder
+
+var _feeder: SeedFeeder
+
 @onready var spawner: PigeonSpawner = $"../PigeonSpawner"
-@onready var feeder: SeedFeeder = $"../SeedFeeder"
 
 
 func _ready() -> void:
@@ -33,7 +40,7 @@ func start_day() -> void:
 	if active:
 		return
 	if feeder.seeds_remaining <= 0:
-		feeder.refill(feeder.seed_capacity)
+		feeder.refill(feeder.get_seed_capacity())
 	points = 0
 	time_remaining = day_duration
 	active = true
@@ -71,7 +78,7 @@ func end_day() -> void:
 
 func _emit_day_updated() -> void:
 	var seeds := feeder.seeds_remaining if is_instance_valid(feeder) else 0
-	var capacity := feeder.seed_capacity if is_instance_valid(feeder) else 0
+	var capacity := feeder.get_seed_capacity() if is_instance_valid(feeder) else 0
 	day_updated.emit(
 		time_remaining if active else 0.0,
 		points,
