@@ -6,7 +6,7 @@
 script = ExtResource("1_skill")
 id = &"worms_spawns"
 display_name = "More Worms"
-description = "Spawn one additional Worms pickup each run."
+description = "Increase the chance that a pigeon finds a worm instead of a regular seed."
 category = 0
 points_cost = 5
 prerequisites = Array[StringName]([&"unlock_worms"])
