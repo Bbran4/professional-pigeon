@@ -22,10 +22,11 @@ const BRAIN_SCRIPT := preload("res://scripts/game/park_pigeon_brain.gd")
 const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 
 var day_active := false
-var active_pigeon: Pigeon
-var active_brain: ParkPigeonBrain
+var visitors: Array[Dictionary] = []
+var reserved_perches: Dictionary = {}
 var previous_spot_index := -1
 var visitors_spawned_this_day := 0
+var _spawn_delay_pending := false
 
 
 func _ready() -> void:
@@ -39,63 +40,116 @@ func start_day() -> void:
 	day_active = true
 	visitors_spawned_this_day = 0
 	previous_spot_index = -1
-	_spawn_visitor()
+	_spawn_available_visitors()
 
 
 func end_day() -> void:
-	# Stop scheduling new visitors, but let the current visitor finish its visit.
+	# No new arrivals; active visitors finish or leave on their own.
 	day_active = false
-	if not is_instance_valid(active_pigeon):
+	if visitors.is_empty():
 		visitor_count_changed.emit(0)
 
 
 func get_active_count() -> int:
-	return 1 if is_instance_valid(active_pigeon) else 0
+	_prune_invalid_visitors()
+	return visitors.size()
 
 
-func _spawn_visitor() -> void:
-	if not day_active or is_instance_valid(active_pigeon) or pigeon_scene == null:
+func _get_max_pigeons() -> int:
+	return maxi(1, 1 + int(ProgressionManager.get_effect_value(&"max_pigeons")))
+
+
+func _spawn_available_visitors() -> void:
+	if not day_active or pigeon_scene == null:
 		return
+	_prune_invalid_visitors()
+	while day_active and visitors.size() < _get_max_pigeons():
+		var perch := _reserve_perch()
+		if perch.is_empty():
+			return
+		var food_source := _find_available_feeder()
+		if food_source == null:
+			_release_perch(str(perch.key))
+			return
+		if not _spawn_visitor(perch, food_source):
+			_release_perch(str(perch.key))
+			return
+		if visitors.size() < _get_max_pigeons():
+			_spawn_next_after_delay()
+			return
 
+
+func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 	var pigeon := pigeon_scene.instantiate() as Pigeon
 	if pigeon == null:
 		push_error("PigeonSpawner: pigeon_scene root must be a Pigeon.")
-		return
+		return false
 
 	get_parent().add_child(pigeon)
-	active_pigeon = pigeon
-
 	var brain_node := Node.new()
 	brain_node.set_script(BRAIN_SCRIPT)
 	pigeon.add_child(brain_node)
-	active_brain = brain_node as ParkPigeonBrain
-	if active_brain == null:
+	var brain := brain_node as ParkPigeonBrain
+	if brain == null:
 		push_error("PigeonSpawner: failed to attach ParkPigeonBrain.")
 		pigeon.queue_free()
-		active_pigeon = null
-		return
+		return false
 
-	active_brain.ate_food.connect(_on_ate_food)
-	active_brain.feather_dropped.connect(_on_feather_dropped)
-	active_brain.departed.connect(_on_visitor_departed)
-
-	var spot_index := 0 if visitors_spawned_this_day == 0 else _choose_spot_index()
-	visitors_spawned_this_day += 1
-	var perch := park_bounds.get_center()
-	var bench_spots := _get_unlocked_bench_spots()
-	if not bench_spots.is_empty():
-		perch = bench_spots[randi_range(0, bench_spots.size() - 1)]
-	elif not landing_spots.is_empty():
-		perch = landing_spots[spot_index]
+	var perch_position: Vector2 = perch.position
 	var from_left := randf() < 0.5
-	var arrival := Vector2(park_bounds.position.x - 35.0, perch.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch.y - 80.0)
-	var exit := Vector2(park_bounds.end.x + 55.0, perch.y - 80.0) if from_left else Vector2(park_bounds.position.x - 55.0, perch.y - 80.0)
+	var arrival := Vector2(park_bounds.position.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch_position.y - 80.0)
+	var exit := Vector2(park_bounds.end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.position.x - 55.0, perch_position.y - 80.0)
 
-	active_brain.start_day(perch, arrival, exit)
-	visitor_count_changed.emit(1)
-	var food_source := _get_active_feeder()
-	if is_instance_valid(food_source) and food_source.can_feed():
-		active_brain.set_food(food_source)
+	brain.ate_food.connect(_on_ate_food)
+	brain.feather_dropped.connect(_on_feather_dropped)
+	brain.departed.connect(_on_visitor_departed.bind(pigeon, brain, str(perch.key)))
+	visitors.append({"pigeon": pigeon, "brain": brain, "perch_key": str(perch.key)})
+	visitors_spawned_this_day += 1
+	brain.start_day(perch_position, arrival, exit)
+	brain.set_food(food_source)
+	visitor_count_changed.emit(visitors.size())
+	return true
+
+
+func _reserve_perch() -> Dictionary:
+	var candidates: Array[Dictionary] = []
+	for marker in get_tree().get_nodes_in_group("perch_spots"):
+		if not is_instance_valid(marker) or not marker is Node2D or not marker.is_visible_in_tree():
+			continue
+		var key := str(marker.get_instance_id())
+		if not reserved_perches.has(key):
+			candidates.append({"key": key, "position": (marker as Node2D).global_position})
+	if not candidates.is_empty():
+		var selected: Dictionary = candidates[randi_range(0, candidates.size() - 1)]
+		reserved_perches[str(selected.key)] = true
+		return selected
+
+	for index in range(landing_spots.size()):
+		var key := "landing_%d" % index
+		if reserved_perches.has(key):
+			continue
+		var selected := {"key": key, "position": landing_spots[index]}
+		reserved_perches[key] = true
+		return selected
+	return {}
+
+
+func _release_perch(key: String) -> void:
+	reserved_perches.erase(key)
+
+
+func _find_available_feeder() -> SeedFeeder:
+	var available: Array[SeedFeeder] = []
+	for node in get_tree().get_nodes_in_group("feeders"):
+		var candidate := node as SeedFeeder
+		if candidate == null or not candidate.is_visible_in_tree() or not candidate.can_feed():
+			continue
+		available.append(candidate)
+	if available.is_empty():
+		if is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.can_feed():
+			return feeder
+		return null
+	return available[randi_range(0, available.size() - 1)]
 
 
 func _choose_spot_index() -> int:
@@ -104,7 +158,6 @@ func _choose_spot_index() -> int:
 	if landing_spots.size() == 1:
 		previous_spot_index = 0
 		return 0
-
 	var index := randi_range(0, landing_spots.size() - 1)
 	if index == previous_spot_index:
 		index = (index + randi_range(1, landing_spots.size() - 1)) % landing_spots.size()
@@ -125,43 +178,37 @@ func _on_feather_dropped(drop_position: Vector2) -> void:
 	feather.global_position = drop_position
 
 
-func _get_active_feeder() -> SeedFeeder:
-	var bench := get_parent().get_node_or_null("BenchFeeder") as BenchFeeder
-	if is_instance_valid(bench) and bench.is_visible_in_tree():
-		var bench_seed_feeder := bench.get_node_or_null("SeedFeeder") as SeedFeeder
-		if is_instance_valid(bench_seed_feeder):
-			return bench_seed_feeder
-	if is_instance_valid(feeder):
-		return feeder
-	return get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
-
-
-func _on_visitor_departed() -> void:
-	if is_instance_valid(active_pigeon):
-		active_pigeon.queue_free()
-	active_pigeon = null
-	active_brain = null
-	visitor_count_changed.emit(0)
-	var food_source := _get_active_feeder()
-	if day_active and is_instance_valid(food_source) and food_source.can_feed():
-		_spawn_next_after_delay()
+func _on_visitor_departed(pigeon: Pigeon, brain: ParkPigeonBrain, perch_key: String) -> void:
+	for index in range(visitors.size() - 1, -1, -1):
+		var visitor: Dictionary = visitors[index]
+		if visitor.get("pigeon") == pigeon:
+			visitors.remove_at(index)
+			break
+	_release_perch(perch_key)
+	if is_instance_valid(pigeon):
+		pigeon.queue_free()
+	visitor_count_changed.emit(visitors.size())
+	if day_active:
+		_spawn_available_visitors()
+	elif visitors.is_empty():
+		visitor_count_changed.emit(0)
 
 
 func _spawn_next_after_delay() -> void:
+	if _spawn_delay_pending:
+		return
+	_spawn_delay_pending = true
 	await get_tree().create_timer(arrival_interval).timeout
-	if day_active and not is_instance_valid(active_pigeon):
-		_spawn_visitor()
+	_spawn_delay_pending = false
+	if day_active:
+		_spawn_available_visitors()
 
 
-func _get_unlocked_bench_spots() -> Array[Vector2]:
-	var spots: Array[Vector2] = []
-	if ProgressionManager.get_skill_level(&"bench_feeder") <= 0:
-		return spots
-	var bench_feeder := get_parent().get_node_or_null("BenchFeeder")
-	if bench_feeder == null:
-		return spots
-	for marker_name in [&"BenchSpawn1", &"BenchSpawn2", &"BenchSpawn3"]:
-		var marker := bench_feeder.get_node_or_null(NodePath(String(marker_name))) as Marker2D
-		if marker != null:
-			spots.append(marker.global_position)
-	return spots
+func _prune_invalid_visitors() -> void:
+	for index in range(visitors.size() - 1, -1, -1):
+		var visitor: Dictionary = visitors[index]
+		var pigeon: Pigeon = visitor.get("pigeon") as Pigeon
+		if is_instance_valid(pigeon):
+			continue
+		_release_perch(str(visitor.get("perch_key", "")))
+		visitors.remove_at(index)
