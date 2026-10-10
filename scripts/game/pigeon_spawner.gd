@@ -19,6 +19,7 @@ signal visitor_count_changed(count: int)
 ]
 
 const BRAIN_SCRIPT := preload("res://scripts/game/park_pigeon_brain.gd")
+const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 
 var day_active := false
 var active_pigeon: Pigeon
@@ -90,6 +91,7 @@ func _spawn_visitor() -> void:
 		return
 
 	active_brain.ate_food.connect(_on_ate_food)
+	active_brain.feather_dropped.connect(_on_feather_dropped)
 	active_brain.departed.connect(_on_visitor_departed)
 
 	var spot_index := 0 if visitors_spawned_this_day == 0 else _choose_spot_index()
@@ -146,6 +148,15 @@ func _assign_next_food() -> void:
 func _on_ate_food(points: int) -> void:
 	active_food = null
 	ate_food.emit(points)
+
+
+func _on_feather_dropped(drop_position: Vector2) -> void:
+	var feather := FEATHER_SCENE.instantiate() as Feather
+	if feather == null:
+		push_error("PigeonSpawner: feather scene root must be a Feather.")
+		return
+	get_parent().add_child(feather)
+	feather.global_position = drop_position
 
 
 func _on_visitor_departed() -> void:
