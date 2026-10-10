@@ -188,11 +188,8 @@ func _try_next_food() -> void:
 		return
 
 
-func _get_food_points(food: Node2D) -> int:
-	var points := food_points
-	if food is ThrownBread:
-		points += int(ProgressionManager.get_effect_value(&"bread_value_add"))
-	return points
+func _get_food_points(_food: Node2D) -> int:
+	return food_points
 
 
 func _food_is_available(food: Node2D) -> bool:
