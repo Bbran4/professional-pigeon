@@ -5,12 +5,8 @@ class_name FeatherCursor
 @export var cursor_radius: float = 34.0
 
 var current_feather: Feather
-var held := false
-
-
 func _process(delta: float) -> void:
 	var mouse_position := get_global_mouse_position()
-	held = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	var nearest := _find_nearest_feather(mouse_position)
 
 	if is_instance_valid(current_feather) and current_feather != nearest:
@@ -19,11 +15,6 @@ func _process(delta: float) -> void:
 
 	current_feather = nearest
 	if not is_instance_valid(current_feather):
-		return
-
-	if not held:
-		current_feather.reset_collection_time()
-		_set_progress_visible(current_feather, false)
 		return
 
 	if current_feather.add_collection_time(delta):
