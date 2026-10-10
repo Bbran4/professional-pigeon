@@ -3,6 +3,7 @@ class_name SkillNode
 
 @export var skill_id: StringName
 @export var prerequisite_ids: Array[StringName] = []
+@export var coming_soon: bool = false
 
 var skill_tree: SkillTree
 
@@ -34,6 +35,12 @@ func refresh() -> void:
 	if skill == null:
 		disabled = true
 		text = "UNKNOWN SKILL\n" + String(skill_id)
+		return
+
+	if coming_soon:
+		text = "%s\\nCOMING SOON" % skill.display_name
+		tooltip_text = skill.description
+		disabled = true
 		return
 
 	var level := skill_tree.get_level(skill_id)
