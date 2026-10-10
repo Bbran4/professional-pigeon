@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_skill")
 id = &"unlock_seeds"
-display_name = "Seeds"
-description = "Unlock Seeds as a Food source."
+display_name = "Seed Supply"
+description = "Improve the park seed supply and unlock seed-related upgrades."
 category = 0
 points_cost = 5
 prerequisites = Array[StringName]([&"bread"])
