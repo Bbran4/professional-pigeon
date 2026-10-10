@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 func start_day() -> void:
 	if active:
 		return
-	if is_instance_valid(feeder) and feeder.seeds_remaining <= 0:
+	if is_instance_valid(feeder):
 		feeder.refill(feeder.get_seed_capacity())
 	points = 0
 	time_remaining = day_duration
