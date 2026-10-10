@@ -18,6 +18,8 @@ const SAVE_PATH := "user://professional_pigeon_save.json"
 
 func _ready() -> void:
 	load_game()
+	if OS.is_debug_build():
+		SKILL_CATALOG.validate()
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
