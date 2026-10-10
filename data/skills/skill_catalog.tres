@@ -26,7 +26,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"larger_flock"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(40, 60)
+tree_position = Vector2(1700, 700)
 cost_growth = 1.5
 max_level = 1
 
@@ -41,7 +41,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"day_duration_1"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(100, 200)
+tree_position = Vector2(1700, 850)
 cost_growth = 1.5
 max_level = 1
 
@@ -56,7 +56,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"day_duration_2"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(100, 350)
+tree_position = Vector2(1700, 1000)
 cost_growth = 1.5
 max_level = 1
 
@@ -71,7 +71,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"day_duration_3"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(100, 500)
+tree_position = Vector2(1700, 1150)
 cost_growth = 1.5
 max_level = 1
 
@@ -86,7 +86,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"day_duration_4"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(100, 650)
+tree_position = Vector2(1700, 1300)
 cost_growth = 1.5
 max_level = 1
 
@@ -101,7 +101,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"more_pigeons"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(450, 850)
+tree_position = Vector2(2000, 850)
 cost_growth = 1.5
 max_level = 1
 
@@ -116,7 +116,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"arrival_speed_1"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(450, 1000)
+tree_position = Vector2(2000, 1000)
 cost_growth = 1.5
 max_level = 1
 
@@ -131,7 +131,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"arrival_speed_2"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(450, 1150)
+tree_position = Vector2(2000, 1150)
 cost_growth = 1.5
 max_level = 1
 
@@ -356,7 +356,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"seeds_spawns"])
 effect_id = &"golden_seed_chance"
 effect_value = 0.2
-tree_position = Vector2(40, 1100)
+tree_position = Vector2(520, 450)
 cost_growth = 1.5
 max_level = 1
 
@@ -596,7 +596,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"golden_seed_1"])
 effect_id = &"golden_seed_bonus"
 effect_value = 3
-tree_position = Vector2(40, 1250)
+tree_position = Vector2(520, 600)
 cost_growth = 1.5
 max_level = 1
 
