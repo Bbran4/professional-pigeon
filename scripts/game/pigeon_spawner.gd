@@ -154,6 +154,18 @@ func _on_feather_dropped(drop_position: Vector2) -> void:
 		return
 	get_parent().add_child(feather)
 	feather.global_position = drop_position
+	feather.coin_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
+	if randf() < ProgressionManager.get_effect_value(&"golden_feather_chance"):
+		feather.coin_value += int(ProgressionManager.get_effect_value(&"golden_feather_bonus"))
+	for index in range(int(ProgressionManager.get_effect_value(&"feather_count_add"))):
+		var extra := FEATHER_SCENE.instantiate() as Feather
+		if extra == null:
+			continue
+		get_parent().add_child(extra)
+		extra.global_position = drop_position + Vector2(randf_range(-24.0, 24.0), randf_range(-12.0, 12.0))
+		extra.coin_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
+		if randf() < ProgressionManager.get_effect_value(&"golden_feather_chance"):
+			extra.coin_value += int(ProgressionManager.get_effect_value(&"golden_feather_bonus"))
 
 
 func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
