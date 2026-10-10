@@ -44,7 +44,7 @@ func _center_on_starting_skill() -> void:
 	skill_tree.position = size * 0.5 - tree_node_center
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree():
 		return
 	if event is InputEventMouseButton:
@@ -61,12 +61,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			_zoom_at_mouse(-zoom_step, mouse_event.position)
 			get_viewport().set_input_as_handled()
-
-
-func _input(event: InputEvent) -> void:
-	if not panning or skill_tree == null:
 		return
-	if event is InputEventMouseMotion:
+	if panning and skill_tree != null and event is InputEventMouseMotion:
 		var motion := event as InputEventMouseMotion
 		skill_tree.position += motion.relative
 		get_viewport().set_input_as_handled()
