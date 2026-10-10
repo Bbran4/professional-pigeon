@@ -28,6 +28,8 @@ var pending_food: Array[Node2D] = []
 var eating_timer := 0.0
 var dropping_timer := 0.0
 var waiting_timer := 0.0
+var target_food_is_golden := false
+var target_food_is_worm := false
 var perch_position := Vector2.ZERO
 var exit_position := Vector2.ZERO
 
@@ -157,6 +159,8 @@ func _move_to_food(_delta: float) -> void:
 		state_machine.transition(StateMachine.Intent.IDLE)
 		if target_food.has_method("prepare_seed"):
 			target_food.call("prepare_seed")
+		target_food_is_golden = bool(target_food.get_meta("last_seed_golden", false))
+		target_food_is_worm = bool(target_food.get_meta("last_seed_worm", false))
 		visitor_state = VisitorState.FEEDING
 		eating_timer = _get_eating_duration(target_food)
 		waiting_timer = 0.0
@@ -195,17 +199,16 @@ func _begin_departure() -> void:
 
 func _get_food_points(food: Node2D) -> int:
 	var points := food_points + int(ProgressionManager.get_effect_value(&"points_per_seed_add"))
-	if is_instance_valid(food):
-		if bool(food.get_meta("last_seed_golden", false)):
-			points += int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
-		if bool(food.get_meta("last_seed_worm", false)):
-			points += 3
+	if target_food_is_golden:
+		points += int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
+	if target_food_is_worm:
+		points += 3
 	return points
 
 
 func _get_eating_duration(food: Node2D) -> float:
 	var duration := eating_duration - ProgressionManager.get_effect_value(&"eating_time_reduction")
-	if is_instance_valid(food) and bool(food.get_meta("last_seed_worm", false)):
+	if target_food_is_worm:
 		duration += 1.5
 	return maxf(0.25, duration)
 
