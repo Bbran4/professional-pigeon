@@ -31,6 +31,7 @@ func _update_feather_hint() -> void:
 	if feather_count != _last_feather_count:
 		_last_feather_count = feather_count
 		unlocks_button.disabled = feather_count > 0
+		start_button.disabled = feather_count > 0
 	if day_manager.active:
 		hint_label.text = "Watch the pigeon eat, then hold the cursor over its feather for 3 seconds."
 		hint_label.show()
