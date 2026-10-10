@@ -31,7 +31,7 @@ var visitors_spawned_this_day := 0
 
 func _ready() -> void:
 	if feeder == null:
-		feeder = get_parent().get_node_or_null("SeedFeeder") as SeedFeeder
+		feeder = get_parent().get_node_or_null("BenchFeeder/SeedFeeder") as SeedFeeder
 
 
 func start_day() -> void:
@@ -95,7 +95,10 @@ func _spawn_visitor() -> void:
 	var spot_index := 0 if visitors_spawned_this_day == 0 else _choose_spot_index()
 	visitors_spawned_this_day += 1
 	var perch := park_bounds.get_center()
-	if not landing_spots.is_empty():
+	var bench_spots := _get_unlocked_bench_spots()
+	if not bench_spots.is_empty():
+		perch = bench_spots[randi_range(0, bench_spots.size() - 1)]
+	elif not landing_spots.is_empty():
 		perch = landing_spots[spot_index]
 	var from_left := randf() < 0.5
 	var arrival := Vector2(park_bounds.position.x - 35.0, perch.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch.y - 80.0)
@@ -103,7 +106,7 @@ func _spawn_visitor() -> void:
 
 	active_brain.start_day(perch, arrival, exit)
 	visitor_count_changed.emit(1)
-	if is_instance_valid(feeder) and feeder.can_feed():
+	if _feeder_is_available():
 		active_food = feeder
 		active_brain.set_food(feeder)
 	else:
@@ -152,7 +155,7 @@ func _on_visitor_departed() -> void:
 	active_brain = null
 	active_food = null
 	visitor_count_changed.emit(0)
-	if day_active and (not is_instance_valid(feeder) or feeder.can_feed()):
+	if day_active and _feeder_is_available():
 		_spawn_next_after_delay()
 
 
@@ -160,3 +163,21 @@ func _spawn_next_after_delay() -> void:
 	await get_tree().create_timer(arrival_interval).timeout
 	if day_active and not is_instance_valid(active_pigeon):
 		_spawn_visitor()
+
+
+func _feeder_is_available() -> bool:
+	return is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.can_feed()
+
+
+func _get_unlocked_bench_spots() -> Array[Vector2]:
+	var spots: Array[Vector2] = []
+	if ProgressionManager.get_skill_level(&"bench_feeder") <= 0:
+		return spots
+	var bench_feeder := get_parent().get_node_or_null("BenchFeeder")
+	if bench_feeder == null:
+		return spots
+	for marker_name in [&"BenchSpawn1", &"BenchSpawn2", &"BenchSpawn3"]:
+		var marker := bench_feeder.get_node_or_null(NodePath(String(marker_name))) as Marker2D
+		if marker != null:
+			spots.append(marker.global_position)
+	return spots
