@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"feather_fast_collection"
+display_name = "Quick Collection"
+description = "Reduce the time needed to collect a feather by 0.75 seconds per level."
+category = 1
+points_cost = 10
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"feather_collect_time_reduction"
+effect_value = 0.75
+tree_position = Vector2(1460, 1100)
+cost_growth = 1.6
+max_level = 3
