@@ -9,6 +9,7 @@ display_name = "Worms"
 description = "Unlock Worms as a Food source."
 category = 0
 points_cost = 10
+prerequisites = Array[StringName]([&"bread"])
 effect_id = &"unlock_worms"
 effect_value = 1.0
 max_level = 1
