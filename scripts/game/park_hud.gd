@@ -17,7 +17,7 @@ func _ready() -> void:
 	unlocks_button.pressed.connect(_on_unlocks_pressed)
 	day_manager.day_updated.connect(_on_day_updated)
 	day_manager.day_ended.connect(_on_day_ended)
-	_on_day_updated(0.0, 0, 1, 0, 0)
+	day_manager.refresh_display()
 	_update_feather_hint()
 
 
