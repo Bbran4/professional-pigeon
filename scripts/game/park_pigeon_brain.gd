@@ -2,18 +2,19 @@ extends Node
 class_name ParkPigeonBrain
 
 signal ate_food(points: int)
+signal feather_dropped(position: Vector2)
 signal departed
-
-@export var feather_scene: PackedScene = preload("res://scenes/park/feather.tscn")
 
 enum VisitorState {
 	ARRIVING,
 	WAITING,
 	FEEDING,
+	DROPPING,
 	DEPARTING,
 }
 
 @export var eating_duration: float = 2.0
+@export var dropping_duration: float = 2.0
 @export var food_points: int = 1
 @export var food_distance: float = 28.0
 @export var arrival_distance: float = 18.0
@@ -24,6 +25,7 @@ var visitor_state: VisitorState = VisitorState.ARRIVING
 var target_food: Node2D
 var pending_food: Array[Node2D] = []
 var eating_timer := 0.0
+var dropping_timer := 0.0
 var perch_position := Vector2.ZERO
 var exit_position := Vector2.ZERO
 
@@ -44,6 +46,7 @@ func start_day(perch: Vector2, arrival: Vector2, exit: Vector2) -> void:
 	target_food = null
 	pending_food.clear()
 	eating_timer = 0.0
+	dropping_timer = 0.0
 
 	pigeon.show()
 	pigeon.global_position = arrival
@@ -70,6 +73,7 @@ func end_day() -> void:
 	target_food = null
 	pending_food.clear()
 	eating_timer = 0.0
+	dropping_timer = 0.0
 	state_machine.set_process(false)
 	state_machine.set_physics_process(false)
 	pigeon.velocity = Vector2.ZERO
@@ -110,14 +114,25 @@ func _physics_process(delta: float) -> void:
 					if target_food.has_method("consume_seed"):
 						successfully_fed = bool(target_food.call("consume_seed"))
 						if successfully_fed:
-							_drop_feather()
+							ate_food.emit(food_points)
 					else:
 						target_food.hide()
 						target_food.queue_free()
 						successfully_fed = true
 				target_food = null
 				if successfully_fed:
-					ate_food.emit(food_points)
+					visitor_state = VisitorState.DROPPING
+					dropping_timer = dropping_duration
+				else:
+					visitor_state = VisitorState.DEPARTING
+					state_machine.transition(StateMachine.Intent.FLY)
+
+		VisitorState.DROPPING:
+			pigeon.move_direction = Vector2.ZERO
+			state_machine.transition(StateMachine.Intent.IDLE)
+			dropping_timer -= delta
+			if dropping_timer <= 0.0:
+				feather_dropped.emit(pigeon.global_position + Vector2(18.0, 4.0))
 				visitor_state = VisitorState.DEPARTING
 				state_machine.transition(StateMachine.Intent.FLY)
 
@@ -179,12 +194,3 @@ func _food_is_available(food: Node2D) -> bool:
 		return bool(food.call("can_feed"))
 	return true
 
-
-func _drop_feather() -> void:
-	if feather_scene == null or not is_instance_valid(pigeon):
-		return
-	var feather := feather_scene.instantiate() as Feather
-	if feather == null:
-		return
-	get_tree().current_scene.add_child(feather)
-	feather.global_position = pigeon.global_position + Vector2(18.0, 4.0)
