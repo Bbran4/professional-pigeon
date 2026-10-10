@@ -155,6 +155,8 @@ func _move_to_food(_delta: float) -> void:
 	if distance <= food_distance:
 		pigeon.move_direction = Vector2.ZERO
 		state_machine.transition(StateMachine.Intent.IDLE)
+		if target_food.has_method("prepare_seed"):
+			target_food.call("prepare_seed")
 		visitor_state = VisitorState.FEEDING
 		eating_timer = _get_eating_duration(target_food)
 		waiting_timer = 0.0
