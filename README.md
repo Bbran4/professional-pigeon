@@ -73,7 +73,7 @@ The **More Pigeons** upgrade increases the number of simultaneous visitors by on
 
 ### Feather collection progression
 
-Feather collection scales with the flock through three upgrades: **Quick Collection** reduces hover time by 0.75 seconds per level (down to a 0.5-second minimum), **Wide Sweep** adds 20 pixels of collection radius per level, and **Pigeon Post** automatically collects visible feathers. Uncollected feathers no longer block starting a new day or opening the upgrades screen.
+Feather collection scales with the flock through three upgrades: **Quick Collection** reduces hover time by 0.85 seconds per level (down to a 0.5-second minimum), **Wide Sweep** adds 20 pixels of collection radius per level, and **Pigeon Post** automatically collects visible feathers. Uncollected feathers no longer block starting a new day or opening the upgrades screen.
 
 
 ### Upgrade pool
