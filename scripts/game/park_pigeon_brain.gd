@@ -19,6 +19,7 @@ enum VisitorState {
 @export var food_distance: float = 28.0
 @export var arrival_distance: float = 18.0
 @export var departure_distance: float = 40.0
+@export var patience_timeout: float = 6.0
 
 var active := false
 var visitor_state: VisitorState = VisitorState.ARRIVING
@@ -26,6 +27,7 @@ var target_food: Node2D
 var pending_food: Array[Node2D] = []
 var eating_timer := 0.0
 var dropping_timer := 0.0
+var waiting_timer := 0.0
 var perch_position := Vector2.ZERO
 var exit_position := Vector2.ZERO
 
@@ -47,6 +49,7 @@ func start_day(perch: Vector2, arrival: Vector2, exit: Vector2) -> void:
 	pending_food.clear()
 	eating_timer = 0.0
 	dropping_timer = 0.0
+	waiting_timer = 0.0
 
 	pigeon.show()
 	pigeon.global_position = arrival
@@ -63,21 +66,13 @@ func set_food(food: Node2D) -> void:
 		return
 	if food == null or not is_instance_valid(food):
 		return
-
 	pending_food.append(food)
 	_try_next_food()
 
 
 func end_day() -> void:
-	active = false
-	target_food = null
-	pending_food.clear()
-	eating_timer = 0.0
-	dropping_timer = 0.0
-	state_machine.set_process(false)
-	state_machine.set_physics_process(false)
-	pigeon.velocity = Vector2.ZERO
-	pigeon.move_direction = Vector2.ZERO
+	# Existing visitors finish their current visit; this method stops no active visitor.
+	pass
 
 
 func _physics_process(delta: float) -> void:
@@ -91,11 +86,16 @@ func _physics_process(delta: float) -> void:
 				pigeon.global_position = perch_position
 				pigeon.move_direction = Vector2.ZERO
 				visitor_state = VisitorState.WAITING
+				waiting_timer = 0.0
 				state_machine.transition(StateMachine.Intent.IDLE)
 				_try_next_food()
 
 		VisitorState.WAITING:
-			if target_food == null or not is_instance_valid(target_food) or not target_food.visible:
+			waiting_timer += delta
+			if waiting_timer >= patience_timeout:
+				_begin_departure()
+				return
+			if target_food == null or not is_instance_valid(target_food) or not target_food.is_visible_in_tree():
 				target_food = null
 				_try_next_food()
 				if target_food == null:
@@ -118,14 +118,13 @@ func _physics_process(delta: float) -> void:
 						target_food.queue_free()
 						successfully_fed = true
 					if successfully_fed:
-						ate_food.emit(_get_food_points(target_food))
+					ate_food.emit(_get_food_points(target_food))
 				target_food = null
 				if successfully_fed:
 					visitor_state = VisitorState.DROPPING
 					dropping_timer = dropping_duration
 				else:
-					visitor_state = VisitorState.DEPARTING
-					state_machine.transition(StateMachine.Intent.FLY)
+					_begin_departure()
 
 		VisitorState.DROPPING:
 			pigeon.move_direction = Vector2.ZERO
@@ -133,8 +132,7 @@ func _physics_process(delta: float) -> void:
 			dropping_timer -= delta
 			if dropping_timer <= 0.0:
 				feather_dropped.emit(pigeon.global_position + Vector2(18.0, 4.0))
-				visitor_state = VisitorState.DEPARTING
-				state_machine.transition(StateMachine.Intent.FLY)
+				_begin_departure()
 
 		VisitorState.DEPARTING:
 			_move_toward(exit_position, departure_distance, true)
@@ -159,8 +157,8 @@ func _move_to_food(_delta: float) -> void:
 		state_machine.transition(StateMachine.Intent.IDLE)
 		visitor_state = VisitorState.FEEDING
 		eating_timer = eating_duration
+		waiting_timer = 0.0
 		return
-
 	_move_toward(target_food.global_position, food_distance, distance > 120.0)
 
 
@@ -169,7 +167,6 @@ func _move_toward(target: Vector2, stop_distance: float, fly: bool) -> void:
 		pigeon.move_direction = Vector2.ZERO
 		state_machine.transition(StateMachine.Intent.IDLE)
 		return
-
 	pigeon.move_direction = pigeon.global_position.direction_to(target)
 	pigeon.update_facing()
 	state_machine.transition(StateMachine.Intent.FLY if fly else StateMachine.Intent.WALK)
@@ -178,14 +175,20 @@ func _move_toward(target: Vector2, stop_distance: float, fly: bool) -> void:
 func _try_next_food() -> void:
 	if not active or visitor_state != VisitorState.WAITING or target_food != null:
 		return
-
 	while not pending_food.is_empty():
 		var next_food: Node2D = pending_food.pop_front() as Node2D
 		if not _food_is_available(next_food):
 			continue
-
 		target_food = next_food
 		return
+
+
+func _begin_departure() -> void:
+	target_food = null
+	pending_food.clear()
+	visitor_state = VisitorState.DEPARTING
+	pigeon.move_direction = Vector2.ZERO
+	state_machine.transition(StateMachine.Intent.FLY)
 
 
 func _get_food_points(_food: Node2D) -> int:
@@ -193,9 +196,8 @@ func _get_food_points(_food: Node2D) -> int:
 
 
 func _food_is_available(food: Node2D) -> bool:
-	if not is_instance_valid(food) or not food.visible:
+	if not is_instance_valid(food) or not food.is_visible_in_tree():
 		return false
 	if food.has_method("can_feed"):
 		return bool(food.call("can_feed"))
 	return true
-
