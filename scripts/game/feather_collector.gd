@@ -56,13 +56,7 @@ func _update_progress_visual() -> void:
 	progress_fill.visible = true
 
 	var fraction := clampf(collection_elapsed / collection_duration, 0.0, 1.0)
-	var width := 28.0 * fraction
-	progress_fill.polygon = PackedVector2Array([
-		Vector2(0.0, -2.0),
-		Vector2(width, -2.0),
-		Vector2(width, 2.0),
-		Vector2(0.0, 2.0),
-	])
+	progress_fill.scale.x = fraction
 
 
 func _reset_current_feather() -> void:
