@@ -74,11 +74,6 @@ func set_food(food: Node2D) -> void:
 	_try_next_food()
 
 
-func end_day() -> void:
-	# The spawner stops new arrivals; existing visitors finish or time out.
-	pass
-
-
 func _physics_process(delta: float) -> void:
 	if not active:
 		return
@@ -216,18 +211,18 @@ func _begin_departure() -> void:
 	state_machine.transition(StateMachine.Intent.FLY)
 
 
-func _get_food_points(food: Node2D) -> int:
+func _get_food_points(_food: Node2D) -> int:
 	var points := food_points + int(ProgressionManager.get_effect_value(&"points_per_seed_add"))
 	if target_food_is_golden:
 		points += int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
-	if target_food_is_worm:
+	if target_food_is_worm and ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0:
 		points += 3
 	return points
 
 
 func _get_eating_duration(food: Node2D) -> float:
 	var duration := eating_duration - ProgressionManager.get_effect_value(&"eating_time_reduction")
-	if target_food_is_worm:
+	if target_food_is_worm and ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0:
 		duration += 1.5
 	return maxf(0.25, duration)
 
