@@ -18,7 +18,6 @@ const BRAIN_SCRIPT := preload("res://scripts/game/park_pigeon_brain.gd")
 const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 const BENCH_SCENE := preload("res://scenes/park/bench.tscn")
 const BENCH_FEEDER_SCENE := preload("res://scenes/park/bench_feeder.tscn")
-const FOUNTAIN_SCENE := preload("res://scenes/park/fountain.tscn")
 
 var day_active := false
 var visitors: Array[Dictionary] = []
@@ -45,17 +44,41 @@ func _spawn_park_upgrades() -> void:
 			bench.position = bench_positions[index]
 			bench_feeder.position = bench_positions[index]
 	if ProgressionManager.get_effect_value(&"fountain_unlock") > 0.0:
-		var fountain := FOUNTAIN_SCENE.instantiate() as Node2D
-		var fountain_marker := park.get_node_or_null("FountainMarker") as Node2D
-		if fountain != null and fountain_marker != null:
-			park.add_child(fountain)
-			fountain.global_position = fountain_marker.global_position
+		_spawn_fountain(park)
 	if ProgressionManager.get_effect_value(&"tree_nests") > 0.0:
 		for nest_position in [Vector2(140, 155), Vector2(210, 140), Vector2(245, 190)]:
 			var nest := Marker2D.new()
 			nest.add_to_group("perch_spots")
 			park.add_child(nest)
 			nest.global_position = nest_position
+
+
+func _spawn_fountain(park: Node) -> void:
+	var fountain := Node2D.new()
+	fountain.name = "UnlockedFountain"
+	var base := Polygon2D.new()
+	base.polygon = PackedVector2Array([-70, -16, -55, -38, 0, -46, 55, -38, 70, -16, 58, 12, 0, 24, -58, 12])
+	base.color = Color(0.54, 0.52, 0.46, 1.0)
+	fountain.add_child(base)
+	var water := Polygon2D.new()
+	water.position = Vector2(0, -15)
+	water.polygon = PackedVector2Array([-48, -9, -35, -23, 0, -28, 35, -23, 48, -9, 35, 4, 0, 8, -35, 4])
+	water.color = Color(0.31, 0.65, 0.72, 1.0)
+	fountain.add_child(water)
+	var pillar := Polygon2D.new()
+	pillar.position = Vector2(0, -34)
+	pillar.polygon = PackedVector2Array([-8, -14, 8, -14, 11, 7, -11, 7])
+	pillar.color = Color(0.65, 0.62, 0.54, 1.0)
+	fountain.add_child(pillar)
+	for perch_position in [Vector2(-82, 5), Vector2(82, 5), Vector2(0, -65), Vector2(0, 42)]:
+		var perch := Marker2D.new()
+		perch.add_to_group("perch_spots")
+		perch.position = perch_position
+		fountain.add_child(perch)
+	var fountain_marker := park.get_node_or_null("FountainMarker") as Node2D
+	park.add_child(fountain)
+	if fountain_marker != null:
+		fountain.global_position = fountain_marker.global_position
 
 
 func start_day() -> void:
