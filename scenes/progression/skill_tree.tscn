@@ -66,6 +66,8 @@ offset_right = 690.0
 offset_bottom = 1140.0
 skill_id = &"unlock_worms"
 prerequisite_ids = Array[StringName]([&"bread"])
+coming_soon = true
+
 
 [node name="WormsSpawns" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -75,6 +77,8 @@ offset_right = 450.0
 offset_bottom = 1260.0
 skill_id = &"worms_spawns"
 prerequisite_ids = Array[StringName]([&"unlock_worms"])
+coming_soon = true
+
 
 [node name="UnlockCoin" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -93,6 +97,8 @@ offset_right = 2230.0
 offset_bottom = 520.0
 skill_id = &"farthing_spawns"
 prerequisite_ids = Array[StringName]([&"unlock_coin"])
+coming_soon = true
+
 
 [node name="PennySpawns" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -102,6 +108,8 @@ offset_right = 2230.0
 offset_bottom = 660.0
 skill_id = &"penny_spawns"
 prerequisite_ids = Array[StringName]([&"unlock_coin"])
+coming_soon = true
+
 
 [node name="NobleSpawns" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -111,3 +119,5 @@ offset_right = 2230.0
 offset_bottom = 800.0
 skill_id = &"noble_spawns"
 prerequisite_ids = Array[StringName]([&"unlock_coin"])
+coming_soon = true
+
