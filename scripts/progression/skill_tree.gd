@@ -86,15 +86,7 @@ func get_level(skill_id: StringName) -> int:
 
 
 func get_effect_value(effect_id: StringName) -> float:
-	if _effect_cache.has(effect_id):
-		return _effect_cache[effect_id]
-	var total := 0.0
-	for skill in skills:
-		if skill == null or skill.effect_id != effect_id:
-			continue
-		total += skill.effect_value * get_level(skill.id)
-	_effect_cache[effect_id] = total
-	return total
+	return ProgressionManager.get_effect_value(effect_id)
 
 
 func get_prerequisites(skill_id: StringName) -> Array[StringName]:
