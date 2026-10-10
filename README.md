@@ -61,15 +61,14 @@ Progression is saved automatically to `user://professional_pigeon_save.json`. Th
 
 ## Next development priorities
 
-1. Verify the feeder/day loop in Godot.
-2. Connect remaining resource upgrades to actual world pickup spawning.
-3. Add more visible park changes as skills are purchased.
-4. Expand day results and long-term progression.
+1. Playtest the full progression path in Godot, including purchases, day completion, and save persistence.
+2. Tune upgrade balance using Points earned per day.
+3. Add a day-summary panel, pecking audio, feather pickup feedback, and readable number formatting.
 
 
 ### Visitor capacity
 
-The **More Pigeons** upgrade increases the number of simultaneous visitors by one per level, up to three. Visitors reserve distinct perch markers from the `perch_spots` group, and feeders are discovered through the `feeders` group, allowing additional benches and feeders to participate without hard-coded node paths. Visitors that cannot find food leave after their patience timeout instead of waiting forever.
+The **More Pigeons** upgrade increases the number of simultaneous visitors by one per level, up to five when Tree Nests is fully unlocked. Visitors reserve distinct perch markers from the `perch_spots` group, and feeders are discovered through the `feeders` group, allowing additional benches and feeders to participate without hard-coded node paths. Visitors that cannot find food leave after their patience timeout instead of waiting forever.
 
 ### Feather collection progression
 
