@@ -6,13 +6,13 @@
 script = ExtResource("1_skill")
 id = &"feather_fast_collection"
 display_name = "Quick Collection"
-description = "Reduce the time needed to collect a feather by 0.75 seconds per level."
+description = "Reduce the time needed to collect a feather by 0.85 seconds per level."
 category = 1
 points_cost = 10
 coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"feather_collect_time_reduction"
-effect_value = 0.75
+effect_value = 0.85
 tree_position = Vector2(1460, 1100)
 cost_growth = 1.6
 max_level = 3
