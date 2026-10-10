@@ -4,6 +4,8 @@ class_name ParkPigeonBrain
 signal ate_food(points: int)
 signal departed
 
+@export var feather_scene: PackedScene = preload("res://scenes/park/feather.tscn")
+
 enum VisitorState {
 	ARRIVING,
 	WAITING,
@@ -11,7 +13,7 @@ enum VisitorState {
 	DEPARTING,
 }
 
-@export var eating_duration: float = 0.75
+@export var eating_duration: float = 2.0
 @export var food_points: int = 1
 @export var food_distance: float = 28.0
 @export var arrival_distance: float = 18.0
@@ -103,11 +105,19 @@ func _physics_process(delta: float) -> void:
 			state_machine.transition(StateMachine.Intent.IDLE)
 			eating_timer -= delta
 			if eating_timer <= 0.0:
+				var successfully_fed := false
 				if is_instance_valid(target_food):
-					target_food.hide()
-					target_food.queue_free()
+					if target_food.has_method("consume_seed"):
+						successfully_fed = bool(target_food.call("consume_seed"))
+						if successfully_fed:
+							_drop_feather()
+					else:
+						target_food.hide()
+						target_food.queue_free()
+						successfully_fed = true
 				target_food = null
-				ate_food.emit(food_points)
+				if successfully_fed:
+					ate_food.emit(food_points)
 				visitor_state = VisitorState.DEPARTING
 				state_machine.transition(StateMachine.Intent.FLY)
 
@@ -122,7 +132,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _move_to_food(_delta: float) -> void:
-	if target_food == null or not is_instance_valid(target_food) or not target_food.visible:
+	if not _food_is_available(target_food):
 		target_food = null
 		visitor_state = VisitorState.WAITING
 		_try_next_food()
@@ -156,8 +166,25 @@ func _try_next_food() -> void:
 
 	while not pending_food.is_empty():
 		var next_food: Node2D = pending_food.pop_front() as Node2D
-		if not is_instance_valid(next_food) or not next_food.visible:
+		if not _food_is_available(next_food):
 			continue
 
 		target_food = next_food
 		return
+
+func _food_is_available(food: Node2D) -> bool:
+	if not is_instance_valid(food) or not food.visible:
+		return false
+	if food.has_method("can_feed"):
+		return bool(food.call("can_feed"))
+	return true
+
+
+func _drop_feather() -> void:
+	if feather_scene == null or not is_instance_valid(pigeon):
+		return
+	var feather := feather_scene.instantiate() as Feather
+	if feather == null:
+		return
+	get_tree().current_scene.add_child(feather)
+	feather.global_position = pigeon.global_position + Vector2(18.0, 4.0)
