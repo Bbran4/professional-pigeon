@@ -128,7 +128,11 @@ func _physics_process(delta: float) -> void:
 					visitor_state = VisitorState.DROPPING
 					dropping_timer = maxf(0.25, dropping_duration - ProgressionManager.get_effect_value(&"feather_wait_reduction"))
 				else:
-					_begin_departure()
+					# Another visitor may have consumed the last seed while this pigeon
+					# was eating. Look for another feeder before giving up.
+					visitor_state = VisitorState.WAITING
+					waiting_timer = 0.0
+					_try_next_food()
 
 		VisitorState.DROPPING:
 			pigeon.move_direction = Vector2.ZERO
@@ -187,6 +191,21 @@ func _try_next_food() -> void:
 			continue
 		target_food = next_food
 		return
+
+	# Feeder stock can change after a visitor is assigned, so always search the
+	# whole park when its current target runs out.
+	var nearest_food: Node2D = null
+	var nearest_distance := INF
+	for node in get_tree().get_nodes_in_group("feeders"):
+		var candidate := node as Node2D
+		if not _food_is_available(candidate):
+			continue
+		var distance := pigeon.global_position.distance_squared_to(candidate.global_position)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest_food = candidate
+	if nearest_food != null:
+		target_food = nearest_food
 
 
 func _begin_departure() -> void:
