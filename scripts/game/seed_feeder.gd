@@ -43,9 +43,11 @@ func can_feed() -> bool:
 	return seeds_remaining > 0
 
 
-func prepare_seed() -> void:
-	set_meta("last_seed_golden", randf() < ProgressionManager.get_effect_value(&"golden_seed_chance"))
-	set_meta("last_seed_worm", ProgressionManager.get_effect_value(&"unlock_worms") > 0.0 and randf() < 0.2 + ProgressionManager.get_effect_value(&"worms_spawns") * 0.05)
+func prepare_seed() -> Dictionary:
+	return {
+		"golden": randf() < ProgressionManager.get_effect_value(&"golden_seed_chance"),
+		"worm": ProgressionManager.get_effect_value(&"unlock_worms") > 0.0 and randf() < 0.2 + ProgressionManager.get_effect_value(&"worms_spawns") * 0.05,
+	}
 
 
 func consume_seed() -> bool:
