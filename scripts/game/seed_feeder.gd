@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func get_seed_capacity() -> int:
-	var capacity := seed_capacity + int(ProgressionManager.get_effect_value(&"pigeon_capacity_add"))
+	var capacity := seed_capacity + int(ProgressionManager.get_effect_value(&"seed_capacity_add"))
 	if ProgressionManager.get_effect_value(&"unlock_seeds") > 0.0:
 		capacity += int(ProgressionManager.get_effect_value(&"seeds_spawns"))
 	return capacity
