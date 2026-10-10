@@ -156,10 +156,12 @@ func _move_to_food(_delta: float) -> void:
 	if distance <= food_distance:
 		pigeon.move_direction = Vector2.ZERO
 		state_machine.transition(StateMachine.Intent.IDLE)
+		target_food_is_golden = false
+		target_food_is_worm = false
 		if target_food.has_method("prepare_seed"):
-			target_food.call("prepare_seed")
-		target_food_is_golden = bool(target_food.get_meta("last_seed_golden", false))
-		target_food_is_worm = bool(target_food.get_meta("last_seed_worm", false))
+			var seed_traits: Dictionary = target_food.call("prepare_seed")
+			target_food_is_golden = bool(seed_traits.get("golden", false))
+			target_food_is_worm = bool(seed_traits.get("worm", false))
 		visitor_state = VisitorState.FEEDING
 		eating_timer = _get_eating_duration(target_food)
 		waiting_timer = 0.0
@@ -215,8 +217,10 @@ func _get_food_points(_food: Node2D) -> int:
 	var points := food_points + int(ProgressionManager.get_effect_value(&"points_per_seed_add"))
 	if target_food_is_golden:
 		points += 1 + int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
-	if target_food_is_worm and ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0:
-		points += 3
+	if target_food_is_worm:
+		points += 1
+		if ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0:
+			points += 2
 	return points
 
 
