@@ -29,6 +29,7 @@ var _feeder: SeedFeeder
 
 func _ready() -> void:
 	spawner.ate_food.connect(_on_pigeon_ate_food)
+	spawner.visitor_count_changed.connect(_on_visitor_count_changed)
 	spawner.end_day()
 	_emit_day_updated()
 
@@ -39,7 +40,9 @@ func _process(delta: float) -> void:
 	time_remaining = maxf(time_remaining - delta, 0.0)
 	_emit_day_updated()
 	if time_remaining <= 0.0:
-		end_day()
+		spawner.end_day()
+		if spawner.get_active_count() == 0:
+			end_day()
 		return
 	_check_day_completion()
 
@@ -67,11 +70,19 @@ func _on_pigeon_ate_food(amount: int) -> void:
 func _check_day_completion() -> void:
 	if not active:
 		return
+	if time_remaining <= 0.0:
+		if spawner.get_active_count() == 0:
+			end_day()
+		return
 	if is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining > 0:
 		return
 	if spawner.get_active_count() > 0:
 		return
 	end_day()
+
+
+func _on_visitor_count_changed(_count: int) -> void:
+	_check_day_completion()
 
 
 func end_day() -> void:
