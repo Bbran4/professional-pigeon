@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
 [ext_resource type="PackedScene" path="res://scenes/park/bench_feeder.tscn" id="11_feeder"]
 [ext_resource type="Script" path="res://scripts/game/feather_collector.gd" id="12_collector"]
+[ext_resource type="Script" path="res://scripts/game/bread_thrower.gd" id="13_bread_thrower"]
+[ext_resource type="PackedScene" path="res://scenes/park/bread.tscn" id="14_bread_scene"]
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
@@ -36,6 +38,11 @@ position = Vector2(780, 210)
 [node name="BenchFeeder" parent="." instance=ExtResource("11_feeder")]
 position = Vector2(780, 210)
 
+[node name="BreadThrower" type="Node2D" parent="."]
+script = ExtResource("13_bread_thrower")
+bread_scene = ExtResource("14_bread_scene")
+park_bounds = Rect2(40, 100, 1072, 500)
+
 [node name="FountainMarker" type="Marker2D" parent="."]
 position = Vector2(960, 420)
 
@@ -51,6 +58,8 @@ landing_spots = Array[Vector2]([Vector2(780, 250), Vector2(185, 112), Vector2(30
 [node name="DayManager" type="Node" parent="." unique_id=1031930032]
 script = ExtResource("7_day")
 day_duration = 60.0
+
+[connection signal="bread_landed" from="BreadThrower" to="PigeonSpawner" method="set_food"]
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=128581925]
 layer = 10
