@@ -58,7 +58,16 @@ func refresh() -> void:
 		var cost_text := "%d Points" % points_cost
 		if coin_cost > 0:
 			cost_text += " + %d Coin" % coin_cost
-		var state_text := "AVAILABLE" if available else "LOCKED"
+		var state_text := "AVAILABLE"
+		if not available:
+			if not skill_tree.is_unlocked(skill_id):
+				state_text = "PREREQUISITES NEEDED"
+			elif not ProgressionManager.can_spend(points_cost, coin_cost):
+				state_text = "NEED %d POINTS" % points_cost
+				if coin_cost > 0:
+					state_text += " + %d COIN" % coin_cost
+			else:
+				state_text = "UNAVAILABLE"
 		text = "%s\nLevel %d/%d\n%s\n%s" % [
 			skill.display_name,
 			level,
