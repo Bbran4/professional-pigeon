@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_skill")
 id = &"larger_flock"
-display_name = "Larger Flock"
-description = "Increase the number of pigeons you can recruit."
+display_name = "Larger Seed Tray"
+description = "Increase the number of seeds the active feeder can hold."
 category = 4
 points_cost = 20
 prerequisites = Array[StringName]([&"bread"])
