@@ -13,4 +13,6 @@ coin_cost = 2
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"seed_capacity_add"
 effect_value = 1
+tree_position = Vector2(1460, 700)
+cost_growth = 1.5
 max_level = 1
