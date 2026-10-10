@@ -71,3 +71,18 @@ Level 0/1
 LOCKED"
 skill_id = &"larger_flock"
 prerequisite_ids = Array[StringName]([&"bread"])
+
+[node name="BenchFeeder" parent="." instance=ExtResource("3_node")]
+layout_mode = 0
+offset_left = 1080.0
+offset_top = 900.0
+offset_right = 1270.0
+offset_bottom = 1000.0
+tooltip_text = "Unlock the seed feeder beside the bench. Requires Bread."
+disabled = true
+text = "Bench Feeder
+Level 0/1
+5 Points
+LOCKED"
+skill_id = &"bench_feeder"
+prerequisite_ids = Array[StringName]([&"bread"])
