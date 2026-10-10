@@ -46,7 +46,8 @@ func _spawn_park_upgrades() -> void:
 	if ProgressionManager.get_effect_value(&"fountain_unlock") > 0.0:
 		_spawn_fountain(park)
 	if ProgressionManager.get_effect_value(&"tree_nests") > 0.0:
-		for nest_position in [Vector2(140, 155), Vector2(210, 140), Vector2(245, 190)]:
+		var nest_positions: Array[Vector2] = [Vector2(140, 155), Vector2(210, 140), Vector2(245, 190)]
+		for nest_position in nest_positions:
 			var nest := Marker2D.new()
 			nest.add_to_group("perch_spots")
 			park.add_child(nest)
@@ -70,7 +71,8 @@ func _spawn_fountain(park: Node) -> void:
 	pillar.polygon = PackedVector2Array([-8, -14, 8, -14, 11, 7, -11, 7])
 	pillar.color = Color(0.65, 0.62, 0.54, 1.0)
 	fountain.add_child(pillar)
-	for perch_position in [Vector2(-82, 5), Vector2(82, 5), Vector2(0, -65), Vector2(0, 42)]:
+	var fountain_perches: Array[Vector2] = [Vector2(-82, 5), Vector2(82, 5), Vector2(0, -65), Vector2(0, 42)]
+	for perch_position in fountain_perches:
 		var perch := Marker2D.new()
 		perch.add_to_group("perch_spots")
 		perch.position = perch_position
