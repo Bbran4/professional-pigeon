@@ -581,7 +581,7 @@ coin_cost = 3
 prerequisites = Array[StringName]([&"feather_collection_radius"])
 effect_id = &"crow_collect_interval"
 effect_value = 15
-tree_position = Vector2(2350, 1100)
+tree_position = Vector2(2140, 950)
 cost_growth = 1.5
 max_level = 1
 
