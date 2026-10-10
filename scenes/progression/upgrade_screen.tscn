@@ -83,3 +83,17 @@ offset_left = -650.0
 offset_top = -300.0
 offset_right = 1750.0
 offset_bottom = 1300.0
+
+[node name="ResetSaveButton" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 720.0
+offset_top = 17.0
+offset_right = 850.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 16
+text = "RESET SAVE"
+
+[node name="ResetConfirmation" type="ConfirmationDialog" parent="."]
+title = "Reset Save"
+dialog_text = "Delete all saved Points, Coin, and purchased upgrades?"
+ok_button_text = "RESET"
