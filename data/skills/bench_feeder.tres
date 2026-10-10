@@ -13,6 +13,6 @@ coin_cost = 1
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"bench_feeder"
 effect_value = 1.0
-tree_position = Vector2(1080, 900)
+tree_position = Vector2(1000, 900)
 cost_growth = 1.5
 max_level = 1
