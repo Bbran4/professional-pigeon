@@ -51,8 +51,13 @@ func _process(delta: float) -> void:
 func start_day() -> void:
 	if active:
 		return
-	if is_instance_valid(feeder):
-		feeder.refill(feeder.get_seed_capacity())
+	for node in get_tree().get_nodes_in_group("feeders"):
+		var available_feeder := node as SeedFeeder
+		if available_feeder != null and available_feeder.is_visible_in_tree():
+			available_feeder.refill(available_feeder.get_seed_capacity())
+	if not is_instance_valid(feeder):
+		if is_instance_valid(_feeder):
+			_feeder.refill(_feeder.get_seed_capacity())
 	points = 0
 	time_remaining = day_duration
 	active = true
