@@ -45,7 +45,7 @@ func _on_day_updated(
 	timer_label.text = "Day: %02d" % ceili(time_remaining)
 	points_label.text = "Points: %d" % points
 	pigeons_label.text = "Pigeons: %d" % pigeon_count
-	bread_label.text = "Bread: %d / %d" % [bread_remaining, bread_capacity]
+	bread_label.text = "Seeds: %d / %d" % [bread_remaining, bread_capacity]
 
 	if not day_manager.active:
 		start_button.show()
