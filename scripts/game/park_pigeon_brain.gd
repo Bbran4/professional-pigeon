@@ -113,12 +113,12 @@ func _physics_process(delta: float) -> void:
 				if is_instance_valid(target_food):
 					if target_food.has_method("consume_seed"):
 						successfully_fed = bool(target_food.call("consume_seed"))
-						if successfully_fed:
-							ate_food.emit(_get_food_points(target_food))
 					else:
 						target_food.hide()
 						target_food.queue_free()
 						successfully_fed = true
+					if successfully_fed:
+						ate_food.emit(_get_food_points(target_food))
 				target_food = null
 				if successfully_fed:
 					visitor_state = VisitorState.DROPPING
