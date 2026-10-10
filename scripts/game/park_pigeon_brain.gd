@@ -20,6 +20,7 @@ enum VisitorState {
 @export var arrival_distance: float = 18.0
 @export var departure_distance: float = 40.0
 @export var patience_timeout: float = 6.0
+@export var patience_timeout: float = 6.0
 
 var active := false
 var visitor_state: VisitorState = VisitorState.ARRIVING
@@ -27,6 +28,7 @@ var target_food: Node2D
 var pending_food: Array[Node2D] = []
 var eating_timer := 0.0
 var dropping_timer := 0.0
+var waiting_timer := 0.0
 var waiting_timer := 0.0
 var perch_position := Vector2.ZERO
 var exit_position := Vector2.ZERO
@@ -121,7 +123,7 @@ func _physics_process(delta: float) -> void:
 					ate_food.emit(_get_food_points(target_food))
 				target_food = null
 				if successfully_fed:
-					visitor_state = VisitorState.DROPPING
+						visitor_state = VisitorState.DROPPING
 					dropping_timer = dropping_duration
 				else:
 					_begin_departure()
@@ -158,6 +160,7 @@ func _move_to_food(_delta: float) -> void:
 		visitor_state = VisitorState.FEEDING
 		eating_timer = eating_duration
 		waiting_timer = 0.0
+		waiting_timer = 0.0
 		return
 	_move_toward(target_food.global_position, food_distance, distance > 120.0)
 
@@ -181,6 +184,14 @@ func _try_next_food() -> void:
 			continue
 		target_food = next_food
 		return
+
+
+func _begin_departure() -> void:
+	target_food = null
+	pending_food.clear()
+	visitor_state = VisitorState.DEPARTING
+	pigeon.move_direction = Vector2.ZERO
+	state_machine.transition(StateMachine.Intent.FLY)
 
 
 func _begin_departure() -> void:
