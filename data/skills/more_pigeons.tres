@@ -15,4 +15,4 @@ effect_id = &"max_pigeons"
 effect_value = 1.0
 tree_position = Vector2(1460, 900)
 cost_growth = 1.7
-max_level = 2
+max_level = 3
