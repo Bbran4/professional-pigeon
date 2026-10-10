@@ -11,6 +11,7 @@ var coin: int = 0
 var skill_levels: Dictionary = {}
 var _effect_totals: Dictionary = {}
 var _loading_save := false
+var _save_dirty := false
 
 const SAVE_PATH := "user://professional_pigeon_save.json"
 
@@ -32,7 +33,7 @@ func add_points(amount: int) -> void:
 		return
 	points += amount
 	points_changed.emit(points)
-	_save_if_ready()
+	_mark_save_dirty()
 
 
 func add_coin(amount: int) -> void:
@@ -40,7 +41,7 @@ func add_coin(amount: int) -> void:
 		return
 	coin += amount
 	coin_changed.emit(coin)
-	_save_if_ready()
+	_mark_save_dirty()
 
 
 func can_spend_points(amount: int) -> bool:
@@ -60,7 +61,7 @@ func spend_points(amount: int) -> bool:
 		return false
 	points -= amount
 	points_changed.emit(points)
-	_save_if_ready()
+	_mark_save_dirty()
 	return true
 
 
@@ -69,7 +70,7 @@ func spend_coin(amount: int) -> bool:
 		return false
 	coin -= amount
 	coin_changed.emit(coin)
-	_save_if_ready()
+	_mark_save_dirty()
 	return true
 
 
@@ -80,7 +81,7 @@ func spend(points_amount: int, coin_amount: int) -> bool:
 	coin -= coin_amount
 	points_changed.emit(points)
 	coin_changed.emit(coin)
-	_save_if_ready()
+	_mark_save_dirty()
 	return true
 
 
@@ -93,7 +94,7 @@ func set_skill_level(skill_id: StringName, level: int) -> void:
 	skill_levels[skill_id] = safe_level
 	_rebuild_effect_totals()
 	skill_level_changed.emit(skill_id, safe_level)
-	_save_if_ready()
+	_mark_save_dirty()
 
 
 func get_effect_value(effect_id: StringName) -> float:
@@ -124,6 +125,17 @@ func reset_save() -> void:
 	for skill in SKILL_CATALOG.skills:
 		if skill != null:
 			skill_level_changed.emit(skill.id, 0)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_PREDELETE:
+		save_game()
+
+
+func _mark_save_dirty() -> void:
+	if _loading_save:
+		return
+	_save_dirty = true
 
 
 func save_game() -> void:
@@ -171,6 +183,3 @@ func load_game() -> void:
 		skill_level_changed.emit(skill_id, int(skill_levels[skill_id]))
 
 
-func _save_if_ready() -> void:
-	if not _loading_save:
-		save_game()
