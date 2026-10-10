@@ -48,7 +48,7 @@ func consume_seed() -> bool:
 		return false
 	seeds_remaining -= 1
 	set_meta("last_seed_golden", randf() < ProgressionManager.get_effect_value(&"golden_seed_chance"))
-	set_meta("last_seed_worm", ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0 and randf() < 0.2)
+	set_meta("last_seed_worm", ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0 and randf() < 0.2 + ProgressionManager.get_effect_value(&"worms_spawns") * 0.05)
 	_update_visual()
 	seeds_changed.emit(seeds_remaining, get_seed_capacity())
 	if seeds_remaining == 0:
