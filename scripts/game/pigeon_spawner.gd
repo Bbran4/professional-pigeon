@@ -29,6 +29,11 @@ var previous_spot_index := -1
 var visitors_spawned_this_day := 0
 
 
+func _ready() -> void:
+	if feeder == null:
+		feeder = get_parent().get_node_or_null("SeedFeeder") as SeedFeeder
+
+
 func start_day() -> void:
 	if day_active:
 		return
