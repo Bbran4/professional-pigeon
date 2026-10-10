@@ -32,7 +32,7 @@ var visitors_spawned_this_day := 0
 
 func _ready() -> void:
 	if feeder == null:
-		feeder = get_parent().get_node_or_null("BenchFeeder/SeedFeeder") as SeedFeeder
+		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
 
 
 func start_day() -> void:
@@ -108,11 +108,10 @@ func _spawn_visitor() -> void:
 
 	active_brain.start_day(perch, arrival, exit)
 	visitor_count_changed.emit(1)
-	if _feeder_is_available():
-		active_food = feeder
-		active_brain.set_food(feeder)
-	else:
-		_assign_next_food()
+	var food_source := _get_active_feeder()
+	if is_instance_valid(food_source) and food_source.can_feed():
+		active_food = food_source
+		active_brain.set_food(food_source)
 
 
 func _choose_spot_index() -> int:
@@ -159,6 +158,17 @@ func _on_feather_dropped(drop_position: Vector2) -> void:
 	feather.global_position = drop_position
 
 
+func _get_active_feeder() -> SeedFeeder:
+	var bench := get_parent().get_node_or_null("BenchFeeder") as BenchFeeder
+	if is_instance_valid(bench) and bench.is_visible_in_tree():
+		var bench_seed_feeder := bench.get_node_or_null("SeedFeeder") as SeedFeeder
+		if is_instance_valid(bench_seed_feeder):
+			return bench_seed_feeder
+	if is_instance_valid(feeder):
+		return feeder
+	return get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
+
+
 func _on_visitor_departed() -> void:
 	if is_instance_valid(active_pigeon):
 		active_pigeon.queue_free()
@@ -166,7 +176,8 @@ func _on_visitor_departed() -> void:
 	active_brain = null
 	active_food = null
 	visitor_count_changed.emit(0)
-	if day_active and (_feeder_is_available() or not pending_food.is_empty()):
+	var food_source := _get_active_feeder()
+	if day_active and is_instance_valid(food_source) and food_source.can_feed():
 		_spawn_next_after_delay()
 
 
@@ -174,14 +185,6 @@ func _spawn_next_after_delay() -> void:
 	await get_tree().create_timer(arrival_interval).timeout
 	if day_active and not is_instance_valid(active_pigeon):
 		_spawn_visitor()
-
-
-func has_pending_food() -> bool:
-	return not pending_food.is_empty()
-
-
-func _feeder_is_available() -> bool:
-	return is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.can_feed()
 
 
 func _get_unlocked_bench_spots() -> Array[Vector2]:
