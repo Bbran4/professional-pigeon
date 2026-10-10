@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
 [ext_resource type="Script" path="res://scripts/game/bread_thrower.gd" id="9_thrower"]
 [ext_resource type="Script" path="res://scripts/game/pigeon_spawner.gd" id="10_spawner"]
+[ext_resource type="Script" path="res://scripts/game/feather_collector.gd" id="11_feather_collector"]
 
 [node name="Park" type="Node2D" unique_id=462212071]
 y_sort_enabled = true
@@ -32,6 +33,9 @@ position = Vector2(185, 185)
 
 [node name="Bench" parent="." unique_id=627715693 instance=ExtResource("2_bench")]
 position = Vector2(780, 210)
+
+[node name="FeatherCollector" type="Node2D" parent="."]
+script = ExtResource("11_feather_collector")
 
 [node name="PigeonSpawner" type="Node2D" parent="." unique_id=28304278]
 script = ExtResource("10_spawner")
