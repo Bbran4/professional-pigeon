@@ -16,6 +16,9 @@ signal visitor_count_changed(count: int)
 
 const BRAIN_SCRIPT := preload("res://scripts/game/park_pigeon_brain.gd")
 const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
+const BENCH_SCENE := preload("res://scenes/park/bench.tscn")
+const BENCH_FEEDER_SCENE := preload("res://scenes/park/bench_feeder.tscn")
+const FOUNTAIN_SCENE := preload("res://scenes/park/fountain.tscn")
 
 var day_active := false
 var visitors: Array[Dictionary] = []
@@ -26,6 +29,33 @@ var _spawn_delay_pending := false
 func _ready() -> void:
 	if feeder == null:
 		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
+	_spawn_park_upgrades()
+
+
+func _spawn_park_upgrades() -> void:
+	var park := get_parent()
+	var bench_positions: Array[Vector2] = [Vector2(300, 500), Vector2(600, 500), Vector2(980, 300)]
+	var bench_count := mini(int(ProgressionManager.get_effect_value(&"bench_count_add")), bench_positions.size())
+	for index in range(bench_count):
+		var bench := BENCH_SCENE.instantiate() as Node2D
+		var bench_feeder := BENCH_FEEDER_SCENE.instantiate() as Node2D
+		if bench != null and bench_feeder != null:
+			park.add_child(bench)
+			park.add_child(bench_feeder)
+			bench.position = bench_positions[index]
+			bench_feeder.position = bench_positions[index]
+	if ProgressionManager.get_effect_value(&"fountain_unlock") > 0.0:
+		var fountain := FOUNTAIN_SCENE.instantiate() as Node2D
+		var fountain_marker := park.get_node_or_null("FountainMarker") as Node2D
+		if fountain != null and fountain_marker != null:
+			park.add_child(fountain)
+			fountain.global_position = fountain_marker.global_position
+	if ProgressionManager.get_effect_value(&"tree_nests") > 0.0:
+		for nest_position in [Vector2(140, 155), Vector2(210, 140), Vector2(245, 190)]:
+			var nest := Marker2D.new()
+			nest.add_to_group("perch_spots")
+			park.add_child(nest)
+			nest.global_position = nest_position
 
 
 func start_day() -> void:
@@ -158,7 +188,7 @@ func _on_feather_dropped(drop_position: Vector2) -> void:
 	feather.global_position = drop_position
 	feather.coin_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
 	if randf() < ProgressionManager.get_effect_value(&"golden_feather_chance"):
-		feather.coin_value += int(ProgressionManager.get_effect_value(&"golden_feather_bonus"))
+		feather.coin_value += 3
 	for index in range(int(ProgressionManager.get_effect_value(&"feather_count_add"))):
 		var extra := FEATHER_SCENE.instantiate() as Feather
 		if extra == null:
@@ -167,7 +197,7 @@ func _on_feather_dropped(drop_position: Vector2) -> void:
 		extra.global_position = drop_position + Vector2(randf_range(-24.0, 24.0), randf_range(-12.0, 12.0))
 		extra.coin_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
 		if randf() < ProgressionManager.get_effect_value(&"golden_feather_chance"):
-			extra.coin_value += int(ProgressionManager.get_effect_value(&"golden_feather_bonus"))
+			extra.coin_value += 3
 
 
 func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
