@@ -92,7 +92,7 @@ theme_override_font_sizes/font_size = 18
 text = "Pigeons: 0"
 horizontal_alignment = 1
 
-[node name="Bread" type="Label" parent="HUD/Margin/Panel/VBox" unique_id=76041492]
+[node name="Seeds" type="Label" parent="HUD/Margin/Panel/VBox" unique_id=76041492]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Seeds: 0 / 5"
