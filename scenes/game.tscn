@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://scenes/park/tree.tscn" id="1_tree"]
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
-[ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="11_feeder"]
+[ext_resource type="PackedScene" path="res://scenes/park/bench_feeder.tscn" id="11_feeder"]
 [ext_resource type="Script" path="res://scripts/game/feather_collector.gd" id="12_collector"]
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
@@ -33,8 +33,11 @@ position = Vector2(185, 185)
 [node name="Bench" parent="." unique_id=627715693 instance=ExtResource("2_bench")]
 position = Vector2(780, 210)
 
-[node name="SeedFeeder" parent="." instance=ExtResource("11_feeder")]
-position = Vector2(780, 290)
+[node name="BenchFeeder" parent="." instance=ExtResource("11_feeder")]
+position = Vector2(780, 210)
+
+[node name="FountainMarker" type="Marker2D" parent="."]
+position = Vector2(960, 420)
 
 [node name="FeatherCollector" type="Node2D" parent="."]
 script = ExtResource("12_collector")
