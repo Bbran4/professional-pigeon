@@ -9,12 +9,8 @@ signal visitor_count_changed(count: int)
 @export var arrival_interval: float = 0.8
 @export var park_bounds := Rect2(40.0, 100.0, 1072.0, 500.0)
 @export var landing_spots: Array[Vector2] = [
-	Vector2(185.0, 112.0),
-	Vector2(780.0, 170.0),
-	Vector2(300.0, 240.0),
-	Vector2(450.0, 260.0),
-	Vector2(620.0, 460.0),
-	Vector2(850.0, 430.0),
+	Vector2(185.0, 112.0), Vector2(780.0, 170.0), Vector2(300.0, 240.0),
+	Vector2(450.0, 260.0), Vector2(620.0, 460.0), Vector2(850.0, 430.0),
 	Vector2(1010.0, 250.0),
 ]
 
@@ -24,8 +20,6 @@ const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 var day_active := false
 var visitors: Array[Dictionary] = []
 var reserved_perches: Dictionary = {}
-var previous_spot_index := -1
-var visitors_spawned_this_day := 0
 var _spawn_delay_pending := false
 
 
@@ -38,13 +32,11 @@ func start_day() -> void:
 	if day_active:
 		return
 	day_active = true
-	visitors_spawned_this_day = 0
-	previous_spot_index = -1
 	_spawn_available_visitors()
 
 
 func end_day() -> void:
-	# No new arrivals; active visitors finish or leave on their own.
+	# Stop new arrivals while allowing active visitors to finish or time out.
 	day_active = false
 	if visitors.is_empty():
 		visitor_count_changed.emit(0)
@@ -60,7 +52,7 @@ func _get_max_pigeons() -> int:
 
 
 func _spawn_available_visitors() -> void:
-	if not day_active or pigeon_scene == null:
+	if not day_active or pigeon_scene == null or _spawn_delay_pending:
 		return
 	_prune_invalid_visitors()
 	while day_active and visitors.size() < _get_max_pigeons():
@@ -69,10 +61,10 @@ func _spawn_available_visitors() -> void:
 			return
 		var food_source := _find_available_feeder()
 		if food_source == null:
-			_release_perch(str(perch.key))
+			_release_perch(str(perch.get("key", "")))
 			return
 		if not _spawn_visitor(perch, food_source):
-			_release_perch(str(perch.key))
+			_release_perch(str(perch.get("key", "")))
 			return
 		if visitors.size() < _get_max_pigeons():
 			_spawn_next_after_delay()
@@ -84,7 +76,6 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 	if pigeon == null:
 		push_error("PigeonSpawner: pigeon_scene root must be a Pigeon.")
 		return false
-
 	get_parent().add_child(pigeon)
 	var brain_node := Node.new()
 	brain_node.set_script(BRAIN_SCRIPT)
@@ -99,12 +90,12 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 	var from_left := randf() < 0.5
 	var arrival := Vector2(park_bounds.position.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch_position.y - 80.0)
 	var exit := Vector2(park_bounds.end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.position.x - 55.0, perch_position.y - 80.0)
+	var perch_key := str(perch.key)
 
 	brain.ate_food.connect(_on_ate_food)
 	brain.feather_dropped.connect(_on_feather_dropped)
-	brain.departed.connect(_on_visitor_departed.bind(pigeon, brain, str(perch.key)))
-	visitors.append({"pigeon": pigeon, "brain": brain, "perch_key": str(perch.key)})
-	visitors_spawned_this_day += 1
+	brain.departed.connect(_on_visitor_departed.bind(pigeon, perch_key))
+	visitors.append({"pigeon": pigeon, "brain": brain, "perch_key": perch_key})
 	brain.start_day(perch_position, arrival, exit)
 	brain.set_food(food_source)
 	visitor_count_changed.emit(visitors.size())
@@ -123,7 +114,6 @@ func _reserve_perch() -> Dictionary:
 		var selected: Dictionary = candidates[randi_range(0, candidates.size() - 1)]
 		reserved_perches[str(selected.key)] = true
 		return selected
-
 	for index in range(landing_spots.size()):
 		var key := "landing_%d" % index
 		if reserved_perches.has(key):
@@ -152,19 +142,6 @@ func _find_available_feeder() -> SeedFeeder:
 	return available[randi_range(0, available.size() - 1)]
 
 
-func _choose_spot_index() -> int:
-	if landing_spots.is_empty():
-		return -1
-	if landing_spots.size() == 1:
-		previous_spot_index = 0
-		return 0
-	var index := randi_range(0, landing_spots.size() - 1)
-	if index == previous_spot_index:
-		index = (index + randi_range(1, landing_spots.size() - 1)) % landing_spots.size()
-	previous_spot_index = index
-	return index
-
-
 func _on_ate_food(points: int) -> void:
 	ate_food.emit(points)
 
@@ -178,7 +155,7 @@ func _on_feather_dropped(drop_position: Vector2) -> void:
 	feather.global_position = drop_position
 
 
-func _on_visitor_departed(pigeon: Pigeon, brain: ParkPigeonBrain, perch_key: String) -> void:
+func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 	for index in range(visitors.size() - 1, -1, -1):
 		var visitor: Dictionary = visitors[index]
 		if visitor.get("pigeon") == pigeon:
@@ -190,8 +167,6 @@ func _on_visitor_departed(pigeon: Pigeon, brain: ParkPigeonBrain, perch_key: Str
 	visitor_count_changed.emit(visitors.size())
 	if day_active:
 		_spawn_available_visitors()
-	elif visitors.is_empty():
-		visitor_count_changed.emit(0)
 
 
 func _spawn_next_after_delay() -> void:
@@ -207,7 +182,7 @@ func _spawn_next_after_delay() -> void:
 func _prune_invalid_visitors() -> void:
 	for index in range(visitors.size() - 1, -1, -1):
 		var visitor: Dictionary = visitors[index]
-		var pigeon: Pigeon = visitor.get("pigeon") as Pigeon
+		var pigeon := visitor.get("pigeon") as Pigeon
 		if is_instance_valid(pigeon):
 			continue
 		_release_perch(str(visitor.get("perch_key", "")))
