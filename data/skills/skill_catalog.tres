@@ -371,7 +371,7 @@ coin_cost = 1
 prerequisites = Array[StringName]([&"worms_spawns"])
 effect_id = &"worm_food_unlock"
 effect_value = 1
-tree_position = Vector2(850, 950)
+tree_position = Vector2(800, 850)
 cost_growth = 1.5
 max_level = 1
 
