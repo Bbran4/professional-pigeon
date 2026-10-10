@@ -29,7 +29,7 @@ func consume_seed() -> bool:
 		return false
 	seeds_remaining -= 1
 	_update_visual()
-	seeds_changed.emit(seeds_remaining, seed_capacity)
+	seeds_changed.emit(seeds_remaining, get_seed_capacity())
 	if seeds_remaining == 0:
 		depleted.emit()
 	return true
