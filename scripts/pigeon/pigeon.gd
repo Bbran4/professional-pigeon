@@ -6,6 +6,7 @@ var facing: int = 1
 
 
 func _ready() -> void:
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	super._ready()
 	if stats == null:
 		stats = PigeonStats.new()
