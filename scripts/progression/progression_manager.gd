@@ -139,6 +139,8 @@ func _mark_save_dirty() -> void:
 
 
 func save_game() -> void:
+	if not _save_dirty:
+		return
 	var saved_levels: Dictionary = {}
 	for skill_id in skill_levels:
 		saved_levels[String(skill_id)] = int(skill_levels[skill_id])
@@ -153,6 +155,7 @@ func save_game() -> void:
 		push_warning("ProgressionManager: unable to open save file for writing.")
 		return
 	file.store_string(JSON.stringify(save_data, "\t"))
+	_save_dirty = false
 
 
 func load_game() -> void:
