@@ -13,6 +13,6 @@ coin_cost = 5
 prerequisites = Array[StringName]([&"feather_collection_radius"])
 effect_id = &"auto_collect"
 effect_value = 1.0
-tree_position = Vector2(2140, 1100)
+tree_position = Vector2(2140, 1250)
 cost_growth = 1.0
 max_level = 1
