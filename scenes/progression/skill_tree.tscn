@@ -37,7 +37,6 @@ offset_top = 900.0
 offset_right = 1270.0
 offset_bottom = 1000.0
 skill_id = &"bench_feeder"
-prerequisite_ids = Array[StringName]([&"bread"])
 
 [node name="UnlockSeeds" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -46,7 +45,6 @@ offset_top = 300.0
 offset_right = 690.0
 offset_bottom = 400.0
 skill_id = &"unlock_seeds"
-prerequisite_ids = Array[StringName]([&"bread"])
 
 [node name="SeedsSpawns" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -63,7 +61,6 @@ offset_top = 1040.0
 offset_right = 690.0
 offset_bottom = 1140.0
 skill_id = &"unlock_worms"
-prerequisite_ids = Array[StringName]([&"bread"])
 coming_soon = true
 
 
@@ -85,7 +82,6 @@ offset_right = 1990.0
 offset_bottom = 620.0
 coming_soon = true
 skill_id = &"unlock_coin"
-prerequisite_ids = Array[StringName]([&"bread"])
 
 [node name="FarthingSpawns" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -104,7 +100,6 @@ offset_top = 560.0
 offset_right = 2230.0
 offset_bottom = 660.0
 skill_id = &"penny_spawns"
-prerequisite_ids = Array[StringName]([&"unlock_coin"])
 coming_soon = true
 
 
@@ -115,6 +110,5 @@ offset_top = 700.0
 offset_right = 2230.0
 offset_bottom = 800.0
 skill_id = &"noble_spawns"
-prerequisite_ids = Array[StringName]([&"unlock_coin"])
 coming_soon = true
 
