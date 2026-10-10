@@ -41,6 +41,11 @@ func refresh_display() -> void:
 	_emit_day_updated()
 
 
+func refresh_display() -> void:
+	_last_display_state.clear()
+	_emit_day_updated()
+
+
 func _process(delta: float) -> void:
 	if not active:
 		return
