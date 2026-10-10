@@ -205,25 +205,22 @@ func _on_ate_food(points: int) -> void:
 
 
 func _on_feather_dropped(drop_position: Vector2) -> void:
+	_spawn_feather(drop_position)
+	for index in range(int(ProgressionManager.get_effect_value(&"feather_count_add"))):
+		var offset := Vector2(randf_range(-24.0, 24.0), randf_range(-12.0, 12.0))
+		_spawn_feather(drop_position + offset)
+
+
+func _spawn_feather(spawn_position: Vector2) -> void:
 	var feather := FEATHER_SCENE.instantiate() as Feather
 	if feather == null:
 		push_error("PigeonSpawner: feather scene root must be a Feather.")
 		return
 	get_parent().add_child(feather)
-	feather.global_position = drop_position
+	feather.global_position = spawn_position
 	feather.coin_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
 	if randf() < ProgressionManager.get_effect_value(&"golden_feather_chance"):
 		feather.coin_value += 3
-	for index in range(int(ProgressionManager.get_effect_value(&"feather_count_add"))):
-		var extra := FEATHER_SCENE.instantiate() as Feather
-		if extra == null:
-			continue
-		get_parent().add_child(extra)
-		extra.global_position = drop_position + Vector2(randf_range(-24.0, 24.0), randf_range(-12.0, 12.0))
-		extra.coin_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
-		if randf() < ProgressionManager.get_effect_value(&"golden_feather_chance"):
-			extra.coin_value += 3
-
 
 func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 	for index in range(visitors.size() - 1, -1, -1):
