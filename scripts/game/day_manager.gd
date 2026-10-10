@@ -29,6 +29,7 @@ var _feeder: SeedFeeder
 
 
 func _ready() -> void:
+	add_to_group("day_manager")
 	spawner.ate_food.connect(_on_pigeon_ate_food)
 	spawner.visitor_count_changed.connect(_on_visitor_count_changed)
 	spawner.end_day()
