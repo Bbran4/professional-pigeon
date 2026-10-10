@@ -48,7 +48,7 @@ func get_active_count() -> int:
 
 
 func _get_max_pigeons() -> int:
-	return maxi(1, 1 + int(ProgressionManager.get_effect_value(&"max_pigeons")))
+	return maxi(1, 1 + int(ProgressionManager.get_effect_value(&"max_pigeons")) + int(ProgressionManager.get_effect_value(&"tree_nests")))
 
 
 func _spawn_available_visitors() -> void:
@@ -87,6 +87,8 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 		return false
 
 	brain.patience_timeout = maxf(1.0, brain.patience_timeout + ProgressionManager.get_effect_value(&"pigeon_patience_add"))
+	if randf() < ProgressionManager.get_effect_value(&"rare_visitor_chance"):
+		brain.food_points += 2
 	var perch_position: Vector2 = perch.position
 	var from_left := randf() < 0.5
 	var arrival := Vector2(park_bounds.position.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch_position.y - 80.0)
@@ -186,7 +188,10 @@ func _spawn_next_after_delay() -> void:
 	if _spawn_delay_pending:
 		return
 	_spawn_delay_pending = true
-	await get_tree().create_timer(maxf(0.1, arrival_interval - ProgressionManager.get_effect_value(&"arrival_speed_reduction"))).timeout
+	var delay := maxf(0.1, arrival_interval - ProgressionManager.get_effect_value(&"arrival_speed_reduction") - ProgressionManager.get_effect_value(&"fountain_unlock") * 0.2)
+	if randf() < ProgressionManager.get_effect_value(&"pair_arrivals"):
+		delay = 0.0
+	await get_tree().create_timer(delay).timeout
 	_spawn_delay_pending = false
 	if day_active:
 		_spawn_available_visitors()
