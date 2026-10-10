@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/game/seed_feeder.gd" id="1_feeder"]
+
+[node name="SeedFeeder" type="Node2D"]
+script = ExtResource("1_feeder")
+seed_capacity = 5
+starting_seeds = 5
+
+[node name="BaseShadow" type="Polygon2D" parent="."]
+position = Vector2(0, 8)
+polygon = PackedVector2Array(-38, -12, 26, -12, 38, 0, 28, 14, -28, 14, -38, 0)
+color = Color(0.08, 0.07, 0.05, 0.25)
+
+[node name="Base" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-40, -16, 26, -16, 38, -4, 28, 10, -28, 10, -40, -4)
+color = Color(0.38, 0.25, 0.13, 1)
+
+[node name="Tray" type="Polygon2D" parent="."]
+position = Vector2(0, -9)
+polygon = PackedVector2Array(-30, -9, 25, -9, 32, 0, 24, 8, -24, 8, -32, 0)
+color = Color(0.7, 0.55, 0.32, 1)
+
+[node name="SeedPile" type="Polygon2D" parent="."]
+position = Vector2(0, -11)
+polygon = PackedVector2Array(-15, -4, -7, -8, 0, -3, 8, -7, 16, -2, 8, 4, -7, 4)
+color = Color(0.95, 0.78, 0.32, 1)
+
+[node name="SeedCount" type="Label" parent="."]
+offset_left = -48.0
+offset_top = 17.0
+offset_right = 48.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 12
+text = "5 seeds"
+horizontal_alignment = 1
