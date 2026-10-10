@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/game/seed_feeder.gd" id="1_feeder"]
 
-[node name="SeedFeeder" type="Node2D"]
+[node name="SeedFeeder" type="Node2D" groups=["feeders"]]
 script = ExtResource("1_feeder")
 seed_capacity = 5
 starting_seeds = 5
