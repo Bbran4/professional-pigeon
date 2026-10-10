@@ -9,11 +9,11 @@ script = ExtResource("2_bench_feeder")
 [node name="SeedFeeder" parent="." instance=ExtResource("1_seed_feeder")]
 position = Vector2(0, 78)
 
-[node name="BenchSpawn1" type="Marker2D" parent="."]
+[node name="BenchSpawn1" type="Marker2D" parent="." groups=["perch_spots"]]
 position = Vector2(-48, 12)
 
-[node name="BenchSpawn2" type="Marker2D" parent="."]
+[node name="BenchSpawn2" type="Marker2D" parent="." groups=["perch_spots"]]
 position = Vector2(0, 12)
 
-[node name="BenchSpawn3" type="Marker2D" parent="."]
+[node name="BenchSpawn3" type="Marker2D" parent="." groups=["perch_spots"]]
 position = Vector2(48, 12)
