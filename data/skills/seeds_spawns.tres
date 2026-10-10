@@ -12,4 +12,6 @@ points_cost = 3
 prerequisites = Array[StringName]([&"unlock_seeds"])
 effect_id = &"seeds_spawns"
 effect_value = 1.0
+tree_position = Vector2(260, 180)
+cost_growth = 1.5
 max_level = 3
