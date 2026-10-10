@@ -37,5 +37,10 @@ func _on_reset_save_confirmed() -> void:
 	refresh()
 
 
+func _exit_tree() -> void:
+	ProgressionManager.save_game()
+
+
 func _on_start_day_pressed() -> void:
+	ProgressionManager.save_game()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
