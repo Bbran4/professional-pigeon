@@ -35,7 +35,7 @@ func _connect_progression_signals() -> void:
 func _center_on_starting_skill() -> void:
 	if skill_tree == null:
 		return
-	var starting_node := skill_tree.get_node_or_null("BasicFeeding") as Control
+	var starting_node := skill_tree.nodes_by_id.get(&"bread") as Control
 	if starting_node == null:
 		return
 	zoom = 1.0
