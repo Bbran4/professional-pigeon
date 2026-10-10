@@ -24,8 +24,6 @@ const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 var day_active := false
 var active_pigeon: Pigeon
 var active_brain: ParkPigeonBrain
-var active_food: Node2D
-var pending_food: Array[Node2D] = []
 var previous_spot_index := -1
 var visitors_spawned_this_day := 0
 
@@ -44,17 +42,8 @@ func start_day() -> void:
 	_spawn_visitor()
 
 
-func set_food(food: Node2D) -> void:
-	if not day_active or food == null or not is_instance_valid(food):
-		return
-	pending_food.append(food)
-	_assign_next_food()
-
-
 func end_day() -> void:
 	day_active = false
-	pending_food.clear()
-	active_food = null
 	if is_instance_valid(active_brain):
 		active_brain.end_day()
 	if is_instance_valid(active_pigeon):
@@ -110,7 +99,6 @@ func _spawn_visitor() -> void:
 	visitor_count_changed.emit(1)
 	var food_source := _get_active_feeder()
 	if is_instance_valid(food_source) and food_source.can_feed():
-		active_food = food_source
 		active_brain.set_food(food_source)
 
 
@@ -128,24 +116,7 @@ func _choose_spot_index() -> int:
 	return index
 
 
-func _assign_next_food() -> void:
-	if not day_active or not is_instance_valid(active_brain) or is_instance_valid(active_food):
-		return
-	if active_brain.visitor_state == ParkPigeonBrain.VisitorState.DEPARTING:
-		return
-
-	while not pending_food.is_empty():
-		var food: Node2D = pending_food.pop_front() as Node2D
-		if not is_instance_valid(food) or not food.visible:
-			continue
-
-		active_food = food
-		active_brain.set_food(food)
-		return
-
-
 func _on_ate_food(points: int) -> void:
-	active_food = null
 	ate_food.emit(points)
 
 
@@ -174,7 +145,6 @@ func _on_visitor_departed() -> void:
 		active_pigeon.queue_free()
 	active_pigeon = null
 	active_brain = null
-	active_food = null
 	visitor_count_changed.emit(0)
 	var food_source := _get_active_feeder()
 	if day_active and is_instance_valid(food_source) and food_source.can_feed():
