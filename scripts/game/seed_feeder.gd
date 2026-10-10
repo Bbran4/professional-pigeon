@@ -12,6 +12,10 @@ var _regen_elapsed := 0.0
 
 
 func _process(delta: float) -> void:
+	var day_manager := get_tree().get_first_node_in_group("day_manager") as DayManager
+	if day_manager == null or not day_manager.active:
+		_regen_elapsed = 0.0
+		return
 	var regen_interval := ProgressionManager.get_effect_value(&"seed_regen_interval")
 	if regen_interval <= 0.0 or seeds_remaining >= get_seed_capacity():
 		_regen_elapsed = 0.0
