@@ -18,7 +18,7 @@ There is **no manual bread throwing or manual feeding**.
 ## Feeders and progression
 
 - A starter feeder is available from the beginning, so the first day can be played without any skill purchase.
-- **Basic Feeding** is the free starting skill and prerequisite for the first progression branches.
+- **Basic Feeding** is the first feeding skill and prerequisite for the first progression branches.
 - The **Bench Feeder** skill costs 5 Points and requires Basic Feeding. It unlocks the feeder beside the bench and its three pigeon spawn markers.
 - Until the Bench Feeder is unlocked, pigeons use the starter feeder and the general landing spots.
 - The FountainMarker is a placeholder for future use.
@@ -35,7 +35,7 @@ The tree includes branches for:
 
 The old manual-bread upgrades have been retired with the bread-throwing mechanic. Bread projectiles and bread stock are no longer part of the game loop.
 
-The Seeds and Worms branches are currently progression scaffolding. The Seeds upgrade increases feeder capacity after Seeds is unlocked; worms and coin-denomination spawning are not yet connected to world pickups.
+The Seeds upgrade increases feeder capacity after Seeds is unlocked. Worms and currency-denomination pickup upgrades are marked **Coming Soon** and cannot currently be purchased, so Points are not spent on effects that are not implemented yet.
 
 ## Saving and loading
 
@@ -46,7 +46,8 @@ Progression is saved automatically to `user://professional_pigeon_save.json`. Th
 - **Engine:** Godot 4.x
 - **Language:** GDScript
 - **Genre:** 2D single-player incremental / idle game
-- **Main scene:** `scenes/game.tscn`
+- **Startup scene:** `scenes/progression/upgrade_screen.tscn`
+- **Park gameplay scene:** `scenes/game.tscn`
 - **Progression:** `scripts/progression/progression_manager.gd`
 - **Pigeon behaviour:** `scripts/game/park_pigeon_brain.gd`
 - **Feather collection:** `scripts/game/feather_collector.gd`
