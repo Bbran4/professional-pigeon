@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"day_duration_1"
+display_name = "Longer Day I"
+description = "Add 5 seconds to every day."
+category = 3
+points_cost = 12
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"day_duration_add"
+effect_value = 5
+tree_position = Vector2(80, 100)
+cost_growth = 1.5
+max_level = 1
