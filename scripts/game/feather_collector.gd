@@ -99,4 +99,5 @@ func _collect_feather(feather: Feather) -> void:
 	if not is_instance_valid(feather):
 		return
 	ProgressionManager.add_coin(feather.feather_value)
+	feather.hide()
 	feather.queue_free()
