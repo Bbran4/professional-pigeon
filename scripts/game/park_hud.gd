@@ -26,14 +26,24 @@ func _process(_delta: float) -> void:
 
 
 func _update_feather_hint() -> void:
+	var feathers_remaining := false
+	for node in get_tree().get_nodes_in_group("collectibles"):
+		var collectible := node as Collectible
+		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
+			feathers_remaining = true
+			break
 	if day_manager.active:
 		hint_label.text = "Hover over a feather to collect Coin, or unlock faster collection."
+		hint_label.show()
+	elif feathers_remaining:
+		hint_label.text = "Collect the remaining feathers before returning to upgrades."
 		hint_label.show()
 	else:
 		hint_label.hide()
 
 
 func _on_unlocks_pressed() -> void:
+	ProgressionManager.save_game()
 	get_tree().change_scene_to_file("res://scenes/progression/upgrade_screen.tscn")
 
 
