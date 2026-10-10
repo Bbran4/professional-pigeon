@@ -19,6 +19,14 @@ func _ready() -> void:
 	load_game()
 
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	if OS.is_debug_build() and event is InputEventKey:
+		var key_event := event as InputEventKey
+		if key_event.pressed and not key_event.echo and key_event.keycode == KEY_F3:
+			add_points(1000)
+			get_viewport().set_input_as_handled()
+
+
 func add_points(amount: int) -> void:
 	if amount <= 0:
 		return
@@ -102,6 +110,20 @@ func _rebuild_effect_totals() -> void:
 			continue
 		var current_total := float(_effect_totals.get(skill.effect_id, 0.0))
 		_effect_totals[skill.effect_id] = current_total + skill.effect_value * level
+
+
+func reset_save() -> void:
+	points = 0
+	coin = 0
+	skill_levels.clear()
+	_effect_totals.clear()
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+	points_changed.emit(points)
+	coin_changed.emit(coin)
+	for skill in SKILL_CATALOG.skills:
+		if skill != null:
+			skill_level_changed.emit(skill.id, 0)
 
 
 func save_game() -> void:
