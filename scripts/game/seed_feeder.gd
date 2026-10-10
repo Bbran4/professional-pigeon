@@ -17,7 +17,10 @@ func _ready() -> void:
 
 
 func get_seed_capacity() -> int:
-	return seed_capacity + int(ProgressionManager.get_effect_value(&"pigeon_capacity_add"))
+	var capacity := seed_capacity + int(ProgressionManager.get_effect_value(&"pigeon_capacity_add"))
+	if ProgressionManager.get_effect_value(&"unlock_seeds") > 0.0:
+		capacity += int(ProgressionManager.get_effect_value(&"seeds_spawns"))
+	return capacity
 
 
 func can_feed() -> bool:
@@ -42,7 +45,7 @@ func refill(amount: int) -> void:
 	seeds_remaining = mini(get_seed_capacity(), seeds_remaining + amount)
 	if seeds_remaining != previous:
 		_update_visual()
-		seeds_changed.emit(seeds_remaining, seed_capacity)
+		seeds_changed.emit(seeds_remaining, get_seed_capacity())
 
 
 func _update_visual() -> void:
