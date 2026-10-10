@@ -54,6 +54,591 @@
 [ext_resource type="Resource" path="res://data/skills/crow_collector.tres" id="68"]
 [ext_resource type="Resource" path="res://data/skills/golden_seed_bonus.tres" id="69"]
 
+[sub_resource type="Resource" id="Skill_day_duration_1"]
+script = ExtResource("2_skill")
+id = &"day_duration_1"
+display_name = "Longer Day I"
+description = "Add 5 seconds to every day."
+category = 3
+points_cost = 12
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"day_duration_add"
+effect_value = 5
+tree_position = Vector2(80, 100)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_day_duration_2"]
+script = ExtResource("2_skill")
+id = &"day_duration_2"
+display_name = "Longer Day II"
+description = "Add 5 seconds to every day."
+category = 3
+points_cost = 16
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"day_duration_add"
+effect_value = 5
+tree_position = Vector2(80, 280)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_day_duration_3"]
+script = ExtResource("2_skill")
+id = &"day_duration_3"
+display_name = "Longer Day III"
+description = "Add 5 seconds to every day."
+category = 3
+points_cost = 20
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"day_duration_add"
+effect_value = 5
+tree_position = Vector2(80, 460)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_day_duration_4"]
+script = ExtResource("2_skill")
+id = &"day_duration_4"
+display_name = "Longer Day IV"
+description = "Add 5 seconds to every day."
+category = 3
+points_cost = 24
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"day_duration_add"
+effect_value = 5
+tree_position = Vector2(80, 640)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_day_duration_5"]
+script = ExtResource("2_skill")
+id = &"day_duration_5"
+display_name = "Longer Day V"
+description = "Add 5 seconds to every day."
+category = 3
+points_cost = 28
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"day_duration_add"
+effect_value = 5
+tree_position = Vector2(80, 820)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_arrival_speed_1"]
+script = ExtResource("2_skill")
+id = &"arrival_speed_1"
+display_name = "Swift Arrivals 1"
+description = "Reduce the gap between arrivals by 0.15 seconds."
+category = 3
+points_cost = 17
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"arrival_speed_reduction"
+effect_value = 0.15
+tree_position = Vector2(80, 1000)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_arrival_speed_2"]
+script = ExtResource("2_skill")
+id = &"arrival_speed_2"
+display_name = "Swift Arrivals 2"
+description = "Reduce the gap between arrivals by 0.15 seconds."
+category = 3
+points_cost = 22
+coin_cost = 0
+prerequisites = Array[StringName]([&"arrival_speed_1"])
+effect_id = &"arrival_speed_reduction"
+effect_value = 0.15
+tree_position = Vector2(80, 1180)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_arrival_speed_3"]
+script = ExtResource("2_skill")
+id = &"arrival_speed_3"
+display_name = "Swift Arrivals 3"
+description = "Reduce the gap between arrivals by 0.15 seconds."
+category = 3
+points_cost = 27
+coin_cost = 0
+prerequisites = Array[StringName]([&"arrival_speed_2"])
+effect_id = &"arrival_speed_reduction"
+effect_value = 0.15
+tree_position = Vector2(390, 100)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_eating_speed_1"]
+script = ExtResource("2_skill")
+id = &"eating_speed_1"
+display_name = "Quick Pecking 1"
+description = "Reduce eating time by 0.25 seconds."
+category = 3
+points_cost = 17
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"eating_time_reduction"
+effect_value = 0.25
+tree_position = Vector2(390, 280)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_eating_speed_2"]
+script = ExtResource("2_skill")
+id = &"eating_speed_2"
+display_name = "Quick Pecking 2"
+description = "Reduce eating time by 0.25 seconds."
+category = 3
+points_cost = 22
+coin_cost = 0
+prerequisites = Array[StringName]([&"eating_speed_1"])
+effect_id = &"eating_time_reduction"
+effect_value = 0.25
+tree_position = Vector2(390, 460)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_eating_speed_3"]
+script = ExtResource("2_skill")
+id = &"eating_speed_3"
+display_name = "Quick Pecking 3"
+description = "Reduce eating time by 0.25 seconds."
+category = 3
+points_cost = 27
+coin_cost = 0
+prerequisites = Array[StringName]([&"eating_speed_2"])
+effect_id = &"eating_time_reduction"
+effect_value = 0.25
+tree_position = Vector2(390, 640)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_flight_speed_1"]
+script = ExtResource("2_skill")
+id = &"flight_speed_1"
+display_name = "Fleet Wings 1"
+description = "Increase pigeon flight speed by 20."
+category = 3
+points_cost = 20
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"flight_speed_add"
+effect_value = 20
+tree_position = Vector2(390, 820)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_flight_speed_2"]
+script = ExtResource("2_skill")
+id = &"flight_speed_2"
+display_name = "Fleet Wings 2"
+description = "Increase pigeon flight speed by 20."
+category = 3
+points_cost = 26
+coin_cost = 0
+prerequisites = Array[StringName]([&"flight_speed_1"])
+effect_id = &"flight_speed_add"
+effect_value = 20
+tree_position = Vector2(390, 1000)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_flight_speed_3"]
+script = ExtResource("2_skill")
+id = &"flight_speed_3"
+display_name = "Fleet Wings 3"
+description = "Increase pigeon flight speed by 20."
+category = 3
+points_cost = 32
+coin_cost = 0
+prerequisites = Array[StringName]([&"flight_speed_2"])
+effect_id = &"flight_speed_add"
+effect_value = 20
+tree_position = Vector2(390, 1180)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_feather_wait_1"]
+script = ExtResource("2_skill")
+id = &"feather_wait_1"
+display_name = "Quick Feather Drop 1"
+description = "Reduce the feather-drop wait by 0.25 seconds."
+category = 3
+points_cost = 15
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"feather_wait_reduction"
+effect_value = 0.25
+tree_position = Vector2(700, 100)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_feather_wait_2"]
+script = ExtResource("2_skill")
+id = &"feather_wait_2"
+display_name = "Quick Feather Drop 2"
+description = "Reduce the feather-drop wait by 0.25 seconds."
+category = 3
+points_cost = 20
+coin_cost = 0
+prerequisites = Array[StringName]([&"feather_wait_1"])
+effect_id = &"feather_wait_reduction"
+effect_value = 0.25
+tree_position = Vector2(700, 280)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_feather_wait_3"]
+script = ExtResource("2_skill")
+id = &"feather_wait_3"
+display_name = "Quick Feather Drop 3"
+description = "Reduce the feather-drop wait by 0.25 seconds."
+category = 3
+points_cost = 25
+coin_cost = 0
+prerequisites = Array[StringName]([&"feather_wait_2"])
+effect_id = &"feather_wait_reduction"
+effect_value = 0.25
+tree_position = Vector2(700, 460)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_points_per_seed_1"]
+script = ExtResource("2_skill")
+id = &"points_per_seed_1"
+display_name = "Better Harvest 1"
+description = "Earn one extra Point per seed eaten."
+category = 0
+points_cost = 18
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"points_per_seed_add"
+effect_value = 1
+tree_position = Vector2(700, 640)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_points_per_seed_2"]
+script = ExtResource("2_skill")
+id = &"points_per_seed_2"
+display_name = "Better Harvest 2"
+description = "Earn one extra Point per seed eaten."
+category = 0
+points_cost = 26
+coin_cost = 0
+prerequisites = Array[StringName]([&"points_per_seed_1"])
+effect_id = &"points_per_seed_add"
+effect_value = 1
+tree_position = Vector2(700, 820)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_points_per_seed_3"]
+script = ExtResource("2_skill")
+id = &"points_per_seed_3"
+display_name = "Better Harvest 3"
+description = "Earn one extra Point per seed eaten."
+category = 0
+points_cost = 34
+coin_cost = 0
+prerequisites = Array[StringName]([&"points_per_seed_2"])
+effect_id = &"points_per_seed_add"
+effect_value = 1
+tree_position = Vector2(700, 1000)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_seed_regen_1"]
+script = ExtResource("2_skill")
+id = &"seed_regen_1"
+display_name = "Seed Refill 1"
+description = "Regenerate seeds during the day at an increasing rate."
+category = 0
+points_cost = 28
+coin_cost = 0
+prerequisites = Array[StringName]([&"unlock_seeds"])
+effect_id = &"seed_regen_interval"
+effect_value = 20
+tree_position = Vector2(700, 1180)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_seed_regen_2"]
+script = ExtResource("2_skill")
+id = &"seed_regen_2"
+display_name = "Seed Refill 2"
+description = "Regenerate seeds during the day at an increasing rate."
+category = 0
+points_cost = 38
+coin_cost = 0
+prerequisites = Array[StringName]([&"seed_regen_1"])
+effect_id = &"seed_regen_interval"
+effect_value = 10
+tree_position = Vector2(1010, 100)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_golden_seed_1"]
+script = ExtResource("2_skill")
+id = &"golden_seed_1"
+display_name = "Golden Seed"
+description = "Increase the chance of a golden seed."
+category = 0
+points_cost = 32
+coin_cost = 0
+prerequisites = Array[StringName]([&"unlock_seeds"])
+effect_id = &"golden_seed_chance"
+effect_value = 0.05
+tree_position = Vector2(1010, 280)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_worm_quality"]
+script = ExtResource("2_skill")
+id = &"worm_quality"
+display_name = "Worms: Premium Food"
+description = "Unlock higher-point worms that take longer to eat."
+category = 0
+points_cost = 35
+coin_cost = 1
+prerequisites = Array[StringName]([&"unlock_worms"])
+effect_id = &"worm_food_unlock"
+effect_value = 1
+tree_position = Vector2(1010, 460)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_pigeon_patience_1"]
+script = ExtResource("2_skill")
+id = &"pigeon_patience_1"
+display_name = "Patient Visitors"
+description = "Visitors wait longer before leaving an empty feeder."
+category = 4
+points_cost = 20
+coin_cost = 0
+prerequisites = Array[StringName]([&"more_pigeons"])
+effect_id = &"pigeon_patience_add"
+effect_value = 3
+tree_position = Vector2(1010, 640)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_rare_visitor"]
+script = ExtResource("2_skill")
+id = &"rare_visitor"
+display_name = "Rare Visitor"
+description = "A rare visitor may bring a larger Points reward."
+category = 4
+points_cost = 35
+coin_cost = 1
+prerequisites = Array[StringName]([&"more_pigeons"])
+effect_id = &"rare_visitor_chance"
+effect_value = 0.05
+tree_position = Vector2(1010, 820)
+cost_growth = 1.5
+max_level = 3
+
+[sub_resource type="Resource" id="Skill_pair_arrivals"]
+script = ExtResource("2_skill")
+id = &"pair_arrivals"
+display_name = "Pigeon Pairs"
+description = "Occasionally send two pigeons together when capacity allows."
+category = 4
+points_cost = 40
+coin_cost = 1
+prerequisites = Array[StringName]([&"more_pigeons"])
+effect_id = &"pair_arrivals"
+effect_value = 0.1
+tree_position = Vector2(1010, 1000)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_more_benches_1"]
+script = ExtResource("2_skill")
+id = &"more_benches_1"
+display_name = "Extra Bench 1"
+description = "Unlock another bench and its perch spots."
+category = 0
+points_cost = 35
+coin_cost = 1
+prerequisites = Array[StringName]([&"bench_feeder"])
+effect_id = &"bench_count_add"
+effect_value = 1
+tree_position = Vector2(1010, 1180)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_more_benches_2"]
+script = ExtResource("2_skill")
+id = &"more_benches_2"
+display_name = "Extra Bench 2"
+description = "Unlock another bench and its perch spots."
+category = 0
+points_cost = 50
+coin_cost = 2
+prerequisites = Array[StringName]([&"more_benches_1"])
+effect_id = &"bench_count_add"
+effect_value = 1
+tree_position = Vector2(1320, 100)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_more_benches_3"]
+script = ExtResource("2_skill")
+id = &"more_benches_3"
+display_name = "Extra Bench 3"
+description = "Unlock another bench and its perch spots."
+category = 0
+points_cost = 65
+coin_cost = 3
+prerequisites = Array[StringName]([&"more_benches_2"])
+effect_id = &"bench_count_add"
+effect_value = 1
+tree_position = Vector2(1320, 280)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_fountain_unlock"]
+script = ExtResource("2_skill")
+id = &"fountain_unlock"
+display_name = "Fountain Attraction"
+description = "Unlock a fountain with extra perches and quicker arrivals."
+category = 0
+points_cost = 50
+coin_cost = 2
+prerequisites = Array[StringName]([&"more_benches_1"])
+effect_id = &"fountain_unlock"
+effect_value = 1
+tree_position = Vector2(1320, 460)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_tree_nests"]
+script = ExtResource("2_skill")
+id = &"tree_nests"
+display_name = "Tree Nests"
+description = "Add nest perches that increase visitor capacity."
+category = 4
+points_cost = 45
+coin_cost = 2
+prerequisites = Array[StringName]([&"fountain_unlock"])
+effect_id = &"tree_nests"
+effect_value = 1
+tree_position = Vector2(1320, 640)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_feather_count_1"]
+script = ExtResource("2_skill")
+id = &"feather_count_1"
+display_name = "Feather Shower 1"
+description = "Drop an additional feather after a successful visit."
+category = 1
+points_cost = 30
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"feather_count_add"
+effect_value = 1
+tree_position = Vector2(1320, 820)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_feather_count_2"]
+script = ExtResource("2_skill")
+id = &"feather_count_2"
+display_name = "Feather Shower 2"
+description = "Drop an additional feather after a successful visit."
+category = 1
+points_cost = 42
+coin_cost = 0
+prerequisites = Array[StringName]([&"feather_count_1"])
+effect_id = &"feather_count_add"
+effect_value = 1
+tree_position = Vector2(1320, 1000)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_feather_value_1"]
+script = ExtResource("2_skill")
+id = &"feather_value_1"
+display_name = "Fine Feathers 1"
+description = "Each feather is worth one additional Coin."
+category = 1
+points_cost = 30
+coin_cost = 0
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"feather_value_add"
+effect_value = 1
+tree_position = Vector2(1320, 1180)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_feather_value_2"]
+script = ExtResource("2_skill")
+id = &"feather_value_2"
+display_name = "Fine Feathers 2"
+description = "Each feather is worth one additional Coin."
+category = 1
+points_cost = 42
+coin_cost = 0
+prerequisites = Array[StringName]([&"feather_value_1"])
+effect_id = &"feather_value_add"
+effect_value = 1
+tree_position = Vector2(1630, 100)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_golden_feather_1"]
+script = ExtResource("2_skill")
+id = &"golden_feather_1"
+display_name = "Golden Plumage"
+description = "Increase the chance of a golden feather."
+category = 1
+points_cost = 35
+coin_cost = 0
+prerequisites = Array[StringName]([&"feather_value_1"])
+effect_id = &"golden_feather_chance"
+effect_value = 0.05
+tree_position = Vector2(1630, 280)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_crow_collector"]
+script = ExtResource("2_skill")
+id = &"crow_collector"
+display_name = "Helpful Crow"
+description = "A crow collects one collectible every 15 seconds."
+category = 2
+points_cost = 65
+coin_cost = 3
+prerequisites = Array[StringName]([&"feather_collection_radius"])
+effect_id = &"crow_collect_interval"
+effect_value = 15
+tree_position = Vector2(1630, 460)
+cost_growth = 1.5
+max_level = 1
+
+[sub_resource type="Resource" id="Skill_golden_seed_bonus"]
+script = ExtResource("2_skill")
+id = &"golden_seed_bonus"
+display_name = "Golden Seed Bonus"
+description = "Golden seeds award an extra 3 Points."
+category = 0
+points_cost = 25
+coin_cost = 0
+prerequisites = Array[StringName]([&"golden_seed_1"])
+effect_id = &"golden_seed_bonus"
+effect_value = 3
+tree_position = Vector2(1630, 640)
+cost_growth = 1.5
+max_level = 1
+
 [resource]
 script = ExtResource("1_catalog")
 skills = Array[ExtResource("2_skill")]([ExtResource("12"), ExtResource("13"), ExtResource("18"), ExtResource("19"), ExtResource("21"), ExtResource("22"), ExtResource("26"), ExtResource("27"), ExtResource("28"), ExtResource("29"), ExtResource("30"), ExtResource("31"), ExtResource("32"), ExtResource("33"), ExtResource("34"), ExtResource("35"), ExtResource("36"), ExtResource("37"), ExtResource("38"), ExtResource("39"), ExtResource("40"), ExtResource("41"), ExtResource("42"), ExtResource("43"), ExtResource("44"), ExtResource("45"), ExtResource("46"), ExtResource("47"), ExtResource("48"), ExtResource("49"), ExtResource("50"), ExtResource("51"), ExtResource("52"), ExtResource("53"), ExtResource("54"), ExtResource("55"), ExtResource("56"), ExtResource("57"), ExtResource("58"), ExtResource("59"), ExtResource("60"), ExtResource("61"), ExtResource("62"), ExtResource("63"), ExtResource("64"), ExtResource("65"), ExtResource("66"), ExtResource("67"), ExtResource("68"), ExtResource("69")])
