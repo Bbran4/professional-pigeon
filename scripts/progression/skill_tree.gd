@@ -176,6 +176,7 @@ func purchase(skill_id: StringName) -> bool:
 	ProgressionManager.spend(get_next_points_cost(skill_id), get_next_coin_cost(skill_id))
 	var new_level := get_level(skill_id) + 1
 	ProgressionManager.set_skill_level(skill_id, new_level)
+	ProgressionManager.save_game()
 	skill_purchased.emit(skill_id, new_level)
 	return true
 
