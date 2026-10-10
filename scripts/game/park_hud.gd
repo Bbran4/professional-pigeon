@@ -28,10 +28,9 @@ func _process(_delta: float) -> void:
 
 func _update_feather_hint() -> void:
 	var feather_count := get_tree().get_nodes_in_group("collectible_feathers").size()
-	if feather_count == _last_feather_count:
-		return
-	_last_feather_count = feather_count
-	unlocks_button.disabled = feather_count > 0
+	if feather_count != _last_feather_count:
+		_last_feather_count = feather_count
+		unlocks_button.disabled = feather_count > 0
 	if day_manager.active:
 		hint_label.text = "Watch the pigeon eat, then hold the cursor over its feather for 3 seconds."
 		hint_label.show()
@@ -67,7 +66,7 @@ func _on_day_updated(
 	timer_label.text = "Day: %02d" % ceili(time_remaining)
 	points_label.text = "Points: %d" % points
 	pigeons_label.text = "Pigeons: %d" % pigeon_count
-	bread_label.text = "Seeds: %d / %d" % [seeds_remaining, seeds_capacity]
+	seeds_label.text = "Seeds: %d / %d" % [seeds_remaining, seeds_capacity]
 
 	if not day_manager.active:
 		start_button.show()
