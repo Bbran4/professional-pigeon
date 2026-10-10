@@ -136,7 +136,7 @@ func load_game() -> void:
 	points_changed.emit(points)
 	coin_changed.emit(coin)
 	for skill_id in skill_levels:
-		skill_level_changed.emit(StringName(skill_id), int(skill_levels[skill_id]))
+		skill_level_changed.emit(skill_id, int(skill_levels[skill_id]))
 
 
 func _save_if_ready() -> void:
