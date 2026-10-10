@@ -9,6 +9,7 @@ display_name = "Bench Feeder"
 description = "Unlock the seed feeder beside the bench. Requires Basic Feeding."
 category = 0
 points_cost = 5
+coin_cost = 1
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"bench_feeder"
 effect_value = 1.0
