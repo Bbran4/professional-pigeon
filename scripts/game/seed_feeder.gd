@@ -8,6 +8,18 @@ signal depleted
 @export var starting_seeds: int = 5
 
 var seeds_remaining: int = 5
+var _regen_elapsed := 0.0
+
+
+func _process(delta: float) -> void:
+	var regen_interval := ProgressionManager.get_effect_value(&"seed_regen_interval")
+	if regen_interval <= 0.0 or seeds_remaining >= get_seed_capacity():
+		_regen_elapsed = 0.0
+		return
+	_regen_elapsed += delta
+	if _regen_elapsed >= regen_interval:
+		_regen_elapsed = 0.0
+		refill(1)
 
 
 func _ready() -> void:
@@ -31,6 +43,10 @@ func consume_seed() -> bool:
 	if seeds_remaining <= 0:
 		return false
 	seeds_remaining -= 1
+	if randf() < ProgressionManager.get_effect_value(&"golden_seed_chance"):
+		set_meta("last_seed_golden", true)
+	else:
+		set_meta("last_seed_golden", false)
 	_update_visual()
 	seeds_changed.emit(seeds_remaining, get_seed_capacity())
 	if seeds_remaining == 0:
