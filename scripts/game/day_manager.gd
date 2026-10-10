@@ -59,7 +59,7 @@ func start_day() -> void:
 		if is_instance_valid(_feeder):
 			_feeder.refill(_feeder.get_seed_capacity())
 	points = 0
-	time_remaining = day_duration
+	time_remaining = day_duration + ProgressionManager.get_effect_value(&"day_duration_add")
 	active = true
 	spawner.start_day()
 	day_started.emit(day_duration)
