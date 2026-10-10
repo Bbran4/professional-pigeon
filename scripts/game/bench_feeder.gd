@@ -17,7 +17,7 @@ func _on_skill_level_changed(skill_id: StringName, _new_level: int) -> void:
 
 
 func _refresh_unlock_state() -> void:
-	var unlocked := ProgressionManager.get_skill_level(FEEDER_SKILL) > 0
+	var unlocked := ProgressionManager.get_effect_value(FEEDER_SKILL) > 0.0
 	visible = unlocked
 	if is_instance_valid(seed_feeder):
 		seed_feeder.visible = unlocked
