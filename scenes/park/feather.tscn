@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/game/feather.gd" id="1_feather"]
+
+[node name="Feather" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_feather")
+
+[node name="Shadow" type="Polygon2D" parent="."]
+position = Vector2(2, 3)
+polygon = PackedVector2Array(-3, -10, 2, -17, 6, -8, 4, 5, 0, 12, -2, 3)
+color = Color(0.05, 0.05, 0.04, 0.25)
+
+[node name="Visual" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-4, -12, 0, -20, 4, -10, 9, -3, 4, 3, 2, 11, -1, 4, -7, 0, -4, -5)
+color = Color(0.92, 0.9, 0.78, 1)
+
+[node name="ProgressBack" type="Polygon2D" parent="."]
+position = Vector2(0, 22)
+polygon = PackedVector2Array(-14, -2, 14, -2, 14, 2, -14, 2)
+color = Color(0.12, 0.12, 0.12, 0.65)
+visible = false
+
+[node name="ProgressFill" type="Polygon2D" parent="."]
+position = Vector2(-14, 22)
+polygon = PackedVector2Array(0, -2, 28, -2, 28, 2, 0, 2)
+color = Color(0.95, 0.82, 0.38, 1)
+visible = false
