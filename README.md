@@ -60,3 +60,8 @@ Progression is saved automatically to `user://professional_pigeon_save.json`. Th
 2. Connect remaining resource upgrades to actual world pickup spawning.
 3. Add more visible park changes as skills are purchased.
 4. Expand day results and long-term progression.
+
+
+### Visitor capacity
+
+The **More Pigeons** upgrade increases the number of simultaneous visitors by one per level, up to three. Visitors reserve distinct perch markers from the `perch_spots` group, and feeders are discovered through the `feeders` group, allowing additional benches and feeders to participate without hard-coded node paths. Visitors that cannot find food leave after their patience timeout instead of waiting forever.
