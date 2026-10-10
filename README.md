@@ -27,7 +27,9 @@ There is **no manual bread throwing or manual feeding**.
 
 ## Skill tree
 
-Skill definitions in `data/skills/*.tres` own their prerequisites, tree positions, Coming Soon status, base costs, and cost-growth multiplier. The tree generates its buttons from the catalog, so adding or moving a skill no longer requires hand-editing the scene. Repeated purchases scale each cost by `base cost × cost_growth^current level` (default growth: 1.5).\n\nThe tree includes branches for:
+Skill definitions in `data/skills/*.tres` own their prerequisites, tree positions, Coming Soon status, base costs, and cost-growth multiplier. The tree generates its buttons from the catalog, so adding or moving a skill no longer requires hand-editing the scene. Repeated purchases scale each cost by `base cost × cost_growth^current level` (default growth: 1.5).
+
+The tree includes branches for:
 
 - Bench Feeder and seed capacity
 - Seeds and worms
