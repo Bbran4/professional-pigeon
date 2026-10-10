@@ -17,7 +17,7 @@ func _ready() -> void:
 		push_error("SkillManager requires a SkillTree.")
 		return
 	_connect_progression_signals()
-	_center_on_bread()
+	_center_on_starting_skill()
 	skill_tree._refresh_nodes()
 
 
@@ -32,15 +32,15 @@ func _connect_progression_signals() -> void:
 		ProgressionManager.skill_level_changed.connect(_refresh_tree.unbind(2))
 
 
-func _center_on_bread() -> void:
+func _center_on_starting_skill() -> void:
 	if skill_tree == null:
 		return
-	var bread_node := skill_tree.get_node_or_null("Bread") as Control
-	if bread_node == null:
+	var starting_node := skill_tree.get_node_or_null("BasicFeeding") as Control
+	if starting_node == null:
 		return
 	zoom = 1.0
 	skill_tree.scale = Vector2.ONE
-	var tree_node_center := bread_node.position + bread_node.size * 0.5
+	var tree_node_center := starting_node.position + starting_node.size * 0.5
 	skill_tree.position = size * 0.5 - tree_node_center
 
 
