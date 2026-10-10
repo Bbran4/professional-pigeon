@@ -2,7 +2,7 @@ extends Node
 class_name DayManager
 
 signal day_started(duration: float)
-signal day_updated(time_remaining: float, points: int, pigeon_count: int, bread_remaining: int, bread_capacity: int)
+signal day_updated(time_remaining: float, points: int, pigeon_count: int, seeds_remaining: int, seeds_capacity: int)
 signal day_ended(points: int)
 
 @export var day_duration: float = 60.0
