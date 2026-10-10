@@ -93,17 +93,19 @@ func _physics_process(delta: float) -> void:
 				_try_next_food()
 
 		VisitorState.WAITING:
-			waiting_timer += delta
-			if waiting_timer >= patience_timeout:
-				_begin_departure()
-				return
-			if target_food == null or not is_instance_valid(target_food) or not target_food.is_visible_in_tree():
+			if target_food == null or not is_instance_valid(target_food) or not target_food.is_visible_in_tree() or not _food_is_available(target_food):
 				target_food = null
+				waiting_timer += delta
+				if waiting_timer >= patience_timeout:
+					_begin_departure()
+					return
 				_try_next_food()
 				if target_food == null:
 					pigeon.move_direction = Vector2.ZERO
 					state_machine.transition(StateMachine.Intent.IDLE)
 					return
+			else:
+				waiting_timer = 0.0
 			_move_to_food(delta)
 
 		VisitorState.FEEDING:
