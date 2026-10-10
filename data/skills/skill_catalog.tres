@@ -26,7 +26,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(80, 100)
+tree_position = Vector2(40, 60)
 cost_growth = 1.5
 max_level = 1
 
@@ -41,7 +41,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(80, 280)
+tree_position = Vector2(350, 60)
 cost_growth = 1.5
 max_level = 1
 
@@ -56,7 +56,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(80, 460)
+tree_position = Vector2(660, 60)
 cost_growth = 1.5
 max_level = 1
 
@@ -71,7 +71,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(80, 640)
+tree_position = Vector2(970, 60)
 cost_growth = 1.5
 max_level = 1
 
@@ -86,7 +86,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"day_duration_add"
 effect_value = 5
-tree_position = Vector2(80, 820)
+tree_position = Vector2(1280, 60)
 cost_growth = 1.5
 max_level = 1
 
@@ -101,7 +101,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(80, 1000)
+tree_position = Vector2(1590, 60)
 cost_growth = 1.5
 max_level = 1
 
@@ -116,7 +116,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"arrival_speed_1"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(80, 1180)
+tree_position = Vector2(1900, 60)
 cost_growth = 1.5
 max_level = 1
 
@@ -131,7 +131,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"arrival_speed_2"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
-tree_position = Vector2(390, 100)
+tree_position = Vector2(40, 230)
 cost_growth = 1.5
 max_level = 1
 
@@ -146,7 +146,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"eating_time_reduction"
 effect_value = 0.25
-tree_position = Vector2(390, 280)
+tree_position = Vector2(970, 230)
 cost_growth = 1.5
 max_level = 1
 
@@ -161,7 +161,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"eating_speed_1"])
 effect_id = &"eating_time_reduction"
 effect_value = 0.25
-tree_position = Vector2(390, 460)
+tree_position = Vector2(1280, 230)
 cost_growth = 1.5
 max_level = 1
 
@@ -176,7 +176,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"eating_speed_2"])
 effect_id = &"eating_time_reduction"
 effect_value = 0.25
-tree_position = Vector2(390, 640)
+tree_position = Vector2(1590, 230)
 cost_growth = 1.5
 max_level = 1
 
@@ -191,7 +191,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"flight_speed_add"
 effect_value = 20
-tree_position = Vector2(390, 820)
+tree_position = Vector2(1900, 230)
 cost_growth = 1.5
 max_level = 1
 
@@ -206,7 +206,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"flight_speed_1"])
 effect_id = &"flight_speed_add"
 effect_value = 20
-tree_position = Vector2(390, 1000)
+tree_position = Vector2(40, 400)
 cost_growth = 1.5
 max_level = 1
 
@@ -221,7 +221,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"flight_speed_2"])
 effect_id = &"flight_speed_add"
 effect_value = 20
-tree_position = Vector2(390, 1180)
+tree_position = Vector2(350, 400)
 cost_growth = 1.5
 max_level = 1
 
@@ -236,7 +236,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"feather_wait_reduction"
 effect_value = 0.25
-tree_position = Vector2(700, 100)
+tree_position = Vector2(660, 400)
 cost_growth = 1.5
 max_level = 1
 
@@ -251,7 +251,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"feather_wait_1"])
 effect_id = &"feather_wait_reduction"
 effect_value = 0.25
-tree_position = Vector2(700, 280)
+tree_position = Vector2(970, 400)
 cost_growth = 1.5
 max_level = 1
 
@@ -266,7 +266,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"feather_wait_2"])
 effect_id = &"feather_wait_reduction"
 effect_value = 0.25
-tree_position = Vector2(700, 460)
+tree_position = Vector2(1280, 400)
 cost_growth = 1.5
 max_level = 1
 
@@ -281,7 +281,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"points_per_seed_add"
 effect_value = 1
-tree_position = Vector2(700, 640)
+tree_position = Vector2(1590, 400)
 cost_growth = 1.5
 max_level = 1
 
@@ -296,7 +296,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"points_per_seed_1"])
 effect_id = &"points_per_seed_add"
 effect_value = 1
-tree_position = Vector2(700, 820)
+tree_position = Vector2(1900, 400)
 cost_growth = 1.5
 max_level = 1
 
@@ -311,7 +311,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"points_per_seed_2"])
 effect_id = &"points_per_seed_add"
 effect_value = 1
-tree_position = Vector2(700, 1000)
+tree_position = Vector2(40, 570)
 cost_growth = 1.5
 max_level = 1
 
@@ -326,7 +326,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"unlock_seeds"])
 effect_id = &"seed_regen_interval"
 effect_value = 20
-tree_position = Vector2(700, 1180)
+tree_position = Vector2(350, 570)
 cost_growth = 1.5
 max_level = 1
 
@@ -341,7 +341,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"seed_regen_1"])
 effect_id = &"seed_regen_interval"
 effect_value = -10
-tree_position = Vector2(1010, 100)
+tree_position = Vector2(660, 570)
 cost_growth = 1.5
 max_level = 1
 
@@ -356,7 +356,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"unlock_seeds"])
 effect_id = &"golden_seed_chance"
 effect_value = 0.05
-tree_position = Vector2(1010, 280)
+tree_position = Vector2(970, 570)
 cost_growth = 1.5
 max_level = 1
 
@@ -371,7 +371,7 @@ coin_cost = 1
 prerequisites = Array[StringName]([&"unlock_worms"])
 effect_id = &"worm_food_unlock"
 effect_value = 1
-tree_position = Vector2(1010, 460)
+tree_position = Vector2(1280, 570)
 cost_growth = 1.5
 max_level = 1
 
@@ -386,7 +386,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"more_pigeons"])
 effect_id = &"pigeon_patience_add"
 effect_value = 3
-tree_position = Vector2(1010, 640)
+tree_position = Vector2(1590, 570)
 cost_growth = 1.5
 max_level = 1
 
@@ -401,7 +401,7 @@ coin_cost = 1
 prerequisites = Array[StringName]([&"more_pigeons"])
 effect_id = &"rare_visitor_chance"
 effect_value = 0.05
-tree_position = Vector2(1010, 820)
+tree_position = Vector2(1900, 570)
 cost_growth = 1.5
 max_level = 3
 
@@ -416,7 +416,7 @@ coin_cost = 1
 prerequisites = Array[StringName]([&"more_pigeons"])
 effect_id = &"pair_arrivals"
 effect_value = 0.1
-tree_position = Vector2(1010, 1000)
+tree_position = Vector2(40, 740)
 cost_growth = 1.5
 max_level = 1
 
@@ -431,7 +431,7 @@ coin_cost = 1
 prerequisites = Array[StringName]([&"bench_feeder"])
 effect_id = &"bench_count_add"
 effect_value = 1
-tree_position = Vector2(1010, 1180)
+tree_position = Vector2(350, 740)
 cost_growth = 1.5
 max_level = 1
 
@@ -446,7 +446,7 @@ coin_cost = 2
 prerequisites = Array[StringName]([&"more_benches_1"])
 effect_id = &"bench_count_add"
 effect_value = 1
-tree_position = Vector2(1320, 100)
+tree_position = Vector2(660, 740)
 cost_growth = 1.5
 max_level = 1
 
@@ -461,7 +461,7 @@ coin_cost = 3
 prerequisites = Array[StringName]([&"more_benches_2"])
 effect_id = &"bench_count_add"
 effect_value = 1
-tree_position = Vector2(1320, 280)
+tree_position = Vector2(1900, 740)
 cost_growth = 1.5
 max_level = 1
 
@@ -476,7 +476,7 @@ coin_cost = 2
 prerequisites = Array[StringName]([&"more_benches_1"])
 effect_id = &"fountain_unlock"
 effect_value = 1
-tree_position = Vector2(1320, 460)
+tree_position = Vector2(40, 910)
 cost_growth = 1.5
 max_level = 1
 
@@ -491,7 +491,7 @@ coin_cost = 2
 prerequisites = Array[StringName]([&"fountain_unlock"])
 effect_id = &"tree_nests"
 effect_value = 1
-tree_position = Vector2(1320, 640)
+tree_position = Vector2(350, 910)
 cost_growth = 1.5
 max_level = 1
 
@@ -506,7 +506,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"feather_count_add"
 effect_value = 1
-tree_position = Vector2(1320, 820)
+tree_position = Vector2(660, 910)
 cost_growth = 1.5
 max_level = 1
 
@@ -521,7 +521,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"feather_count_1"])
 effect_id = &"feather_count_add"
 effect_value = 1
-tree_position = Vector2(1320, 1000)
+tree_position = Vector2(1900, 910)
 cost_growth = 1.5
 max_level = 1
 
@@ -536,7 +536,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"feather_value_add"
 effect_value = 1
-tree_position = Vector2(1320, 1180)
+tree_position = Vector2(40, 1080)
 cost_growth = 1.5
 max_level = 1
 
@@ -551,7 +551,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"feather_value_1"])
 effect_id = &"feather_value_add"
 effect_value = 1
-tree_position = Vector2(1630, 100)
+tree_position = Vector2(970, 1080)
 cost_growth = 1.5
 max_level = 1
 
@@ -566,7 +566,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"feather_value_1"])
 effect_id = &"golden_feather_chance"
 effect_value = 0.05
-tree_position = Vector2(1630, 280)
+tree_position = Vector2(40, 1250)
 cost_growth = 1.5
 max_level = 1
 
@@ -581,7 +581,7 @@ coin_cost = 3
 prerequisites = Array[StringName]([&"feather_collection_radius"])
 effect_id = &"crow_collect_interval"
 effect_value = 15
-tree_position = Vector2(1630, 460)
+tree_position = Vector2(660, 1250)
 cost_growth = 1.5
 max_level = 1
 
@@ -596,7 +596,7 @@ coin_cost = 0
 prerequisites = Array[StringName]([&"golden_seed_1"])
 effect_id = &"golden_seed_bonus"
 effect_value = 3
-tree_position = Vector2(1630, 640)
+tree_position = Vector2(970, 1250)
 cost_growth = 1.5
 max_level = 1
 
