@@ -85,6 +85,8 @@ func _check_day_completion() -> void:
 		return
 	if spawner.get_active_count() > 0:
 		return
+	if ProgressionManager.get_effect_value(&"seed_regen_interval") > 0.0:
+		return
 	end_day()
 
 
