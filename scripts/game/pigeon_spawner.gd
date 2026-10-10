@@ -43,14 +43,10 @@ func start_day() -> void:
 
 
 func end_day() -> void:
+	# Stop scheduling new visitors, but let the current visitor finish its visit.
 	day_active = false
-	if is_instance_valid(active_brain):
-		active_brain.end_day()
-	if is_instance_valid(active_pigeon):
-		active_pigeon.queue_free()
-	active_pigeon = null
-	active_brain = null
-	visitor_count_changed.emit(0)
+	if not is_instance_valid(active_pigeon):
+		visitor_count_changed.emit(0)
 
 
 func get_active_count() -> int:
