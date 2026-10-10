@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="1_seed_feeder"]
+[ext_resource type="Script" path="res://scripts/game/bench_feeder.gd" id="2_bench_feeder"]
+
+[node name="BenchFeeder" type="Node2D"]
+script = ExtResource("2_bench_feeder")
+
+[node name="SeedFeeder" parent="." instance=ExtResource("1_seed_feeder")]
+position = Vector2(0, 78)
+
+[node name="BenchSpawn1" type="Marker2D" parent="."]
+position = Vector2(-48, 12)
+
+[node name="BenchSpawn2" type="Marker2D" parent="."]
+position = Vector2(0, 12)
+
+[node name="BenchSpawn3" type="Marker2D" parent="."]
+position = Vector2(48, 12)
