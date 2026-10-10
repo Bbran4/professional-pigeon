@@ -193,7 +193,7 @@ func _begin_departure() -> void:
 
 func _get_food_points(food: Node2D) -> int:
 	var points := food_points + int(ProgressionManager.get_effect_value(&"points_per_seed_add"))
-	if randf() < ProgressionManager.get_effect_value(&"golden_seed_chance"):
+	if is_instance_valid(food) and bool(food.get_meta("last_seed_golden", false)):
 		points += int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
 	return points
 
