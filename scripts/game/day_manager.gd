@@ -63,7 +63,7 @@ func start_day() -> void:
 	time_remaining = day_duration + ProgressionManager.get_effect_value(&"day_duration_add")
 	active = true
 	spawner.start_day()
-	day_started.emit(day_duration)
+	day_started.emit(time_remaining)
 	_emit_day_updated()
 
 
@@ -81,13 +81,21 @@ func _check_day_completion() -> void:
 		if spawner.get_active_count() == 0:
 			end_day()
 		return
-	if is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining > 0:
+	if _has_available_food():
 		return
 	if spawner.get_active_count() > 0:
 		return
 	if ProgressionManager.get_effect_value(&"seed_regen_interval") > 0.0:
 		return
 	end_day()
+
+
+func _has_available_food() -> bool:
+	for node in get_tree().get_nodes_in_group("feeders"):
+		var available_feeder := node as SeedFeeder
+		if available_feeder != null and available_feeder.is_visible_in_tree() and available_feeder.seeds_remaining > 0:
+			return true
+	return is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining > 0
 
 
 func _on_visitor_count_changed(_count: int) -> void:
@@ -105,8 +113,16 @@ func end_day() -> void:
 
 
 func _emit_day_updated() -> void:
-	var seeds := feeder.seeds_remaining if is_instance_valid(feeder) else 0
-	var capacity := feeder.get_seed_capacity() if is_instance_valid(feeder) else 0
+	var seeds := 0
+	var capacity := 0
+	for node in get_tree().get_nodes_in_group("feeders"):
+		var available_feeder := node as SeedFeeder
+		if available_feeder != null and available_feeder.is_visible_in_tree():
+			seeds += available_feeder.seeds_remaining
+			capacity += available_feeder.get_seed_capacity()
+	if capacity == 0 and is_instance_valid(feeder):
+		seeds = feeder.seeds_remaining
+		capacity = feeder.get_seed_capacity()
 	var pigeon_count := spawner.get_active_count() if is_instance_valid(spawner) else 0
 	var displayed_time := ceili(time_remaining) if active else 0
 	var display_state: Array = [displayed_time, points, pigeon_count, seeds, capacity]
