@@ -86,6 +86,7 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 		pigeon.queue_free()
 		return false
 
+	brain.patience_timeout = maxf(1.0, brain.patience_timeout + ProgressionManager.get_effect_value(&"pigeon_patience_add"))
 	var perch_position: Vector2 = perch.position
 	var from_left := randf() < 0.5
 	var arrival := Vector2(park_bounds.position.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch_position.y - 80.0)
@@ -173,7 +174,7 @@ func _spawn_next_after_delay() -> void:
 	if _spawn_delay_pending:
 		return
 	_spawn_delay_pending = true
-	await get_tree().create_timer(arrival_interval).timeout
+	await get_tree().create_timer(maxf(0.1, arrival_interval - ProgressionManager.get_effect_value(&"arrival_speed_reduction"))).timeout
 	_spawn_delay_pending = false
 	if day_active:
 		_spawn_available_visitors()
