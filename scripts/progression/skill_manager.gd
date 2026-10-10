@@ -50,13 +50,18 @@ func _input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
+		var manager_position := get_global_transform_with_canvas().affine_inverse() * mouse_event.position
+		var inside_manager := Rect2(Vector2.ZERO, size).has_point(manager_position)
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT:
 			if mouse_event.pressed:
-				panning = not _is_over_skill_node(mouse_event.position)
-			else:
+				if inside_manager and not _is_over_skill_node(mouse_event.position):
+					panning = true
+					get_viewport().set_input_as_handled()
+			elif panning:
 				panning = false
-			if panning or not mouse_event.pressed:
 				get_viewport().set_input_as_handled()
+			return
+		if not inside_manager:
 			return
 		if mouse_event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			_zoom_at_mouse(zoom_step, mouse_event.position)
@@ -70,7 +75,6 @@ func _input(event: InputEvent) -> void:
 		skill_tree.position += motion.relative
 		_clamp_tree_position()
 		get_viewport().set_input_as_handled()
-
 
 func _is_over_skill_node(viewport_position: Vector2) -> bool:
 	var manager_position := get_global_transform_with_canvas().affine_inverse() * viewport_position
