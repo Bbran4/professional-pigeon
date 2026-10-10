@@ -124,7 +124,7 @@ func _physics_process(delta: float) -> void:
 				target_food = null
 				if successfully_fed:
 					visitor_state = VisitorState.DROPPING
-					dropping_timer = dropping_duration
+					dropping_timer = maxf(0.25, dropping_duration - ProgressionManager.get_effect_value(&"feather_wait_reduction"))
 				else:
 					_begin_departure()
 
@@ -193,15 +193,18 @@ func _begin_departure() -> void:
 
 func _get_food_points(food: Node2D) -> int:
 	var points := food_points + int(ProgressionManager.get_effect_value(&"points_per_seed_add"))
-	if is_instance_valid(food) and bool(food.get_meta("last_seed_golden", false)):
-		points += int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
+	if is_instance_valid(food):
+		if bool(food.get_meta("last_seed_golden", false)):
+			points += int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
+		if bool(food.get_meta("last_seed_worm", false)):
+			points += 3
 	return points
 
 
 func _get_eating_duration(food: Node2D) -> float:
 	var duration := eating_duration - ProgressionManager.get_effect_value(&"eating_time_reduction")
-	if is_instance_valid(food) and food.has_meta("eating_duration"):
-		duration = float(food.get_meta("eating_duration"))
+	if is_instance_valid(food) and bool(food.get_meta("last_seed_worm", false)):
+		duration += 1.5
 	return maxf(0.25, duration)
 
 
