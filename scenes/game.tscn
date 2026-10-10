@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" path="res://scenes/park/tree.tscn" id="1_tree"]
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
 [ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="11_feeder"]
-[ext_resource type="Script" path="res://scripts/game/feather_cursor.gd" id="12_cursor"]
+[ext_resource type="Script" path="res://scripts/game/feather_collector.gd" id="12_collector"]
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
@@ -36,8 +36,8 @@ position = Vector2(780, 210)
 [node name="SeedFeeder" parent="." instance=ExtResource("11_feeder")]
 position = Vector2(780, 290)
 
-[node name="FeatherCursor" type="Node2D" parent="."]
-script = ExtResource("12_cursor")
+[node name="FeatherCollector" type="Node2D" parent="."]
+script = ExtResource("12_collector")
 
 [node name="PigeonSpawner" type="Node2D" parent="." unique_id=28304278]
 script = ExtResource("10_spawner")
