@@ -6,6 +6,8 @@ var facing: int = 1
 
 
 func _ready() -> void:
+	collision_layer = 0
+	collision_mask = 0
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	super._ready()
 	if stats == null:
