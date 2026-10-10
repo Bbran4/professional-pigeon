@@ -6,7 +6,7 @@
 script = ExtResource("1_skill")
 id = &"bench_feeder"
 display_name = "Bench Feeder"
-description = "Unlock a seed feeder beside the park bench, attracting pigeons to your park."
+description = "Unlock the seed feeder beside the bench. Requires Basic Feeding."
 category = 0
 points_cost = 5
 prerequisites = Array[StringName]([&"bread"])
