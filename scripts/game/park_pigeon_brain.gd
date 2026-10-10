@@ -114,7 +114,7 @@ func _physics_process(delta: float) -> void:
 					if target_food.has_method("consume_seed"):
 						successfully_fed = bool(target_food.call("consume_seed"))
 						if successfully_fed:
-							ate_food.emit(food_points)
+							ate_food.emit(_get_food_points(target_food))
 					else:
 						target_food.hide()
 						target_food.queue_free()
@@ -186,6 +186,14 @@ func _try_next_food() -> void:
 
 		target_food = next_food
 		return
+
+
+func _get_food_points(food: Node2D) -> int:
+	var points := food_points
+	if food is ThrownBread:
+		points += int(ProgressionManager.get_effect_value(&"bread_value_add"))
+	return points
+
 
 func _food_is_available(food: Node2D) -> bool:
 	if not is_instance_valid(food) or not food.visible:
