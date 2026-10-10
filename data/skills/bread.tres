@@ -5,10 +5,10 @@
 [resource]
 script = ExtResource("1_skill")
 id = &"bread"
-display_name = "Bread"
-description = "Unlock manual bread throwing. You can throw up to 5 pieces of bread each day."
+display_name = "Basic Feeding"
+description = "Unlock the basic feeding route and open the path to park upgrades."
 category = 0
 points_cost = 0
-effect_id = &"bread_stock"
-effect_value = 5.0
+effect_id = &"basic_feeding"
+effect_value = 1.0
 max_level = 1
