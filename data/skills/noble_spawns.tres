@@ -13,4 +13,7 @@ coin_cost = 5
 prerequisites = Array[StringName]([&"unlock_coin"])
 effect_id = &"noble_spawns"
 effect_value = 1.0
+tree_position = Vector2(2040, 700)
+cost_growth = 1.5
+coming_soon = true
 max_level = 3
