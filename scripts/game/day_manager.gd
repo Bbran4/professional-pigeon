@@ -10,6 +10,7 @@ signal day_ended(points: int)
 var time_remaining: float = 0.0
 var points: int = 0
 var active: bool = false
+var _last_display_state: Array = []
 
 var feeder: SeedFeeder:
 	get:
@@ -98,10 +99,16 @@ func end_day() -> void:
 func _emit_day_updated() -> void:
 	var seeds := feeder.seeds_remaining if is_instance_valid(feeder) else 0
 	var capacity := feeder.get_seed_capacity() if is_instance_valid(feeder) else 0
+	var pigeon_count := spawner.get_active_count() if is_instance_valid(spawner) else 0
+	var displayed_time := ceili(time_remaining) if active else 0
+	var display_state: Array = [displayed_time, points, pigeon_count, seeds, capacity]
+	if display_state == _last_display_state:
+		return
+	_last_display_state = display_state
 	day_updated.emit(
 		time_remaining if active else 0.0,
 		points,
-		spawner.get_active_count() if is_instance_valid(spawner) else 0,
+		pigeon_count,
 		seeds,
 		capacity
 	)
