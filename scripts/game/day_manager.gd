@@ -20,6 +20,7 @@ var feeder: SeedFeeder:
 var _feeder: SeedFeeder
 
 @onready var spawner: PigeonSpawner = $"../PigeonSpawner"
+@onready var bread_thrower: BreadThrower = $"../BreadThrower"
 
 
 func _ready() -> void:
@@ -33,6 +34,9 @@ func _process(delta: float) -> void:
 		return
 	time_remaining = maxf(time_remaining - delta, 0.0)
 	_emit_day_updated()
+	if time_remaining <= 0.0:
+		end_day()
+		return
 	_check_day_completion()
 
 
@@ -45,6 +49,7 @@ func start_day() -> void:
 	time_remaining = day_duration
 	active = true
 	spawner.start_day()
+	bread_thrower.start_day()
 	day_started.emit(day_duration)
 	_emit_day_updated()
 
@@ -71,6 +76,7 @@ func end_day() -> void:
 		return
 	active = false
 	spawner.end_day()
+	bread_thrower.end_day()
 	ProgressionManager.add_points(points)
 	_emit_day_updated()
 	day_ended.emit(points)
