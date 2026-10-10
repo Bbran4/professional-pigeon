@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" path="res://scenes/park/tree.tscn" id="1_tree"]
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
 [ext_resource type="PackedScene" path="res://scenes/park/bread.tscn" id="3_bread"]
+[ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="11_feeder"]
+[ext_resource type="Script" path="res://scripts/game/feather_cursor.gd" id="12_cursor"]
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
@@ -33,11 +35,17 @@ position = Vector2(185, 185)
 [node name="Bench" parent="." unique_id=627715693 instance=ExtResource("2_bench")]
 position = Vector2(780, 210)
 
+[node name="SeedFeeder" parent="." instance=ExtResource("11_feeder")]
+position = Vector2(780, 290)
+
+[node name="FeatherCursor" type="Node2D" parent="."]
+script = ExtResource("12_cursor")
+
 [node name="PigeonSpawner" type="Node2D" parent="." unique_id=28304278]
 script = ExtResource("10_spawner")
 pigeon_scene = ExtResource("4_player")
 park_bounds = Rect2(40, 100, 1072, 500)
-landing_spots = Array[Vector2]([Vector2(185, 112), Vector2(780, 170), Vector2(300, 240), Vector2(450, 260), Vector2(620, 460), Vector2(850, 430), Vector2(1010, 250)])
+landing_spots = Array[Vector2]([Vector2(780, 250), Vector2(185, 112), Vector2(300, 240), Vector2(450, 260), Vector2(620, 460), Vector2(850, 430), Vector2(1010, 250)])
 
 [node name="BreadThrower" type="Node2D" parent="." unique_id=212241885]
 script = ExtResource("9_thrower")
@@ -89,7 +97,7 @@ horizontal_alignment = 1
 [node name="Bread" type="Label" parent="HUD/Margin/Panel/VBox" unique_id=76041492]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Bread: 0 / 0"
+text = "Seeds: 0 / 5"
 horizontal_alignment = 1
 
 [node name="StartDay" type="Button" parent="HUD" unique_id=1982270229]
@@ -114,7 +122,7 @@ offset_top = 585.0
 offset_right = 792.0
 offset_bottom = 620.0
 theme_override_font_sizes/font_size = 16
-text = "Click the park to throw bread"
+text = "Watch the pigeon eat, then hold the cursor over its feather for 3 seconds."
 horizontal_alignment = 1
 
 [node name="Result" type="Label" parent="HUD" unique_id=291074007]
