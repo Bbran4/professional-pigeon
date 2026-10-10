@@ -4,6 +4,8 @@ signal points_changed(points: int)
 signal coin_changed(coin: int)
 signal skill_level_changed(skill_id: StringName, new_level: int)
 
+const SKILL_CATALOG: SkillCatalog = preload("res://data/skills/skill_catalog.tres")
+
 var points: int = 0
 var coin: int = 0
 var skill_levels: Dictionary = {}
@@ -66,5 +68,14 @@ func get_skill_level(skill_id: StringName) -> int:
 
 
 func set_skill_level(skill_id: StringName, level: int) -> void:
-	skill_levels[skill_id] = level
-	skill_level_changed.emit(skill_id, level)
+	skill_levels[skill_id] = maxi(level, 0)
+	skill_level_changed.emit(skill_id, maxi(level, 0))
+
+
+func get_effect_value(effect_id: StringName) -> float:
+	var total := 0.0
+	for skill in SKILL_CATALOG.skills:
+		if skill == null or skill.effect_id != effect_id:
+			continue
+		total += skill.effect_value * get_skill_level(skill.id)
+	return total
