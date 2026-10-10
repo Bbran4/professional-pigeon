@@ -21,3 +21,6 @@ func _refresh_unlock_state() -> void:
 	visible = unlocked
 	if is_instance_valid(seed_feeder):
 		seed_feeder.visible = unlocked
+	var starter_feeder := get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
+	if is_instance_valid(starter_feeder):
+		starter_feeder.visible = not unlocked
