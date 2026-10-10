@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"feather_auto_collect"
+display_name = "Pigeon Post"
+description = "Automatically collect every feather as soon as it appears."
+category = 1
+points_cost = 60
+coin_cost = 5
+prerequisites = Array[StringName]([&"feather_collection_radius"])
+effect_id = &"auto_collect"
+effect_value = 1.0
+tree_position = Vector2(2140, 1100)
+cost_growth = 1.0
+max_level = 1
