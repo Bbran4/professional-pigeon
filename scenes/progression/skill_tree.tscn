@@ -29,7 +29,6 @@ offset_top = 700.0
 offset_right = 1650.0
 offset_bottom = 800.0
 skill_id = &"larger_flock"
-prerequisite_ids = Array[StringName]([&"bread"])
 
 [node name="BenchFeeder" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -56,7 +55,6 @@ offset_top = 180.0
 offset_right = 450.0
 offset_bottom = 280.0
 skill_id = &"seeds_spawns"
-prerequisite_ids = Array[StringName]([&"unlock_seeds"])
 
 [node name="UnlockWorms" parent="." instance=ExtResource("3_node")]
 layout_mode = 0
@@ -76,7 +74,6 @@ offset_top = 1160.0
 offset_right = 450.0
 offset_bottom = 1260.0
 skill_id = &"worms_spawns"
-prerequisite_ids = Array[StringName]([&"unlock_worms"])
 coming_soon = true
 
 
@@ -86,6 +83,7 @@ offset_left = 1800.0
 offset_top = 520.0
 offset_right = 1990.0
 offset_bottom = 620.0
+coming_soon = true
 skill_id = &"unlock_coin"
 prerequisite_ids = Array[StringName]([&"bread"])
 
@@ -96,7 +94,6 @@ offset_top = 420.0
 offset_right = 2230.0
 offset_bottom = 520.0
 skill_id = &"farthing_spawns"
-prerequisite_ids = Array[StringName]([&"unlock_coin"])
 coming_soon = true
 
 
