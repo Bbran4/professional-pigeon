@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"feather_collection_radius"
+display_name = "Wide Sweep"
+description = "Increase the cursor's feather collection radius by 20 pixels per level."
+category = 1
+points_cost = 12
+coin_cost = 0
+prerequisites = Array[StringName]([&"feather_fast_collection"])
+effect_id = &"feather_collect_radius"
+effect_value = 20.0
+tree_position = Vector2(1800, 1100)
+cost_growth = 1.7
+max_level = 3
