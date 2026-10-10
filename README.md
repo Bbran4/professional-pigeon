@@ -9,7 +9,7 @@ The current prototype uses a **60-second day**.
 1. Start the day.
 2. The active feeder attracts a pigeon.
 3. The pigeon arrives, eats a seed for 2 seconds, waits 2 seconds, drops a feather, then leaves.
-4. Keep the cursor over the feather for 3 seconds to collect it and earn Coin.
+4. Keep the cursor over each feather for 3 seconds to collect it and earn Coin. Collect all feathers before starting another day or opening Unlocks.
 5. Food eaten earns Points at the end of the day.
 6. Spend Points and Coin on skills, then start another day.
 
