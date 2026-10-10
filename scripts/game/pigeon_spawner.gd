@@ -236,7 +236,7 @@ func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 		pigeon.queue_free()
 	visitor_count_changed.emit(visitors.size())
 	if day_active:
-		_spawn_available_visitors()
+		_spawn_next_after_delay()
 
 
 func _spawn_next_after_delay() -> void:
