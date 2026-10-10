@@ -5,7 +5,7 @@ class_name ParkHud
 @onready var timer_label: Label = $Margin/Panel/VBox/Timer
 @onready var points_label: Label = $Margin/Panel/VBox/Points
 @onready var pigeons_label: Label = $Margin/Panel/VBox/Pigeons
-@onready var bread_label: Label = $Margin/Panel/VBox/Bread
+@onready var bread_label: Label = $Margin/Panel/VBox/Seeds
 @onready var start_button: Button = $StartDay
 @onready var unlocks_button: Button = $Upgrades
 @onready var hint_label: Label = $Hint
@@ -39,13 +39,13 @@ func _on_day_updated(
 	time_remaining: float,
 	points: int,
 	pigeon_count: int,
-	bread_remaining: int,
-	bread_capacity: int
+	seeds_remaining: int,
+	seeds_capacity: int
 ) -> void:
 	timer_label.text = "Day: %02d" % ceili(time_remaining)
 	points_label.text = "Points: %d" % points
 	pigeons_label.text = "Pigeons: %d" % pigeon_count
-	bread_label.text = "Seeds: %d / %d" % [bread_remaining, bread_capacity]
+	bread_label.text = "Seeds: %d / %d" % [seeds_remaining, seeds_capacity]
 
 	if not day_manager.active:
 		start_button.show()
