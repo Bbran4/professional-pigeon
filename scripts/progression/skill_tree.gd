@@ -45,6 +45,7 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 
 func _generate_nodes() -> void:
 	for child in get_children():
+		remove_child(child)
 		child.queue_free()
 	nodes_by_id.clear()
 	if skill_node_scene == null:
