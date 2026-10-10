@@ -1,25 +1,7 @@
 extends CharacterBody2D
 class_name Actor
 
-@export var gravity_scale: float = 1.0
-## Keeps ground-based actors attached to sloped surfaces while walking.
-@export var ground_snap_length: float = 8.0
-
 var move_direction: Vector2 = Vector2.ZERO
-
-
-func _ready() -> void:
-	floor_snap_length = ground_snap_length
-	floor_stop_on_slope = true
-
-
-func get_move_speed() -> float:
-	return 100.0
-
-
-func move() -> void:
-	velocity = move_direction * get_move_speed()
-	move_and_slide()
 
 
 func stop() -> void:
