@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"bench_feeder"
+display_name = "Bench Feeder"
+description = "Unlock a seed feeder beside the park bench, attracting pigeons to your park."
+category = 0
+points_cost = 5
+prerequisites = Array[StringName]([&"bread"])
+effect_id = &"bench_feeder"
+effect_value = 1.0
+max_level = 1
