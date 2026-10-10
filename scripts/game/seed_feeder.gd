@@ -11,9 +11,13 @@ var seeds_remaining: int = 5
 
 
 func _ready() -> void:
-	seeds_remaining = clampi(starting_seeds, 0, seed_capacity)
+	seeds_remaining = clampi(starting_seeds, 0, get_seed_capacity())
 	_update_visual()
-	seeds_changed.emit(seeds_remaining, seed_capacity)
+	seeds_changed.emit(seeds_remaining, get_seed_capacity())
+
+
+func get_seed_capacity() -> int:
+	return seed_capacity + int(ProgressionManager.get_effect_value(&"pigeon_capacity_add"))
 
 
 func can_feed() -> bool:
@@ -35,7 +39,7 @@ func refill(amount: int) -> void:
 	if amount <= 0:
 		return
 	var previous := seeds_remaining
-	seeds_remaining = mini(seed_capacity, seeds_remaining + amount)
+	seeds_remaining = mini(get_seed_capacity(), seeds_remaining + amount)
 	if seeds_remaining != previous:
 		_update_visual()
 		seeds_changed.emit(seeds_remaining, seed_capacity)
