@@ -11,4 +11,6 @@ category = 0
 points_cost = 0
 effect_id = &"basic_feeding"
 effect_value = 1.0
+tree_position = Vector2(1080, 700)
+cost_growth = 1.5
 max_level = 1
