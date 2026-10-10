@@ -10,6 +10,6 @@ description = "Increase the number of seeds the active feeder can hold."
 category = 4
 points_cost = 20
 prerequisites = Array[StringName]([&"bread"])
-effect_id = &"pigeon_capacity_add"
+effect_id = &"seed_capacity_add"
 effect_value = 1
 max_level = 1
