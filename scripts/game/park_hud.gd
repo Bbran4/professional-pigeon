@@ -6,7 +6,6 @@ class_name ParkHud
 @onready var points_label: Label = $Margin/Panel/VBox/Points
 @onready var pigeons_label: Label = $Margin/Panel/VBox/Pigeons
 @onready var seeds_label: Label = $Margin/Panel/VBox/Seeds
-var _last_feather_count := -1
 @onready var start_button: Button = $StartDay
 @onready var unlocks_button: Button = $Upgrades
 @onready var hint_label: Label = $Hint
@@ -27,16 +26,8 @@ func _process(_delta: float) -> void:
 
 
 func _update_feather_hint() -> void:
-	var feather_count := get_tree().get_nodes_in_group("collectible_feathers").size()
-	if feather_count != _last_feather_count:
-		_last_feather_count = feather_count
-		unlocks_button.disabled = feather_count > 0
-		start_button.disabled = feather_count > 0
 	if day_manager.active:
-		hint_label.text = "Watch the pigeon eat, then hold the cursor over its feather for 3 seconds."
-		hint_label.show()
-	elif feather_count > 0:
-		hint_label.text = "Collect every feather to earn Coin before opening Unlocks."
+		hint_label.text = "Hover over a feather to collect Coin, or unlock faster collection."
 		hint_label.show()
 	else:
 		hint_label.hide()
