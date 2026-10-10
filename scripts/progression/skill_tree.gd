@@ -5,6 +5,7 @@ signal skill_purchased(skill_id: StringName, new_level: int)
 signal purchase_rejected(skill_id: StringName, reason: String)
 
 @export var catalog: SkillCatalog
+@export var skill_node_scene: PackedScene = preload("res://scenes/progression/skill_node.tscn")
 @export var connection_width: float = 6.0
 @export var connection_color: Color = Color(0.45, 0.45, 0.5, 0.8)
 @export var locked_connection_color: Color = Color(0.25, 0.25, 0.28, 0.7)
@@ -18,6 +19,7 @@ var nodes_by_id: Dictionary = {}
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_load_catalog()
+	_generate_nodes()
 	_collect_nodes()
 	_connect_progression_signals()
 	queue_redraw()
@@ -41,6 +43,28 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 	queue_redraw()
 
 
+func _generate_nodes() -> void:
+	for child in get_children():
+		child.queue_free()
+	nodes_by_id.clear()
+	if skill_node_scene == null:
+		push_error("SkillTree requires a skill node scene.")
+		return
+	for skill in skills:
+		if skill == null:
+			continue
+		var node := skill_node_scene.instantiate() as SkillNode
+		if node == null:
+			push_error("Skill node scene must instantiate a SkillNode.")
+			continue
+		node.name = String(skill.id)
+		node.skill_id = skill.id
+		node.position = skill.tree_position
+		node.size = Vector2(190.0, 100.0)
+		node.custom_minimum_size = node.size
+		add_child(node)
+
+
 func _collect_nodes() -> void:
 	nodes_by_id.clear()
 	for child in get_children():
@@ -52,7 +76,6 @@ func _collect_nodes() -> void:
 			continue
 		nodes_by_id[node.skill_id] = node
 		node.setup(self)
-
 
 func _refresh_nodes() -> void:
 	for child in get_children():
@@ -111,14 +134,20 @@ func get_next_points_cost(skill_id: StringName) -> int:
 	var skill := get_skill(skill_id)
 	if skill == null:
 		return 0
-	return skill.points_cost * (get_level(skill_id) + 1)
+	return _get_scaled_cost(skill.points_cost, skill.cost_growth, get_level(skill_id))
 
 
 func get_next_coin_cost(skill_id: StringName) -> int:
 	var skill := get_skill(skill_id)
 	if skill == null:
 		return 0
-	return skill.coin_cost * (get_level(skill_id) + 1)
+	return _get_scaled_cost(skill.coin_cost, skill.cost_growth, get_level(skill_id))
+
+
+func _get_scaled_cost(base_cost: int, growth: float, current_level: int) -> int:
+	if base_cost <= 0:
+		return 0
+	return ceili(float(base_cost) * pow(maxf(growth, 1.0), current_level))
 
 
 func _get_purchase_error(skill_id: StringName) -> String:
