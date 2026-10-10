@@ -13,11 +13,10 @@ var active: bool = false
 var food_remaining := 0
 
 @onready var spawner: PigeonSpawner = $"../PigeonSpawner"
-@onready var thrower: BreadThrower = $"../BreadThrower"
+@onready var feeder: SeedFeeder = $"../SeedFeeder"
 
 
 func _ready() -> void:
-	thrower.bread_landed.connect(_on_bread_landed)
 	spawner.ate_food.connect(_on_pigeon_ate_food)
 	spawner.end_day()
 	day_updated.emit(time_remaining, points, 0, 0, 0)
@@ -32,15 +31,13 @@ func _process(delta: float) -> void:
 		time_remaining,
 		points,
 		spawner.get_active_count(),
-		thrower.bread_remaining,
-		thrower.get_stock_capacity()
+		feeder.seeds_remaining,
+		feeder.seed_capacity
 	)
 	_check_day_completion()
 
 
 func start_day() -> void:
-	if ProgressionManager.get_skill_level(&"bread") <= 0:
-		return
 	if active:
 		return
 
@@ -48,7 +45,6 @@ func start_day() -> void:
 	food_remaining = 0
 	time_remaining = day_duration
 	active = true
-	thrower.start_day()
 	spawner.start_day()
 
 	day_started.emit(day_duration)
@@ -91,9 +87,7 @@ func _on_pigeon_ate_food(amount: int) -> void:
 func _check_day_completion() -> void:
 	if not active:
 		return
-	if thrower.bread_remaining > 0:
-		return
-	if thrower.has_active_bread():
+	if feeder.seeds_remaining > 0:
 		return
 	if food_remaining > 0:
 		return
@@ -107,7 +101,6 @@ func end_day() -> void:
 	if not active:
 		return
 	active = false
-	thrower.end_day()
 	spawner.end_day()
 
 	# Bank the day's earnings in the persistent Points currency.
