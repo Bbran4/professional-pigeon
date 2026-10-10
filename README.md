@@ -19,10 +19,10 @@ There is **no manual bread throwing or manual feeding**.
 
 - A starter feeder is available from the beginning, so the first day can be played without any skill purchase.
 - **Basic Feeding** is the first feeding skill and prerequisite for the first progression branches.
-- The **Bench Feeder** skill costs 5 Points and requires Basic Feeding. It unlocks the feeder beside the bench and its three pigeon spawn markers.
+- The **Bench Feeder** skill costs 5 Points and 1 Coin, and requires Basic Feeding. It unlocks the feeder beside the bench and its three pigeon spawn markers.
 - Until the Bench Feeder is unlocked, pigeons use the starter feeder and the general landing spots.
 - The FountainMarker is a placeholder for future use.
-- **Larger Seed Tray** increases the active feeder's seed capacity.
+- **Larger Seed Tray** costs 20 Points and 2 Coin, and increases the active feeder's seed capacity.
 - Unlocking Seeds enables the additional seed-supply upgrade.
 
 ## Skill tree
@@ -35,7 +35,7 @@ The tree includes branches for:
 
 The old manual-bread upgrades have been retired with the bread-throwing mechanic. Bread projectiles and bread stock are no longer part of the game loop.
 
-The Seeds upgrade increases feeder capacity after Seeds is unlocked. Worms and currency-denomination pickup upgrades are marked **Coming Soon** and cannot currently be purchased, so Points are not spent on effects that are not implemented yet.
+The Seeds upgrade increases feeder capacity after Seeds is unlocked. Worms, the Coin unlock node, and currency-denomination pickup upgrades are marked **Coming Soon** and cannot currently be purchased. Coin is still useful for the Bench Feeder and Larger Seed Tray upgrades.
 
 ## Saving and loading
 
