@@ -107,6 +107,8 @@ func end_day() -> void:
 		return
 	active = false
 	spawner.end_day()
+	if OS.is_debug_build():
+		print("Day complete: earned %d Points." % points)
 	ProgressionManager.add_points(points)
 	ProgressionManager.save_game()
 	_emit_day_updated()
