@@ -28,7 +28,7 @@ var _spawn_delay_pending := false
 func _ready() -> void:
 	if feeder == null:
 		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
-	_spawn_park_upgrades()
+	_spawn_park_upgrades.call_deferred()
 
 
 func _spawn_park_upgrades() -> void:
