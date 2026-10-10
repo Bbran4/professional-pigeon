@@ -38,7 +38,7 @@ func refresh() -> void:
 		return
 
 	if coming_soon:
-		text = "%s\\nCOMING SOON" % skill.display_name
+		text = "%s\nCOMING SOON" % skill.display_name
 		tooltip_text = skill.description
 		disabled = true
 		return
