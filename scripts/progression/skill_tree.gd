@@ -13,7 +13,6 @@ signal purchase_rejected(skill_id: StringName, reason: String)
 var skills: Array[SkillData] = []
 var skills_by_id: Dictionary = {}
 var nodes_by_id: Dictionary = {}
-var _effect_cache: Dictionary = {}
 
 
 func _ready() -> void:
@@ -38,7 +37,6 @@ func _connect_progression_signals() -> void:
 
 
 func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
-	_effect_cache.clear()
 	_refresh_nodes()
 	queue_redraw()
 
