@@ -68,6 +68,8 @@ func _check_day_completion() -> void:
 		return
 	if spawner.get_active_count() > 0:
 		return
+	if spawner.has_pending_food() or bread_thrower.has_active_bread():
+		return
 	end_day()
 
 
