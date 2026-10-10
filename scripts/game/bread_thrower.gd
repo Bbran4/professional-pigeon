@@ -66,7 +66,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _throw_at(target: Vector2) -> void:
 	if bread_scene == null:
 		return
-
 	if throw_origin.distance_to(target) > max_throw_distance:
 		return
 
@@ -103,9 +102,10 @@ func has_active_bread() -> bool:
 
 
 func get_stock_capacity() -> int:
-	if ProgressionManager.get_skill_level(&"bread") <= 0:
+	var unlocked_stock := int(ProgressionManager.get_effect_value(&"bread_stock"))
+	if unlocked_stock <= 0:
 		return 0
-	return stock_capacity
+	return unlocked_stock + int(ProgressionManager.get_effect_value(&"bread_spawns"))
 
 
 func _clamp_to_park(position: Vector2) -> Vector2:
@@ -124,7 +124,6 @@ func _draw() -> void:
 	var target := aim_position
 	var can_throw := active and bread_remaining > 0 and origin.distance_to(target) <= max_throw_distance
 
-	# Temporary hand placeholder. Replace with hand art later.
 	draw_circle(origin + Vector2(0.0, 8.0), 22.0, Color(0.82, 0.66, 0.52, 1.0))
 	draw_circle(origin + Vector2(0.0, -12.0), 15.0, Color(0.82, 0.66, 0.52, 1.0))
 	draw_rect(Rect2(origin + Vector2(-18.0, 20.0), Vector2(36.0, 28.0)), Color(0.15, 0.12, 0.1, 1.0))
