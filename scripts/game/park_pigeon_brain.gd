@@ -214,7 +214,7 @@ func _begin_departure() -> void:
 func _get_food_points(_food: Node2D) -> int:
 	var points := food_points + int(ProgressionManager.get_effect_value(&"points_per_seed_add"))
 	if target_food_is_golden:
-		points += int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
+		points += 1 + int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
 	if target_food_is_worm and ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0:
 		points += 3
 	return points
