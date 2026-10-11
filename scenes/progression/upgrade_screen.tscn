@@ -47,15 +47,6 @@ offset_bottom = 54.0
 theme_override_font_sizes/font_size = 20
 text = "Points: 0"
 
-[node name="CoinLabel" type="Label" parent="TopBar" unique_id=1995229345]
-layout_mode = 0
-offset_left = 555.0
-offset_top = 24.0
-offset_right = 700.0
-offset_bottom = 54.0
-theme_override_font_sizes/font_size = 20
-text = "Coin: 0"
-
 [node name="StartDayButton" type="Button" parent="TopBar" unique_id=853104194]
 layout_mode = 0
 anchor_left = 1.0
@@ -96,5 +87,5 @@ text = "RESET SAVE"
 
 [node name="ResetConfirmation" type="ConfirmationDialog" parent="."]
 title = "Reset Save"
-dialog_text = "Delete all saved Points, Coin, and purchased upgrades?"
+dialog_text = "Delete all saved Feathers and purchased upgrades?"
 ok_button_text = "RESET"
