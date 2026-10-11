@@ -9,7 +9,6 @@ display_name = "Deep Seed Pouch"
 description = "Increase feeder capacity by 3 seeds."
 category = 0
 points_cost = 58
-coin_cost = 0
 prerequisites = Array[StringName]([&"golden_seed_1"])
 effect_id = &"seed_capacity_add"
 effect_value = 3
