@@ -17,199 +17,289 @@ catalog = ExtResource("2_catalog")
 [node name="bread" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1000, 700)
 skill_id = &"bread"
+text = "Basic Feeding"
 
 [node name="larger_flock" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1460, 700)
 skill_id = &"larger_flock"
+text = "Larger Seed Tray"
 
 [node name="unlock_seeds" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(500, 300)
 skill_id = &"unlock_seeds"
+text = "Seed Supply"
 
 [node name="unlock_worms" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(650, 1040)
 skill_id = &"unlock_worms"
+text = "Worm Supply"
 
 [node name="seeds_spawns" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(320, 180)
 skill_id = &"seeds_spawns"
+text = "More Seeds"
 
 [node name="worms_spawns" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(260, 1160)
 skill_id = &"worms_spawns"
+text = "More Worms"
 
 [node name="bench_feeder" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1000, 900)
 skill_id = &"bench_feeder"
+text = "Bench Feeder"
 
 [node name="more_pigeons" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1000, 850)
 skill_id = &"more_pigeons"
+text = "More Pigeons"
 
 [node name="feather_fast_collection" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(2050, 1450)
 skill_id = &"feather_fast_collection"
+text = "Swift Collection"
 
 [node name="feather_collection_radius" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1850, 1100)
 skill_id = &"feather_collection_radius"
+text = "Wide Collection"
 
 [node name="feather_auto_collect" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(2140, 1250)
 skill_id = &"feather_auto_collect"
+text = "Pigeon Post"
 
 [node name="day_duration_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1250, 700)
 skill_id = &"day_duration_1"
+text = "Longer Day I"
 
 [node name="day_duration_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1250, 850)
 skill_id = &"day_duration_2"
+text = "Longer Day II"
 
 [node name="day_duration_3" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1250, 1000)
 skill_id = &"day_duration_3"
+text = "Longer Day III"
 
 [node name="day_duration_4" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1250, 1150)
 skill_id = &"day_duration_4"
+text = "Longer Day IV"
 
 [node name="day_duration_5" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1250, 1300)
 skill_id = &"day_duration_5"
+text = "Longer Day V"
 
 [node name="arrival_speed_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1650, 1150)
 skill_id = &"arrival_speed_1"
+text = "Swift Arrivals I"
 
 [node name="arrival_speed_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1650, 1300)
 skill_id = &"arrival_speed_2"
+text = "Swift Arrivals II"
 
 [node name="arrival_speed_3" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1650, 1450)
 skill_id = &"arrival_speed_3"
+text = "Swift Arrivals III"
 
 [node name="eating_speed_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(750, 350)
 skill_id = &"eating_speed_1"
+text = "Quick Pecking I"
 
 [node name="eating_speed_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(750, 500)
 skill_id = &"eating_speed_2"
+text = "Quick Pecking II"
 
 [node name="eating_speed_3" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(750, 650)
 skill_id = &"eating_speed_3"
+text = "Quick Pecking III"
 
 [node name="flight_speed_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1450, 1100)
 skill_id = &"flight_speed_1"
+text = "Fleet Wings I"
 
 [node name="flight_speed_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1450, 1250)
 skill_id = &"flight_speed_2"
+text = "Fleet Wings II"
 
 [node name="flight_speed_3" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1450, 1400)
 skill_id = &"flight_speed_3"
+text = "Fleet Wings III"
 
 [node name="feather_wait_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1660, 700)
 skill_id = &"feather_wait_1"
+text = "Quick Feather Drop I"
 
 [node name="feather_wait_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1660, 850)
 skill_id = &"feather_wait_2"
+text = "Quick Feather Drop II"
 
 [node name="feather_wait_3" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1550, 1000)
 skill_id = &"feather_wait_3"
+text = "Quick Feather Drop III"
 
 [node name="points_per_seed_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(300, 350)
 skill_id = &"points_per_seed_1"
+text = "Better Harvest I"
 
 [node name="points_per_seed_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(300, 500)
 skill_id = &"points_per_seed_2"
+text = "Better Harvest II"
 
 [node name="points_per_seed_3" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(300, 650)
 skill_id = &"points_per_seed_3"
+text = "Better Harvest III"
 
 [node name="seed_regen_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(200, 800)
 skill_id = &"seed_regen_1"
+text = "Seed Refill I"
 
 [node name="seed_regen_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(200, 950)
 skill_id = &"seed_regen_2"
+text = "Seed Refill II"
 
 [node name="golden_seed_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(520, 450)
 skill_id = &"golden_seed_1"
+text = "Golden Seed"
 
 [node name="worm_quality" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(800, 850)
 skill_id = &"worm_quality"
+text = "Premium Worms"
 
 [node name="pigeon_patience_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(850, 1050)
 skill_id = &"pigeon_patience_1"
+text = "Patient Visitors"
 
 [node name="rare_visitor" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(850, 1200)
 skill_id = &"rare_visitor"
+text = "Rare Visitor"
 
 [node name="pair_arrivals" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(850, 1350)
 skill_id = &"pair_arrivals"
+text = "Pigeon Pairs"
 
 [node name="more_benches_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1550, 250)
 skill_id = &"more_benches_1"
+text = "Extra Bench I"
 
 [node name="more_benches_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1550, 400)
 skill_id = &"more_benches_2"
+text = "Extra Bench II"
 
 [node name="more_benches_3" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1550, 550)
 skill_id = &"more_benches_3"
+text = "Extra Bench III"
 
 [node name="fountain_unlock" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1850, 400)
 skill_id = &"fountain_unlock"
+text = "Fountain Attraction"
 
 [node name="tree_nests" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(2050, 550)
 skill_id = &"tree_nests"
+text = "Tree Nests"
 
 [node name="feather_count_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1850, 800)
 skill_id = &"feather_count_1"
+text = "Feather Shower I"
 
 [node name="feather_count_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1850, 950)
 skill_id = &"feather_count_2"
+text = "Feather Shower II"
 
 [node name="feather_value_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1850, 500)
 skill_id = &"feather_value_1"
+text = "Fine Feathers I"
 
 [node name="feather_value_2" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(1850, 650)
 skill_id = &"feather_value_2"
+text = "Fine Feathers II"
 
 [node name="golden_feather_1" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(2150, 800)
 skill_id = &"golden_feather_1"
+text = "Golden Plumage"
 
 [node name="crow_collector" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(2140, 950)
 skill_id = &"crow_collector"
+text = "Helpful Crow"
 
 [node name="golden_seed_bonus" parent="." instance=ExtResource("3_skill_node")]
 position = Vector2(520, 600)
 skill_id = &"golden_seed_bonus"
+text = "Golden Seed Bonus"
+
+[node name="seed_capacity_1" parent="." instance=ExtResource("3_skill_node")]
+position = Vector2(40, 1080)
+skill_id = &"seed_capacity_1"
+text = "Roomier Seed Sack I"
+
+[node name="seed_capacity_2" parent="." instance=ExtResource("3_skill_node")]
+position = Vector2(40, 1230)
+skill_id = &"seed_capacity_2"
+text = "Roomier Seed Sack II"
+
+[node name="seed_capacity_3" parent="." instance=ExtResource("3_skill_node")]
+position = Vector2(40, 1380)
+skill_id = &"seed_capacity_3"
+text = "Roomier Seed Sack III"
+
+[node name="seed_refill_speed_1" parent="." instance=ExtResource("3_skill_node")]
+position = Vector2(430, 800)
+skill_id = &"seed_refill_speed_1"
+text = "Quicker Seed Refill I"
+
+[node name="seed_refill_speed_2" parent="." instance=ExtResource("3_skill_node")]
+position = Vector2(430, 950)
+skill_id = &"seed_refill_speed_2"
+text = "Quicker Seed Refill II"
+
+[node name="seed_refill_speed_3" parent="." instance=ExtResource("3_skill_node")]
+position = Vector2(430, 1100)
+skill_id = &"seed_refill_speed_3"
+text = "Quicker Seed Refill III"
+
+[node name="seed_capacity_4" parent="." instance=ExtResource("3_skill_node")]
+position = Vector2(520, 760)
+skill_id = &"seed_capacity_4"
+text = "Emergency Seed Pocket"
+
+[node name="seed_capacity_5" parent="." instance=ExtResource("3_skill_node")]
+position = Vector2(560, 1250)
+skill_id = &"seed_capacity_5"
+text = "Deep Seed Pouch"
