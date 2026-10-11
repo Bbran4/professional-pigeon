@@ -7,6 +7,7 @@ class_name ParkHud
 @onready var pigeons_label: Label = $Margin/Panel/VBox/Pigeons
 @onready var seeds_label: Label = $Margin/Panel/VBox/Seeds
 @onready var start_button: Button = $StartDay
+@onready var end_day_button: Button = $EndDay
 @onready var unlocks_button: Button = $Upgrades
 @onready var hint_label: Label = $Hint
 @onready var result_label: Label = $Result
@@ -14,7 +15,9 @@ class_name ParkHud
 
 func _ready() -> void:
 	start_button.pressed.connect(_on_start_pressed)
+	end_day_button.pressed.connect(_on_end_day_pressed)
 	unlocks_button.pressed.connect(_on_unlocks_pressed)
+	end_day_button.hide()
 	day_manager.day_updated.connect(_on_day_updated)
 	day_manager.day_ended.connect(_on_day_ended)
 	day_manager.refresh_display()
@@ -42,6 +45,10 @@ func _update_feather_hint() -> void:
 		hint_label.hide()
 
 
+func _on_end_day_pressed() -> void:
+	day_manager.end_day()
+
+
 func _on_unlocks_pressed() -> void:
 	ProgressionManager.save_game()
 	get_tree().change_scene_to_file("res://scenes/progression/upgrade_screen.tscn")
@@ -54,6 +61,7 @@ func _on_start_pressed() -> void:
 
 	result_label.hide()
 	start_button.hide()
+	end_day_button.show()
 	unlocks_button.hide()
 	hint_label.show()
 
@@ -73,6 +81,7 @@ func _on_day_updated(
 	if not day_manager.active:
 		start_button.show()
 		unlocks_button.show()
+	end_day_button.visible = day_manager.active
 	_update_feather_hint()
 
 
@@ -81,5 +90,6 @@ func _on_day_ended(points: int) -> void:
 	result_label.show()
 	start_button.text = "START NEW DAY"
 	start_button.show()
+	end_day_button.hide()
 	unlocks_button.text = "UNLOCKS"
 	unlocks_button.show()
