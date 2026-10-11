@@ -9,7 +9,6 @@ display_name = "Wide Sweep"
 description = "Increase the cursor's feather collection radius by 20 pixels per level."
 category = 1
 points_cost = 12
-coin_cost = 0
 prerequisites = Array[StringName]([&"feather_fast_collection"])
 effect_id = &"feather_collect_radius"
 effect_value = 20.0
