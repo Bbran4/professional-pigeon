@@ -149,6 +149,5 @@ func load_game() -> void:
 	_loading_save = false
 	_rebuild_effect_totals()
 	points_changed.emit(points)
-	coin_changed.emit(coin)
 	for skill_id in skill_levels:
 		skill_level_changed.emit(skill_id, int(skill_levels[skill_id]))
