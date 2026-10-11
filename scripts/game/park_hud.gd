@@ -66,7 +66,7 @@ func _on_day_updated(
 	seeds_capacity: int
 ) -> void:
 	timer_label.text = "Day: %02d" % ceili(time_remaining)
-	points_label.text = "Points: %d" % points
+	points_label.text = "Feathers: %d" % points
 	pigeons_label.text = "Pigeons: %d" % pigeon_count
 	seeds_label.text = "Seeds: %d / %d" % [seeds_remaining, seeds_capacity]
 
@@ -77,7 +77,7 @@ func _on_day_updated(
 
 
 func _on_day_ended(points: int) -> void:
-	result_label.text = "Day complete!  +%d points" % points
+	result_label.text = "Day complete!  +%d feathers" % points
 	result_label.show()
 	start_button.text = "START NEW DAY"
 	start_button.show()
