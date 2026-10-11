@@ -1,6 +1,8 @@
 extends Node
 class_name ParkPigeonBrain
 
+const BALANCE: GameBalance = preload("res://data/game_balance.tres")
+
 signal ate_food(points: int)
 signal feather_dropped(position: Vector2)
 signal departed
@@ -121,7 +123,7 @@ func _physics_process(delta: float) -> void:
 				target_food = null
 				if successfully_fed:
 					visitor_state = VisitorState.DROPPING
-					dropping_timer = maxf(0.25, dropping_duration - ProgressionManager.get_effect_value(EffectIds.FEATHER_WAIT_REDUCTION))
+					dropping_timer = maxf(BALANCE.minimum_dropping_duration, dropping_duration - ProgressionManager.get_effect_value(EffectIds.FEATHER_WAIT_REDUCTION))
 				else:
 					# Another visitor may have consumed the last seed while this pigeon
 					# was eating. Look for another feeder before giving up.
@@ -216,19 +218,19 @@ func _begin_departure() -> void:
 func _get_food_points(_food: Node2D) -> int:
 	var points := food_points + int(ProgressionManager.get_effect_value(EffectIds.POINTS_PER_SEED_ADD))
 	if target_food_is_golden:
-		points += 1 + int(ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_BONUS))
+		points += BALANCE.golden_seed_bonus_points + int(ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_BONUS))
 	if target_food_is_worm:
-		points += 1
+		points += BALANCE.worm_bonus_points
 		if ProgressionManager.get_effect_value(EffectIds.WORM_FOOD_UNLOCK) > 0.0:
-			points += 2
+			points += BALANCE.unlocked_worm_bonus_points
 	return points
 
 
 func _get_eating_duration(food: Node2D) -> float:
 	var duration := eating_duration - ProgressionManager.get_effect_value(EffectIds.EATING_TIME_REDUCTION)
 	if target_food_is_worm and ProgressionManager.get_effect_value(EffectIds.WORM_FOOD_UNLOCK) > 0.0:
-		duration += 1.5
-	return maxf(0.25, duration)
+		duration += BALANCE.worm_extra_eating_duration
+	return maxf(BALANCE.minimum_eating_duration, duration)
 
 
 func _food_is_available(food: Node2D) -> bool:
