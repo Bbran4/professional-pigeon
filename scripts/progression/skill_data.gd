@@ -48,8 +48,6 @@ func get_effect_description() -> String:
 			return "Increase the golden-seed chance by %s%% per level." % _format_effect_value(effect_value * 100.0)
 		EffectIds.GOLDEN_SEED_BONUS:
 			return "Golden seeds award %s extra Feather(s)." % amount
-		EffectIds.WORM_FOOD_UNLOCK:
-			return "Unlock worms as food. " + description
 		EffectIds.PIGEON_PATIENCE_ADD:
 			return "Visitors wait %s extra seconds before leaving an empty feeder, per level." % amount
 		EffectIds.RARE_VISITOR_CHANCE:
@@ -74,8 +72,6 @@ func get_effect_description() -> String:
 			return "Increase feeder capacity by %s seed(s) per level." % amount
 		EffectIds.SEEDS_SPAWNS:
 			return "Increase the seed supply by %s per level." % amount
-		EffectIds.WORMS_SPAWNS:
-			return "Increase the worm supply by %s per level." % amount
 		EffectIds.MAX_PIGEONS:
 			return "Increase the number of pigeons allowed in the park at once by %s per level." % amount
 		EffectIds.FEATHER_COLLECT_TIME_REDUCTION:
