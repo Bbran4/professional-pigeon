@@ -14,6 +14,7 @@ signal visitor_count_changed(count: int)
 	Vector2(1010.0, 250.0),
 ]
 
+const BALANCE: GameBalance = preload("res://data/game_balance.tres")
 const BRAIN_SCRIPT := preload("res://scripts/game/park_pigeon_brain.gd")
 const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 const BENCH_SCENE := preload("res://scenes/park/bench.tscn")
@@ -50,7 +51,7 @@ func _process(delta: float) -> void:
 		_retry = 0.0
 		return
 	_retry += delta
-	if _retry >= 0.5:
+	if _retry >= BALANCE.visitor_retry_interval:
 		_retry = 0.0
 		if not _spawn_delay_pending:
 			_spawn_available_visitors()
@@ -206,7 +207,7 @@ func get_active_count() -> int:
 
 
 func _get_max_pigeons() -> int:
-	return maxi(1, 1 + int(ProgressionManager.get_effect_value(EffectIds.MAX_PIGEONS)) + int(ProgressionManager.get_effect_value(EffectIds.TREE_NESTS)))
+	return clampi(BALANCE.minimum_pigeons + int(ProgressionManager.get_effect_value(EffectIds.MAX_PIGEONS)) + int(ProgressionManager.get_effect_value(EffectIds.TREE_NESTS)) * BALANCE.tree_nest_pigeon_capacity, BALANCE.minimum_pigeons, BALANCE.maximum_pigeons)
 
 
 func _spawn_available_visitors() -> void:
@@ -260,9 +261,9 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 		pigeon.queue_free()
 		return false
 
-	brain.patience_timeout = maxf(1.0, brain.patience_timeout + ProgressionManager.get_effect_value(EffectIds.PIGEON_PATIENCE_ADD))
+	brain.patience_timeout = maxf(BALANCE.minimum_patience_timeout, brain.patience_timeout + ProgressionManager.get_effect_value(EffectIds.PIGEON_PATIENCE_ADD))
 	if randf() < ProgressionManager.get_effect_value(EffectIds.RARE_VISITOR_CHANCE):
-		brain.food_points += 2
+		brain.food_points += BALANCE.rare_visitor_bonus_points
 	var perch_position: Vector2 = perch.position
 	var from_left := randf() < 0.5
 	var arrival := Vector2(park_bounds.position.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch_position.y - 80.0)
@@ -331,7 +332,7 @@ func _on_feather_dropped(drop_position: Vector2, pigeon: Pigeon) -> void:
 	_pending_points_by_pigeon.erase(pigeon.get_instance_id())
 	_spawn_feather(drop_position, point_reward)
 	for index in range(int(ProgressionManager.get_effect_value(EffectIds.FEATHER_COUNT_ADD))):
-		var offset := Vector2(randf_range(-24.0, 24.0), randf_range(-12.0, 12.0))
+		var offset := Vector2(randf_range(-BALANCE.extra_feather_offset_x, BALANCE.extra_feather_offset_x), randf_range(-BALANCE.extra_feather_offset_y, BALANCE.extra_feather_offset_y))
 		# Every feather is an individual collectible and should grant the visit's reward.
 		_spawn_feather(drop_position + offset, point_reward)
 
@@ -348,7 +349,7 @@ func _spawn_feather(spawn_position: Vector2, point_reward: int = 0) -> void:
 	feather.point_value = point_reward
 	feather.point_value += int(ProgressionManager.get_effect_value(EffectIds.FEATHER_VALUE_ADD))
 	if randf() < ProgressionManager.get_effect_value(EffectIds.GOLDEN_FEATHER_CHANCE):
-		feather.point_value += 3
+		feather.point_value += BALANCE.golden_feather_bonus_points
 
 func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 	for index in range(visitors.size() - 1, -1, -1):
@@ -368,7 +369,7 @@ func _spawn_next_after_delay() -> void:
 	if _spawn_delay_pending:
 		return
 	_spawn_delay_pending = true
-	var delay := maxf(0.1, arrival_interval - ProgressionManager.get_effect_value(EffectIds.ARRIVAL_SPEED_REDUCTION) - ProgressionManager.get_effect_value(EffectIds.FOUNTAIN_UNLOCK) * 0.2)
+	var delay := maxf(BALANCE.minimum_spawn_delay, arrival_interval - ProgressionManager.get_effect_value(EffectIds.ARRIVAL_SPEED_REDUCTION) - ProgressionManager.get_effect_value(EffectIds.FOUNTAIN_UNLOCK) * BALANCE.fountain_spawn_delay_reduction)
 	if randf() < ProgressionManager.get_effect_value(EffectIds.PAIR_ARRIVALS):
 		delay = 0.0
 	get_tree().create_timer(delay).timeout.connect(_on_spawn_delay_timeout, CONNECT_ONE_SHOT)
