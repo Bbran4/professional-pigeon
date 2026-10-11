@@ -186,5 +186,3 @@ func load_game() -> void:
 	coin_changed.emit(coin)
 	for skill_id in skill_levels:
 		skill_level_changed.emit(skill_id, int(skill_levels[skill_id]))
-
-
