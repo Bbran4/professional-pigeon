@@ -81,7 +81,7 @@ script = ExtResource("3_manager")
 [node name="SkillTree" parent="SkillManager" unique_id=311553775 instance=ExtResource("2_tree")]
 layout_mode = 0
 offset_left = -650.0
-offset_top = -300.0
+offset_top = -413.0
 offset_right = 1919.0
 offset_bottom = 1555.0
 

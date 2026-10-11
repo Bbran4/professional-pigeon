@@ -8,600 +8,608 @@
 custom_minimum_size = Vector2(2400, 1600)
 layout_mode = 3
 anchors_preset = 0
-offset_left = -90.0
-offset_top = 111.0
-offset_right = 2310.0
-offset_bottom = 1711.0
+offset_right = 3254.0
+offset_bottom = 2171.0
 mouse_filter = 2
 script = ExtResource("1_tree")
 catalog = ExtResource("2_catalog")
 
 [node name="bread" parent="." unique_id=1792491210 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1009.0
-offset_top = 829.0
-offset_right = 1199.0
-offset_bottom = 929.0
+offset_left = 1085.0
+offset_top = 976.0
+offset_right = 1275.0
+offset_bottom = 1076.0
 tooltip_text = "Unlock the basic feeding route and open the path to park upgrades."
 text = "Basic Feeding"
 skill_id = &"bread"
 
 [node name="larger_flock" parent="." unique_id=1534210213 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1277.0
-offset_top = 834.0
-offset_right = 1467.0
-offset_bottom = 934.0
+offset_left = 1353.0
+offset_top = 981.0
+offset_right = 1543.0
+offset_bottom = 1081.0
 tooltip_text = "Increase the number of seeds the active feeder can hold."
 text = "Larger Seed Tray"
 skill_id = &"larger_flock"
 
 [node name="unlock_seeds" parent="." unique_id=2048056223 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1011.0
-offset_top = 556.0
-offset_right = 1201.0
-offset_bottom = 656.0
+offset_left = 1087.0
+offset_top = 703.0
+offset_right = 1277.0
+offset_bottom = 803.0
 tooltip_text = "Improve the park seed supply and unlock seed-related upgrades."
 text = "Seed Supply"
 skill_id = &"unlock_seeds"
 
 [node name="unlock_worms" parent="." unique_id=892471047 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 734.0
-offset_top = 851.0
-offset_right = 924.0
-offset_bottom = 951.0
+offset_left = 810.0
+offset_top = 998.0
+offset_right = 1000.0
+offset_bottom = 1098.0
 tooltip_text = "Unlock Worms as a Food source."
 text = "Worms"
 skill_id = &"unlock_worms"
 
 [node name="seeds_spawns" parent="." unique_id=1853410941 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 998.0
-offset_top = 327.0
-offset_right = 1188.0
-offset_bottom = 427.0
+offset_left = 1074.0
+offset_top = 474.0
+offset_right = 1264.0
+offset_bottom = 574.0
 tooltip_text = "Increase the feeder seed supply by one per level after Seeds is unlocked."
 text = "More Seeds"
 skill_id = &"seeds_spawns"
 
 [node name="worms_spawns" parent="." unique_id=1847527849 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 733.0
-offset_top = 996.0
-offset_right = 923.0
-offset_bottom = 1096.0
+offset_left = 809.0
+offset_top = 1143.0
+offset_right = 999.0
+offset_bottom = 1243.0
 tooltip_text = "Increase the chance that a pigeon finds a worm instead of a regular seed."
 text = "More Worms"
 skill_id = &"worms_spawns"
 
 [node name="bench_feeder" parent="." unique_id=813571983 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1253.0
-offset_top = 690.0
-offset_right = 1443.0
-offset_bottom = 790.0
+offset_left = 1329.0
+offset_top = 837.0
+offset_right = 1519.0
+offset_bottom = 937.0
 tooltip_text = "Unlock the seed feeder beside the bench. Requires Basic Feeding."
 text = "Bench Feeder"
 skill_id = &"bench_feeder"
 
 [node name="more_pigeons" parent="." unique_id=1430292920 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1011.0
-offset_top = 980.0
-offset_right = 1201.0
-offset_bottom = 1080.0
+offset_left = 1087.0
+offset_top = 1127.0
+offset_right = 1277.0
+offset_bottom = 1227.0
 tooltip_text = "Immediately allow one additional pigeon to visit the park at once."
-text = "More Pigeons"
+text = "more_pigeons"
 skill_id = &"more_pigeons"
 
 [node name="more_pigeons_1" parent="." unique_id=1933628068 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 732.0
-offset_top = 1286.0
-offset_right = 922.0
-offset_bottom = 1386.0
+offset_left = 806.0
+offset_top = 1432.0
+offset_right = 996.0
+offset_bottom = 1532.0
 tooltip_text = "Immediately allow one additional pigeon to visit the park at once."
 text = "More Pigeons"
 skill_id = &"more_pigeons_1"
 
+[node name="more_pigeons_2" parent="." unique_id=1916343224 instance=ExtResource("3_skill_node")]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 1429.0
+offset_right = 727.0
+offset_bottom = 1529.0
+tooltip_text = "Immediately allow one additional pigeon to visit the park at once."
+text = "More Pigeons"
+skill_id = &"more_pigeons_2"
+
 [node name="feather_fast_collection" parent="." unique_id=1920612739 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1265.0
-offset_top = 548.0
-offset_right = 1455.0
-offset_bottom = 648.0
+offset_left = 1341.0
+offset_top = 695.0
+offset_right = 1531.0
+offset_bottom = 795.0
 tooltip_text = "Reduce the time needed to collect a feather by 0.85 seconds per level."
 text = "Quick Collection"
 skill_id = &"feather_fast_collection"
 
 [node name="feather_collection_radius" parent="." unique_id=2027567431 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1534.0
-offset_top = 548.0
-offset_right = 1724.0
-offset_bottom = 648.0
+offset_left = 1610.0
+offset_top = 695.0
+offset_right = 1800.0
+offset_bottom = 795.0
 tooltip_text = "Increase the cursor's feather collection radius by 20 pixels per level."
 text = "Wide Sweep"
 skill_id = &"feather_collection_radius"
 
 [node name="feather_auto_collect" parent="." unique_id=33059212 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1541.0
-offset_top = 379.0
-offset_right = 1731.0
-offset_bottom = 479.0
+offset_left = 1617.0
+offset_top = 526.0
+offset_right = 1807.0
+offset_bottom = 626.0
 tooltip_text = "Automatically collect every feather as soon as it appears."
 text = "Pigeon Post"
 skill_id = &"feather_auto_collect"
 
 [node name="day_duration_1" parent="." unique_id=602054418 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1515.0
-offset_top = 838.0
-offset_right = 1705.0
-offset_bottom = 938.0
+offset_left = 1591.0
+offset_top = 985.0
+offset_right = 1781.0
+offset_bottom = 1085.0
 tooltip_text = "Add 5 seconds to every day."
 text = "Longer Day I"
 skill_id = &"day_duration_1"
 
 [node name="day_duration_2" parent="." unique_id=1442851711 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1516.0
-offset_top = 972.0
-offset_right = 1706.0
-offset_bottom = 1072.0
+offset_left = 1592.0
+offset_top = 1119.0
+offset_right = 1782.0
+offset_bottom = 1219.0
 tooltip_text = "Add 5 seconds to every day."
 text = "Longer Day II"
 skill_id = &"day_duration_2"
 
 [node name="day_duration_3" parent="." unique_id=1285120224 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1534.0
-offset_top = 1106.0
-offset_right = 1724.0
-offset_bottom = 1206.0
+offset_left = 1610.0
+offset_top = 1253.0
+offset_right = 1800.0
+offset_bottom = 1353.0
 tooltip_text = "Add 5 seconds to every day."
 text = "Longer Day III"
 skill_id = &"day_duration_3"
 
 [node name="day_duration_4" parent="." unique_id=39182701 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1532.0
-offset_top = 1265.0
-offset_right = 1722.0
-offset_bottom = 1365.0
+offset_left = 1608.0
+offset_top = 1412.0
+offset_right = 1798.0
+offset_bottom = 1512.0
 tooltip_text = "Add 5 seconds to every day."
 text = "Longer Day IV"
 skill_id = &"day_duration_4"
 
 [node name="day_duration_5" parent="." unique_id=403956158 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1536.0
-offset_top = 1419.0
-offset_right = 1726.0
-offset_bottom = 1519.0
+offset_left = 1612.0
+offset_top = 1566.0
+offset_right = 1802.0
+offset_bottom = 1666.0
 tooltip_text = "Add 5 seconds to every day."
 text = "Longer Day V"
 skill_id = &"day_duration_5"
 
 [node name="arrival_speed_1" parent="." unique_id=1939856151 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1274.0
-offset_top = 994.0
-offset_right = 1464.0
-offset_bottom = 1094.0
+offset_left = 1350.0
+offset_top = 1141.0
+offset_right = 1540.0
+offset_bottom = 1241.0
 tooltip_text = "Reduce the gap between arrivals by 0.15 seconds."
 text = "Swift Arrivals 1"
 skill_id = &"arrival_speed_1"
 
 [node name="arrival_speed_2" parent="." unique_id=1655131306 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1266.0
-offset_top = 1134.0
-offset_right = 1456.0
-offset_bottom = 1234.0
+offset_left = 1342.0
+offset_top = 1281.0
+offset_right = 1532.0
+offset_bottom = 1381.0
 tooltip_text = "Reduce the gap between arrivals by 0.15 seconds."
 text = "Swift Arrivals 2"
 skill_id = &"arrival_speed_2"
 
 [node name="arrival_speed_3" parent="." unique_id=1752459987 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1282.0
-offset_top = 1274.0
-offset_right = 1472.0
-offset_bottom = 1374.0
+offset_left = 1358.0
+offset_top = 1421.0
+offset_right = 1548.0
+offset_bottom = 1521.0
 tooltip_text = "Reduce the gap between arrivals by 0.15 seconds."
 text = "Swift Arrivals 3"
 skill_id = &"arrival_speed_3"
 
 [node name="eating_speed_1" parent="." unique_id=1378367494 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1256.0
-offset_top = 327.0
-offset_right = 1446.0
-offset_bottom = 427.0
+offset_left = 1332.0
+offset_top = 474.0
+offset_right = 1522.0
+offset_bottom = 574.0
 tooltip_text = "Reduce eating time by 0.25 seconds."
 text = "Quick Pecking 1"
 skill_id = &"eating_speed_1"
 
 [node name="eating_speed_2" parent="." unique_id=382288655 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1256.0
-offset_top = 170.0
-offset_right = 1446.0
-offset_bottom = 270.0
+offset_left = 1332.0
+offset_top = 317.0
+offset_right = 1522.0
+offset_bottom = 417.0
 tooltip_text = "Reduce eating time by 0.25 seconds."
 text = "Quick Pecking 2"
 skill_id = &"eating_speed_2"
 
 [node name="eating_speed_3" parent="." unique_id=140488355 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1256.0
-offset_top = 17.0
-offset_right = 1446.0
-offset_bottom = 117.0
+offset_left = 1332.0
+offset_top = 164.0
+offset_right = 1522.0
+offset_bottom = 264.0
 tooltip_text = "Reduce eating time by 0.25 seconds."
 text = "Quick Pecking 3"
 skill_id = &"eating_speed_3"
 
 [node name="flight_speed_1" parent="." unique_id=855075757 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1270.0
-offset_top = 1429.0
-offset_right = 1460.0
-offset_bottom = 1529.0
+offset_left = 1346.0
+offset_top = 1576.0
+offset_right = 1536.0
+offset_bottom = 1676.0
 tooltip_text = "Increase pigeon flight speed by 20."
 text = "Fleet Wings 1"
 skill_id = &"flight_speed_1"
 
 [node name="flight_speed_2" parent="." unique_id=320125430 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1275.0
-offset_top = 1575.0
-offset_right = 1465.0
-offset_bottom = 1675.0
+offset_left = 1351.0
+offset_top = 1722.0
+offset_right = 1541.0
+offset_bottom = 1822.0
 tooltip_text = "Increase pigeon flight speed by 20."
 text = "Fleet Wings 2"
 skill_id = &"flight_speed_2"
 
 [node name="flight_speed_3" parent="." unique_id=43418121 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1282.0
-offset_top = 1737.0
-offset_right = 1472.0
-offset_bottom = 1837.0
+offset_left = 1358.0
+offset_top = 1884.0
+offset_right = 1548.0
+offset_bottom = 1984.0
 tooltip_text = "Increase pigeon flight speed by 20."
 text = "Fleet Wings 3"
 skill_id = &"flight_speed_3"
 
 [node name="feather_wait_1" parent="." unique_id=500926259 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2078.0
-offset_top = 850.0
-offset_right = 2268.0
-offset_bottom = 950.0
+offset_left = 2154.0
+offset_top = 997.0
+offset_right = 2344.0
+offset_bottom = 1097.0
 tooltip_text = "Reduce the feather-drop wait by 0.25 seconds."
 text = "Quick Feather Drop 1"
 skill_id = &"feather_wait_1"
 
 [node name="feather_wait_2" parent="." unique_id=984287729 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2079.0
-offset_top = 1002.0
-offset_right = 2269.0
-offset_bottom = 1102.0
+offset_left = 2155.0
+offset_top = 1149.0
+offset_right = 2345.0
+offset_bottom = 1249.0
 tooltip_text = "Reduce the feather-drop wait by 0.25 seconds."
 text = "Quick Feather Drop 2"
 skill_id = &"feather_wait_2"
 
 [node name="feather_wait_3" parent="." unique_id=1548848300 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2067.0
-offset_top = 1157.0
-offset_right = 2257.0
-offset_bottom = 1257.0
+offset_left = 2143.0
+offset_top = 1304.0
+offset_right = 2333.0
+offset_bottom = 1404.0
 tooltip_text = "Reduce the feather-drop wait by 0.25 seconds."
 text = "Quick Feather Drop 3"
 skill_id = &"feather_wait_3"
 
 [node name="points_per_seed_1" parent="." unique_id=69763400 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 738.0
-offset_top = 337.0
-offset_right = 928.0
-offset_bottom = 437.0
+offset_left = 814.0
+offset_top = 484.0
+offset_right = 1004.0
+offset_bottom = 584.0
 tooltip_text = "Earn one extra Feather per seed eaten."
 text = "Better Harvest 1"
 skill_id = &"points_per_seed_1"
 
 [node name="points_per_seed_2" parent="." unique_id=1507112702 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 479.0
-offset_top = 345.0
-offset_right = 669.0
-offset_bottom = 445.0
+offset_left = 555.0
+offset_top = 492.0
+offset_right = 745.0
+offset_bottom = 592.0
 tooltip_text = "Earn one extra Feather per seed eaten."
 text = "Better Harvest 2"
 skill_id = &"points_per_seed_2"
 
 [node name="points_per_seed_3" parent="." unique_id=1538664747 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 472.0
-offset_top = 170.0
-offset_right = 662.0
-offset_bottom = 270.0
+offset_left = 548.0
+offset_top = 317.0
+offset_right = 738.0
+offset_bottom = 417.0
 tooltip_text = "Earn one extra Feather per seed eaten."
 text = "Better Harvest 3"
 skill_id = &"points_per_seed_3"
 
 [node name="seed_regen_1" parent="." unique_id=1168578163 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 744.0
-offset_top = 558.0
-offset_right = 934.0
-offset_bottom = 658.0
+offset_left = 820.0
+offset_top = 705.0
+offset_right = 1010.0
+offset_bottom = 805.0
 tooltip_text = "Regenerate one seed every 20 seconds during the day."
 text = "Seed Refill 1"
 skill_id = &"seed_regen_1"
 
 [node name="seed_regen_2" parent="." unique_id=2062207875 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 238.0
-offset_top = 564.0
-offset_right = 428.0
-offset_bottom = 664.0
+offset_left = 314.0
+offset_top = 711.0
+offset_right = 504.0
+offset_bottom = 811.0
 tooltip_text = "Reduce the seed refill interval by 10 seconds."
 text = "Seed Refill 2"
 skill_id = &"seed_regen_2"
 
 [node name="golden_seed_1" parent="." unique_id=2011670617 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1003.0
-offset_top = 168.0
-offset_right = 1193.0
-offset_bottom = 268.0
+offset_left = 1079.0
+offset_top = 315.0
+offset_right = 1269.0
+offset_bottom = 415.0
 tooltip_text = "Golden seeds have a 20% chance and award 1 extra Feather."
 text = "Golden Seed"
 skill_id = &"golden_seed_1"
 
 [node name="worm_quality" parent="." unique_id=1810771488 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 726.0
-offset_top = 1148.0
-offset_right = 916.0
-offset_bottom = 1248.0
+offset_left = 802.0
+offset_top = 1295.0
+offset_right = 992.0
+offset_bottom = 1395.0
 tooltip_text = "Worms award 3 extra Feathers but take longer to eat."
 text = "Worms: Premium Food"
 skill_id = &"worm_quality"
 
 [node name="pigeon_patience_1" parent="." unique_id=838776310 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1016.0
-offset_top = 1124.0
-offset_right = 1206.0
-offset_bottom = 1224.0
+offset_left = 1092.0
+offset_top = 1271.0
+offset_right = 1282.0
+offset_bottom = 1371.0
 tooltip_text = "Visitors wait longer before leaving an empty feeder."
 text = "Patient Visitors"
 skill_id = &"pigeon_patience_1"
 
 [node name="rare_visitor" parent="." unique_id=2000909909 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1016.0
-offset_top = 1274.0
-offset_right = 1206.0
-offset_bottom = 1374.0
+offset_left = 1092.0
+offset_top = 1421.0
+offset_right = 1282.0
+offset_bottom = 1521.0
 tooltip_text = "Each level adds a 10% chance for a visitor to bring 2 extra Feathers."
 text = "Rare Visitor"
 skill_id = &"rare_visitor"
 
 [node name="pair_arrivals" parent="." unique_id=1818679912 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1018.0
-offset_top = 1434.0
-offset_right = 1208.0
-offset_bottom = 1534.0
+offset_left = 1094.0
+offset_top = 1581.0
+offset_right = 1284.0
+offset_bottom = 1681.0
 tooltip_text = "Occasionally send two pigeons together when capacity allows."
 text = "Pigeon Pairs"
 skill_id = &"pair_arrivals"
 
 [node name="more_benches_1" parent="." unique_id=1970009872 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2012.0
-offset_top = 215.0
-offset_right = 2202.0
-offset_bottom = 315.0
+offset_left = 2088.0
+offset_top = 362.0
+offset_right = 2278.0
+offset_bottom = 462.0
 tooltip_text = "Unlock another bench and its perch spots."
 text = "Extra Bench 1"
 skill_id = &"more_benches_1"
 
 [node name="more_benches_2" parent="." unique_id=1791268206 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2012.0
-offset_top = 365.0
-offset_right = 2202.0
-offset_bottom = 465.0
+offset_left = 2088.0
+offset_top = 512.0
+offset_right = 2278.0
+offset_bottom = 612.0
 tooltip_text = "Unlock another bench and its perch spots."
 text = "Extra Bench 2"
 skill_id = &"more_benches_2"
 
 [node name="more_benches_3" parent="." unique_id=911574328 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2012.0
-offset_top = 515.0
-offset_right = 2202.0
-offset_bottom = 615.0
+offset_left = 2088.0
+offset_top = 662.0
+offset_right = 2278.0
+offset_bottom = 762.0
 tooltip_text = "Unlock another bench and its perch spots."
 text = "Extra Bench 3"
 skill_id = &"more_benches_3"
 
 [node name="fountain_unlock" parent="." unique_id=163226718 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2312.0
-offset_top = 365.0
-offset_right = 2502.0
-offset_bottom = 465.0
+offset_left = 2388.0
+offset_top = 512.0
+offset_right = 2578.0
+offset_bottom = 612.0
 tooltip_text = "Unlock a fountain with extra perches and quicker arrivals."
 text = "Fountain Attraction"
 skill_id = &"fountain_unlock"
 
 [node name="tree_nests" parent="." unique_id=359188559 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2309.0
-offset_top = 515.0
-offset_right = 2499.0
-offset_bottom = 615.0
+offset_left = 2385.0
+offset_top = 662.0
+offset_right = 2575.0
+offset_bottom = 762.0
 tooltip_text = "Add nest perches that increase visitor capacity."
 text = "Tree Nests"
 skill_id = &"tree_nests"
 
 [node name="feather_count_1" parent="." unique_id=1743022610 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1809.0
-offset_top = 847.0
-offset_right = 1999.0
-offset_bottom = 947.0
+offset_left = 1885.0
+offset_top = 994.0
+offset_right = 2075.0
+offset_bottom = 1094.0
 tooltip_text = "Drop an additional feather after a successful visit."
 text = "Feather Shower 1"
 skill_id = &"feather_count_1"
 
 [node name="feather_count_2" parent="." unique_id=89924466 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1799.0
-offset_top = 999.0
-offset_right = 1989.0
-offset_bottom = 1099.0
+offset_left = 1875.0
+offset_top = 1146.0
+offset_right = 2065.0
+offset_bottom = 1246.0
 tooltip_text = "Drop an additional feather after a successful visit."
 text = "Feather Shower 2"
 skill_id = &"feather_count_2"
 
 [node name="feather_value_1" parent="." unique_id=1527688474 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1538.0
-offset_top = 695.0
-offset_right = 1728.0
-offset_bottom = 795.0
+offset_left = 1614.0
+offset_top = 842.0
+offset_right = 1804.0
+offset_bottom = 942.0
 tooltip_text = "Increase the Feather reward by 1."
 text = "Fine Feathers 1"
 skill_id = &"feather_value_1"
 
 [node name="feather_value_2" parent="." unique_id=498322128 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1803.0
-offset_top = 693.0
-offset_right = 1993.0
-offset_bottom = 793.0
+offset_left = 1879.0
+offset_top = 840.0
+offset_right = 2069.0
+offset_bottom = 940.0
 tooltip_text = "Increase the Feather reward by 1."
 text = "Fine Feathers 2"
 skill_id = &"feather_value_2"
 
 [node name="golden_feather_1" parent="." unique_id=1210085286 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 2055.0
-offset_top = 703.0
-offset_right = 2245.0
-offset_bottom = 803.0
+offset_left = 2131.0
+offset_top = 850.0
+offset_right = 2321.0
+offset_bottom = 950.0
 tooltip_text = "Increase the chance of a golden feather to 20%."
 text = "Golden Plumage"
 skill_id = &"golden_feather_1"
 
 [node name="crow_collector" parent="." unique_id=1839759471 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1791.0
-offset_top = 553.0
-offset_right = 1981.0
-offset_bottom = 653.0
+offset_left = 1867.0
+offset_top = 700.0
+offset_right = 2057.0
+offset_bottom = 800.0
 tooltip_text = "A crow collects one collectible every 15 seconds."
 text = "Helpful Crow"
 skill_id = &"crow_collector"
 
 [node name="golden_seed_bonus" parent="." unique_id=773976340 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 1010.0
-offset_top = -6.0
-offset_right = 1200.0
-offset_bottom = 94.0
+offset_left = 1086.0
+offset_top = 141.0
+offset_right = 1276.0
+offset_bottom = 241.0
 tooltip_text = "Golden seeds award an extra 3 Feathers."
 text = "Golden Seed Bonus"
 skill_id = &"golden_seed_bonus"
 
 [node name="seed_capacity_1" parent="." unique_id=1685202718 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 729.0
-offset_top = 708.0
-offset_right = 919.0
-offset_bottom = 808.0
+offset_left = 805.0
+offset_top = 855.0
+offset_right = 995.0
+offset_bottom = 955.0
 tooltip_text = "Increase feeder capacity by 2 seeds."
 text = "Roomier Seed Sack I"
 skill_id = &"seed_capacity_1"
 
 [node name="seed_capacity_2" parent="." unique_id=1764572539 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 499.0
-offset_top = 710.0
-offset_right = 689.0
-offset_bottom = 810.0
+offset_left = 575.0
+offset_top = 857.0
+offset_right = 765.0
+offset_bottom = 957.0
 tooltip_text = "Increase feeder capacity by 2 seeds."
 text = "Roomier Seed Sack II"
 skill_id = &"seed_capacity_2"
 
 [node name="seed_capacity_3" parent="." unique_id=855490393 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 498.0
-offset_top = 849.0
-offset_right = 688.0
-offset_bottom = 949.0
+offset_left = 574.0
+offset_top = 996.0
+offset_right = 764.0
+offset_bottom = 1096.0
 tooltip_text = "Increase feeder capacity by 2 seeds."
 text = "Roomier Seed Sack III"
 skill_id = &"seed_capacity_3"
 
 [node name="seed_refill_speed_1" parent="." unique_id=1708361212 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 244.0
-offset_top = 712.0
-offset_right = 434.0
-offset_bottom = 812.0
+offset_left = 320.0
+offset_top = 859.0
+offset_right = 510.0
+offset_bottom = 959.0
 tooltip_text = "Reduce the seed refill interval by 2 seconds."
 text = "Quicker Seed Refill I"
 skill_id = &"seed_refill_speed_1"
 
 [node name="seed_refill_speed_2" parent="." unique_id=25386507 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 238.0
-offset_top = 839.0
-offset_right = 428.0
-offset_bottom = 939.0
+offset_left = 314.0
+offset_top = 986.0
+offset_right = 504.0
+offset_bottom = 1086.0
 tooltip_text = "Reduce the seed refill interval by 2 seconds."
 text = "Quicker Seed Refill II"
 skill_id = &"seed_refill_speed_2"
 
 [node name="seed_refill_speed_3" parent="." unique_id=546110970 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 231.0
-offset_top = 978.0
-offset_right = 421.0
-offset_bottom = 1078.0
+offset_left = 307.0
+offset_top = 1125.0
+offset_right = 497.0
+offset_bottom = 1225.0
 tooltip_text = "Reduce the seed refill interval by 2 seconds."
 text = "Quicker Seed Refill III"
 skill_id = &"seed_refill_speed_3"
 
 [node name="seed_capacity_4" parent="." unique_id=464312591 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 229.0
-offset_top = 344.0
-offset_right = 420.0
-offset_bottom = 444.0
+offset_left = 305.0
+offset_top = 491.0
+offset_right = 496.0
+offset_bottom = 591.0
 tooltip_text = "Increase feeder capacity by 2 seeds."
 text = "Emergency Seed Pocket"
 skill_id = &"seed_capacity_4"
 
 [node name="seed_capacity_5" parent="." unique_id=2099523071 instance=ExtResource("3_skill_node")]
 layout_mode = 0
-offset_left = 753.0
-offset_top = 171.0
-offset_right = 943.0
-offset_bottom = 271.0
+offset_left = 829.0
+offset_top = 318.0
+offset_right = 1019.0
+offset_bottom = 418.0
 tooltip_text = "Increase feeder capacity by 3 seeds."
 text = "Deep Seed Pouch"
 skill_id = &"seed_capacity_5"

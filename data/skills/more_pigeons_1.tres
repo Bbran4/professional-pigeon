@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SkillData" format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://5rp3y25l8y8g"]
 
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
@@ -13,5 +13,5 @@ cost_growth = 1.7
 tree_position = Vector2(700, 1300)
 prerequisites = Array[StringName]([&"rare_visitor"])
 effect_id = &"max_pigeons"
-effect_value = 1.0
+effect_value = 2.0
 max_level = 3
