@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	_last_capacity = get_seed_capacity()
-	seeds_remaining = clampi(starting_seeds, 0, _last_capacity)
+	seeds_remaining = _last_capacity
 	_update_visual()
 	seeds_changed.emit(seeds_remaining, _last_capacity)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
