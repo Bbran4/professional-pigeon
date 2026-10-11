@@ -10,7 +10,7 @@ The current prototype uses a **60-second day**.
 2. The active feeder attracts a pigeon.
 3. The pigeon arrives, eats a seed for 2 seconds, waits 2 seconds, drops a feather, then leaves.
 4. Hover over a feather to collect it and earn Feathers. Collection speed and radius can be upgraded, and later upgrades automate pickup.
-5. Food eaten earns Points at the end of the day.
+5. Food eaten earns Feathers at the end of the day.
 6. Spend earned Feathers on skills, then start another day.
 
 There is **no manual bread throwing or manual feeding**.
@@ -33,7 +33,7 @@ The tree includes branches for:
 
 - Bench Feeder and seed capacity
 - Seeds and worms
-- Time and flow, food and Points, pigeon capacity, park expansion, and collectible progression
+- Time and flow, food and Feathers, pigeon capacity, park expansion, and collectible progression
 
 The old manual-bread upgrades have been retired with the bread-throwing mechanic. Bread projectiles and bread stock are no longer part of the game loop.
 
@@ -41,7 +41,7 @@ The skill tree contains editor-placed nodes with visible prerequisite links. Fea
 
 ## Development controls
 
-- Press **F3** in a debug build to add 1,000 Points.
+- Press **F3** in a debug build to add 1,000 Feathers.
 - Use **RESET SAVE** on the upgrade screen to clear saved Feathers and skill levels after confirming.
 
 ## Saving and loading
@@ -62,7 +62,7 @@ Progression is saved automatically to `user://professional_pigeon_save.json`. Th
 ## Next development priorities
 
 1. Playtest the full progression path in Godot, including purchases, day completion, and save persistence.
-2. Tune upgrade balance using Points earned per day.
+2. Tune upgrade balance using Feathers earned per day.
 3. Add a day-summary panel, pecking audio, feather pickup feedback, and readable number formatting.
 
 
@@ -77,4 +77,4 @@ Feather collection scales with the flock through three upgrades: **Quick Collect
 
 ### Upgrade pool
 
-The current catalog contains 58 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Points per seed, seed regeneration, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
+The current catalog contains 58 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Feathers per seed, seed regeneration, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
