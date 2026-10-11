@@ -64,23 +64,15 @@ func refresh() -> void:
 		disabled = true
 	else:
 		var points_cost := skill_tree.get_next_points_cost(skill_id)
-		var coin_cost := skill_tree.get_next_coin_cost(skill_id)
-		var cost_text := "%d Points" % points_cost
-		if coin_cost > 0:
-			cost_text += " + %d Coin" % coin_cost
+		var cost_text := "%d Feathers" % points_cost
 		var state_text := "AVAILABLE"
 		if not available:
 			if not skill_tree.is_unlocked(skill_id):
 				state_text = "PREREQUISITES NEEDED"
 			else:
 				var lacks_points := ProgressionManager.points < points_cost
-				var lacks_coin := ProgressionManager.coin < coin_cost
-				if lacks_points and lacks_coin:
-					state_text = "NEED %d POINTS + %d COIN" % [points_cost, coin_cost]
-				elif lacks_points:
-					state_text = "NEED %d POINTS" % points_cost
-				elif lacks_coin:
-					state_text = "NEED %d COIN" % coin_cost
+				if lacks_points:
+					state_text = "NEED %d FEATHERS" % points_cost
 				else:
 					state_text = "UNAVAILABLE"
 		text = "%s\nLevel %d/%d\n%s\n%s" % [
