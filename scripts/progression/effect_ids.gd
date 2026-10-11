@@ -29,9 +29,46 @@ const UNLOCK_WORMS: StringName = &"unlock_worms"
 const WORMS_SPAWNS: StringName = &"worms_spawns"
 const SEED_CAPACITY_ADD: StringName = &"seed_capacity_add"
 const SEEDS_SPAWNS: StringName = &"seeds_spawns"
-const AUTO_COLLECT: StringName = &"auto_collect"
 const MAX_PIGEONS: StringName = &"max_pigeons"
 const BENCH_FEEDER: StringName = &"bench_feeder"
 const AUTO_COLLECT: StringName = &"auto_collect"
 const FEATHER_COLLECT_TIME_REDUCTION: StringName = &"feather_collect_time_reduction"
 const FEATHER_COLLECT_RADIUS: StringName = &"feather_collect_radius"
+
+
+
+static func is_valid_id(effect_id: StringName) -> bool:
+	return effect_id in [
+		ARRIVAL_SPEED_REDUCTION,
+		BENCH_COUNT_ADD,
+		CROW_COLLECT_INTERVAL,
+		DAY_DURATION_ADD,
+		EATING_TIME_REDUCTION,
+		FEATHER_COUNT_ADD,
+		FEATHER_VALUE_ADD,
+		FEATHER_WAIT_REDUCTION,
+		FLIGHT_SPEED_ADD,
+		FOUNTAIN_UNLOCK,
+		GOLDEN_FEATHER_CHANCE,
+		GOLDEN_SEED_BONUS,
+		GOLDEN_SEED_CHANCE,
+		PAIR_ARRIVALS,
+		PIGEON_PATIENCE_ADD,
+		POINTS_PER_SEED_ADD,
+		RARE_VISITOR_CHANCE,
+		SEED_REGEN_INTERVAL,
+		SEED_REGEN_INTERVAL_REDUCTION,
+		TREE_NESTS,
+		WORM_FOOD_UNLOCK,
+		BASIC_FEEDING,
+		UNLOCK_SEEDS,
+		UNLOCK_WORMS,
+		WORMS_SPAWNS,
+		SEED_CAPACITY_ADD,
+		SEEDS_SPAWNS,
+		MAX_PIGEONS,
+		BENCH_FEEDER,
+		AUTO_COLLECT,
+		FEATHER_COLLECT_TIME_REDUCTION,
+		FEATHER_COLLECT_RADIUS,
+	]
