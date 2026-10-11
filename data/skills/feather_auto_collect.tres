@@ -9,7 +9,6 @@ display_name = "Pigeon Post"
 description = "Automatically collect every feather as soon as it appears."
 category = 1
 points_cost = 60
-coin_cost = 5
 prerequisites = Array[StringName]([&"feather_collection_radius"])
 effect_id = &"auto_collect"
 effect_value = 1.0
