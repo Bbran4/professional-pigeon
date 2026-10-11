@@ -6,10 +6,12 @@
 script = ExtResource("1_skill")
 id = &"more_pigeons"
 display_name = "More Pigeons"
-description = "Immediately allow one additional pigeon to visit the park at once."
+description = "Increase the number of pigeons that can visit the park at once."
 category = 4
-points_cost = 25
+points_cost = 15
 tree_position = Vector2(1000, 800)
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"max_pigeons"
 effect_value = 1.0
+cost_growth = 1.7
+max_level = 3
