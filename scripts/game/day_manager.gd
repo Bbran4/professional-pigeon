@@ -139,7 +139,7 @@ func end_day() -> void:
 	spawner.end_day()
 	_clear_uncollected_feathers()
 	if OS.is_debug_build():
-		print("Day complete: earned %d Points." % points)
+		print("Day complete: earned %d Feathers." % points)
 	ProgressionManager.add_points(points)
 	ProgressionManager.save_game()
 	_emit_day_updated()
