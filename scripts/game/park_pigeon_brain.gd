@@ -56,7 +56,7 @@ func start_day(perch: Vector2, arrival: Vector2, exit: Vector2) -> void:
 	pigeon.show()
 	if pigeon.stats != null:
 		pigeon.stats = pigeon.stats.duplicate() as PigeonStats
-		pigeon.stats.flight_speed += ProgressionManager.get_effect_value(&"flight_speed_add")
+		pigeon.stats.flight_speed += ProgressionManager.get_effect_value(EffectIds.FLIGHT_SPEED_ADD)
 	pigeon.global_position = arrival
 	pigeon.velocity = Vector2.ZERO
 	pigeon.move_direction = Vector2.ZERO
@@ -121,7 +121,7 @@ func _physics_process(delta: float) -> void:
 				target_food = null
 				if successfully_fed:
 					visitor_state = VisitorState.DROPPING
-					dropping_timer = maxf(0.25, dropping_duration - ProgressionManager.get_effect_value(&"feather_wait_reduction"))
+					dropping_timer = maxf(0.25, dropping_duration - ProgressionManager.get_effect_value(EffectIds.FEATHER_WAIT_REDUCTION))
 				else:
 					# Another visitor may have consumed the last seed while this pigeon
 					# was eating. Look for another feeder before giving up.
@@ -214,19 +214,19 @@ func _begin_departure() -> void:
 
 
 func _get_food_points(_food: Node2D) -> int:
-	var points := food_points + int(ProgressionManager.get_effect_value(&"points_per_seed_add"))
+	var points := food_points + int(ProgressionManager.get_effect_value(EffectIds.POINTS_PER_SEED_ADD))
 	if target_food_is_golden:
-		points += 1 + int(ProgressionManager.get_effect_value(&"golden_seed_bonus"))
+		points += 1 + int(ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_BONUS))
 	if target_food_is_worm:
 		points += 1
-		if ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0:
+		if ProgressionManager.get_effect_value(EffectIds.WORM_FOOD_UNLOCK) > 0.0:
 			points += 2
 	return points
 
 
 func _get_eating_duration(food: Node2D) -> float:
-	var duration := eating_duration - ProgressionManager.get_effect_value(&"eating_time_reduction")
-	if target_food_is_worm and ProgressionManager.get_effect_value(&"worm_food_unlock") > 0.0:
+	var duration := eating_duration - ProgressionManager.get_effect_value(EffectIds.EATING_TIME_REDUCTION)
+	if target_food_is_worm and ProgressionManager.get_effect_value(EffectIds.WORM_FOOD_UNLOCK) > 0.0:
 		duration += 1.5
 	return maxf(0.25, duration)
 
