@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"seed_capacity_1"
+display_name = "Roomier Seed Sack I"
+description = "Increase feeder capacity by 2 seeds."
+category = 0
+points_cost = 18
+coin_cost = 0
+prerequisites = Array[StringName]([&"seed_regen_1"])
+effect_id = &"seed_capacity_add"
+effect_value = 2
+tree_position = Vector2(40, 1080)
+cost_growth = 1.5
+max_level = 1
