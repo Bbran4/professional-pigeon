@@ -6,7 +6,7 @@ signal visitor_count_changed(count: int)
 
 @export var pigeon_scene: PackedScene
 @export var feeder: SeedFeeder
-@export var arrival_interval: float = 0.8
+@export var arrival_interval: float = 0.25
 @export var park_bounds := Rect2(40.0, 100.0, 1072.0, 500.0)
 @export var landing_spots: Array[Vector2] = [
 	Vector2(185.0, 112.0), Vector2(780.0, 170.0), Vector2(300.0, 240.0),
@@ -22,6 +22,7 @@ const BENCH_FEEDER_SCENE := preload("res://scenes/park/bench_feeder.tscn")
 var day_active := false
 var visitors: Array[Dictionary] = []
 var reserved_perches: Dictionary = {}
+var _pending_points_by_pigeon: Dictionary = {}
 var _spawn_delay_pending := false
 var _retry := 0.0
 
@@ -104,10 +105,17 @@ func start_day() -> void:
 
 
 func end_day() -> void:
-	# Stop new arrivals while allowing active visitors to finish or time out.
+	# A day ending stops arrivals and removes any visitors still in flight.
 	day_active = false
-	if visitors.is_empty():
-		visitor_count_changed.emit(0)
+	_spawn_delay_pending = false
+	for visitor in visitors:
+		var pigeon := visitor.get("pigeon") as Pigeon
+		if is_instance_valid(pigeon):
+			pigeon.queue_free()
+	visitors.clear()
+	reserved_perches.clear()
+	_pending_points_by_pigeon.clear()
+	visitor_count_changed.emit(0)
 
 
 func get_active_count() -> int:
@@ -145,6 +153,8 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 		push_error("PigeonSpawner: pigeon_scene root must be a Pigeon.")
 		return false
 	get_parent().add_child(pigeon)
+	pigeon.z_index = 20
+	pigeon.z_as_relative = false
 	var brain_node := Node.new()
 	brain_node.set_script(BRAIN_SCRIPT)
 	pigeon.add_child(brain_node)
@@ -163,8 +173,8 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 	var exit := Vector2(park_bounds.end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.position.x - 55.0, perch_position.y - 80.0)
 	var perch_key := str(perch.key)
 
-	brain.ate_food.connect(_on_ate_food)
-	brain.feather_dropped.connect(_on_feather_dropped)
+	brain.ate_food.connect(_on_ate_food.bind(pigeon))
+	brain.feather_dropped.connect(_on_feather_dropped.bind(pigeon))
 	brain.departed.connect(_on_visitor_departed.bind(pigeon, perch_key))
 	visitors.append({"pigeon": pigeon, "brain": brain, "perch_key": perch_key})
 	brain.start_day(perch_position, arrival, exit)
@@ -216,24 +226,29 @@ func _find_available_feeder() -> SeedFeeder:
 	return available[randi_range(0, available.size() - 1)]
 
 
-func _on_ate_food(points: int) -> void:
-	ate_food.emit(points)
+func _on_ate_food(points: int, pigeon: Pigeon) -> void:
+	_pending_points_by_pigeon[pigeon.get_instance_id()] = points
 
 
-func _on_feather_dropped(drop_position: Vector2) -> void:
-	_spawn_feather(drop_position)
+func _on_feather_dropped(drop_position: Vector2, pigeon: Pigeon) -> void:
+	var point_reward := int(_pending_points_by_pigeon.get(pigeon.get_instance_id(), 0))
+	_pending_points_by_pigeon.erase(pigeon.get_instance_id())
+	_spawn_feather(drop_position, point_reward)
 	for index in range(int(ProgressionManager.get_effect_value(&"feather_count_add"))):
 		var offset := Vector2(randf_range(-24.0, 24.0), randf_range(-12.0, 12.0))
-		_spawn_feather(drop_position + offset)
+		_spawn_feather(drop_position + offset, 0)
 
 
-func _spawn_feather(spawn_position: Vector2) -> void:
+func _spawn_feather(spawn_position: Vector2, point_reward: int = 0) -> void:
 	var feather := FEATHER_SCENE.instantiate() as Feather
 	if feather == null:
 		push_error("PigeonSpawner: feather scene root must be a Feather.")
 		return
 	get_parent().add_child(feather)
 	feather.global_position = spawn_position
+	feather.z_index = 20
+	feather.z_as_relative = false
+	feather.point_value = point_reward
 	feather.coin_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
 	if randf() < ProgressionManager.get_effect_value(&"golden_feather_chance"):
 		feather.coin_value += 3
