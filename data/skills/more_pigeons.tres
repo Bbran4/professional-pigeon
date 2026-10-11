@@ -9,7 +9,6 @@ display_name = "More Pigeons"
 description = "Immediately allow one additional pigeon to visit the park at once."
 category = 4
 points_cost = 5
-coin_cost = 0
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"max_pigeons"
 effect_value = 1.0
