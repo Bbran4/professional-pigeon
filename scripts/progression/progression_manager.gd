@@ -1,13 +1,11 @@
 extends Node
 
 signal points_changed(points: int)
-signal coin_changed(coin: int)
 signal skill_level_changed(skill_id: StringName, new_level: int)
 
 const SKILL_CATALOG: SkillCatalog = preload("res://data/skills/skill_catalog.tres")
 
 var points: int = 0
-var coin: int = 0
 var skill_levels: Dictionary = {}
 var _effect_totals: Dictionary = {}
 var _loading_save := false
@@ -38,24 +36,12 @@ func add_points(amount: int) -> void:
 	_mark_save_dirty()
 
 
-func add_coin(amount: int) -> void:
-	if amount <= 0:
-		return
-	coin += amount
-	coin_changed.emit(coin)
-	_mark_save_dirty()
-
-
 func can_spend_points(amount: int) -> bool:
 	return amount >= 0 and points >= amount
 
 
-func can_spend_coin(amount: int) -> bool:
-	return amount >= 0 and coin >= amount
-
-
-func can_spend(points_amount: int, coin_amount: int) -> bool:
-	return can_spend_points(points_amount) and can_spend_coin(coin_amount)
+func can_spend(amount: int) -> bool:
+	return can_spend_points(amount)
 
 
 func spend_points(amount: int) -> bool:
@@ -67,24 +53,8 @@ func spend_points(amount: int) -> bool:
 	return true
 
 
-func spend_coin(amount: int) -> bool:
-	if not can_spend_coin(amount):
-		return false
-	coin -= amount
-	coin_changed.emit(coin)
-	_mark_save_dirty()
-	return true
-
-
-func spend(points_amount: int, coin_amount: int) -> bool:
-	if not can_spend(points_amount, coin_amount):
-		return false
-	points -= points_amount
-	coin -= coin_amount
-	points_changed.emit(points)
-	coin_changed.emit(coin)
-	_mark_save_dirty()
-	return true
+func spend(amount: int) -> bool:
+	return spend_points(amount)
 
 
 func get_skill_level(skill_id: StringName) -> int:
@@ -117,13 +87,11 @@ func _rebuild_effect_totals() -> void:
 
 func reset_save() -> void:
 	points = 0
-	coin = 0
 	skill_levels.clear()
 	_effect_totals.clear()
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
 	points_changed.emit(points)
-	coin_changed.emit(coin)
 	for skill in SKILL_CATALOG.skills:
 		if skill != null:
 			skill_level_changed.emit(skill.id, 0)
@@ -149,7 +117,6 @@ func save_game() -> void:
 	var save_data := {
 		"version": 1,
 		"points": points,
-		"coin": coin,
 		"skill_levels": saved_levels,
 	}
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -174,7 +141,6 @@ func load_game() -> void:
 	var save_data: Dictionary = parsed
 	_loading_save = true
 	points = maxi(int(save_data.get("points", 0)), 0)
-	coin = maxi(int(save_data.get("coin", 0)), 0)
 	skill_levels.clear()
 	var saved_levels: Variant = save_data.get("skill_levels", {})
 	if saved_levels is Dictionary:
