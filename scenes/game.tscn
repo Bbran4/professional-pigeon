@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
 [ext_resource type="Script" path="res://scripts/game/pigeon_spawner.gd" id="10_spawner"]
+[ext_resource type="Script" path="res://scripts/game/park_layout.gd" id="16_layout"]
 
 [node name="Park" type="Node2D" unique_id=462212071]
 y_sort_enabled = true
@@ -43,14 +44,16 @@ position = Vector2(480, 340)
 [node name="FountainMarker" type="Marker2D" parent="."]
 position = Vector2(960, 420)
 
+[node name="ParkLayout" type="Node" parent="."]
+script = ExtResource("16_layout")
+
 [node name="FeatherCollector" type="Node2D" parent="."]
 script = ExtResource("12_collector")
 
 [node name="PigeonSpawner" type="Node2D" parent="." unique_id=28304278]
 script = ExtResource("10_spawner")
 pigeon_scene = ExtResource("4_player")
-park_bounds = Rect2(40, 100, 1072, 500)
-landing_spots = Array[Vector2]([Vector2(780, 250), Vector2(185, 112), Vector2(300, 240), Vector2(450, 260), Vector2(620, 460), Vector2(850, 430), Vector2(1010, 250)])
+park_layout = NodePath("../ParkLayout")
 
 [node name="DayManager" type="Node" parent="." unique_id=1031930032]
 script = ExtResource("7_day")
