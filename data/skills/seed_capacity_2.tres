@@ -9,7 +9,6 @@ display_name = "Roomier Seed Sack II"
 description = "Increase feeder capacity by 2 seeds."
 category = 0
 points_cost = 32
-coin_cost = 0
 prerequisites = Array[StringName]([&"seed_capacity_1"])
 effect_id = &"seed_capacity_add"
 effect_value = 2
