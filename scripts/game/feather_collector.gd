@@ -117,5 +117,9 @@ func _collect_collectible(collectible: Collectible) -> void:
 	if not is_instance_valid(collectible) or not collectible.is_visible_in_tree():
 		return
 	collectible.hide()
+	if collectible.point_value > 0:
+		var day_manager := get_tree().get_first_node_in_group("day_manager") as DayManager
+		if is_instance_valid(day_manager):
+			day_manager.collect_feather_points(collectible.point_value)
 	ProgressionManager.add_coin(collectible.coin_value)
 	collectible.queue_free()

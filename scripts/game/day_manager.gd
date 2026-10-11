@@ -30,8 +30,8 @@ var _feeder: SeedFeeder
 
 func _ready() -> void:
 	add_to_group("day_manager")
-	spawner.ate_food.connect(_on_pigeon_ate_food)
 	spawner.visitor_count_changed.connect(_on_visitor_count_changed)
+	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 	spawner.end_day()
 	_emit_day_updated()
 
@@ -40,15 +40,14 @@ func refresh_display() -> void:
 	_last_display_state.clear()
 	_emit_day_updated()
 
+
 func _process(delta: float) -> void:
 	if not active:
 		return
 	time_remaining = maxf(time_remaining - delta, 0.0)
 	_emit_day_updated()
 	if time_remaining <= 0.0:
-		spawner.end_day()
-		if spawner.get_active_count() == 0:
-			end_day()
+		end_day()
 		return
 	_check_day_completion()
 
@@ -56,6 +55,7 @@ func _process(delta: float) -> void:
 func start_day() -> void:
 	if active:
 		return
+	_clear_uncollected_feathers()
 	for node in get_tree().get_nodes_in_group("feeders"):
 		var available_feeder := node as SeedFeeder
 		if available_feeder != null and available_feeder.is_visible_in_tree():
@@ -71,25 +71,21 @@ func start_day() -> void:
 	_emit_day_updated()
 
 
-func _on_pigeon_ate_food(amount: int) -> void:
-	if not active:
+func collect_feather_points(amount: int) -> void:
+	if not active or amount <= 0:
 		return
 	points += amount
 	_emit_day_updated()
 
 
 func _check_day_completion() -> void:
-	if not active:
+	if not active or time_remaining <= 0.0:
 		return
-	if time_remaining <= 0.0:
-		if spawner.get_active_count() == 0:
-			end_day()
-		return
-	if _has_available_food():
-		return
-	if spawner.get_active_count() > 0:
+	if _has_available_food() or spawner.get_active_count() > 0:
 		return
 	if ProgressionManager.get_effect_value(&"seed_regen_interval") - ProgressionManager.get_effect_value(&"seed_regen_interval_reduction") > 0.0:
+		return
+	if _has_uncollected_feathers():
 		return
 	end_day()
 
@@ -102,8 +98,27 @@ func _has_available_food() -> bool:
 	return is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining > 0
 
 
+func _has_uncollected_feathers() -> bool:
+	for node in get_tree().get_nodes_in_group("collectibles"):
+		var collectible := node as Collectible
+		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
+			return true
+	return false
+
+
+func _clear_uncollected_feathers() -> void:
+	for node in get_tree().get_nodes_in_group("collectibles"):
+		var collectible := node as Collectible
+		if is_instance_valid(collectible):
+			collectible.queue_free()
+
+
 func _on_visitor_count_changed(_count: int) -> void:
 	_check_day_completion()
+
+
+func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
+	refresh_display()
 
 
 func end_day() -> void:
@@ -111,6 +126,7 @@ func end_day() -> void:
 		return
 	active = false
 	spawner.end_day()
+	_clear_uncollected_feathers()
 	if OS.is_debug_build():
 		print("Day complete: earned %d Points." % points)
 	ProgressionManager.add_points(points)

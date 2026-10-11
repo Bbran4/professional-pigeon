@@ -9,6 +9,7 @@ signal depleted
 
 var seeds_remaining: int = 5
 var _regen_elapsed := 0.0
+var _last_capacity := 5
 
 
 func _process(delta: float) -> void:
@@ -27,9 +28,11 @@ func _process(delta: float) -> void:
 
 
 func _ready() -> void:
-	seeds_remaining = clampi(starting_seeds, 0, get_seed_capacity())
+	_last_capacity = get_seed_capacity()
+	seeds_remaining = clampi(starting_seeds, 0, _last_capacity)
 	_update_visual()
-	seeds_changed.emit(seeds_remaining, get_seed_capacity())
+	seeds_changed.emit(seeds_remaining, _last_capacity)
+	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 
 
 func get_seed_capacity() -> int:
@@ -69,6 +72,17 @@ func refill(amount: int) -> void:
 	if seeds_remaining != previous:
 		_update_visual()
 		seeds_changed.emit(seeds_remaining, get_seed_capacity())
+
+
+func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
+	var capacity := get_seed_capacity()
+	if capacity > _last_capacity:
+		seeds_remaining = mini(capacity, seeds_remaining + capacity - _last_capacity)
+	elif capacity < _last_capacity:
+		seeds_remaining = mini(seeds_remaining, capacity)
+	_last_capacity = capacity
+	_update_visual()
+	seeds_changed.emit(seeds_remaining, capacity)
 
 
 func _update_visual() -> void:

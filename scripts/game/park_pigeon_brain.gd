@@ -13,13 +13,13 @@ enum VisitorState {
 	DEPARTING,
 }
 
-@export var eating_duration: float = 2.0
-@export var dropping_duration: float = 2.0
+@export var eating_duration: float = 1.0
+@export var dropping_duration: float = 0.75
 @export var food_points: int = 1
 @export var food_distance: float = 28.0
 @export var arrival_distance: float = 18.0
 @export var departure_distance: float = 40.0
-@export var patience_timeout: float = 6.0
+@export var patience_timeout: float = 3.0
 
 var active := false
 var visitor_state: VisitorState = VisitorState.ARRIVING
