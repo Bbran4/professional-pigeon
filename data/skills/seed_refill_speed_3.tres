@@ -1,17 +1,14 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://cwk32474nasje"]
 
-[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
 script = ExtResource("1_skill")
 id = &"seed_refill_speed_3"
 display_name = "Quicker Seed Refill III"
-description = "Reduce the seed refill interval by 2 seconds."
-category = 0
+description = "Reduce the seed refill interval by 4 seconds."
 points_cost = 48
+tree_position = Vector2(460, 1100)
 prerequisites = Array[StringName]([&"seed_refill_speed_2"])
 effect_id = &"seed_regen_interval_reduction"
-effect_value = 2
-tree_position = Vector2(460, 1100)
-cost_growth = 1.5
-max_level = 1
+effect_value = 4.0
