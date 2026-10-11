@@ -86,16 +86,6 @@ tooltip_text = "Unlock the seed feeder beside the bench. Requires Basic Feeding.
 text = "Bench Feeder"
 skill_id = &"bench_feeder"
 
-[node name="more_pigeons" parent="." unique_id=1430292920 instance=ExtResource("3_skill_node")]
-layout_mode = 0
-offset_left = 1011.0
-offset_top = 980.0
-offset_right = 1201.0
-offset_bottom = 1080.0
-tooltip_text = "Immediately allow one additional pigeon to visit the park at once."
-text = "More Pigeons"
-skill_id = &"more_pigeons"
-
 [node name="more_pigeons_1" parent="." unique_id=1933628068 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 offset_left = 732.0
