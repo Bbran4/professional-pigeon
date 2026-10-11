@@ -25,6 +25,8 @@ class_name GameBalance
 @export var default_patience_timeout: float = 3.0
 
 @export_group("Collectible Drops")
+@export var feather_drop_offset_x: float = 18.0
+@export var feather_drop_offset_y: float = 4.0
 @export var extra_feather_offset_x: float = 24.0
 @export var extra_feather_offset_y: float = 12.0
 
