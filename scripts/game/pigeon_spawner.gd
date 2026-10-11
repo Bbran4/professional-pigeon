@@ -263,9 +263,9 @@ func _spawn_feather(spawn_position: Vector2, point_reward: int = 0) -> void:
 	feather.z_index = 20
 	feather.z_as_relative = false
 	feather.point_value = point_reward
-	feather.coin_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
+	feather.point_value += int(ProgressionManager.get_effect_value(&"feather_value_add"))
 	if randf() < ProgressionManager.get_effect_value(&"golden_feather_chance"):
-		feather.coin_value += 3
+		feather.point_value += 3
 
 func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 	for index in range(visitors.size() - 1, -1, -1):
