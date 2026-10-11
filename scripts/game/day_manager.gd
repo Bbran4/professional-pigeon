@@ -64,7 +64,7 @@ func start_day() -> void:
 		if is_instance_valid(_feeder):
 			_feeder.refill(_feeder.get_seed_capacity())
 	points = 0
-	time_remaining = day_duration + ProgressionManager.get_effect_value(&"day_duration_add")
+	time_remaining = day_duration + ProgressionManager.get_effect_value(EffectIds.DAY_DURATION_ADD)
 	active = true
 	spawner.start_day()
 	day_started.emit(time_remaining)
@@ -91,7 +91,7 @@ func _check_day_completion() -> void:
 
 
 func _has_regenerating_feeder() -> bool:
-	var regen_interval := ProgressionManager.get_effect_value(&"seed_regen_interval") - ProgressionManager.get_effect_value(&"seed_regen_interval_reduction")
+	var regen_interval := ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL) - ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL_REDUCTION)
 	if regen_interval <= 0.0:
 		return false
 	for node in get_tree().get_nodes_in_group("feeders"):
