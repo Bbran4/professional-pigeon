@@ -33,7 +33,7 @@ func _update_feather_hint() -> void:
 			feathers_remaining = true
 			break
 	if day_manager.active:
-		hint_label.text = "Hover over a feather to collect Coin, or unlock faster collection."
+		hint_label.text = "Hover over a feather to collect it and earn Feathers."
 		hint_label.show()
 	elif feathers_remaining:
 		hint_label.text = "Collect the remaining feathers before returning to upgrades."
