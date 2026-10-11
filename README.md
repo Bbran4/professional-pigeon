@@ -31,7 +31,7 @@ Skill definitions live in `data/skills/skill_catalog.tres`, while the visible sk
 
 The tree includes branches for:
 
-- Bench Feeder and seed capacity
+- Bench Feeder, five seed-capacity upgrades, and three seed-refill-speed upgrades
 - Seeds and worms
 - Time and flow, food and Feathers, pigeon capacity, park expansion, and collectible progression
 
@@ -77,4 +77,4 @@ Feather collection scales with the flock through three upgrades: **Quick Collect
 
 ### Upgrade pool
 
-The current catalog contains 58 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Feathers per seed, seed regeneration, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
+The current catalog contains 58 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Feathers per seed, seed regeneration and refill speed, five seed-capacity upgrades, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
