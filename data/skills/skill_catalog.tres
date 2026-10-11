@@ -13,6 +13,14 @@
 [ext_resource type="Resource" path="res://data/skills/feather_fast_collection.tres" id="28"]
 [ext_resource type="Resource" path="res://data/skills/feather_collection_radius.tres" id="29"]
 [ext_resource type="Resource" path="res://data/skills/feather_auto_collect.tres" id="30"]
+[ext_resource type="Resource" path="res://data/skills/seed_capacity_1.tres" id="31"]
+[ext_resource type="Resource" path="res://data/skills/seed_capacity_2.tres" id="32"]
+[ext_resource type="Resource" path="res://data/skills/seed_capacity_3.tres" id="33"]
+[ext_resource type="Resource" path="res://data/skills/seed_refill_speed_1.tres" id="34"]
+[ext_resource type="Resource" path="res://data/skills/seed_refill_speed_2.tres" id="35"]
+[ext_resource type="Resource" path="res://data/skills/seed_refill_speed_3.tres" id="36"]
+[ext_resource type="Resource" path="res://data/skills/seed_capacity_4.tres" id="37"]
+[ext_resource type="Resource" path="res://data/skills/seed_capacity_5.tres" id="38"]
 
 
 [sub_resource type="Resource" id="Skill_day_duration_1"]
@@ -367,7 +375,7 @@ display_name = "Worms: Premium Food"
 description = "Worms award 3 extra Points but take longer to eat."
 category = 0
 points_cost = 35
-coin_cost = 1
+coin_cost = 0
 prerequisites = Array[StringName]([&"worms_spawns"])
 effect_id = &"worm_food_unlock"
 effect_value = 1
@@ -397,7 +405,7 @@ display_name = "Rare Visitor"
 description = "Each level adds a 10% chance for a visitor to bring 2 extra Points."
 category = 4
 points_cost = 35
-coin_cost = 1
+coin_cost = 0
 prerequisites = Array[StringName]([&"pigeon_patience_1"])
 effect_id = &"rare_visitor_chance"
 effect_value = 0.1
@@ -412,7 +420,7 @@ display_name = "Pigeon Pairs"
 description = "Occasionally send two pigeons together when capacity allows."
 category = 4
 points_cost = 40
-coin_cost = 1
+coin_cost = 0
 prerequisites = Array[StringName]([&"rare_visitor"])
 effect_id = &"pair_arrivals"
 effect_value = 0.1
@@ -427,7 +435,7 @@ display_name = "Extra Bench 1"
 description = "Unlock another bench and its perch spots."
 category = 0
 points_cost = 35
-coin_cost = 1
+coin_cost = 0
 prerequisites = Array[StringName]([&"bench_feeder"])
 effect_id = &"bench_count_add"
 effect_value = 1
@@ -442,7 +450,7 @@ display_name = "Extra Bench 2"
 description = "Unlock another bench and its perch spots."
 category = 0
 points_cost = 50
-coin_cost = 2
+coin_cost = 0
 prerequisites = Array[StringName]([&"more_benches_1"])
 effect_id = &"bench_count_add"
 effect_value = 1
@@ -457,7 +465,7 @@ display_name = "Extra Bench 3"
 description = "Unlock another bench and its perch spots."
 category = 0
 points_cost = 65
-coin_cost = 3
+coin_cost = 0
 prerequisites = Array[StringName]([&"more_benches_2"])
 effect_id = &"bench_count_add"
 effect_value = 1
@@ -472,7 +480,7 @@ display_name = "Fountain Attraction"
 description = "Unlock a fountain with extra perches and quicker arrivals."
 category = 0
 points_cost = 50
-coin_cost = 2
+coin_cost = 0
 prerequisites = Array[StringName]([&"more_benches_2"])
 effect_id = &"fountain_unlock"
 effect_value = 1
@@ -487,7 +495,7 @@ display_name = "Tree Nests"
 description = "Add nest perches that increase visitor capacity."
 category = 4
 points_cost = 45
-coin_cost = 2
+coin_cost = 0
 prerequisites = Array[StringName]([&"fountain_unlock"])
 effect_id = &"tree_nests"
 effect_value = 1
@@ -577,7 +585,7 @@ display_name = "Helpful Crow"
 description = "A crow collects one collectible every 15 seconds."
 category = 2
 points_cost = 65
-coin_cost = 3
+coin_cost = 0
 prerequisites = Array[StringName]([&"feather_collection_radius"])
 effect_id = &"crow_collect_interval"
 effect_value = 15
@@ -602,4 +610,4 @@ max_level = 1
 
 [resource]
 script = ExtResource("1_catalog")
-skills = Array[ExtResource("2_skill")]([ExtResource("12"), ExtResource("13"), ExtResource("18"), ExtResource("19"), ExtResource("21"), ExtResource("22"), ExtResource("26"), ExtResource("27"), ExtResource("28"), ExtResource("29"), ExtResource("30"), SubResource("Skill_day_duration_1"), SubResource("Skill_day_duration_2"), SubResource("Skill_day_duration_3"), SubResource("Skill_day_duration_4"), SubResource("Skill_day_duration_5"), SubResource("Skill_arrival_speed_1"), SubResource("Skill_arrival_speed_2"), SubResource("Skill_arrival_speed_3"), SubResource("Skill_eating_speed_1"), SubResource("Skill_eating_speed_2"), SubResource("Skill_eating_speed_3"), SubResource("Skill_flight_speed_1"), SubResource("Skill_flight_speed_2"), SubResource("Skill_flight_speed_3"), SubResource("Skill_feather_wait_1"), SubResource("Skill_feather_wait_2"), SubResource("Skill_feather_wait_3"), SubResource("Skill_points_per_seed_1"), SubResource("Skill_points_per_seed_2"), SubResource("Skill_points_per_seed_3"), SubResource("Skill_seed_regen_1"), SubResource("Skill_seed_regen_2"), SubResource("Skill_golden_seed_1"), SubResource("Skill_worm_quality"), SubResource("Skill_pigeon_patience_1"), SubResource("Skill_rare_visitor"), SubResource("Skill_pair_arrivals"), SubResource("Skill_more_benches_1"), SubResource("Skill_more_benches_2"), SubResource("Skill_more_benches_3"), SubResource("Skill_fountain_unlock"), SubResource("Skill_tree_nests"), SubResource("Skill_feather_count_1"), SubResource("Skill_feather_count_2"), SubResource("Skill_feather_value_1"), SubResource("Skill_feather_value_2"), SubResource("Skill_golden_feather_1"), SubResource("Skill_crow_collector"), SubResource("Skill_golden_seed_bonus")])
+skills = Array[ExtResource("2_skill")]([ExtResource("12"), ExtResource("13"), ExtResource("18"), ExtResource("19"), ExtResource("21"), ExtResource("22"), ExtResource("26"), ExtResource("27"), ExtResource("28"), ExtResource("29"), ExtResource("30"), SubResource("Skill_day_duration_1"), SubResource("Skill_day_duration_2"), SubResource("Skill_day_duration_3"), SubResource("Skill_day_duration_4"), SubResource("Skill_day_duration_5"), SubResource("Skill_arrival_speed_1"), SubResource("Skill_arrival_speed_2"), SubResource("Skill_arrival_speed_3"), SubResource("Skill_eating_speed_1"), SubResource("Skill_eating_speed_2"), SubResource("Skill_eating_speed_3"), SubResource("Skill_flight_speed_1"), SubResource("Skill_flight_speed_2"), SubResource("Skill_flight_speed_3"), SubResource("Skill_feather_wait_1"), SubResource("Skill_feather_wait_2"), SubResource("Skill_feather_wait_3"), SubResource("Skill_points_per_seed_1"), SubResource("Skill_points_per_seed_2"), SubResource("Skill_points_per_seed_3"), SubResource("Skill_seed_regen_1"), SubResource("Skill_seed_regen_2"), SubResource("Skill_golden_seed_1"), SubResource("Skill_worm_quality"), SubResource("Skill_pigeon_patience_1"), SubResource("Skill_rare_visitor"), SubResource("Skill_pair_arrivals"), SubResource("Skill_more_benches_1"), SubResource("Skill_more_benches_2"), SubResource("Skill_more_benches_3"), SubResource("Skill_fountain_unlock"), SubResource("Skill_tree_nests"), SubResource("Skill_feather_count_1"), SubResource("Skill_feather_count_2"), SubResource("Skill_feather_value_1"), SubResource("Skill_feather_value_2"), SubResource("Skill_golden_feather_1"), SubResource("Skill_crow_collector"), SubResource("Skill_golden_seed_bonus"), ExtResource("31"), ExtResource("32"), ExtResource("33"), ExtResource("34"), ExtResource("35"), ExtResource("36"), ExtResource("37"), ExtResource("38")])
