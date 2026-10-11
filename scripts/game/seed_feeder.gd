@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	if day_manager == null or not day_manager.active:
 		_regen_elapsed = 0.0
 		return
-	var regen_interval := ProgressionManager.get_effect_value(&"seed_regen_interval") - ProgressionManager.get_effect_value(&"seed_regen_interval_reduction")
+	var regen_interval := ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL) - ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL_REDUCTION)
 	if regen_interval <= 0.0 or seeds_remaining >= get_seed_capacity():
 		_regen_elapsed = 0.0
 		return
@@ -36,9 +36,9 @@ func _ready() -> void:
 
 
 func get_seed_capacity() -> int:
-	var capacity := seed_capacity + int(ProgressionManager.get_effect_value(&"seed_capacity_add"))
-	if ProgressionManager.get_effect_value(&"unlock_seeds") > 0.0:
-		capacity += int(ProgressionManager.get_effect_value(&"seeds_spawns"))
+	var capacity := seed_capacity + int(ProgressionManager.get_effect_value(EffectIds.SEED_CAPACITY_ADD))
+	if ProgressionManager.get_effect_value(EffectIds.UNLOCK_SEEDS) > 0.0:
+		capacity += int(ProgressionManager.get_effect_value(EffectIds.SEEDS_SPAWNS))
 	return capacity
 
 
@@ -48,8 +48,8 @@ func can_feed() -> bool:
 
 func prepare_seed() -> Dictionary:
 	return {
-		"golden": randf() < ProgressionManager.get_effect_value(&"golden_seed_chance"),
-		"worm": ProgressionManager.get_effect_value(&"unlock_worms") > 0.0 and randf() < 0.2 + ProgressionManager.get_effect_value(&"worms_spawns") * 0.05,
+		"golden": randf() < ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_CHANCE),
+		"worm": ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) > 0.0 and randf() < 0.2 + ProgressionManager.get_effect_value(EffectIds.WORMS_SPAWNS) * 0.05,
 	}
 
 
