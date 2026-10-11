@@ -15,13 +15,13 @@ enum VisitorState {
 	DEPARTING,
 }
 
-@export var eating_duration: float = 1.0
-@export var dropping_duration: float = 0.75
+@export var eating_duration: float = BALANCE.default_eating_duration
+@export var dropping_duration: float = BALANCE.default_dropping_duration
 @export var food_points: int = 1
 @export var food_distance: float = 28.0
 @export var arrival_distance: float = 18.0
 @export var departure_distance: float = 40.0
-@export var patience_timeout: float = 3.0
+@export var patience_timeout: float = BALANCE.default_patience_timeout
 
 var active := false
 var visitor_state: VisitorState = VisitorState.ARRIVING
@@ -136,7 +136,7 @@ func _physics_process(delta: float) -> void:
 			state_machine.transition(StateMachine.Intent.IDLE)
 			dropping_timer -= delta
 			if dropping_timer <= 0.0:
-				feather_dropped.emit(pigeon.global_position + Vector2(18.0, 4.0))
+				feather_dropped.emit(pigeon.global_position + Vector2(BALANCE.feather_drop_offset_x, BALANCE.feather_drop_offset_y))
 				_begin_departure()
 
 		VisitorState.DEPARTING:
