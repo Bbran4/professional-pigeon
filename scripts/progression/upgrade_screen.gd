@@ -21,7 +21,7 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 
 
 func refresh() -> void:
-	points_label.text = "Points: %d" % ProgressionManager.points
+	points_label.text = "Feathers: %d" % ProgressionManager.points
 	start_day_button.disabled = false
 
 
