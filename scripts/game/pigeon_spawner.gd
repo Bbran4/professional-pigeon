@@ -332,7 +332,8 @@ func _on_feather_dropped(drop_position: Vector2, pigeon: Pigeon) -> void:
 	_spawn_feather(drop_position, point_reward)
 	for index in range(int(ProgressionManager.get_effect_value(&"feather_count_add"))):
 		var offset := Vector2(randf_range(-24.0, 24.0), randf_range(-12.0, 12.0))
-		_spawn_feather(drop_position + offset, 0)
+		# Every feather is an individual collectible and should grant the visit's reward.
+		_spawn_feather(drop_position + offset, point_reward)
 
 
 func _spawn_feather(spawn_position: Vector2, point_reward: int = 0) -> void:
