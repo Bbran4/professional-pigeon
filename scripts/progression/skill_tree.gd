@@ -166,7 +166,7 @@ func _draw() -> void:
 			if editor_skill == null:
 				continue
 			var editor_from := editor_node.position + editor_node.size * 0.5
-			for prerequisite_id in editor_skill.prerequisites:
+			for prerequisite_id in editor_node.get_prerequisites():
 				var editor_prerequisite := nodes_by_id.get(prerequisite_id) as SkillNode
 				if editor_prerequisite == null:
 					continue

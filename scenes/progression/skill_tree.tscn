@@ -270,12 +270,12 @@ skill_id = &"seed_capacity_1"
 text = "Roomier Seed Sack I"
 
 [node name="seed_capacity_2" parent="." instance=ExtResource("3_skill_node")]
-position = Vector2(40, 1230)
+position = Vector2(480, 1300)
 skill_id = &"seed_capacity_2"
 text = "Roomier Seed Sack II"
 
 [node name="seed_capacity_3" parent="." instance=ExtResource("3_skill_node")]
-position = Vector2(40, 1380)
+position = Vector2(920, 1450)
 skill_id = &"seed_capacity_3"
 text = "Roomier Seed Sack III"
 
@@ -295,11 +295,11 @@ skill_id = &"seed_refill_speed_3"
 text = "Quicker Seed Refill III"
 
 [node name="seed_capacity_4" parent="." instance=ExtResource("3_skill_node")]
-position = Vector2(500, 700)
+position = Vector2(40, 700)
 skill_id = &"seed_capacity_4"
 text = "Emergency Seed Pocket"
 
 [node name="seed_capacity_5" parent="." instance=ExtResource("3_skill_node")]
-position = Vector2(560, 1250)
+position = Vector2(1800, 250)
 skill_id = &"seed_capacity_5"
 text = "Deep Seed Pouch"
