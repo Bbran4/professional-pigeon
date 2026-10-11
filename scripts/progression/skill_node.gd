@@ -35,7 +35,7 @@ func refresh() -> void:
 			var editor_skill := skill_tree.get_skill(skill_id)
 			if editor_skill != null:
 				text = editor_skill.display_name
-				tooltip_text = editor_skill.description
+				tooltip_text = editor_skill.get_effect_description()
 				return
 		text = String(skill_id) if skill_id != &"" else "UNASSIGNED"
 		return
@@ -51,7 +51,7 @@ func refresh() -> void:
 
 	if skill.coming_soon:
 		text = "%s\nCOMING SOON" % skill.display_name
-		tooltip_text = skill.description
+		tooltip_text = skill.get_effect_description()
 		disabled = true
 		return
 
@@ -86,7 +86,7 @@ func refresh() -> void:
 			state_text
 		]
 		disabled = not available
-	tooltip_text = skill.description
+	tooltip_text = skill.get_effect_description()
 
 
 func _on_pressed() -> void:
