@@ -19,7 +19,6 @@ var nodes_by_id: Dictionary = {}
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_load_catalog()
-	_generate_nodes()
 	_collect_nodes()
 	_connect_progression_signals()
 	queue_redraw()
@@ -41,29 +40,6 @@ func _connect_progression_signals() -> void:
 func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 	_refresh_nodes()
 	queue_redraw()
-
-
-func _generate_nodes() -> void:
-	for child in get_children():
-		remove_child(child)
-		child.queue_free()
-	nodes_by_id.clear()
-	if skill_node_scene == null:
-		push_error("SkillTree requires a skill node scene.")
-		return
-	for skill in skills:
-		if skill == null:
-			continue
-		var node := skill_node_scene.instantiate() as SkillNode
-		if node == null:
-			push_error("Skill node scene must instantiate a SkillNode.")
-			continue
-		node.name = String(skill.id)
-		node.skill_id = skill.id
-		node.position = skill.tree_position
-		node.size = Vector2(190.0, 100.0)
-		node.custom_minimum_size = node.size
-		add_child(node)
 
 
 func _collect_nodes() -> void:
