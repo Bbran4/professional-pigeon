@@ -17,7 +17,8 @@ signal visitor_count_changed(count: int)
 const BRAIN_SCRIPT := preload("res://scripts/game/park_pigeon_brain.gd")
 const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 const BENCH_SCENE := preload("res://scenes/park/bench.tscn")
-const BENCH_FEEDER_SCENE := preload("res://scenes/park/bench_feeder.tscn")
+const SEED_FEEDER_SCENE := preload("res://scenes/park/seed_feeder.tscn")
+const BENCH_FEEDER_SCRIPT := preload("res://scripts/game/bench_feeder.gd")
 
 var day_active := false
 var visitors: Array[Dictionary] = []
@@ -80,9 +81,8 @@ func _spawn_park_upgrades() -> void:
 			_spawned_benches[index] = bench
 
 		if not _spawned_bench_feeders.has(index) or not is_instance_valid(_spawned_bench_feeders[index]):
-			var bench_feeder := BENCH_FEEDER_SCENE.instantiate() as Node2D
+			var bench_feeder := _create_bench_feeder(index)
 			if bench_feeder == null:
-				push_error("PigeonSpawner: failed to instantiate scenes/park/bench_feeder.tscn.")
 				continue
 			bench_feeder.name = "UnlockedBenchFeeder_%d" % (index + 1)
 			park.add_child(bench_feeder)
@@ -125,6 +125,26 @@ func _spawn_park_upgrades() -> void:
 			if is_instance_valid(nest):
 				nest.queue_free()
 		_spawned_nests.clear()
+
+
+func _create_bench_feeder(index: int) -> Node2D:
+	var bench_feeder := Node2D.new()
+	bench_feeder.set_script(BENCH_FEEDER_SCRIPT)
+	var seed_feeder := SEED_FEEDER_SCENE.instantiate() as Node2D
+	if seed_feeder == null:
+		push_error("PigeonSpawner: failed to instantiate scenes/park/seed_feeder.tscn for bench %d." % (index + 1))
+		bench_feeder.free()
+		return null
+	seed_feeder.name = "SeedFeeder"
+	seed_feeder.position = Vector2(0, 78)
+	bench_feeder.add_child(seed_feeder)
+	for spawn_index in range(3):
+		var perch := Marker2D.new()
+		perch.name = "BenchSpawn%d" % (spawn_index + 1)
+		perch.add_to_group("perch_spots")
+		perch.position = Vector2(-48 + spawn_index * 48, 12)
+		bench_feeder.add_child(perch)
+	return bench_feeder
 
 
 func _spawn_fountain(park: Node) -> void:
