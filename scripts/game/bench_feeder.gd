@@ -1,7 +1,7 @@
 extends Node2D
 class_name BenchFeeder
 
-const FEEDER_SKILL: StringName = &"bench_feeder"
+const FEEDER_SKILL: StringName = EffectIds.BENCH_FEEDER
 
 @onready var seed_feeder: SeedFeeder = $SeedFeeder
 
