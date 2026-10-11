@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="GameBalance" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/game_balance.gd" id="1_balance"]
+
+[resource]
+script = ExtResource("1_balance")
+worm_chance = 0.2
+worm_chance_per_upgrade = 0.05
+golden_seed_bonus_points = 1
+worm_bonus_points = 1
+unlocked_worm_bonus_points = 2
+worm_extra_eating_duration = 1.5
+rare_visitor_bonus_points = 2
+golden_feather_bonus_points = 3
+visitor_retry_interval = 0.5
+minimum_spawn_delay = 0.1
+fountain_spawn_delay_reduction = 0.2
+minimum_patience_timeout = 1.0
+minimum_eating_duration = 0.25
+minimum_dropping_duration = 0.25
+default_eating_duration = 1.0
+default_dropping_duration = 0.75
+default_patience_timeout = 3.0
+extra_feather_offset_x = 24.0
+extra_feather_offset_y = 12.0
+minimum_pigeons = 1
+maximum_pigeons = 12
+tree_nest_pigeon_capacity = 1
