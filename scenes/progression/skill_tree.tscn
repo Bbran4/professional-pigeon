@@ -295,7 +295,7 @@ skill_id = &"seed_refill_speed_3"
 text = "Quicker Seed Refill III"
 
 [node name="seed_capacity_4" parent="." instance=ExtResource("3_skill_node")]
-position = Vector2(520, 760)
+position = Vector2(600, 700)
 skill_id = &"seed_capacity_4"
 text = "Emergency Seed Pocket"
 
