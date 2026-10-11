@@ -96,6 +96,16 @@ tooltip_text = "Immediately allow one additional pigeon to visit the park at onc
 text = "More Pigeons"
 skill_id = &"more_pigeons"
 
+[node name="more_pigeons_1" parent="." unique_id=1933628068 instance=ExtResource("3_skill_node")]
+layout_mode = 0
+offset_left = 732.0
+offset_top = 1286.0
+offset_right = 922.0
+offset_bottom = 1386.0
+tooltip_text = "Immediately allow one additional pigeon to visit the park at once."
+text = "More Pigeons"
+skill_id = &"more_pigeons_1"
+
 [node name="feather_fast_collection" parent="." unique_id=1920612739 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 offset_left = 1265.0

@@ -23,8 +23,8 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="TopBar" type="Panel" parent="." unique_id=1931811504]
-layout_mode = 0
 z_index = 1
+layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 82.0
 grow_horizontal = 2
@@ -59,6 +59,15 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 18
 text = "START NEW DAY"
 
+[node name="ResetSaveButton" type="Button" parent="TopBar" unique_id=1590502962]
+layout_mode = 0
+offset_left = 720.0
+offset_top = 17.0
+offset_right = 850.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 16
+text = "RESET SAVE"
+
 [node name="SkillManager" type="Control" parent="." unique_id=106104407]
 layout_mode = 1
 anchors_preset = 15
@@ -73,19 +82,10 @@ script = ExtResource("3_manager")
 layout_mode = 0
 offset_left = -650.0
 offset_top = -300.0
-offset_right = 1750.0
-offset_bottom = 1300.0
+offset_right = 1919.0
+offset_bottom = 1555.0
 
-[node name="ResetSaveButton" type="Button" parent="TopBar"]
-layout_mode = 0
-offset_left = 720.0
-offset_top = 17.0
-offset_right = 850.0
-offset_bottom = 62.0
-theme_override_font_sizes/font_size = 16
-text = "RESET SAVE"
-
-[node name="ResetConfirmation" type="ConfirmationDialog" parent="."]
+[node name="ResetConfirmation" type="ConfirmationDialog" parent="." unique_id=1692433564]
 title = "Reset Save"
-dialog_text = "Delete all saved Feathers and purchased upgrades?"
 ok_button_text = "RESET"
+dialog_text = "Delete all saved Feathers and purchased upgrades?"

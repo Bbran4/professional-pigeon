@@ -1,17 +1,17 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://dtsn8w12hjegj"]
 
-[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
 script = ExtResource("1_skill")
-id = &"more_pigeons"
+id = &"more_pigeons_1"
 display_name = "More Pigeons"
 description = "Immediately allow one additional pigeon to visit the park at once."
 category = 4
-points_cost = 5
-prerequisites = Array[StringName]([&"bread"])
+points_cost = 40
+cost_growth = 1.7
+tree_position = Vector2(1000, 800)
+prerequisites = Array[StringName]([&"rare_visitor"])
 effect_id = &"max_pigeons"
 effect_value = 1.0
-tree_position = Vector2(1000, 800)
-cost_growth = 1.7
 max_level = 3
