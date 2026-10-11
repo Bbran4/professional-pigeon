@@ -25,12 +25,22 @@ var reserved_perches: Dictionary = {}
 var _pending_points_by_pigeon: Dictionary = {}
 var _spawn_delay_pending := false
 var _retry := 0.0
+var _spawned_benches: Dictionary = {}
+var _spawned_bench_feeders: Dictionary = {}
+var _spawned_nests: Array[Marker2D] = []
+var _fountain_instance: Node2D
 
 
 func _ready() -> void:
 	set_process(true)
 	if feeder == null:
 		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
+	if not ProgressionManager.skill_level_changed.is_connected(_on_skill_level_changed):
+		ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+	_spawn_park_upgrades.call_deferred()
+
+
+func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 	_spawn_park_upgrades.call_deferred()
 
 
@@ -47,28 +57,79 @@ func _process(delta: float) -> void:
 
 func _spawn_park_upgrades() -> void:
 	var park := get_parent()
-	var bench_positions: Array[Vector2] = [Vector2(300, 500), Vector2(600, 500), Vector2(990, 230)]
-	var bench_count := mini(int(ProgressionManager.get_effect_value(&"bench_count_add")), bench_positions.size())
-	for index in range(bench_count):
-		var bench := BENCH_SCENE.instantiate() as Node2D
-		var bench_feeder := BENCH_FEEDER_SCENE.instantiate() as Node2D
-		if bench != null and bench_feeder != null:
+	if not is_instance_valid(park):
+		return
+
+	# These are additional benches; the original bench and feeder are authored in game.tscn.
+	# Keep spawned instances keyed by index so buying a later upgrade adds only the new items.
+	var bench_positions: Array[Vector2] = [
+		Vector2(300, 500),
+		Vector2(600, 500),
+		Vector2(990, 230),
+	]
+	var requested_benches := clampi(int(ProgressionManager.get_effect_value(&"bench_count_add")), 0, bench_positions.size())
+	for index in range(requested_benches):
+		if not _spawned_benches.has(index) or not is_instance_valid(_spawned_benches[index]):
+			var bench := BENCH_SCENE.instantiate() as Node2D
+			if bench == null:
+				push_error("PigeonSpawner: failed to instantiate scenes/park/bench.tscn.")
+				continue
+			bench.name = "UnlockedBench_%d" % (index + 1)
 			park.add_child(bench)
-			park.add_child(bench_feeder)
 			bench.position = bench_positions[index]
+			_spawned_benches[index] = bench
+
+		if not _spawned_bench_feeders.has(index) or not is_instance_valid(_spawned_bench_feeders[index]):
+			var bench_feeder := BENCH_FEEDER_SCENE.instantiate() as Node2D
+			if bench_feeder == null:
+				push_error("PigeonSpawner: failed to instantiate scenes/park/bench_feeder.tscn.")
+				continue
+			bench_feeder.name = "UnlockedBenchFeeder_%d" % (index + 1)
+			park.add_child(bench_feeder)
 			bench_feeder.position = bench_positions[index]
+			_spawned_bench_feeders[index] = bench_feeder
+
+	# If an upgrade is reset, remove its park objects too.
+	for key in _spawned_benches.keys():
+		if int(key) >= requested_benches:
+			var old_bench := _spawned_benches[key] as Node
+			if is_instance_valid(old_bench):
+				old_bench.queue_free()
+			_spawned_benches.erase(key)
+	for key in _spawned_bench_feeders.keys():
+		if int(key) >= requested_benches:
+			var old_feeder := _spawned_bench_feeders[key] as Node
+			if is_instance_valid(old_feeder):
+				old_feeder.queue_free()
+			_spawned_bench_feeders.erase(key)
+
 	if ProgressionManager.get_effect_value(&"fountain_unlock") > 0.0:
-		_spawn_fountain(park)
-	if ProgressionManager.get_effect_value(&"tree_nests") > 0.0:
+		if not is_instance_valid(_fountain_instance):
+			_spawn_fountain(park)
+	elif is_instance_valid(_fountain_instance):
+		_fountain_instance.queue_free()
+		_fountain_instance = null
+
+	var wants_nests := ProgressionManager.get_effect_value(&"tree_nests") > 0.0
+	if wants_nests and _spawned_nests.is_empty():
 		var nest_positions: Array[Vector2] = [Vector2(140, 155), Vector2(210, 140), Vector2(245, 190)]
 		for nest_position in nest_positions:
 			var nest := Marker2D.new()
+			nest.name = "UnlockedTreeNest"
 			nest.add_to_group("perch_spots")
 			park.add_child(nest)
 			nest.global_position = nest_position
+			_spawned_nests.append(nest)
+	elif not wants_nests and not _spawned_nests.is_empty():
+		for nest in _spawned_nests:
+			if is_instance_valid(nest):
+				nest.queue_free()
+		_spawned_nests.clear()
 
 
 func _spawn_fountain(park: Node) -> void:
+	if is_instance_valid(_fountain_instance):
+		return
 	var fountain := Node2D.new()
 	fountain.name = "UnlockedFountain"
 	var base := Polygon2D.new()
@@ -95,6 +156,7 @@ func _spawn_fountain(park: Node) -> void:
 	park.add_child(fountain)
 	if fountain_marker != null:
 		fountain.global_position = fountain_marker.global_position
+	_fountain_instance = fountain
 
 
 func start_day() -> void:
