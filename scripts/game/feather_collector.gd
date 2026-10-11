@@ -13,8 +13,8 @@ var _cursor_active := false
 
 func _process(delta: float) -> void:
 	global_position = get_global_mouse_position()
-	var auto_collect := ProgressionManager.get_effect_value(&"auto_collect") > 0.0
-	var crow_interval := ProgressionManager.get_effect_value(&"crow_collect_interval")
+	var auto_collect := ProgressionManager.get_effect_value(EffectIds.AUTO_COLLECT) > 0.0
+	var crow_interval := ProgressionManager.get_effect_value(EffectIds.CROW_COLLECT_INTERVAL)
 	if auto_collect:
 		_cursor_active = false
 		_reset_current_collectible()
@@ -59,12 +59,12 @@ func _draw() -> void:
 
 
 func _get_collection_duration() -> float:
-	var reduction := ProgressionManager.get_effect_value(&"feather_collect_time_reduction")
+	var reduction := ProgressionManager.get_effect_value(EffectIds.FEATHER_COLLECT_TIME_REDUCTION)
 	return maxf(minimum_collection_duration, base_collection_duration - reduction)
 
 
 func _get_cursor_radius() -> float:
-	return maxf(4.0, base_cursor_radius + ProgressionManager.get_effect_value(&"feather_collect_radius"))
+	return maxf(4.0, base_cursor_radius + ProgressionManager.get_effect_value(EffectIds.FEATHER_COLLECT_RADIUS))
 
 
 func _find_collectible_under_cursor(mouse_position: Vector2) -> Collectible:
