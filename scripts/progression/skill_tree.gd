@@ -1,3 +1,4 @@
+@tool
 extends Control
 class_name SkillTree
 
@@ -20,6 +21,9 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_load_catalog()
 	_collect_nodes()
+	if Engine.is_editor_hint():
+		queue_redraw()
+		return
 	_connect_progression_signals()
 	queue_redraw()
 
@@ -52,6 +56,8 @@ func _collect_nodes() -> void:
 			push_warning("SkillTree contains duplicate node ID: " + String(node.skill_id))
 			continue
 		nodes_by_id[node.skill_id] = node
+		if not node.item_rect_changed.is_connected(queue_redraw):
+			node.item_rect_changed.connect(queue_redraw)
 		node.setup(self)
 
 func _refresh_nodes() -> void:
@@ -158,6 +164,22 @@ func purchase(skill_id: StringName) -> bool:
 
 
 func _draw() -> void:
+	if Engine.is_editor_hint():
+		for child in get_children():
+			var editor_node := child as SkillNode
+			if editor_node == null:
+				continue
+			var editor_skill := get_skill(editor_node.skill_id)
+			if editor_skill == null:
+				continue
+			var editor_from := editor_node.position + editor_node.size * 0.5
+			for prerequisite_id in editor_skill.prerequisites:
+				var editor_prerequisite := nodes_by_id.get(prerequisite_id) as SkillNode
+				if editor_prerequisite == null:
+					continue
+				var editor_to := editor_prerequisite.position + editor_prerequisite.size * 0.5
+				draw_line(editor_from, editor_to, connection_color, connection_width, true)
+		return
 	for child in get_children():
 		var node := child as SkillNode
 		if node == null:
