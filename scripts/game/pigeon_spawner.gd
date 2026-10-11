@@ -7,12 +7,7 @@ signal visitor_count_changed(count: int)
 @export var pigeon_scene: PackedScene
 @export var feeder: SeedFeeder
 @export var arrival_interval: float = 0.25
-@export var park_bounds := Rect2(40.0, 100.0, 1072.0, 500.0)
-@export var landing_spots: Array[Vector2] = [
-	Vector2(185.0, 112.0), Vector2(780.0, 170.0), Vector2(300.0, 240.0),
-	Vector2(450.0, 260.0), Vector2(620.0, 460.0), Vector2(850.0, 430.0),
-	Vector2(1010.0, 250.0),
-]
+@export var park_layout: ParkLayout
 
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
 const BRAIN_SCRIPT := preload("res://scripts/game/park_pigeon_brain.gd")
@@ -37,6 +32,11 @@ func _ready() -> void:
 	set_process(true)
 	if feeder == null:
 		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
+	if park_layout == null:
+		park_layout = get_parent().get_node_or_null("ParkLayout") as ParkLayout
+	if park_layout == null:
+		push_error("PigeonSpawner: ParkLayout is required to provide park bounds and spawn positions.")
+		return
 	if not ProgressionManager.skill_level_changed.is_connected(_on_skill_level_changed):
 		ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 	_spawn_park_upgrades.call_deferred()
@@ -64,12 +64,7 @@ func _spawn_park_upgrades() -> void:
 
 	# These are additional benches; the original bench and feeder are authored in game.tscn.
 	# Keep spawned instances keyed by index so buying a later upgrade adds only the new items.
-	var bench_positions: Array[Vector2] = [
-		Vector2(300, 500),
-		Vector2(600, 500),
-		Vector2(990, 230),
-	]
-	var requested_benches := clampi(int(ProgressionManager.get_effect_value(EffectIds.BENCH_COUNT_ADD)), 0, bench_positions.size())
+	var requested_benches := clampi(int(ProgressionManager.get_effect_value(EffectIds.BENCH_COUNT_ADD)), 0, park_layout.bench_positions.size())
 	for index in range(requested_benches):
 		if not _spawned_benches.has(index) or not is_instance_valid(_spawned_benches[index]):
 			var bench := BENCH_SCENE.instantiate() as Node2D
@@ -78,7 +73,7 @@ func _spawn_park_upgrades() -> void:
 				continue
 			bench.name = "UnlockedBench_%d" % (index + 1)
 			park.add_child(bench)
-			bench.position = bench_positions[index]
+			bench.position = park_layout.bench_positions[index]
 			_spawned_benches[index] = bench
 
 		if not _spawned_bench_feeders.has(index) or not is_instance_valid(_spawned_bench_feeders[index]):
@@ -87,7 +82,7 @@ func _spawn_park_upgrades() -> void:
 				continue
 			bench_feeder.name = "UnlockedBenchFeeder_%d" % (index + 1)
 			park.add_child(bench_feeder)
-			bench_feeder.position = bench_positions[index]
+			bench_feeder.position = park_layout.bench_positions[index]
 			_spawned_bench_feeders[index] = bench_feeder
 
 	# If an upgrade is reset, remove its park objects too.
@@ -113,8 +108,7 @@ func _spawn_park_upgrades() -> void:
 
 	var wants_nests := ProgressionManager.get_effect_value(EffectIds.TREE_NESTS) > 0.0
 	if wants_nests and _spawned_nests.is_empty():
-		var nest_positions: Array[Vector2] = [Vector2(140, 155), Vector2(210, 140), Vector2(245, 190)]
-		for nest_position in nest_positions:
+		for nest_position in park_layout.tree_nest_positions:
 			var nest := Marker2D.new()
 			nest.name = "UnlockedTreeNest"
 			nest.add_to_group("perch_spots")
@@ -167,8 +161,7 @@ func _spawn_fountain(park: Node) -> void:
 	pillar.polygon = PackedVector2Array([-8, -14, 8, -14, 11, 7, -11, 7])
 	pillar.color = Color(0.65, 0.62, 0.54, 1.0)
 	fountain.add_child(pillar)
-	var fountain_perches: Array[Vector2] = [Vector2(-82, 5), Vector2(82, 5), Vector2(0, -65), Vector2(0, 42)]
-	for perch_position in fountain_perches:
+	for perch_position in park_layout.fountain_perch_offsets:
 		var perch := Marker2D.new()
 		perch.add_to_group("perch_spots")
 		perch.position = perch_position
@@ -266,8 +259,9 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 		brain.food_points += BALANCE.rare_visitor_bonus_points
 	var perch_position: Vector2 = perch.position
 	var from_left := randf() < 0.5
-	var arrival := Vector2(park_bounds.position.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.end.x + 35.0, perch_position.y - 80.0)
-	var exit := Vector2(park_bounds.end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(park_bounds.position.x - 55.0, perch_position.y - 80.0)
+	var bounds := park_layout.visitor_bounds
+	var arrival := Vector2(bounds.position.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(bounds.end.x + 35.0, perch_position.y - 80.0)
+	var exit := Vector2(bounds.end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(bounds.position.x - 55.0, perch_position.y - 80.0)
 	var perch_key := str(perch.key)
 
 	brain.ate_food.connect(_on_ate_food.bind(pigeon))
@@ -293,11 +287,11 @@ func _reserve_perch() -> Dictionary:
 		reserved_perches[str(selected.key)] = true
 		return selected
 	var landing_candidates: Array[Dictionary] = []
-	for index in range(landing_spots.size()):
+	for index in range(park_layout.landing_spots.size()):
 		var key := "landing_%d" % index
 		if reserved_perches.has(key):
 			continue
-		landing_candidates.append({"key": key, "position": landing_spots[index]})
+		landing_candidates.append({"key": key, "position": to_global(park_layout.landing_spots[index])})
 	if landing_candidates.is_empty():
 		return {}
 	var selected: Dictionary = landing_candidates[randi_range(0, landing_candidates.size() - 1)]
