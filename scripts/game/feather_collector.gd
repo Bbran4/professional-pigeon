@@ -8,12 +8,17 @@ class_name FeatherCollector
 var current_collectible: Collectible
 var collection_elapsed: float = 0.0
 var crow_elapsed: float = 0.0
+var _cursor_active := false
 
 
 func _process(delta: float) -> void:
+	global_position = get_global_mouse_position()
 	var auto_collect := ProgressionManager.get_effect_value(&"auto_collect") > 0.0
 	var crow_interval := ProgressionManager.get_effect_value(&"crow_collect_interval")
 	if auto_collect:
+		_cursor_active = false
+		_reset_current_collectible()
+		queue_redraw()
 		_collect_all_collectibles()
 		return
 	if crow_interval > 0.0:
@@ -24,18 +29,33 @@ func _process(delta: float) -> void:
 	else:
 		crow_elapsed = 0.0
 
-	var candidate := _find_collectible_under_cursor(get_global_mouse_position())
-	if candidate != current_collectible:
-		_reset_current_collectible()
-		current_collectible = candidate
-		collection_elapsed = 0.0
-	if not is_instance_valid(current_collectible):
-		return
+	var mouse_position := get_global_mouse_position()
+	if is_instance_valid(current_collectible):
+		if not current_collectible.is_visible_in_tree() or mouse_position.distance_to(current_collectible.global_position) > _get_cursor_radius():
+			_reset_current_collectible()
 
-	collection_elapsed = minf(collection_elapsed + delta, _get_collection_duration())
-	_update_progress_visual()
-	if collection_elapsed >= _get_collection_duration():
-		_collect_current_collectible()
+	if not is_instance_valid(current_collectible):
+		current_collectible = _find_collectible_under_cursor(mouse_position)
+		collection_elapsed = 0.0
+
+	_cursor_active = is_instance_valid(current_collectible)
+	if _cursor_active:
+		collection_elapsed = minf(collection_elapsed + delta, _get_collection_duration())
+		if collection_elapsed >= _get_collection_duration():
+			_collect_current_collectible()
+			_cursor_active = false
+	queue_redraw()
+
+
+func _draw() -> void:
+	if not _cursor_active:
+		return
+	var radius := _get_cursor_radius()
+	var center := Vector2.ZERO
+	draw_arc(center, radius, 0.0, TAU, 48, Color(0.12, 0.12, 0.12, 0.8), 3.0, true)
+	var fraction := clampf(collection_elapsed / _get_collection_duration(), 0.0, 1.0)
+	if fraction > 0.0:
+		draw_arc(center, radius, -PI * 0.5, -PI * 0.5 + TAU * fraction, 48, Color(0.95, 0.82, 0.38, 1.0), 4.0, true)
 
 
 func _get_collection_duration() -> float:
@@ -48,47 +68,24 @@ func _get_cursor_radius() -> float:
 
 
 func _find_collectible_under_cursor(mouse_position: Vector2) -> Collectible:
-	var nearest: Collectible
-	var nearest_distance := _get_cursor_radius()
+	var candidates: Array[Collectible] = []
 	for node in get_tree().get_nodes_in_group("collectibles"):
 		var collectible := node as Collectible
 		if not is_instance_valid(collectible) or not collectible.is_visible_in_tree():
 			continue
-		var distance := mouse_position.distance_to(collectible.global_position)
-		if distance <= nearest_distance:
-			nearest = collectible
-			nearest_distance = distance
-	return nearest
-
-
-func _update_progress_visual() -> void:
-	if not is_instance_valid(current_collectible):
-		return
-	var progress_back := current_collectible.get_node_or_null("ProgressBack") as Polygon2D
-	var progress_fill := current_collectible.get_node_or_null("ProgressFill") as Polygon2D
-	if progress_back == null or progress_fill == null:
-		return
-	progress_back.visible = true
-	progress_fill.visible = true
-	var fraction := clampf(collection_elapsed / _get_collection_duration(), 0.0, 1.0)
-	progress_fill.scale.x = fraction
+		if mouse_position.distance_to(collectible.global_position) <= _get_cursor_radius():
+			candidates.append(collectible)
+	if candidates.is_empty():
+		return null
+	return candidates[randi_range(0, candidates.size() - 1)]
 
 
 func _reset_current_collectible() -> void:
-	if is_instance_valid(current_collectible):
-		var progress_back := current_collectible.get_node_or_null("ProgressBack") as Polygon2D
-		var progress_fill := current_collectible.get_node_or_null("ProgressFill") as Polygon2D
-		if progress_back != null:
-			progress_back.visible = false
-		if progress_fill != null:
-			progress_fill.visible = false
-			progress_fill.scale.x = 0.0
 	current_collectible = null
 	collection_elapsed = 0.0
 
 
 func _collect_all_collectibles() -> void:
-	_reset_current_collectible()
 	for node in get_tree().get_nodes_in_group("collectibles"):
 		var collectible := node as Collectible
 		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
@@ -96,11 +93,13 @@ func _collect_all_collectibles() -> void:
 
 
 func _collect_one_collectible() -> void:
+	var candidates: Array[Collectible] = []
 	for node in get_tree().get_nodes_in_group("collectibles"):
 		var collectible := node as Collectible
 		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
-			_collect_collectible(collectible)
-			return
+			candidates.append(collectible)
+	if not candidates.is_empty():
+		_collect_collectible(candidates[randi_range(0, candidates.size() - 1)])
 
 
 func _collect_current_collectible() -> void:
@@ -108,8 +107,7 @@ func _collect_current_collectible() -> void:
 		_reset_current_collectible()
 		return
 	var collectible := current_collectible
-	current_collectible = null
-	collection_elapsed = 0.0
+	_reset_current_collectible()
 	_collect_collectible(collectible)
 
 
