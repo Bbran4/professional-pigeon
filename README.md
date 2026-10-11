@@ -9,9 +9,9 @@ The current prototype uses a **60-second day**.
 1. Start the day.
 2. The active feeder attracts a pigeon.
 3. The pigeon arrives, eats a seed for 2 seconds, waits 2 seconds, drops a feather, then leaves.
-4. Hover over a feather to collect Coin. Collection speed and radius can be upgraded, and later upgrades automate pickup.
+4. Hover over a feather to collect it and earn Feathers. Collection speed and radius can be upgraded, and later upgrades automate pickup.
 5. Food eaten earns Points at the end of the day.
-6. Spend Points and Coin on skills, then start another day.
+6. Spend earned Feathers on skills, then start another day.
 
 There is **no manual bread throwing or manual feeding**.
 
@@ -19,10 +19,10 @@ There is **no manual bread throwing or manual feeding**.
 
 - A starter feeder is available from the beginning, so the first day can be played without any skill purchase.
 - **Basic Feeding** is the first feeding skill and prerequisite for the first progression branches.
-- The **Bench Feeder** skill costs 5 Points and 1 Coin, and requires Basic Feeding. It unlocks the feeder beside the bench and its three pigeon spawn markers.
+- The **Bench Feeder** skill costs 5 Feathers and requires Basic Feeding. It unlocks the feeder beside the bench and its three pigeon spawn markers.
 - Until the Bench Feeder is unlocked, pigeons use the starter feeder and the general landing spots.
 - The FountainMarker is a placeholder for future use.
-- **Larger Seed Tray** costs 20 Points and 2 Coin, and increases the active feeder's seed capacity.
+- **Larger Seed Tray** costs 20 Feathers, and increases the active feeder's seed capacity.
 - Unlocking Seeds enables the additional seed-supply upgrade.
 
 ## Skill tree
@@ -37,16 +37,16 @@ The tree includes branches for:
 
 The old manual-bread upgrades have been retired with the bread-throwing mechanic. Bread projectiles and bread stock are no longer part of the game loop.
 
-The tree now contains 50 catalog entries, including time, food, visitor, park, and collection upgrades. Farthing, penny, and noble pickups are no longer part of progression; feathers and other pickups share the `Collectible` base and award Coin through `coin_value`. Coin remains a spendable upgrade currency.
+The skill tree contains editor-placed nodes with visible prerequisite links. Feathers are the sole currency, and all upgrades have a single Feather cost.
 
 ## Development controls
 
 - Press **F3** in a debug build to add 1,000 Points.
-- Use **RESET SAVE** on the upgrade screen to clear saved Points, Coin, and skill levels after confirming.
+- Use **RESET SAVE** on the upgrade screen to clear saved Feathers and skill levels after confirming.
 
 ## Saving and loading
 
-Progression is saved automatically to `user://professional_pigeon_save.json`. The save includes Points, Coin, and purchased skill levels. The active day timer and current feeder stock are not saved.
+Progression is saved automatically to `user://professional_pigeon_save.json`. The save includes the Feather balance and purchased skill levels. The active day timer and current feeder stock are not saved.
 
 ## Technical details
 
@@ -77,4 +77,4 @@ Feather collection scales with the flock through three upgrades: **Quick Collect
 
 ### Upgrade pool
 
-The current catalog contains 50 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Points per seed, seed regeneration, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
+The current catalog contains 58 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Points per seed, seed regeneration, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
