@@ -3,7 +3,6 @@ extends Button
 class_name SkillNode
 
 @export var skill_id: StringName
-@export var prerequisite_ids: Array[StringName] = []
 
 const NODE_SIZE := Vector2(190.0, 100.0)
 
@@ -23,15 +22,12 @@ func setup(tree: SkillTree) -> void:
 
 
 func get_prerequisites() -> Array[StringName]:
-	if not prerequisite_ids.is_empty():
-		return prerequisite_ids
 	if skill_tree == null:
 		return []
 	var skill := skill_tree.get_skill(skill_id)
 	if skill == null:
 		return []
 	return skill.prerequisites
-
 
 func refresh() -> void:
 	if Engine.is_editor_hint():
