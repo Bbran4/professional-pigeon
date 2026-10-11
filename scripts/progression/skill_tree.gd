@@ -120,13 +120,6 @@ func get_next_points_cost(skill_id: StringName) -> int:
 	return _get_scaled_cost(skill.points_cost, skill.cost_growth, get_level(skill_id))
 
 
-func get_next_coin_cost(skill_id: StringName) -> int:
-	var skill := get_skill(skill_id)
-	if skill == null:
-		return 0
-	return _get_scaled_cost(skill.coin_cost, skill.cost_growth, get_level(skill_id))
-
-
 func _get_scaled_cost(base_cost: int, growth: float, current_level: int) -> int:
 	if base_cost <= 0:
 		return 0
@@ -141,8 +134,8 @@ func _get_purchase_error(skill_id: StringName) -> String:
 		return "Required skills have not been purchased."
 	if get_level(skill_id) >= skill.max_level:
 		return "Skill is already at maximum level."
-	if not ProgressionManager.can_spend(get_next_points_cost(skill_id), get_next_coin_cost(skill_id)):
-		return "Not enough Points or Coin."
+	if not ProgressionManager.can_spend_points(get_next_points_cost(skill_id)):
+		return "Not enough Feathers."
 	return ""
 
 
@@ -155,7 +148,7 @@ func purchase(skill_id: StringName) -> bool:
 	if not error.is_empty():
 		purchase_rejected.emit(skill_id, error)
 		return false
-	ProgressionManager.spend(get_next_points_cost(skill_id), get_next_coin_cost(skill_id))
+	ProgressionManager.spend_points(get_next_points_cost(skill_id))
 	var new_level := get_level(skill_id) + 1
 	ProgressionManager.set_skill_level(skill_id, new_level)
 	ProgressionManager.save_game()
