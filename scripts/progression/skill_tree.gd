@@ -94,14 +94,10 @@ func get_effect_value(effect_id: StringName) -> float:
 
 
 func get_prerequisites(skill_id: StringName) -> Array[StringName]:
-	var node := nodes_by_id.get(skill_id) as SkillNode
-	if node != null:
-		return node.get_prerequisites()
 	var skill := get_skill(skill_id)
 	if skill == null:
 		return []
 	return skill.prerequisites
-
 
 func is_unlocked(skill_id: StringName) -> bool:
 	var skill := get_skill(skill_id)
