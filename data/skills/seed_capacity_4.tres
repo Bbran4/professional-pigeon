@@ -9,7 +9,6 @@ display_name = "Emergency Seed Pocket"
 description = "Increase feeder capacity by 2 seeds."
 category = 0
 points_cost = 38
-coin_cost = 0
 prerequisites = Array[StringName]([&"points_per_seed_2"])
 effect_id = &"seed_capacity_add"
 effect_value = 2
