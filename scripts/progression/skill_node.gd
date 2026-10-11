@@ -5,7 +5,14 @@ class_name SkillNode
 @export var skill_id: StringName
 @export var prerequisite_ids: Array[StringName] = []
 
+const NODE_SIZE := Vector2(190.0, 100.0)
+
 var skill_tree: SkillTree
+
+
+func _ready() -> void:
+	custom_minimum_size = NODE_SIZE
+	size = NODE_SIZE
 
 
 func setup(tree: SkillTree) -> void:
