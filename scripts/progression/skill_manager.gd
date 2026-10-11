@@ -27,8 +27,6 @@ func _connect_progression_signals() -> void:
 		return
 	if not ProgressionManager.points_changed.is_connected(_refresh_tree):
 		ProgressionManager.points_changed.connect(_refresh_tree.unbind(1))
-	if not ProgressionManager.coin_changed.is_connected(_refresh_tree):
-		ProgressionManager.coin_changed.connect(_refresh_tree.unbind(1))
 	if not ProgressionManager.skill_level_changed.is_connected(_refresh_tree):
 		ProgressionManager.skill_level_changed.connect(_refresh_tree.unbind(2))
 
