@@ -83,11 +83,22 @@ func _check_day_completion() -> void:
 		return
 	if _has_available_food() or spawner.get_active_count() > 0:
 		return
-	if ProgressionManager.get_effect_value(&"seed_regen_interval") - ProgressionManager.get_effect_value(&"seed_regen_interval_reduction") > 0.0:
+	if _has_regenerating_feeder():
 		return
 	if _has_uncollected_feathers():
 		return
 	end_day()
+
+
+func _has_regenerating_feeder() -> bool:
+	var regen_interval := ProgressionManager.get_effect_value(&"seed_regen_interval") - ProgressionManager.get_effect_value(&"seed_regen_interval_reduction")
+	if regen_interval <= 0.0:
+		return false
+	for node in get_tree().get_nodes_in_group("feeders"):
+		var available_feeder := node as SeedFeeder
+		if available_feeder != null and available_feeder.is_visible_in_tree() and available_feeder.seeds_remaining < available_feeder.get_seed_capacity():
+			return true
+	return is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining < feeder.get_seed_capacity()
 
 
 func _has_available_food() -> bool:
