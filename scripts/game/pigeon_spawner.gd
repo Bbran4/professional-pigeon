@@ -259,9 +259,11 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 		brain.food_points += BALANCE.rare_visitor_bonus_points
 	var perch_position: Vector2 = perch.position
 	var from_left := randf() < 0.5
-	var bounds := park_layout.visitor_bounds
-	var arrival := Vector2(bounds.position.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(bounds.end.x + 35.0, perch_position.y - 80.0)
-	var exit := Vector2(bounds.end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(bounds.position.x - 55.0, perch_position.y - 80.0)
+	var park := get_parent() as Node2D
+	var bounds_start := park.to_global(park_layout.visitor_bounds.position)
+	var bounds_end := park.to_global(park_layout.visitor_bounds.end)
+	var arrival := Vector2(bounds_start.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(bounds_end.x + 35.0, perch_position.y - 80.0)
+	var exit := Vector2(bounds_end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(bounds_start.x - 55.0, perch_position.y - 80.0)
 	var perch_key := str(perch.key)
 
 	brain.ate_food.connect(_on_ate_food.bind(pigeon))
@@ -291,7 +293,7 @@ func _reserve_perch() -> Dictionary:
 		var key := "landing_%d" % index
 		if reserved_perches.has(key):
 			continue
-		landing_candidates.append({"key": key, "position": to_global(park_layout.landing_spots[index])})
+		landing_candidates.append({"key": key, "position": (get_parent() as Node2D).to_global(park_layout.landing_spots[index])})
 	if landing_candidates.is_empty():
 		return {}
 	var selected: Dictionary = landing_candidates[randi_range(0, landing_candidates.size() - 1)]
