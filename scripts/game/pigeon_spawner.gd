@@ -131,7 +131,10 @@ func _spawn_available_visitors() -> void:
 	if not day_active or pigeon_scene == null or _spawn_delay_pending:
 		return
 	_prune_invalid_visitors()
-	while day_active and visitors.size() < _get_max_pigeons():
+	# Never invite more pigeons than the park has seeds available to feed them.
+	# This prevents a whole flock from competing for a single remaining seed.
+	var available_seeds := _get_available_seed_count()
+	while day_active and visitors.size() < _get_max_pigeons() and visitors.size() < available_seeds:
 		var perch := _reserve_perch()
 		if perch.is_empty():
 			return
@@ -145,6 +148,17 @@ func _spawn_available_visitors() -> void:
 		if visitors.size() < _get_max_pigeons():
 			_spawn_next_after_delay()
 			return
+
+
+func _get_available_seed_count() -> int:
+	var total := 0
+	for node in get_tree().get_nodes_in_group("feeders"):
+		var candidate := node as SeedFeeder
+		if candidate != null and candidate.is_visible_in_tree():
+			total += candidate.seeds_remaining
+	if total == 0 and is_instance_valid(feeder) and feeder.is_visible_in_tree():
+		total = feeder.seeds_remaining
+	return total
 
 
 func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
