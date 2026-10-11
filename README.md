@@ -27,7 +27,7 @@ There is **no manual bread throwing or manual feeding**.
 
 ## Skill tree
 
-Skill definitions are stored in `data/skills/skill_catalog.tres`. The catalog contains both external `.tres` resources and inline skill subresources, and owns their prerequisites, tree positions, Coming Soon status, base costs, and cost-growth multipliers. The tree generates its buttons from the catalog, so adding or moving a skill no longer requires hand-editing the scene. Repeated purchases scale each cost by `base cost × cost_growth^current level` (default growth: 1.5).
+Skill definitions live in `data/skills/skill_catalog.tres`, while the visible skill nodes are actual child nodes in `scenes/progression/skill_tree.tscn`. Move nodes directly in Godot's 2D editor; prerequisite lines follow their positions, and each node displays its upgrade name. The catalog controls prerequisites, effects, costs, and cost-growth multipliers. Repeated purchases scale each Feather cost by `base cost × cost_growth^current level` (default growth: 1.5).
 
 The tree includes branches for:
 
