@@ -12,6 +12,6 @@ points_cost = 48
 prerequisites = Array[StringName]([&"seed_refill_speed_2"])
 effect_id = &"seed_regen_interval_reduction"
 effect_value = 2
-tree_position = Vector2(430, 1100)
+tree_position = Vector2(480, 1120)
 cost_growth = 1.5
 max_level = 1
