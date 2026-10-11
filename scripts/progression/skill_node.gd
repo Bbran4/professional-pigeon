@@ -1,3 +1,4 @@
+@tool
 extends Button
 class_name SkillNode
 
@@ -9,7 +10,7 @@ var skill_tree: SkillTree
 
 func setup(tree: SkillTree) -> void:
 	skill_tree = tree
-	if not pressed.is_connected(_on_pressed):
+	if not Engine.is_editor_hint() and not pressed.is_connected(_on_pressed):
 		pressed.connect(_on_pressed)
 	refresh()
 
@@ -26,6 +27,15 @@ func get_prerequisites() -> Array[StringName]:
 
 
 func refresh() -> void:
+	if Engine.is_editor_hint():
+		if skill_tree != null:
+			var editor_skill := skill_tree.get_skill(skill_id)
+			if editor_skill != null:
+				text = editor_skill.display_name
+				tooltip_text = editor_skill.description
+				return
+		text = String(skill_id) if skill_id != &"" else "UNASSIGNED"
+		return
 	if skill_tree == null or skill_id == &"":
 		disabled = true
 		text = "UNASSIGNED"
