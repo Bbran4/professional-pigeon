@@ -45,7 +45,7 @@ offset_top = 24.0
 offset_right = 540.0
 offset_bottom = 54.0
 theme_override_font_sizes/font_size = 20
-text = "Points: 0"
+text = "Feathers: 0"
 
 [node name="StartDayButton" type="Button" parent="TopBar" unique_id=853104194]
 layout_mode = 0
