@@ -1,6 +1,8 @@
 extends Node2D
 class_name SeedFeeder
 
+const BALANCE: GameBalance = preload("res://data/game_balance.tres")
+
 signal seeds_changed(current: int, capacity: int)
 signal depleted
 
@@ -49,7 +51,7 @@ func can_feed() -> bool:
 func prepare_seed() -> Dictionary:
 	return {
 		"golden": randf() < ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_CHANCE),
-		"worm": ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) > 0.0 and randf() < 0.2 + ProgressionManager.get_effect_value(EffectIds.WORMS_SPAWNS) * 0.05,
+		"worm": ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) > 0.0 and randf() < BALANCE.worm_chance + ProgressionManager.get_effect_value(EffectIds.WORMS_SPAWNS) * BALANCE.worm_chance_per_upgrade,
 	}
 
 
