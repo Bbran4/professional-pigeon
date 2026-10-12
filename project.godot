@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Professional Pigeon"
-run/main_scene="res://scenes/progression/upgrade_screen.tscn"
+run/main_scene="res://scenes/ui/main_menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -24,7 +24,15 @@ SaveService="*res://scripts/progression/save_service.gd"
 ProgressionManager="*res://scripts/progression/progression_manager.gd"
 SkillPurchases="*res://scripts/progression/skill_purchase_service.gd"
 SceneManager="*res://scripts/scene_manager.gd"
+SettingsService="*res://scripts/settings_service.gd"
 DomainEvents="*res://scripts/domain_events.gd"
+
+[input]
+
+pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey, "physical_keycode": 4194305)]
+}
 
 [display]
 
