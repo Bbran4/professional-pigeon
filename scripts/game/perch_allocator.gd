@@ -31,18 +31,8 @@ func reserve_perch(tree: SceneTree) -> PerchReservation:
 		reserved_perches[selected.key] = true
 		return selected
 
-	var landing_candidates: Array[PerchReservation] = []
-	for index in range(park_layout.landing_spots.size()):
-		var key := "landing_%d" % index
-		if reserved_perches.has(key):
-			continue
-		landing_candidates.append(
-			PerchReservation.new(key, park_node.to_global(park_layout.landing_spots[index]))
-		)
-	if not landing_candidates.is_empty():
-		var selected: PerchReservation = landing_candidates[randi_range(0, landing_candidates.size() - 1)]
-		reserved_perches[str(selected.key)] = true
-		return selected
+	# Normal landing locations must be placed as Marker2D nodes in the
+	# "perch_spots" group. Only overflow visitors use generated positions.
 
 	# Layout never caps visitor capacity: overflow visitors receive virtual spots.
 	var overflow_index := _next_overflow_perch
