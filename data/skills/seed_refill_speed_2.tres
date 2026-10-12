@@ -6,6 +6,7 @@
 script = ExtResource("1_skill")
 id = &"seed_refill_speed_2"
 display_name = "Quicker Seed Refill II"
+category = 0
 description = "Reduce the seed refill interval by 3 seconds."
 points_cost = 34
 tree_position = Vector2(430, 950)
