@@ -1,15 +1,17 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://l7wdjcfsvoxe"]
 
+[ext_resource type="Script" uid="uid://d01mbuyb63u16" path="res://scripts/progression/skill_effect.gd" id="1_n2jym"]
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
 script = ExtResource("1_skill")
 id = &"seed_capacity_4"
 display_name = "Emergency Seed Pocket"
-description = "Increase feeder capacity by 2 seeds."
+description = "Increase seed capacity by +2 per level."
 currency_costs = {
 &"feathers": 38
 }
-prerequisites = Array[StringName]([&"points_per_seed_2"])
+prerequisites = Array[StringName]([&"seed_capacity_3"])
 effect_id = &"seed_capacity_add"
-effect_value = 2
+effect_value = 2.0
+max_level = 3

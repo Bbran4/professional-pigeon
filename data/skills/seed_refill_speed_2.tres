@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://bbhcqqiuqujon"]
 
+[ext_resource type="Script" uid="uid://d01mbuyb63u16" path="res://scripts/progression/skill_effect.gd" id="1_3y45h"]
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
@@ -10,6 +11,6 @@ description = "Reduce the seed refill interval by 3 seconds."
 currency_costs = {
 &"feathers": 34
 }
-prerequisites = Array[StringName]([&"seed_refill_speed_1"])
+prerequisites = Array[StringName]([&"seed_capacity_4"])
 effect_id = &"seed_regen_interval_reduction"
 effect_value = 3.0

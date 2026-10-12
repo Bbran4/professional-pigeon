@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://dmn06pedb6xdj"]
 
+[ext_resource type="Script" uid="uid://d01mbuyb63u16" path="res://scripts/progression/skill_effect.gd" id="1_kq7pp"]
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
 script = ExtResource("1_skill")
 id = &"seeds_spawns"
 display_name = "More Seeds"
-description = "Increase the feeder seed supply by one per level after Seeds is unlocked."
+description = "Increase seed supply by +1 per level."
 currency_costs = {
 &"feathers": 3
 }
