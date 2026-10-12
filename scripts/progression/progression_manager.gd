@@ -91,6 +91,10 @@ func get_effect_value(effect_id: StringName) -> float:
 	return ProgressionState.get_effect_value(effect_id)
 
 
+func get_stat(stat_id: StringName, base_value: float) -> float:
+	return ProgressionState.get_stat(stat_id, base_value)
+
+
 func reset_save() -> void:
 	Wallet.reset()
 	ProgressionState.reset()
