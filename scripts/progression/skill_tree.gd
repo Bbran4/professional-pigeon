@@ -103,7 +103,7 @@ func get_prerequisites(skill_id: StringName) -> Array[StringName]:
 func should_show_skill(skill_id: StringName) -> bool:
 	if Engine.is_editor_hint():
 		return true
-	return SkillPurchaseService.is_unlocked(skill_id)
+	return SkillPurchases.is_unlocked(skill_id)
 
 
 func _draw() -> void:
@@ -134,7 +134,7 @@ func _draw() -> void:
 				continue
 			var to_position := prerequisite.position + prerequisite.size * 0.5
 			var purchased := get_level(prerequisite_id) > 0 and get_level(node.skill_id) > 0
-			var available := SkillPurchaseService.is_unlocked(node.skill_id)
+			var available := SkillPurchases.is_unlocked(node.skill_id)
 			var line_color := locked_connection_color
 			if purchased:
 				line_color = purchased_connection_color
