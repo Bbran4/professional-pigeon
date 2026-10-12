@@ -37,6 +37,7 @@ func set_balance(currency_id: StringName, amount: int) -> bool:
 		return true
 	balances[currency_id] = safe_amount
 	changed.emit(currency_id, safe_amount)
+	DomainEvents.currency_changed.emit(currency_id, safe_amount)
 	return true
 
 
@@ -48,6 +49,7 @@ func load_balances(saved_balances: Dictionary) -> void:
 			balances[id] = maxi(int(saved_balances[currency_id]), 0)
 	for currency_id in [CurrencyIds.FEATHERS, CurrencyIds.COINS]:
 		changed.emit(currency_id, get_balance(currency_id))
+		DomainEvents.currency_changed.emit(currency_id, get_balance(currency_id))
 
 
 func reset() -> void:
