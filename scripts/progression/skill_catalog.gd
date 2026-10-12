@@ -6,7 +6,7 @@ class_name SkillCatalog
 @export var skills: Array[SkillData] = []
 
 
-## Validate skill IDs, effect IDs, prerequisites, values, and dependency cycles.
+## Validate skill IDs, effects, prerequisites, values, and dependency cycles.
 ## Returns true only when the entire catalog is structurally valid.
 func validate() -> bool:
 	var valid := true
@@ -48,16 +48,33 @@ func validate() -> bool:
 		if skill.max_level < 1:
 			push_error("SkillCatalog: skill '%s' has max_level < 1." % skill.id)
 			valid = false
-		if not is_finite(skill.effect_value):
-			push_error("SkillCatalog: skill '%s' has a non-finite effect value." % skill.id)
-			valid = false
-		if skill.effect_id == &"":
-			if not skill.coming_soon:
-				push_error("SkillCatalog: skill '%s' has no effect ID." % skill.id)
+
+		if skill.effects.is_empty():
+			if not is_finite(skill.effect_value):
+				push_error("SkillCatalog: skill '%s' has a non-finite legacy effect value." % skill.id)
 				valid = false
-		elif not EffectIds.is_valid_id(skill.effect_id):
-			push_error("SkillCatalog: skill '%s' uses unknown effect ID '%s'." % [skill.id, skill.effect_id])
-			valid = false
+			if skill.effect_id == &"":
+				if not skill.coming_soon:
+					push_error("SkillCatalog: skill '%s' has no effects." % skill.id)
+					valid = false
+			elif not EffectIds.is_valid_id(skill.effect_id):
+				push_error("SkillCatalog: skill '%s' uses unknown effect ID '%s'." % [skill.id, skill.effect_id])
+				valid = false
+		else:
+			for effect in skill.effects:
+				if effect == null:
+					push_error("SkillCatalog: skill '%s' contains a null effect." % skill.id)
+					valid = false
+					continue
+				if not EffectIds.is_valid_id(effect.effect_id):
+					push_error("SkillCatalog: skill '%s' uses unknown effect ID '%s'." % [skill.id, effect.effect_id])
+					valid = false
+				if not is_finite(effect.value):
+					push_error("SkillCatalog: skill '%s' has a non-finite effect value." % skill.id)
+					valid = false
+				if effect.mode == SkillEffect.Mode.MULTIPLY and effect.value <= 0.0:
+					push_error("SkillCatalog: skill '%s' has a non-positive multiplier for '%s'." % [skill.id, effect.effect_id])
+					valid = false
 
 		var seen_prerequisites: Dictionary = {}
 		for prerequisite in skill.prerequisites:
