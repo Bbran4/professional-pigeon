@@ -7,7 +7,7 @@
 script = ExtResource("1_skill")
 id = &"unlock_seeds"
 display_name = "Seed Feeder"
-description = "Unlock a seed feeder with +2 seeds capacity."
+description = "Unlock a separate seed-feeding station. Bread remains available as its own food source."
 currency_costs = {
 &"feathers": 5
 }
