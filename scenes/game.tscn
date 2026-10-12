@@ -10,6 +10,9 @@
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
 [ext_resource type="Script" path="res://scripts/game/pigeon_spawner.gd" id="10_spawner"]
 [ext_resource type="Script" path="res://scripts/game/park_layout.gd" id="16_layout"]
+[ext_resource type="PackedScene" path="res://scenes/park/fountain.tscn" id="17_fountain"]
+[ext_resource type="PackedScene" path="res://scenes/park/tree_nest.tscn" id="18_tree_nest"]
+[ext_resource type="Script" path="res://scripts/game/park_unlocks.gd" id="19_park_unlocks"]
 
 [node name="Park" type="Node2D" unique_id=462212071]
 y_sort_enabled = true
@@ -41,11 +44,57 @@ position = Vector2(780, 210)
 [node name="StarterFeeder" parent="." instance=ExtResource("15_starter_feeder")]
 position = Vector2(480, 340)
 
+[node name="UpgradeBench1" type="Node2D" parent="."]
+visible = false
+position = Vector2(300, 500)
+
+[node name="Bench" parent="UpgradeBench1" instance=ExtResource("2_bench")]
+
+[node name="BenchFeeder" parent="UpgradeBench1" instance=ExtResource("11_feeder")]
+
+[node name="UpgradeBench2" type="Node2D" parent="."]
+visible = false
+position = Vector2(600, 500)
+
+[node name="Bench" parent="UpgradeBench2" instance=ExtResource("2_bench")]
+
+[node name="BenchFeeder" parent="UpgradeBench2" instance=ExtResource("11_feeder")]
+
+[node name="UpgradeBench3" type="Node2D" parent="."]
+visible = false
+position = Vector2(990, 230)
+
+[node name="Bench" parent="UpgradeBench3" instance=ExtResource("2_bench")]
+
+[node name="BenchFeeder" parent="UpgradeBench3" instance=ExtResource("11_feeder")]
+
+[node name="Fountain" parent="." instance=ExtResource("17_fountain")]
+visible = false
+position = Vector2(960, 420)
+
+[node name="TreeNests" type="Node2D" parent="."]
+visible = false
+
+[node name="TreeNest1" parent="TreeNests" instance=ExtResource("18_tree_nest")]
+position = Vector2(-45, -30)
+
+[node name="TreeNest2" parent="TreeNests" instance=ExtResource("18_tree_nest")]
+position = Vector2(25, -45)
+
+[node name="TreeNest3" parent="TreeNests" instance=ExtResource("18_tree_nest")]
+position = Vector2(60, 5)
+
 [node name="FountainMarker" type="Marker2D" parent="."]
 position = Vector2(960, 420)
 
 [node name="ParkLayout" type="Node" parent="."]
 script = ExtResource("16_layout")
+
+[node name="ParkUnlocks" type="Node" parent="."]
+script = ExtResource("19_park_unlocks")
+upgrade_bench_groups = [NodePath("../UpgradeBench1"), NodePath("../UpgradeBench2"), NodePath("../UpgradeBench3")]
+fountain = NodePath("../Fountain")
+tree_nests = NodePath("../TreeNests")
 
 [node name="FeatherCollector" type="Node2D" parent="."]
 script = ExtResource("12_collector")
