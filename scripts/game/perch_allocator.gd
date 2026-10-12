@@ -36,10 +36,9 @@ func reserve_perch(tree: SceneTree) -> PerchReservation:
 		var key := "landing_%d" % index
 		if reserved_perches.has(key):
 			continue
-		landing_candidates.append({
-			"key": key,
-			"position": park_node.to_global(park_layout.landing_spots[index]),
-		})
+		landing_candidates.append(
+			PerchReservation.new(key, park_node.to_global(park_layout.landing_spots[index]))
+		)
 	if not landing_candidates.is_empty():
 		var selected: PerchReservation = landing_candidates[randi_range(0, landing_candidates.size() - 1)]
 		reserved_perches[str(selected.key)] = true
