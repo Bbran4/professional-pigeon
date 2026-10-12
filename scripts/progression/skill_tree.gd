@@ -134,28 +134,28 @@ func _collect_nodes() -> void:
 	nodes_by_id.clear()
 	for child in get_children():
 		var node := child as SkillNode
-	if not Engine.is_editor_hint() and node == null:
-		continue
-	for child in get_children():
-		var node := child as SkillNode
 		if node == null:
 			continue
 		if node.skill_id == &"":
-			push_error("SkillTree '%s': node '%s' has an empty skill_id. Set it to an ID from the SkillCatalog." % [get_path(), node.name])
+			if not Engine.is_editor_hint():
+				push_error("SkillTree '%s': node '%s' has an empty skill_id. Set it to an ID from the SkillCatalog." % [get_path(), node.name])
 			node.disabled = true
 			continue
 		if get_skill(node.skill_id) == null:
-			push_error("SkillTree '%s': node '%s' references unknown skill ID '%s'. Add the SkillData to the catalog or correct the node's skill_id." % [get_path(), node.name, node.skill_id])
+			if not Engine.is_editor_hint():
+				push_error("SkillTree '%s': node '%s' references unknown skill ID '%s'. Add the SkillData to the catalog or correct the node's skill_id." % [get_path(), node.name, node.skill_id])
 			node.disabled = true
 			continue
 		if nodes_by_id.has(node.skill_id):
-			push_error("SkillTree '%s': duplicate node for skill ID '%s' (node '%s'). Keep exactly one SkillNode per skill ID." % [get_path(), node.skill_id, node.name])
+			if not Engine.is_editor_hint():
+				push_error("SkillTree '%s': duplicate node for skill ID '%s' (node '%s'). Keep exactly one SkillNode per skill ID." % [get_path(), node.skill_id, node.name])
 			node.disabled = true
 			continue
 		nodes_by_id[node.skill_id] = node
 		if not node.item_rect_changed.is_connected(queue_redraw):
 			node.item_rect_changed.connect(queue_redraw)
 		node.setup(self)
+
 
 func _refresh_nodes() -> void:
 	for child in get_children():
@@ -196,8 +196,7 @@ func get_prerequisites(skill_id: StringName) -> Array[StringName]:
 		return []
 	return skill.prerequisites
 
-## Show root skills immediately. A skill with prerequisites appears only after
-## every prerequisite has been purchased, keeping deeper branches hidden.
+
 func should_show_skill(skill_id: StringName) -> bool:
 	if Engine.is_editor_hint():
 		return true
