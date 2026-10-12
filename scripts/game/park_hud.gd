@@ -51,7 +51,7 @@ func _on_end_day_pressed() -> void:
 
 func _on_unlocks_pressed() -> void:
 	ProgressionManager.save_game()
-	get_tree().change_scene_to_file("res://scenes/progression/upgrade_screen.tscn")
+	SceneManager.change_to(&"upgrades")
 
 
 func _on_start_pressed() -> void:
