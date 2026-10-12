@@ -17,10 +17,12 @@ var _day_manager: DayManager
 
 
 func _ready() -> void:
+	add_to_group("feeders")
 	_last_capacity = get_seed_capacity()
 	seeds_remaining = mini(starting_seeds, _last_capacity)
 	_update_visual()
 	seeds_changed.emit(seeds_remaining, _last_capacity)
+	DomainEvents.feeder_registered.emit(self)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 	if not visibility_changed.is_connected(_on_visibility_changed):
 		visibility_changed.connect(_on_visibility_changed)
@@ -28,6 +30,10 @@ func _ready() -> void:
 	# Resolve after all nodes have completed _ready(), so scene-tree order
 	# cannot leave us with a missing DayManager reference.
 	call_deferred("_cache_day_manager")
+
+
+func _exit_tree() -> void:
+	DomainEvents.feeder_unregistered.emit(self)
 
 
 func _cache_day_manager() -> void:
