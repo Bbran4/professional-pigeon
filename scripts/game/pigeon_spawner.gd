@@ -12,6 +12,7 @@ signal visitor_count_changed(count: int)
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
 const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 const BENCH_SCENE := preload("res://scenes/park/bench.tscn")
+const FOUNTAIN_SCENE := preload("res://scenes/park/fountain.tscn")
 const SEED_FEEDER_SCENE := preload("res://scenes/park/seed_feeder.tscn")
 const BENCH_FEEDER_SCRIPT := preload("res://scripts/game/bench_feeder.gd")
 
@@ -145,27 +146,11 @@ func _create_bench_feeder(index: int) -> Node2D:
 func _spawn_fountain(park: Node) -> void:
 	if is_instance_valid(_fountain_instance):
 		return
-	var fountain := Node2D.new()
+	var fountain := FOUNTAIN_SCENE.instantiate() as Node2D
+	if fountain == null:
+		push_error("PigeonSpawner: failed to instantiate scenes/park/fountain.tscn.")
+		return
 	fountain.name = "UnlockedFountain"
-	var base := Polygon2D.new()
-	base.polygon = PackedVector2Array([-70, -16, -55, -38, 0, -46, 55, -38, 70, -16, 58, 12, 0, 24, -58, 12])
-	base.color = Color(0.54, 0.52, 0.46, 1.0)
-	fountain.add_child(base)
-	var water := Polygon2D.new()
-	water.position = Vector2(0, -15)
-	water.polygon = PackedVector2Array([-48, -9, -35, -23, 0, -28, 35, -23, 48, -9, 35, 4, 0, 8, -35, 4])
-	water.color = Color(0.31, 0.65, 0.72, 1.0)
-	fountain.add_child(water)
-	var pillar := Polygon2D.new()
-	pillar.position = Vector2(0, -34)
-	pillar.polygon = PackedVector2Array([-8, -14, 8, -14, 11, 7, -11, 7])
-	pillar.color = Color(0.65, 0.62, 0.54, 1.0)
-	fountain.add_child(pillar)
-	for perch_position in park_layout.fountain_perch_offsets:
-		var perch := Marker2D.new()
-		perch.add_to_group("perch_spots")
-		perch.position = perch_position
-		fountain.add_child(perch)
 	var fountain_marker := park.get_node_or_null("FountainMarker") as Node2D
 	park.add_child(fountain)
 	if fountain_marker != null:
