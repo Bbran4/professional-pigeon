@@ -5,7 +5,7 @@ signal day_started(duration: float)
 signal day_updated(time_remaining: float, points: int, pigeon_count: int, seeds_remaining: int, seeds_capacity: int)
 signal day_ended(points: int)
 
-@export var day_duration: float = 60.0
+const BALANCE: GameBalance = preload("res://data/game_balance.tres")
 
 var time_remaining: float:
 	get:
@@ -134,7 +134,7 @@ func start_day() -> void:
 	if not is_instance_valid(feeder):
 		if is_instance_valid(_feeder):
 			_feeder.refill(_feeder.get_seed_capacity())
-	var duration := day_duration + ProgressionManager.get_effect_value(EffectIds.DAY_DURATION_ADD)
+	var duration := BALANCE.default_day_duration + ProgressionManager.get_effect_value(EffectIds.DAY_DURATION_ADD)
 	RunState.begin_day(duration)
 	_last_timer_display = -1
 	spawner.start_day()
