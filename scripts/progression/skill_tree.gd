@@ -135,7 +135,7 @@ func _collect_nodes() -> void:
 		if node == null:
 			continue
 		if node.skill_id == &"":
-			push_error("SkillTree '%s': node '%s' has an empty skill_id. Set it to an ID from the SkillCatalog." % [get_path(), node.name, node.skill_id])
+			push_error("SkillTree '%s': node '%s' has an empty skill_id. Set it to an ID from the SkillCatalog." % [get_path(), node.name])
 			node.disabled = true
 			continue
 		if get_skill(node.skill_id) == null:
