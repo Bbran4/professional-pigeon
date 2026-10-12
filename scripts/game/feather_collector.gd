@@ -1,8 +1,10 @@
 extends Node2D
 class_name FeatherCollector
 
-@export_range(0.1, 10.0, 0.1) var base_collection_duration: float = 3.0
-@export_range(4.0, 128.0, 1.0) var base_cursor_radius: float = 34.0
+const BALANCE: GameBalance = preload("res://data/game_balance.tres")
+
+@export_range(0.1, 10.0, 0.1) var base_collection_duration: float = BALANCE.default_feather_collection_duration
+@export_range(4.0, 128.0, 1.0) var base_cursor_radius: float = BALANCE.default_feather_cursor_radius
 @export_range(0.1, 10.0, 0.1) var minimum_collection_duration: float = 0.5
 
 const PICKUP_TEXT_DURATION := 0.75
@@ -18,8 +20,8 @@ var _last_mouse_position := Vector2.INF
 
 var _auto_collect := false
 var _crow_interval := 0.0
-var _cursor_radius := 34.0
-var _collection_duration := 3.0
+var _cursor_radius: float = BALANCE.default_feather_cursor_radius
+var _collection_duration: float = BALANCE.default_feather_collection_duration
 
 
 func _ready() -> void:
