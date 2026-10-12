@@ -24,6 +24,7 @@ SaveService="*res://scripts/progression/save_service.gd"
 ProgressionManager="*res://scripts/progression/progression_manager.gd"
 SkillPurchases="*res://scripts/progression/skill_purchase_service.gd"
 SceneManager="*res://scripts/scene_manager.gd"
+DomainEvents="*res://scripts/domain_events.gd"
 
 [display]
 
