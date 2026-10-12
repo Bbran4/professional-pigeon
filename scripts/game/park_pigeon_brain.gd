@@ -25,9 +25,9 @@ enum VisitorState {
 @export var eating_duration: float = BALANCE.default_eating_duration
 @export var dropping_duration: float = BALANCE.default_dropping_duration
 @export var food_points: int = 1
-@export var food_distance: float = 28.0
-@export var arrival_distance: float = 18.0
-@export var departure_distance: float = 40.0
+@export var food_distance: float = BALANCE.food_distance
+@export var arrival_distance: float = BALANCE.arrival_distance
+@export var departure_distance: float = BALANCE.departure_distance
 @export var patience_timeout: float = BALANCE.default_patience_timeout
 
 var active := false
@@ -43,7 +43,7 @@ var perch_position := Vector2.ZERO
 var exit_position := Vector2.ZERO
 var _last_requested_intent: int = -1
 var _food_search_cooldown: float = 0.0
-const FOOD_SEARCH_INTERVAL: float = 0.25
+
 
 @onready var pigeon: Pigeon = get_parent() as Pigeon
 @onready var state_machine: StateMachine = $"../StateMachine"
@@ -219,7 +219,7 @@ func _try_next_food() -> void:
 	# DayManager maintains this registry through feeder lifecycle signals.
 	if _food_search_cooldown > 0.0:
 		return
-	_food_search_cooldown = FOOD_SEARCH_INTERVAL
+	_food_search_cooldown = BALANCE.food_search_interval
 	if not is_instance_valid(day_manager):
 		return
 
