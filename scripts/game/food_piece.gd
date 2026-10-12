@@ -43,10 +43,10 @@ func _update_visual() -> void:
 		return
 	if food_kind == "seeds":
 		visual.color = Color(0.83, 0.68, 0.31, 1.0)
-		visual.polygon = PackedVector2Array(-5, -2, -2, -5, 2, -2, 5, 1, 1, 4, -3, 3)
+		visual.polygon = PackedVector2Array([Vector2(-5, -2), Vector2(-2, -5), Vector2(2, -2), Vector2(5, 1), Vector2(1, 4), Vector2(-3, 3)])
 	else:
 		visual.color = Color(0.79, 0.62, 0.39, 1.0)
-		visual.polygon = PackedVector2Array(-7, -3, -4, -6, 3, -5, 7, -1, 5, 4, -2, 5, -6, 2)
+		visual.polygon = PackedVector2Array([Vector2(-7, -3), Vector2(-4, -6), Vector2(3, -5), Vector2(7, -1), Vector2(5, 4), Vector2(-2, 5), Vector2(-6, 2)])
 	if is_golden:
 		visual.color = Color(1.0, 0.76, 0.18, 1.0)
 	elif is_worm:
