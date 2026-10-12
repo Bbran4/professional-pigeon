@@ -69,7 +69,7 @@ func get_effect_description() -> String:
 				_format_effect_value(GAME_BALANCE.worm_extra_eating_duration)
 			]
 		EffectIds.WORMS_SPAWNS:
-			return "Increase the worm-food spawn amount by %s per level." % amount
+			return "Increase the chance of a worm appearing by %s%% per level." % _format_effect_value(effect_value * GAME_BALANCE.worm_chance_per_upgrade * 100.0)
 		EffectIds.BENCH_FEEDER:
 			return "Unlock the seed feeder beside the bench."
 		EffectIds.AUTO_COLLECT:
