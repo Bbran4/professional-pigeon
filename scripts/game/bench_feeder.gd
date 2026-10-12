@@ -23,3 +23,4 @@ func _refresh_unlock_state() -> void:
 	visible = unlocked
 	if is_instance_valid(seed_feeder):
 		seed_feeder.visible = unlocked
+		seed_feeder.set_gameplay_enabled(unlocked)
