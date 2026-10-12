@@ -2,16 +2,22 @@ extends Node2D
 class_name SeedFeeder
 
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
+const FOOD_SCENE: PackedScene = preload("res://scenes/park/food_piece.tscn")
 
 signal seeds_changed(current: int, capacity: int)
 signal depleted
 
 @export_range(1, 100, 1) var seed_capacity: int = 5
 @export_range(0, 100, 1) var starting_seeds: int = 5
+@export_enum("bread", "seeds") var food_kind: String = "bread"
+@export_range(0.25, 5.0, 0.05) var throw_interval: float = 1.2
+@export_range(20.0, 180.0, 5.0) var throw_distance: float = 82.0
+@export_range(0.0, 60.0, 1.0) var throw_spread_degrees: float = 32.0
 
 var seeds_remaining: int = 0
 var gameplay_enabled := true
 var _regen_elapsed := 0.0
+var _throw_elapsed := 0.0
 var _last_capacity: int = 0
 var _day_manager: DayManager
 
@@ -58,15 +64,23 @@ func _refresh_processing_state() -> void:
 	set_process(gameplay_enabled and is_visible_in_tree())
 	if not gameplay_enabled or not is_visible_in_tree():
 		_regen_elapsed = 0.0
+		_throw_elapsed = 0.0
 
 
 func _process(delta: float) -> void:
 	if not gameplay_enabled or not is_visible_in_tree():
 		_regen_elapsed = 0.0
+		_throw_elapsed = 0.0
 		return
 	if not is_instance_valid(_day_manager) or not _day_manager.active:
 		_regen_elapsed = 0.0
+		_throw_elapsed = 0.0
 		return
+	if seeds_remaining > 0:
+		_throw_elapsed += delta
+		if _throw_elapsed >= throw_interval:
+			_throw_elapsed = 0.0
+			_throw_food_piece()
 	var regen_interval := ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL) - ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL_REDUCTION)
 	if regen_interval <= 0.0 or seeds_remaining >= get_seed_capacity():
 		_regen_elapsed = 0.0
@@ -79,8 +93,7 @@ func _process(delta: float) -> void:
 
 func get_seed_capacity() -> int:
 	var capacity := seed_capacity + int(ProgressionManager.get_effect_value(EffectIds.SEED_CAPACITY_ADD))
-	if ProgressionManager.get_effect_value(EffectIds.UNLOCK_SEEDS) > 0.0:
-		capacity += int(ProgressionManager.get_effect_value(EffectIds.UNLOCK_SEEDS))
+	if food_kind == "seeds" and ProgressionManager.get_effect_value(EffectIds.UNLOCK_SEEDS) > 0.0:
 		capacity += int(ProgressionManager.get_effect_value(EffectIds.SEEDS_SPAWNS))
 	return capacity
 
@@ -93,9 +106,33 @@ func prepare_seed() -> Dictionary:
 	if not can_feed():
 		return {}
 	return {
-		"golden": randf() < ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_CHANCE),
-		"worm": ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) > 0.0 and randf() < clampf(ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) + ProgressionManager.get_effect_value(EffectIds.WORMS_SPAWNS) * BALANCE.worm_chance_per_upgrade, 0.0, 1.0),
+		"golden": food_kind == "seeds" and randf() < ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_CHANCE),
+		"worm": food_kind == "seeds" and ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) > 0.0 and randf() < clampf(ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) + ProgressionManager.get_effect_value(EffectIds.WORMS_SPAWNS) * BALANCE.worm_chance_per_upgrade, 0.0, 1.0),
 	}
+
+
+func _throw_food_piece() -> void:
+	if not can_feed():
+		return
+	var parent := get_parent()
+	if parent == null:
+		return
+	var piece := FOOD_SCENE.instantiate() as FoodPiece
+	if piece == null:
+		push_error("SeedFeeder: food scene root must be FoodPiece.")
+		return
+	var traits := prepare_seed()
+	piece.food_kind = food_kind
+	piece.is_golden = bool(traits.get("golden", false))
+	piece.is_worm = bool(traits.get("worm", false))
+	piece.feeding_duration = 4.0 if food_kind == "seeds" else 1.0
+	parent.add_child(piece)
+	var spread := deg_to_rad(throw_spread_degrees)
+	var angle := randf_range(-spread, spread)
+	var direction := Vector2.DOWN.rotated(angle)
+	piece.global_position = global_position + direction * randf_range(throw_distance * 0.65, throw_distance)
+	if not consume_seed():
+		piece.queue_free()
 
 
 func consume_seed() -> bool:
@@ -136,4 +173,4 @@ func _update_visual() -> void:
 		seed_pile.visible = seeds_remaining > 0
 	var label := get_node_or_null("SeedCount") as Label
 	if label != null:
-		label.text = "%d seeds" % seeds_remaining
+		label.text = "%d %s" % [seeds_remaining, food_kind]
