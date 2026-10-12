@@ -2,8 +2,6 @@
 extends Control
 class_name SkillTree
 
-signal skill_purchased(skill_id: StringName, new_level: int)
-signal purchase_rejected(skill_id: StringName, reason: String)
 
 @export var catalog: SkillCatalog
 @export var skill_node_scene: PackedScene = preload("res://scenes/progression/skill_node.tscn")
@@ -100,68 +98,12 @@ func get_prerequisites(skill_id: StringName) -> Array[StringName]:
 		return []
 	return skill.prerequisites
 
-func is_unlocked(skill_id: StringName) -> bool:
-	var skill := get_skill(skill_id)
-	if skill == null:
-		return false
-	for prerequisite_id in get_prerequisites(skill_id):
-		if get_level(prerequisite_id) <= 0:
-			return false
-	return true
-
-
 ## Show root skills immediately. A skill with prerequisites appears only after
 ## every prerequisite has been purchased, keeping deeper branches hidden.
 func should_show_skill(skill_id: StringName) -> bool:
 	if Engine.is_editor_hint():
 		return true
-	var skill := get_skill(skill_id)
-	if skill == null:
-		return false
-	return is_unlocked(skill_id)
-
-
-func get_next_points_cost(skill_id: StringName) -> int:
-	var skill := get_skill(skill_id)
-	if skill == null:
-		return 0
-	return _get_scaled_cost(skill.points_cost, skill.cost_growth, get_level(skill_id))
-
-
-func _get_scaled_cost(base_cost: int, growth: float, current_level: int) -> int:
-	if base_cost <= 0:
-		return 0
-	return ceili(float(base_cost) * pow(maxf(growth, 1.0), current_level))
-
-
-func _get_purchase_error(skill_id: StringName) -> String:
-	var skill := get_skill(skill_id)
-	if skill == null:
-		return "Skill does not exist."
-	if not is_unlocked(skill_id):
-		return "Required skills have not been purchased."
-	if get_level(skill_id) >= skill.max_level:
-		return "Skill is already at maximum level."
-	if not ProgressionManager.can_spend_points(get_next_points_cost(skill_id)):
-		return "Not enough Feathers."
-	return ""
-
-
-func can_purchase(skill_id: StringName) -> bool:
-	return _get_purchase_error(skill_id).is_empty()
-
-
-func purchase(skill_id: StringName) -> bool:
-	var error := _get_purchase_error(skill_id)
-	if not error.is_empty():
-		purchase_rejected.emit(skill_id, error)
-		return false
-	ProgressionManager.spend_points(get_next_points_cost(skill_id))
-	var new_level := get_level(skill_id) + 1
-	ProgressionManager.set_skill_level(skill_id, new_level)
-	ProgressionManager.save_game()
-	skill_purchased.emit(skill_id, new_level)
-	return true
+	return SkillPurchaseService.is_unlocked(skill_id)
 
 
 func _draw() -> void:
@@ -192,7 +134,7 @@ func _draw() -> void:
 				continue
 			var to_position := prerequisite.position + prerequisite.size * 0.5
 			var purchased := get_level(prerequisite_id) > 0 and get_level(node.skill_id) > 0
-			var available := is_unlocked(node.skill_id)
+			var available := SkillPurchaseService.is_unlocked(node.skill_id)
 			var line_color := locked_connection_color
 			if purchased:
 				line_color = purchased_connection_color
