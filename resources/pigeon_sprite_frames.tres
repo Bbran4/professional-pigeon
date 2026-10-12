@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=17 format=3]
+[gd_resource type="SpriteFrames" load_steps=19 format=3]
 
 [ext_resource type="Texture2D" uid="uid://pxhv8lqggmch" path="res://assets/Pigeon Sprite-Sheet/pigeon_eat-Sheet.png" id="1_eat"]
 [ext_resource type="Texture2D" uid="uid://du82wv7ki1gbg" path="res://assets/Pigeon Sprite-Sheet/pigeon_walking-Sheet.png" id="2_walk"]
