@@ -85,6 +85,7 @@ func validate() -> bool:
 			valid = false
 			break
 
+	assert(valid, "SkillCatalog validation failed. See the preceding validation errors.")
 	return valid
 
 
