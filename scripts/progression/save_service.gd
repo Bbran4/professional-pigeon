@@ -20,24 +20,46 @@ func is_dirty() -> bool:
 ## Returns validated current-version data. Invalid files are quarantined instead
 ## of silently overwritten, so the original data can still be recovered.
 func load_data() -> Dictionary:
-	if not FileAccess.file_exists(SAVE_PATH):
+	var loaded := _try_load_path(SAVE_PATH, true)
+	if not loaded.is_empty():
+		return loaded
+
+	# The primary file may be missing or quarantined as invalid. Try the last
+	# known-good save before falling back to a fresh game.
+	loaded = _try_load_path(BACKUP_PATH, false)
+	if not loaded.is_empty():
+		push_warning("SaveService: recovered save data from backup; the next save will repair the primary file.")
+		_dirty = true
+		return loaded
+
+	return {}
+
+
+func _try_load_path(path: String, quarantine_invalid: bool) -> Dictionary:
+	if not FileAccess.file_exists(path):
 		return {}
 
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		push_warning("SaveService: unable to open save file for reading.")
+		push_warning("SaveService: unable to open %s for reading." % path)
 		return {}
 
 	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	file.close()
 	if not parsed is Dictionary:
-		_quarantine_invalid_save("invalid_json")
+		if quarantine_invalid:
+			_quarantine_invalid_save("invalid_json")
+		else:
+			push_warning("SaveService: backup save contains invalid JSON.")
 		return {}
 
 	var raw: Dictionary = parsed
 	var version_value: Variant = raw.get("version", 1)
 	if not _is_integer(version_value):
-		_quarantine_invalid_save("invalid_version")
+		if quarantine_invalid:
+			_quarantine_invalid_save("invalid_version")
+		else:
+			push_warning("SaveService: backup save has an invalid version.")
 		return {}
 	var version := int(version_value)
 
@@ -48,17 +70,19 @@ func load_data() -> Dictionary:
 		CURRENT_VERSION:
 			migrated = _validate_v2(raw)
 		_:
-			push_warning("SaveService: unsupported save version %d; preserving the file and starting fresh." % version)
+			push_warning("SaveService: unsupported save version %d in %s; preserving it." % [version, path])
 			return {}
 
 	if migrated.is_empty():
-		_quarantine_invalid_save("invalid_data")
+		if quarantine_invalid:
+			_quarantine_invalid_save("invalid_data")
+		else:
+			push_warning("SaveService: backup save failed validation.")
 		return {}
 
 	if version != CURRENT_VERSION:
 		_dirty = true
 	return migrated
-
 
 func save_data(data: Dictionary) -> bool:
 	if not _dirty:
