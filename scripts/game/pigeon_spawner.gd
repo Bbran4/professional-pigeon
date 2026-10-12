@@ -6,7 +6,6 @@ signal visitor_count_changed(count: int)
 
 @export var pigeon_scene: PackedScene
 @export var feeder: SeedFeeder
-@export var arrival_interval: float = 0.25
 @export var park_layout: ParkLayout
 
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
@@ -183,7 +182,7 @@ func _spawn_next_after_delay() -> void:
 		return
 	_spawn_delay_pending = true
 	var generation := _spawn_generation
-	var delay := maxf(BALANCE.minimum_spawn_delay, arrival_interval - ProgressionManager.get_effect_value(EffectIds.ARRIVAL_SPEED_REDUCTION) - ProgressionManager.get_effect_value(EffectIds.FOUNTAIN_UNLOCK) * BALANCE.fountain_spawn_delay_reduction)
+	var delay := maxf(BALANCE.minimum_spawn_delay, BALANCE.default_arrival_interval - ProgressionManager.get_effect_value(EffectIds.ARRIVAL_SPEED_REDUCTION) - ProgressionManager.get_effect_value(EffectIds.FOUNTAIN_UNLOCK) * BALANCE.fountain_spawn_delay_reduction)
 	if randf() < ProgressionManager.get_effect_value(EffectIds.PAIR_ARRIVALS):
 		delay = 0.0
 	get_tree().create_timer(delay).timeout.connect(_on_spawn_delay_timeout.bind(generation), CONNECT_ONE_SHOT)
