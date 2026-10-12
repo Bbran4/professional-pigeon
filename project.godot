@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 ProgressionManager="*res://scripts/progression/progression_manager.gd"
-SkillPurchaseService="*res://scripts/progression/skill_purchase_service.gd"
+SkillPurchases="*res://scripts/progression/skill_purchase_service.gd"
 
 [display]
 
