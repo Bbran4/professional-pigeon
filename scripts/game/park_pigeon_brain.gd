@@ -42,9 +42,12 @@ var target_food_is_worm := false
 var perch_position := Vector2.ZERO
 var exit_position := Vector2.ZERO
 var _last_requested_intent: int = -1
+var _food_search_cooldown: float = 0.0
+const FOOD_SEARCH_INTERVAL: float = 0.25
 
 @onready var pigeon: Pigeon = get_parent() as Pigeon
 @onready var state_machine: StateMachine = $"../StateMachine"
+@onready var day_manager: DayManager = get_tree().get_first_node_in_group("day_manager") as DayManager
 
 
 func _ready() -> void:
@@ -62,6 +65,7 @@ func start_day(perch: Vector2, arrival: Vector2, exit: Vector2) -> void:
 	eating_timer = 0.0
 	dropping_timer = 0.0
 	waiting_timer = 0.0
+	_food_search_cooldown = 0.0
 	_last_requested_intent = -1
 
 	pigeon.show()
@@ -101,9 +105,11 @@ func _physics_process(delta: float) -> void:
 				_try_next_food()
 
 		VisitorState.WAITING:
+			_food_search_cooldown = maxf(0.0, _food_search_cooldown - delta)
 			if not _food_is_available(target_food):
 				target_food = null
-				_try_next_food()
+				if _food_search_cooldown <= 0.0:
+					_try_next_food()
 			if target_food == null:
 				waiting_timer += delta
 				pigeon.move_direction = Vector2.ZERO
@@ -209,12 +215,17 @@ func _try_next_food() -> void:
 		target_food = next_food
 		return
 
-	# Feeder stock can change after a visitor is assigned, so always search the
-	# whole park when its current target runs out.
+	# Retry periodically rather than scanning every feeder every physics frame.
+	# DayManager maintains this registry through feeder lifecycle signals.
+	if _food_search_cooldown > 0.0:
+		return
+	_food_search_cooldown = FOOD_SEARCH_INTERVAL
+	if not is_instance_valid(day_manager):
+		return
+
 	var nearest_food: Node2D = null
 	var nearest_distance := INF
-	for node in get_tree().get_nodes_in_group("feeders"):
-		var candidate := node as Node2D
+	for candidate in day_manager.get_registered_feeders():
 		if not _food_is_available(candidate):
 			continue
 		var distance := pigeon.global_position.distance_squared_to(candidate.global_position)
