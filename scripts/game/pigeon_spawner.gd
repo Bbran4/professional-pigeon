@@ -77,13 +77,13 @@ func _spawn_available_visitors() -> void:
 	var perch := perch_allocator.reserve_perch(get_tree())
 	var food_source := _find_available_feeder()
 	if not _spawn_visitor(perch, food_source):
-		perch_allocator.release_perch(str(perch.get("key", "")))
+		perch_allocator.release_perch(perch.key)
 		return
 	if visitors.size() < _get_max_pigeons():
 		_spawn_next_after_delay()
 
 
-func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
+func _spawn_visitor(perch: PerchReservation, food_source: SeedFeeder) -> bool:
 	var pigeon := pigeon_scene.instantiate() as Pigeon
 	if pigeon == null:
 		push_error("PigeonSpawner: pigeon_scene root must be a Pigeon.")
@@ -177,8 +177,8 @@ func _on_spawn_delay_timeout() -> void:
 
 func _prune_invalid_visitors() -> void:
 	for index in range(visitors.size() - 1, -1, -1):
-		var visitor: Dictionary = visitors[index]
-		var pigeon := visitor.get("pigeon") as Pigeon
+		var visitor: VisitorRecord = visitors[index]
+		var pigeon := visitor.pigeon
 		if is_instance_valid(pigeon):
 			continue
 		perch_allocator.release_perch(visitor.perch_key)
