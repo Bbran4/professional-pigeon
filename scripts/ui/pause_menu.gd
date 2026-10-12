@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause") and not event.is_echo():
+	if event.is_action_pressed("pause"):
 		if get_tree().paused:
 			resume_game()
 		else:
