@@ -229,6 +229,7 @@ func _draw() -> void:
 			var prerequisite := nodes_by_id.get(prerequisite_id) as SkillNode
 			if prerequisite == null or not prerequisite.visible:
 				continue
+			var to_position := prerequisite.position + prerequisite.size * 0.5
 			var purchased := get_level(prerequisite_id) > 0 and get_level(node.skill_id) > 0
 			var available := SkillPurchases.is_unlocked(node.skill_id)
 			var line_color := locked_connection_color
