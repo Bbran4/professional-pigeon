@@ -92,7 +92,9 @@ func _process(delta: float) -> void:
 
 
 func get_seed_capacity() -> int:
-	var capacity := seed_capacity + int(ProgressionManager.get_effect_value(EffectIds.SEED_CAPACITY_ADD))
+	var capacity := seed_capacity
+	if food_kind == "seeds":
+		capacity += int(ProgressionManager.get_effect_value(EffectIds.SEED_CAPACITY_ADD))
 	if food_kind == "seeds" and ProgressionManager.get_effect_value(EffectIds.UNLOCK_SEEDS) > 0.0:
 		capacity += int(ProgressionManager.get_effect_value(EffectIds.SEEDS_SPAWNS))
 	return capacity
