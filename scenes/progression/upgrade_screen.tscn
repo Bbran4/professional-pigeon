@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b32pmjtjdgu6" path="res://scripts/progression/upgrade_screen.gd" id="1_screen"]
 [ext_resource type="PackedScene" uid="uid://pftnidioacjg" path="res://scenes/progression/skill_tree.tscn" id="2_tree"]
 [ext_resource type="Script" uid="uid://c0owjdr38lyk8" path="res://scripts/progression/skill_manager.gd" id="3_manager"]
+[ext_resource type="PackedScene" path="res://scenes/ui/currency_display.tscn" id="4_currency"]
 
 [node name="UpgradeScreen" type="Control" unique_id=723673106]
 layout_mode = 3
@@ -51,12 +52,11 @@ theme_override_font_sizes/font_size = 26
 text = "PARK SKILL TREE"
 vertical_alignment = 1
 
-[node name="PointsLabel" type="Label" parent="TopBar/TopBarContent" unique_id=2144754319]
+[node name="PointsLabel" parent="TopBar/TopBarContent" instance=ExtResource("4_currency")]
 custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Feathers: 0"
-vertical_alignment = 1
+currency_id = &"feathers"
+display_name = "Feathers"
 
 [node name="ResetSaveButton" type="Button" parent="TopBar/TopBarContent" unique_id=2144754320]
 custom_minimum_size = Vector2(130, 45)
