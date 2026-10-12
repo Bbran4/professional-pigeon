@@ -10,19 +10,18 @@ signal visitor_count_changed(count: int)
 @export var park_layout: ParkLayout
 
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
-const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 
 var day_active := false
 var visitors: Array[Dictionary] = []
-var reserved_perches: Dictionary = {}
+var perch_allocator := PerchAllocator.new()
+var collectible_drops := CollectibleDropService.new()
 var _pending_points_by_pigeon: Dictionary = {}
 var _spawn_delay_pending := false
 var _retry := 0.0
-var _next_overflow_perch := 0
 
 
 func _ready() -> void:
-	set_process(true)
+	set_process(false)
 	if feeder == null:
 		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
 	if park_layout == null:
@@ -30,6 +29,8 @@ func _ready() -> void:
 	if park_layout == null:
 		push_error("PigeonSpawner: ParkLayout is required to provide park bounds and spawn positions.")
 		return
+	perch_allocator.configure(park_layout, get_parent() as Node2D)
+	collectible_drops.configure(get_parent())
 
 
 func start_day() -> void:
@@ -48,7 +49,7 @@ func end_day() -> void:
 		if is_instance_valid(pigeon):
 			pigeon.queue_free()
 	visitors.clear()
-	reserved_perches.clear()
+	perch_allocator.reset()
 	_pending_points_by_pigeon.clear()
 	visitor_count_changed.emit(0)
 
@@ -73,10 +74,10 @@ func _spawn_available_visitors() -> void:
 
 	# Do not cap arrivals by seed count or available perch markers. Visitors
 	# without food will wait for their patience timeout and then depart.
-	var perch := _reserve_perch()
+	var perch := perch_allocator.reserve_perch(get_tree())
 	var food_source := _find_available_feeder()
 	if not _spawn_visitor(perch, food_source):
-		_release_perch(str(perch.get("key", "")))
+		perch_allocator.release_perch(str(perch.get("key", "")))
 		return
 	if visitors.size() < _get_max_pigeons():
 		_spawn_next_after_delay()
@@ -118,51 +119,6 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 	return true
 
 
-func _reserve_perch() -> Dictionary:
-	var candidates: Array[Dictionary] = []
-	for marker in get_tree().get_nodes_in_group("perch_spots"):
-		if not is_instance_valid(marker) or not marker is Node2D or not marker.is_visible_in_tree():
-			continue
-		var key := str(marker.get_instance_id())
-		if not reserved_perches.has(key):
-			candidates.append({"key": key, "position": (marker as Node2D).global_position})
-	if not candidates.is_empty():
-		var selected: Dictionary = candidates[randi_range(0, candidates.size() - 1)]
-		reserved_perches[str(selected.key)] = true
-		return selected
-	var landing_candidates: Array[Dictionary] = []
-	for index in range(park_layout.landing_spots.size()):
-		var key := "landing_%d" % index
-		if reserved_perches.has(key):
-			continue
-		landing_candidates.append({"key": key, "position": (get_parent() as Node2D).to_global(park_layout.landing_spots[index])})
-	if not landing_candidates.is_empty():
-		var selected: Dictionary = landing_candidates[randi_range(0, landing_candidates.size() - 1)]
-		reserved_perches[str(selected.key)] = true
-		return selected
-
-	# Existing markers and landing spots are all occupied. Generate a virtual
-	# perch inside the park bounds so active visitors are never capped by layout.
-	var overflow_index := _next_overflow_perch
-	_next_overflow_perch += 1
-	var columns := maxi(1, int(park_layout.visitor_bounds.size.x / 72.0))
-	var rows := maxi(1, int(park_layout.visitor_bounds.size.y / 54.0))
-	var cell_index := overflow_index % (columns * rows)
-	var cell_x := cell_index % columns
-	var cell_y := int(cell_index / columns)
-	var overflow_position := Vector2(
-		park_layout.visitor_bounds.position.x + 36.0 + cell_x * 72.0,
-		park_layout.visitor_bounds.position.y + 27.0 + cell_y * 54.0
-	)
-	var overflow_key := "overflow_%d" % overflow_index
-	reserved_perches[overflow_key] = true
-	return {"key": overflow_key, "position": (get_parent() as Node2D).to_global(overflow_position)}
-
-
-func _release_perch(key: String) -> void:
-	reserved_perches.erase(key)
-
-
 func _find_available_feeder() -> SeedFeeder:
 	var available: Array[SeedFeeder] = []
 	for node in get_tree().get_nodes_in_group("feeders"):
@@ -184,28 +140,8 @@ func _on_ate_food(points: int, pigeon: Pigeon) -> void:
 func _on_feather_dropped(drop_position: Vector2, pigeon: Pigeon) -> void:
 	var point_reward := int(_pending_points_by_pigeon.get(pigeon.get_instance_id(), 0))
 	_pending_points_by_pigeon.erase(pigeon.get_instance_id())
-	_spawn_feather(drop_position, point_reward)
-	for index in range(int(ProgressionManager.get_effect_value(EffectIds.FEATHER_COUNT_ADD))):
-		var offset := Vector2(randf_range(-BALANCE.extra_feather_offset_x, BALANCE.extra_feather_offset_x), randf_range(-BALANCE.extra_feather_offset_y, BALANCE.extra_feather_offset_y))
-		# Every feather is an individual collectible and should grant the visit's reward.
-		_spawn_feather(drop_position + offset, point_reward)
+	collectible_drops.spawn_visit_feathers(drop_position, point_reward)
 
-
-func _spawn_feather(spawn_position: Vector2, point_reward: int = 0) -> void:
-	var feather := FEATHER_SCENE.instantiate() as Feather
-	if feather == null:
-		push_error("PigeonSpawner: feather scene root must be a Feather.")
-		return
-	get_parent().add_child(feather)
-	feather.global_position = spawn_position
-	feather.z_index = 20
-	feather.z_as_relative = false
-	feather.point_value = point_reward
-	feather.point_value += int(ProgressionManager.get_effect_value(EffectIds.FEATHER_VALUE_ADD))
-	var is_golden := randf() < ProgressionManager.get_effect_value(EffectIds.GOLDEN_FEATHER_CHANCE)
-	feather.set_golden(is_golden)
-	if is_golden:
-		feather.point_value += BALANCE.golden_feather_bonus_points
 
 func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 	for index in range(visitors.size() - 1, -1, -1):
@@ -213,7 +149,7 @@ func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 		if visitor.get("pigeon") == pigeon:
 			visitors.remove_at(index)
 			break
-	_release_perch(perch_key)
+	perch_allocator.release_perch(perch_key)
 	if is_instance_valid(pigeon):
 		pigeon.queue_free()
 	visitor_count_changed.emit(visitors.size())
@@ -245,5 +181,5 @@ func _prune_invalid_visitors() -> void:
 		var pigeon := visitor.get("pigeon") as Pigeon
 		if is_instance_valid(pigeon):
 			continue
-		_release_perch(str(visitor.get("perch_key", "")))
+		perch_allocator.release_perch(str(visitor.get("perch_key", "")))
 		visitors.remove_at(index)
