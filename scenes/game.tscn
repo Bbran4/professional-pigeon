@@ -54,7 +54,7 @@ position = Vector2(300, 500)
 
 [node name="Unlockable" type="Node" parent="UpgradeBench1" unique_id=656332279]
 script = ExtResource("19_unlockable")
-required_skill = &"more_benches_1"
+required_skills = Array[StringName]([&"more_benches_1"])
 
 [node name="UpgradeBench2" type="Node2D" parent="." unique_id=648213494]
 visible = false
@@ -66,7 +66,7 @@ position = Vector2(600, 500)
 
 [node name="Unlockable" type="Node" parent="UpgradeBench2" unique_id=1076644359]
 script = ExtResource("19_unlockable")
-required_skill = &"more_benches_2"
+required_skills = Array[StringName]([&"more_benches_2"])
 
 [node name="UpgradeBench3" type="Node2D" parent="." unique_id=283424795]
 visible = false
@@ -78,7 +78,7 @@ position = Vector2(990, 230)
 
 [node name="Unlockable" type="Node" parent="UpgradeBench3" unique_id=411009348]
 script = ExtResource("19_unlockable")
-required_skill = &"more_benches_3"
+required_skills = Array[StringName]([&"more_benches_3"])
 
 [node name="Fountain" parent="." unique_id=1335517616 instance=ExtResource("17_fountain")]
 visible = false
@@ -86,7 +86,7 @@ position = Vector2(960, 420)
 
 [node name="Unlockable" type="Node" parent="Fountain" unique_id=1239809291]
 script = ExtResource("19_unlockable")
-required_skill = &"fountain_unlock"
+required_skills = Array[StringName]([&"fountain_unlock"])
 
 [node name="TreeNests" type="Node2D" parent="." unique_id=1787508398]
 visible = false
@@ -102,7 +102,7 @@ position = Vector2(245, 190)
 
 [node name="Unlockable" type="Node" parent="TreeNests" unique_id=1405840458]
 script = ExtResource("19_unlockable")
-required_skill = &"tree_nests"
+required_skills = Array[StringName]([&"tree_nests"])
 
 [node name="VisitorEntryLeft" type="Marker2D" parent="."]
 position = Vector2(-35, 180)
