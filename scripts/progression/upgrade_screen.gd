@@ -1,7 +1,6 @@
 extends Control
 class_name UpgradeScreen
 
-@onready var points_label: Label = $TopBar/TopBarContent/PointsLabel
 @onready var start_day_button: Button = $TopBar/TopBarContent/StartDayButton
 @onready var reset_save_button: Button = $TopBar/TopBarContent/ResetSaveButton
 @onready var reset_confirmation: ConfirmationDialog = $ResetConfirmation
@@ -11,6 +10,13 @@ func _ready() -> void:
 	start_day_button.pressed.connect(_on_start_day_pressed)
 	reset_save_button.pressed.connect(_on_reset_save_pressed)
 	reset_confirmation.confirmed.connect(_on_reset_save_confirmed)
+	ConfirmationDialogHelper.configure(
+		reset_confirmation,
+		"Reset Save",
+		"Delete all saved Feathers and purchased upgrades?",
+		"RESET",
+		"CANCEL"
+	)
 	ProgressionManager.points_changed.connect(refresh.unbind(1))
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 	refresh()
@@ -21,7 +27,6 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 
 
 func refresh() -> void:
-	points_label.text = "Feathers: %d" % ProgressionManager.points
 	start_day_button.disabled = false
 
 
