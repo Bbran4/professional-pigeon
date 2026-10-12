@@ -9,7 +9,6 @@ display_name = "Quicker Seed Refill III"
 category = 0
 description = "Reduce the seed refill interval by 4 seconds."
 points_cost = 48
-tree_position = Vector2(460, 1100)
 prerequisites = Array[StringName]([&"seed_refill_speed_2"])
 effect_id = &"seed_regen_interval_reduction"
 effect_value = 4.0
