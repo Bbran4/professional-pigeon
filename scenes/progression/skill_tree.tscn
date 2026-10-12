@@ -17,360 +17,240 @@ catalog = ExtResource("2_catalog")
 [node name="bread" parent="." unique_id=1792491210 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1085.0, 976.0)
-tooltip_text = "Unlock the basic feeding route and open the path to park upgrades."
-text = "Basic Feeding"
 skill_id = &"bread"
 [node name="larger_flock" parent="." unique_id=1534210213 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1353.0, 981.0)
-tooltip_text = "Increase the number of seeds the active feeder can hold."
-text = "Larger Seed Tray"
 skill_id = &"larger_flock"
 [node name="unlock_seeds" parent="." unique_id=2048056223 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1087.0, 703.0)
-tooltip_text = "Improve the park seed supply and unlock seed-related upgrades."
-text = "Seed Supply"
 skill_id = &"unlock_seeds"
 [node name="unlock_worms" parent="." unique_id=892471047 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(810.0, 998.0)
-tooltip_text = "Unlock Worms as a Food source."
-text = "Worms"
 skill_id = &"unlock_worms"
 [node name="seeds_spawns" parent="." unique_id=1853410941 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1074.0, 474.0)
-tooltip_text = "Increase the feeder seed supply by one per level after Seeds is unlocked."
-text = "More Seeds"
 skill_id = &"seeds_spawns"
 [node name="worms_spawns" parent="." unique_id=1847527849 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(809.0, 1143.0)
-tooltip_text = "Increase the chance that a pigeon finds a worm instead of a regular seed."
-text = "More Worms"
 skill_id = &"worms_spawns"
 [node name="bench_feeder" parent="." unique_id=813571983 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1329.0, 837.0)
-tooltip_text = "Unlock the seed feeder beside the bench. Requires Basic Feeding."
-text = "Bench Feeder"
 skill_id = &"bench_feeder"
 [node name="more_pigeons" parent="." unique_id=1430292920 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1087.0, 1127.0)
-tooltip_text = "Immediately allow one additional pigeon to visit the park at once."
-text = "more_pigeons"
 skill_id = &"more_pigeons"
 [node name="more_pigeons_1" parent="." unique_id=1933628068 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(806.0, 1432.0)
-tooltip_text = "Immediately allow one additional pigeon to visit the park at once."
-text = "More Pigeons"
 skill_id = &"more_pigeons_1"
 [node name="more_pigeons_2" parent="." unique_id=1916343224 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(537.0, 1429.0)
-tooltip_text = "Immediately allow one additional pigeon to visit the park at once."
-text = "More Pigeons"
 skill_id = &"more_pigeons_2"
 [node name="feather_fast_collection" parent="." unique_id=1920612739 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1341.0, 695.0)
-tooltip_text = "Reduce the time needed to collect a feather by 0.85 seconds per level."
-text = "Quick Collection"
 skill_id = &"feather_fast_collection"
 [node name="feather_collection_radius" parent="." unique_id=2027567431 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1610.0, 695.0)
-tooltip_text = "Increase the cursor's feather collection radius by 20 pixels per level."
-text = "Wide Sweep"
 skill_id = &"feather_collection_radius"
 [node name="feather_auto_collect" parent="." unique_id=33059212 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1617.0, 526.0)
-tooltip_text = "Automatically collect every feather as soon as it appears."
-text = "Pigeon Post"
 skill_id = &"feather_auto_collect"
 [node name="day_duration_1" parent="." unique_id=602054418 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1591.0, 985.0)
-tooltip_text = "Add 5 seconds to every day."
-text = "Longer Day I"
 skill_id = &"day_duration_1"
 [node name="day_duration_2" parent="." unique_id=1442851711 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1592.0, 1119.0)
-tooltip_text = "Add 5 seconds to every day."
-text = "Longer Day II"
 skill_id = &"day_duration_2"
 [node name="day_duration_3" parent="." unique_id=1285120224 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1610.0, 1253.0)
-tooltip_text = "Add 5 seconds to every day."
-text = "Longer Day III"
 skill_id = &"day_duration_3"
 [node name="day_duration_4" parent="." unique_id=39182701 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1608.0, 1412.0)
-tooltip_text = "Add 5 seconds to every day."
-text = "Longer Day IV"
 skill_id = &"day_duration_4"
 [node name="day_duration_5" parent="." unique_id=403956158 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1612.0, 1566.0)
-tooltip_text = "Add 5 seconds to every day."
-text = "Longer Day V"
 skill_id = &"day_duration_5"
 [node name="arrival_speed_1" parent="." unique_id=1939856151 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1350.0, 1141.0)
-tooltip_text = "Reduce the gap between arrivals by 0.15 seconds."
-text = "Swift Arrivals 1"
 skill_id = &"arrival_speed_1"
 [node name="arrival_speed_2" parent="." unique_id=1655131306 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1342.0, 1281.0)
-tooltip_text = "Reduce the gap between arrivals by 0.15 seconds."
-text = "Swift Arrivals 2"
 skill_id = &"arrival_speed_2"
 [node name="arrival_speed_3" parent="." unique_id=1752459987 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1358.0, 1421.0)
-tooltip_text = "Reduce the gap between arrivals by 0.15 seconds."
-text = "Swift Arrivals 3"
 skill_id = &"arrival_speed_3"
 [node name="eating_speed_1" parent="." unique_id=1378367494 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1332.0, 474.0)
-tooltip_text = "Reduce eating time by 0.25 seconds."
-text = "Quick Pecking 1"
 skill_id = &"eating_speed_1"
 [node name="eating_speed_2" parent="." unique_id=382288655 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1332.0, 317.0)
-tooltip_text = "Reduce eating time by 0.25 seconds."
-text = "Quick Pecking 2"
 skill_id = &"eating_speed_2"
 [node name="eating_speed_3" parent="." unique_id=140488355 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1332.0, 164.0)
-tooltip_text = "Reduce eating time by 0.25 seconds."
-text = "Quick Pecking 3"
 skill_id = &"eating_speed_3"
 [node name="flight_speed_1" parent="." unique_id=855075757 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1346.0, 1576.0)
-tooltip_text = "Increase pigeon flight speed by 20."
-text = "Fleet Wings 1"
 skill_id = &"flight_speed_1"
 [node name="flight_speed_2" parent="." unique_id=320125430 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1351.0, 1722.0)
-tooltip_text = "Increase pigeon flight speed by 20."
-text = "Fleet Wings 2"
 skill_id = &"flight_speed_2"
 [node name="flight_speed_3" parent="." unique_id=43418121 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1358.0, 1884.0)
-tooltip_text = "Increase pigeon flight speed by 20."
-text = "Fleet Wings 3"
 skill_id = &"flight_speed_3"
 [node name="feather_wait_1" parent="." unique_id=500926259 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2154.0, 997.0)
-tooltip_text = "Reduce the feather-drop wait by 0.25 seconds."
-text = "Quick Feather Drop 1"
 skill_id = &"feather_wait_1"
 [node name="feather_wait_2" parent="." unique_id=984287729 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2155.0, 1149.0)
-tooltip_text = "Reduce the feather-drop wait by 0.25 seconds."
-text = "Quick Feather Drop 2"
 skill_id = &"feather_wait_2"
 [node name="feather_wait_3" parent="." unique_id=1548848300 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2143.0, 1304.0)
-tooltip_text = "Reduce the feather-drop wait by 0.25 seconds."
-text = "Quick Feather Drop 3"
 skill_id = &"feather_wait_3"
 [node name="points_per_seed_1" parent="." unique_id=69763400 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(814.0, 484.0)
-tooltip_text = "Earn one extra Feather per seed eaten."
-text = "Better Harvest 1"
 skill_id = &"points_per_seed_1"
 [node name="points_per_seed_2" parent="." unique_id=1507112702 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(555.0, 492.0)
-tooltip_text = "Earn one extra Feather per seed eaten."
-text = "Better Harvest 2"
 skill_id = &"points_per_seed_2"
 [node name="points_per_seed_3" parent="." unique_id=1538664747 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(548.0, 317.0)
-tooltip_text = "Earn one extra Feather per seed eaten."
-text = "Better Harvest 3"
 skill_id = &"points_per_seed_3"
 [node name="seed_regen_1" parent="." unique_id=1168578163 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(820.0, 705.0)
-tooltip_text = "Regenerate one seed every 20 seconds during the day."
-text = "Seed Refill 1"
 skill_id = &"seed_regen_1"
 [node name="seed_regen_2" parent="." unique_id=2062207875 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(314.0, 711.0)
-tooltip_text = "Reduce the seed refill interval by 10 seconds."
-text = "Seed Refill 2"
 skill_id = &"seed_regen_2"
 [node name="golden_seed_1" parent="." unique_id=2011670617 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1079.0, 315.0)
-tooltip_text = "Golden seeds have a 20% chance and award 1 extra Feather."
-text = "Golden Seed"
 skill_id = &"golden_seed_1"
 [node name="worm_quality" parent="." unique_id=1810771488 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(802.0, 1295.0)
-tooltip_text = "Worms award 3 extra Feathers but take longer to eat."
-text = "Worms: Premium Food"
 skill_id = &"worm_quality"
 [node name="pigeon_patience_1" parent="." unique_id=838776310 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1092.0, 1271.0)
-tooltip_text = "Visitors wait longer before leaving an empty feeder."
-text = "Patient Visitors"
 skill_id = &"pigeon_patience_1"
 [node name="rare_visitor" parent="." unique_id=2000909909 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1092.0, 1421.0)
-tooltip_text = "Each level adds a 10% chance for a visitor to bring 2 extra Feathers."
-text = "Rare Visitor"
 skill_id = &"rare_visitor"
 [node name="pair_arrivals" parent="." unique_id=1818679912 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1094.0, 1581.0)
-tooltip_text = "Occasionally send two pigeons together when capacity allows."
-text = "Pigeon Pairs"
 skill_id = &"pair_arrivals"
 [node name="more_benches_1" parent="." unique_id=1970009872 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2088.0, 362.0)
-tooltip_text = "Unlock another bench and its perch spots."
-text = "Extra Bench 1"
 skill_id = &"more_benches_1"
 [node name="more_benches_2" parent="." unique_id=1791268206 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2088.0, 512.0)
-tooltip_text = "Unlock another bench and its perch spots."
-text = "Extra Bench 2"
 skill_id = &"more_benches_2"
 [node name="more_benches_3" parent="." unique_id=911574328 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2088.0, 662.0)
-tooltip_text = "Unlock another bench and its perch spots."
-text = "Extra Bench 3"
 skill_id = &"more_benches_3"
 [node name="fountain_unlock" parent="." unique_id=163226718 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2388.0, 512.0)
-tooltip_text = "Unlock a fountain with extra perches and quicker arrivals."
-text = "Fountain Attraction"
 skill_id = &"fountain_unlock"
 [node name="tree_nests" parent="." unique_id=359188559 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2385.0, 662.0)
-tooltip_text = "Add nest perches that increase visitor capacity."
-text = "Tree Nests"
 skill_id = &"tree_nests"
 [node name="feather_count_1" parent="." unique_id=1743022610 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1885.0, 994.0)
-tooltip_text = "Drop an additional feather after a successful visit."
-text = "Feather Shower 1"
 skill_id = &"feather_count_1"
 [node name="feather_count_2" parent="." unique_id=89924466 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1875.0, 1146.0)
-tooltip_text = "Drop an additional feather after a successful visit."
-text = "Feather Shower 2"
 skill_id = &"feather_count_2"
 [node name="feather_value_1" parent="." unique_id=1527688474 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1614.0, 842.0)
-tooltip_text = "Increase the Feather reward by 1."
-text = "Fine Feathers 1"
 skill_id = &"feather_value_1"
 [node name="feather_value_2" parent="." unique_id=498322128 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1879.0, 840.0)
-tooltip_text = "Increase the Feather reward by 1."
-text = "Fine Feathers 2"
 skill_id = &"feather_value_2"
 [node name="golden_feather_1" parent="." unique_id=1210085286 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(2131.0, 850.0)
-tooltip_text = "Increase the chance of a golden feather to 20%."
-text = "Golden Plumage"
 skill_id = &"golden_feather_1"
 [node name="crow_collector" parent="." unique_id=1839759471 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1867.0, 700.0)
-tooltip_text = "A crow collects one collectible every 15 seconds."
-text = "Helpful Crow"
 skill_id = &"crow_collector"
 [node name="golden_seed_bonus" parent="." unique_id=773976340 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(1086.0, 141.0)
-tooltip_text = "Golden seeds award an extra 3 Feathers."
-text = "Golden Seed Bonus"
 skill_id = &"golden_seed_bonus"
 [node name="seed_capacity_1" parent="." unique_id=1685202718 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(805.0, 855.0)
-tooltip_text = "Increase feeder capacity by 2 seeds."
-text = "Roomier Seed Sack I"
 skill_id = &"seed_capacity_1"
 [node name="seed_capacity_2" parent="." unique_id=1764572539 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(575.0, 857.0)
-tooltip_text = "Increase feeder capacity by 2 seeds."
-text = "Roomier Seed Sack II"
 skill_id = &"seed_capacity_2"
 [node name="seed_capacity_3" parent="." unique_id=855490393 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(574.0, 996.0)
-tooltip_text = "Increase feeder capacity by 2 seeds."
-text = "Roomier Seed Sack III"
 skill_id = &"seed_capacity_3"
 [node name="seed_refill_speed_1" parent="." unique_id=1708361212 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(320.0, 859.0)
-tooltip_text = "Reduce the seed refill interval by 2 seconds."
-text = "Quicker Seed Refill I"
 skill_id = &"seed_refill_speed_1"
 [node name="seed_refill_speed_2" parent="." unique_id=25386507 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(314.0, 986.0)
-tooltip_text = "Reduce the seed refill interval by 2 seconds."
-text = "Quicker Seed Refill II"
 skill_id = &"seed_refill_speed_2"
 [node name="seed_refill_speed_3" parent="." unique_id=546110970 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(307.0, 1125.0)
-tooltip_text = "Reduce the seed refill interval by 2 seconds."
-text = "Quicker Seed Refill III"
 skill_id = &"seed_refill_speed_3"
 [node name="seed_capacity_4" parent="." unique_id=464312591 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(305.0, 491.0)
-tooltip_text = "Increase feeder capacity by 2 seeds."
-text = "Emergency Seed Pocket"
 skill_id = &"seed_capacity_4"
 [node name="seed_capacity_5" parent="." unique_id=2099523071 instance=ExtResource("3_skill_node")]
 layout_mode = 0
 position = Vector2(829.0, 318.0)
-tooltip_text = "Increase feeder capacity by 3 seeds."
-text = "Deep Seed Pouch"
 skill_id = &"seed_capacity_5"
