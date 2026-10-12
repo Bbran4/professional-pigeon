@@ -139,11 +139,11 @@ func _format_effect_amount(skill: SkillData, level: int) -> String:
 	if level <= 0:
 		return "0"
 	match effect_id:
-		&"max_pigeons", &"feather_count_add", &"feather_value_add", &"bench_count_add", &"seed_capacity_add", &"points_per_seed_add":
+		&"max_pigeons", &"feather_count_add", &"feather_value_add", &"bench_count_add", &"seed_capacity_add", &"points_per_seed_add", &"unlock_seeds":
 			return str(int(round(value * float(level))))
 		&"day_duration_add", &"arrival_speed_reduction", &"eating_time_reduction", &"flight_speed_add", &"feather_wait_reduction", &"seed_regen_interval_reduction", &"pigeon_patience_add", &"feather_collect_time_reduction", &"feather_collect_radius":
 			return _format_number(value * float(level))
-		&"golden_seed_chance", &"rare_visitor_chance", &"pair_arrivals", &"golden_feather_chance":
+		&"golden_seed_chance", &"rare_visitor_chance", &"pair_arrivals", &"golden_feather_chance", &"unlock_worms":
 			return "%s%%" % _format_number(value * float(level) * 100.0)
 		_:
 			return "Lv. %d" % level
