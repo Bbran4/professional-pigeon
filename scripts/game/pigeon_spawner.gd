@@ -12,7 +12,7 @@ signal visitor_count_changed(count: int)
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
 
 var day_active := false
-var visitors: Array[Dictionary] = []
+var visitors: Array[VisitorRecord] = []
 var perch_allocator := PerchAllocator.new()
 var collectible_drops := CollectibleDropService.new()
 var _pending_points_by_pigeon: Dictionary = {}
@@ -45,7 +45,7 @@ func end_day() -> void:
 	day_active = false
 	_spawn_delay_pending = false
 	for visitor in visitors:
-		var pigeon := visitor.get("pigeon") as Pigeon
+		var pigeon := visitor.pigeon
 		if is_instance_valid(pigeon):
 			pigeon.queue_free()
 	visitors.clear()
@@ -107,12 +107,12 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 	var bounds_end := park.to_global(park_layout.visitor_bounds.end)
 	var arrival := Vector2(bounds_start.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(bounds_end.x + 35.0, perch_position.y - 80.0)
 	var exit := Vector2(bounds_end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(bounds_start.x - 55.0, perch_position.y - 80.0)
-	var perch_key := str(perch.key)
+	var perch_key := perch.key
 
 	brain.ate_food.connect(_on_ate_food.bind(pigeon))
 	brain.feather_dropped.connect(_on_feather_dropped.bind(pigeon))
 	brain.departed.connect(_on_visitor_departed.bind(pigeon, perch_key))
-	visitors.append({"pigeon": pigeon, "brain": brain, "perch_key": perch_key})
+	visitors.append(VisitorRecord.new(pigeon, brain, perch_key))
 	brain.start_day(perch_position, arrival, exit)
 	brain.set_food(food_source)
 	visitor_count_changed.emit(visitors.size())
@@ -145,8 +145,8 @@ func _on_feather_dropped(drop_position: Vector2, pigeon: Pigeon) -> void:
 
 func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 	for index in range(visitors.size() - 1, -1, -1):
-		var visitor: Dictionary = visitors[index]
-		if visitor.get("pigeon") == pigeon:
+		var visitor: VisitorRecord = visitors[index]
+		if visitor.pigeon == pigeon:
 			visitors.remove_at(index)
 			break
 	perch_allocator.release_perch(perch_key)
@@ -181,5 +181,5 @@ func _prune_invalid_visitors() -> void:
 		var pigeon := visitor.get("pigeon") as Pigeon
 		if is_instance_valid(pigeon):
 			continue
-		perch_allocator.release_perch(str(visitor.get("perch_key", "")))
+		perch_allocator.release_perch(visitor.perch_key)
 		visitors.remove_at(index)
