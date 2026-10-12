@@ -133,11 +133,11 @@ func _spawn_visitor(perch: PerchReservation, food_source: SeedFeeder) -> bool:
 	var exit_group: StringName = &"visitor_exit_right" if from_left else &"visitor_exit_left"
 	var bounds := park_layout.visitor_bounds
 	var fallback_entry := Vector2(
-		bounds.position.x - 75.0 if from_left else bounds.end.x + 75.0,
-		bounds.position.y + 80.0
+		bounds.position.x - BALANCE.fallback_entry_horizontal_offset if from_left else bounds.end.x + BALANCE.fallback_entry_horizontal_offset,
+		bounds.position.y + BALANCE.fallback_spawn_vertical_offset
 	)
 	var fallback_exit := Vector2(
-		bounds.end.x + 95.0 if from_left else bounds.position.x - 95.0,
+		bounds.end.x + BALANCE.fallback_exit_horizontal_offset if from_left else bounds.position.x - BALANCE.fallback_exit_horizontal_offset,
 		bounds.position.y + 80.0
 	)
 	var arrival := _get_spawn_position(arrival_group, fallback_entry)
