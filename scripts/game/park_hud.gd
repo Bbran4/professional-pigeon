@@ -12,6 +12,8 @@ class_name ParkHud
 @onready var hint_label: Label = $Hint
 @onready var result_label: Label = $Result
 
+var _visible_collectible_count: int = 0
+
 
 func _ready() -> void:
 	start_button.pressed.connect(_on_start_pressed)
@@ -20,25 +22,38 @@ func _ready() -> void:
 	end_day_button.hide()
 	day_manager.day_updated.connect(_on_day_updated)
 	day_manager.day_ended.connect(_on_day_ended)
+	DomainEvents.collectible_spawned.connect(_on_collectible_spawned)
+	DomainEvents.collectible_collected.connect(_on_collectible_collected)
+	_recount_visible_collectibles()
 	day_manager.refresh_display()
 	_update_feather_hint()
 
 
-func _process(_delta: float) -> void:
+func _recount_visible_collectibles() -> void:
+	_visible_collectible_count = 0
+	for node in get_tree().get_nodes_in_group("collectibles"):
+		var collectible := node as Collectible
+		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
+			_visible_collectible_count += 1
+
+
+func _on_collectible_spawned(collectible_node: Node) -> void:
+	var collectible := collectible_node as Collectible
+	if is_instance_valid(collectible) and collectible.is_visible_in_tree():
+		_visible_collectible_count += 1
+		_update_feather_hint()
+
+
+func _on_collectible_collected(_collectible_node: Node, _points: int) -> void:
+	_visible_collectible_count = maxi(0, _visible_collectible_count - 1)
 	_update_feather_hint()
 
 
 func _update_feather_hint() -> void:
-	var feathers_remaining := false
-	for node in get_tree().get_nodes_in_group("collectibles"):
-		var collectible := node as Collectible
-		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
-			feathers_remaining = true
-			break
 	if day_manager.active:
 		hint_label.text = "Hover over a feather to collect it and earn Feathers."
 		hint_label.show()
-	elif feathers_remaining:
+	elif _visible_collectible_count > 0:
 		hint_label.text = "Collect the remaining feathers before returning to upgrades."
 		hint_label.show()
 	else:
