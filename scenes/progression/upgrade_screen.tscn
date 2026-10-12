@@ -84,8 +84,8 @@ script = ExtResource("3_manager")
 layout_mode = 0
 offset_left = -850.0
 offset_top = -89.0
-offset_right = 1719.0
-offset_bottom = 1879.0
+offset_right = 2008.0
+offset_bottom = 2057.0
 
 [node name="ResetConfirmation" type="ConfirmationDialog" parent="." unique_id=1931811505]
 oversampling_override = 1.0
