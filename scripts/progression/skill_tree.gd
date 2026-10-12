@@ -22,8 +22,22 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		queue_redraw()
 		return
+	_validate_scene_dependencies()
 	_connect_progression_signals()
 	queue_redraw()
+
+
+func _validate_scene_dependencies() -> void:
+	if skill_node_scene == null or not skill_node_scene.can_instantiate():
+		push_error("SkillTree '%s': skill_node_scene is missing or invalid. Assign a PackedScene with a SkillNode root in the Inspector." % get_path())
+	for skill in skills:
+		if skill == null:
+			continue
+		if not nodes_by_id.has(skill.id):
+			push_warning("SkillTree '%s': catalog skill '%s' has no SkillNode. Add a node to skill_tree.tscn or remove the skill from the catalog if it should not appear." % [get_path(), skill.id])
+		for prerequisite_id in skill.prerequisites:
+			if not nodes_by_id.has(prerequisite_id):
+				push_error("SkillTree '%s': skill '%s' requires '%s', but that prerequisite has no SkillNode. Add/fix its node in skill_tree.tscn so the dependency is visible." % [get_path(), skill.id, prerequisite_id])
 
 
 func _load_catalog() -> void:
