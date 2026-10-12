@@ -262,7 +262,7 @@ func _get_eating_duration(_food: Node2D) -> float:
 	return maxf(BALANCE.minimum_eating_duration, duration)
 
 
-func _food_is_available(food: Node2D) -> bool:
+func _food_is_available(food: Variant) -> bool:
 	if not is_instance_valid(food) or not food.is_visible_in_tree():
 		return false
 	if food.has_method("can_feed"):
