@@ -230,11 +230,22 @@ func _get_spawn_position(group_name: StringName, fallback_position: Vector2) -> 
 	if not candidates.is_empty():
 		return candidates[randi_range(0, candidates.size() - 1)].global_position
 
-	# Older/local copies of the park scene may not have the editor markers yet.
-	# Keep the day playable using positions derived from ParkLayout until the
-	# scene is synchronised with the marker-based layout.
+	# Prefer the named scene marker if a local scene copy has lost its group
+	# assignment. This keeps the configured spawn point without a false warning.
+	var marker_names: Dictionary = {
+		&"visitor_entry_left": "VisitorEntryLeft",
+		&"visitor_entry_right": "VisitorEntryRight",
+		&"visitor_exit_left": "VisitorExitLeft",
+		&"visitor_exit_right": "VisitorExitRight",
+	}
 	var park := get_parent() as Node2D
+	if park != null and marker_names.has(group_name):
+		var named_marker := park.get_node_or_null(NodePath(str(marker_names[group_name]))) as Marker2D
+		if named_marker != null and named_marker.is_inside_tree() and named_marker.is_visible_in_tree():
+			return named_marker.global_position
+
+	# Keep the day playable if the marker is genuinely absent from the scene.
 	if park == null:
 		return fallback_position
-	push_warning("PigeonSpawner: Missing '%s' marker group; using ParkLayout fallback position." % group_name)
+	push_warning("PigeonSpawner: Missing '%s' marker group and scene marker; using ParkLayout fallback position." % group_name)
 	return park.to_global(fallback_position)
