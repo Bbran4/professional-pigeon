@@ -1,0 +1,33 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="Fountain" type="Node2D"]
+
+[node name="StoneBase" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-70, -16, -55, -38, 0, -46, 55, -38, 70, -16, 58, 12, 0, 24, -58, 12)
+color = Color(0.54, 0.52, 0.46, 1)
+
+[node name="Water" type="Polygon2D" parent="."]
+position = Vector2(0, -15)
+polygon = PackedVector2Array(-48, -9, -35, -23, 0, -28, 35, -23, 48, -9, 35, 4, 0, 8, -35, 4)
+color = Color(0.31, 0.65, 0.72, 1)
+
+[node name="Pillar" type="Polygon2D" parent="."]
+position = Vector2(0, -34)
+polygon = PackedVector2Array(-8, -14, 8, -14, 11, 7, -11, 7)
+color = Color(0.65, 0.62, 0.54, 1)
+
+[node name="FountainPerchLeft" type="Marker2D" parent="."]
+position = Vector2(-82, 5)
+groups = ["perch_spots"]
+
+[node name="FountainPerchRight" type="Marker2D" parent="."]
+position = Vector2(82, 5)
+groups = ["perch_spots"]
+
+[node name="FountainPerchTop" type="Marker2D" parent="."]
+position = Vector2(0, -65)
+groups = ["perch_spots"]
+
+[node name="FountainPerchFront" type="Marker2D" parent="."]
+position = Vector2(0, 42)
+groups = ["perch_spots"]
