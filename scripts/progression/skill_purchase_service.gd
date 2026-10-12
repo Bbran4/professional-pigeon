@@ -1,5 +1,4 @@
 extends Node
-class_name SkillPurchaseService
 
 ## Owns skill prerequisites, scaling costs, purchase validation and transactions.
 ## UI components query this service and never mutate progression directly.
