@@ -1,21 +1,25 @@
 extends Node
 
+## Compatibility facade for game systems. Domain work is delegated to Wallet,
+## ProgressionState, and SaveService so existing callers keep a stable API.
 signal points_changed(points: int)
 signal skill_level_changed(skill_id: StringName, new_level: int)
 
 const SKILL_CATALOG: SkillCatalog = preload("res://data/skills/skill_catalog.tres")
 
-var points: int = 0
-var skill_levels: Dictionary = {}
-var _effect_totals: Dictionary = {}
-var _loading_save := false
-var _save_dirty := false
+var points: int:
+	get:
+		return Wallet.balance
 
-const SAVE_PATH := "user://professional_pigeon_save.json"
+var skill_levels: Dictionary:
+	get:
+		return ProgressionState.levels
 
 
 func _ready() -> void:
-	load_game()
+	Wallet.balance_changed.connect(_on_balance_changed)
+	ProgressionState.skill_level_changed.connect(_on_skill_level_changed)
+	_load_game()
 	if OS.is_debug_build():
 		SKILL_CATALOG.validate()
 
@@ -31,13 +35,12 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func add_points(amount: int) -> void:
 	if amount <= 0:
 		return
-	points += amount
-	points_changed.emit(points)
-	_mark_save_dirty()
+	Wallet.add(amount)
+	SaveService.mark_dirty()
 
 
 func can_spend_points(amount: int) -> bool:
-	return amount >= 0 and points >= amount
+	return Wallet.can_spend(amount)
 
 
 func can_spend(amount: int) -> bool:
@@ -45,11 +48,9 @@ func can_spend(amount: int) -> bool:
 
 
 func spend_points(amount: int) -> bool:
-	if not can_spend_points(amount):
+	if not Wallet.spend(amount):
 		return false
-	points -= amount
-	points_changed.emit(points)
-	_mark_save_dirty()
+	SaveService.mark_dirty()
 	return true
 
 
@@ -58,43 +59,26 @@ func spend(amount: int) -> bool:
 
 
 func get_skill_level(skill_id: StringName) -> int:
-	return int(skill_levels.get(skill_id, 0))
+	return ProgressionState.get_skill_level(skill_id)
 
 
 func set_skill_level(skill_id: StringName, level: int) -> void:
 	var safe_level := maxi(level, 0)
-	skill_levels[skill_id] = safe_level
-	_rebuild_effect_totals()
-	skill_level_changed.emit(skill_id, safe_level)
-	_mark_save_dirty()
+	if get_skill_level(skill_id) == safe_level:
+		return
+	ProgressionState.set_skill_level(skill_id, safe_level)
+	SaveService.mark_dirty()
 
 
 func get_effect_value(effect_id: StringName) -> float:
-	return float(_effect_totals.get(effect_id, 0.0))
-
-
-func _rebuild_effect_totals() -> void:
-	_effect_totals.clear()
-	for skill in SKILL_CATALOG.skills:
-		if skill == null or skill.effect_id == &"":
-			continue
-		var level := get_skill_level(skill.id)
-		if level <= 0:
-			continue
-		var current_total := float(_effect_totals.get(skill.effect_id, 0.0))
-		_effect_totals[skill.effect_id] = current_total + skill.effect_value * level
+	return ProgressionState.get_effect_value(effect_id)
 
 
 func reset_save() -> void:
-	points = 0
-	skill_levels.clear()
-	_effect_totals.clear()
-	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+	Wallet.set_balance(0)
+	ProgressionState.reset()
+	SaveService.clear_save()
 	points_changed.emit(points)
-	for skill in SKILL_CATALOG.skills:
-		if skill != null:
-			skill_level_changed.emit(skill.id, 0)
 
 
 func _notification(what: int) -> void:
@@ -102,52 +86,33 @@ func _notification(what: int) -> void:
 		save_game()
 
 
-func _mark_save_dirty() -> void:
-	if _loading_save:
-		return
-	_save_dirty = true
-
-
 func save_game() -> void:
-	if not _save_dirty:
+	if not SaveService.is_dirty():
 		return
 	var saved_levels: Dictionary = {}
 	for skill_id in skill_levels:
 		saved_levels[String(skill_id)] = int(skill_levels[skill_id])
-	var save_data := {
+	SaveService.save_data({
 		"version": 1,
 		"points": points,
 		"skill_levels": saved_levels,
-	}
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	if file == null:
-		push_warning("ProgressionManager: unable to open save file for writing.")
-		return
-	file.store_string(JSON.stringify(save_data, "\t"))
-	_save_dirty = false
+	})
 
 
-func load_game() -> void:
-	if not FileAccess.file_exists(SAVE_PATH):
+func _load_game() -> void:
+	var save_data := SaveService.load_data()
+	if save_data.is_empty():
 		return
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-	if file == null:
-		push_warning("ProgressionManager: unable to open save file for reading.")
-		return
-	var parsed: Variant = JSON.parse_string(file.get_as_text())
-	if not parsed is Dictionary:
-		push_warning("ProgressionManager: save file is invalid; using fresh progress.")
-		return
-	var save_data: Dictionary = parsed
-	_loading_save = true
-	points = maxi(int(save_data.get("points", 0)), 0)
-	skill_levels.clear()
+	Wallet.set_balance(maxi(int(save_data.get("points", 0)), 0))
 	var saved_levels: Variant = save_data.get("skill_levels", {})
 	if saved_levels is Dictionary:
-		for skill_id in saved_levels:
-			skill_levels[StringName(str(skill_id))] = maxi(int(saved_levels[skill_id]), 0)
-	_loading_save = false
-	_rebuild_effect_totals()
-	points_changed.emit(points)
-	for skill_id in skill_levels:
-		skill_level_changed.emit(skill_id, int(skill_levels[skill_id]))
+		ProgressionState.load_levels(saved_levels)
+	ProgressionState.emit_loaded_levels()
+
+
+func _on_balance_changed(amount: int) -> void:
+	points_changed.emit(amount)
+
+
+func _on_skill_level_changed(skill_id: StringName, new_level: int) -> void:
+	skill_level_changed.emit(skill_id, new_level)
