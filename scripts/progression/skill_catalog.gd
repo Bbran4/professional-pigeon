@@ -87,12 +87,12 @@ func validate() -> bool:
 			seen_prerequisites[prerequisite] = true
 
 	for skill in skills:
-		if skill == null:
+		if skill == null or skill.id == &"":
 			continue
 		for prerequisite in skill.prerequisites:
 			if not skills_by_id.has(prerequisite):
 				push_error(
-					"SkillCatalog: skill '%s' references missing prerequisite '%s'."
+					"SkillCatalog: skill '%s' references missing prerequisite '%s'. Add a SkillData with that exact ID or correct the prerequisite in the Inspector/resource."
 					% [skill.id, prerequisite]
 				)
 				valid = false
@@ -102,11 +102,10 @@ func validate() -> bool:
 		if skill == null or skill.id == &"" or not skills_by_id.has(skill.id):
 			continue
 		if _has_dependency_cycle(skill.id, skills_by_id, visit_states):
-			push_error("SkillCatalog: dependency cycle detected involving skill '%s'." % skill.id)
+			push_error("SkillCatalog: impossible unlock dependency cycle detected from skill '%s'. Remove or redirect a prerequisite edge so the chain eventually reaches a skill with no prerequisites." % skill.id)
 			valid = false
 			break
 
-	assert(valid, "SkillCatalog validation failed. See the preceding validation errors.")
 	return valid
 
 
