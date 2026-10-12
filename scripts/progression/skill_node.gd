@@ -108,12 +108,9 @@ func refresh() -> void:
 	if skill.coming_soon:
 		text = "%s\n—" % icon
 		disabled = true
-	elif maxed:
-		text = "%s\n%d/%d" % [icon, level, skill.max_level]
-		disabled = true
 	else:
 		text = "%s\n%d/%d" % [icon, level, skill.max_level]
-		disabled = not SkillPurchases.can_purchase(skill_id)
+		disabled = maxed or not SkillPurchases.can_purchase(skill_id)
 
 	var status := ""
 	if skill.coming_soon:
@@ -124,14 +121,13 @@ func refresh() -> void:
 		status = "\nPrerequisites needed"
 	elif not affordable:
 		status = "\nNot enough currency"
-	var tooltip := "%s\n%s\n\nCost: %s\nEffect: %s%s" % [
+	tooltip_text = "%s\n%s\n\nCost: %s\nEffect: %s%s" % [
 		skill.display_name,
 		skill.description if not skill.description.is_empty() else skill.get_effect_description(),
 		"Max level" if maxed else cost_text,
 		"—" if skill.coming_soon else effect_text,
 		status
 	]
-	tooltip_text = tooltip
 
 
 func _format_effect_amount(skill: SkillData, level: int) -> String:
@@ -146,11 +142,20 @@ func _format_effect_amount(skill: SkillData, level: int) -> String:
 		&"max_pigeons", &"feather_count_add", &"feather_value_add", &"bench_count_add", &"seed_capacity_add", &"points_per_seed_add":
 			return str(int(round(value * float(level))))
 		&"day_duration_add", &"arrival_speed_reduction", &"eating_time_reduction", &"flight_speed_add", &"feather_wait_reduction", &"seed_regen_interval_reduction", &"pigeon_patience_add", &"feather_collect_time_reduction", &"feather_collect_radius":
-			return String.num(value * float(level), 2).rstrip("0").rstrip(".")
+			return _format_number(value * float(level))
 		&"golden_seed_chance", &"rare_visitor_chance", &"pair_arrivals", &"golden_feather_chance":
-			return "%s%%" % String.num(value * float(level) * 100.0, 1)
+			return "%s%%" % _format_number(value * float(level) * 100.0)
 		_:
 			return "Lv. %d" % level
+
+
+func _format_number(value: float) -> String:
+	var result := String.num(value, 2)
+	if result.contains("."):
+		while result.ends_with("0"):
+			result = result.trim_suffix("0")
+		result = result.trim_suffix(".")
+	return result
 
 
 func _on_pressed() -> void:
