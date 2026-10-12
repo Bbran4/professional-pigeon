@@ -26,5 +26,4 @@ feather_drop_offset_y = 4.0
 extra_feather_offset_x = 24.0
 extra_feather_offset_y = 12.0
 minimum_pigeons = 1
-maximum_pigeons = 12
 tree_nest_pigeon_capacity = 1
