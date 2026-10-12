@@ -11,7 +11,23 @@ class_name GameBalance
 @export var food_distance: float = 28.0
 @export var arrival_distance: float = 18.0
 @export var departure_distance: float = 40.0
+@export var fly_to_food_distance: float = 120.0
 @export var food_search_interval: float = 0.25
+
+@export_group("Perch Layout")
+@export var overflow_cell_width: float = 72.0
+@export var overflow_cell_height: float = 54.0
+@export var overflow_cell_half_width: float = 36.0
+@export var overflow_cell_half_height: float = 27.0
+
+@export_group("Visitor Spawn Positions")
+@export var fallback_entry_horizontal_offset: float = 75.0
+@export var fallback_exit_horizontal_offset: float = 95.0
+@export var fallback_spawn_vertical_offset: float = 80.0
+
+@export_group("Feather Collection")
+@export_range(0.1, 10.0, 0.1) var default_feather_collection_duration: float = 3.0
+@export_range(4.0, 128.0, 1.0) var default_feather_cursor_radius: float = 34.0
 
 @export_group("Food")
 @export_range(0.0, 1.0, 0.01) var worm_chance: float = 0.2
@@ -24,7 +40,6 @@ class_name GameBalance
 @export var golden_feather_bonus_points: int = 3
 
 @export_group("Visitor Timing")
-@export var visitor_retry_interval: float = 0.5
 @export var minimum_spawn_delay: float = 0.1
 @export var fountain_spawn_delay_reduction: float = 0.2
 @export var minimum_patience_timeout: float = 1.0
