@@ -132,7 +132,7 @@ func _physics_process(delta: float) -> void:
 			feeding_remaining -= delta
 			feeding_drop_timer -= delta
 			if feeding_drop_timer <= 0.0:
-				ate_food.emit(_get_food_points(target_food))
+				ate_food.emit(_get_food_points())
 				feather_dropped.emit(pigeon.global_position + Vector2(BALANCE.feather_drop_offset_x, BALANCE.feather_drop_offset_y))
 				feeding_drop_timer = maxf(BALANCE.minimum_dropping_duration, dropping_duration - ProgressionManager.get_effect_value(EffectIds.FEATHER_WAIT_REDUCTION)) if target_food_kind == "bread" else 1.0
 			if feeding_remaining <= 0.0:
@@ -244,7 +244,7 @@ func _begin_departure() -> void:
 	state_machine.transition(StateMachine.Intent.FLY)
 
 
-func _get_food_points(_food: Node2D) -> int:
+func _get_food_points() -> int:
 	var points := food_points + int(ProgressionManager.get_effect_value(EffectIds.POINTS_PER_SEED_ADD))
 	if target_food_is_golden:
 		points += BALANCE.golden_seed_bonus_points + int(ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_BONUS))
