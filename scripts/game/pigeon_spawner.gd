@@ -200,7 +200,7 @@ func get_active_count() -> int:
 
 
 func _get_max_pigeons() -> int:
-	return clampi(BALANCE.minimum_pigeons + int(ProgressionManager.get_effect_value(EffectIds.MAX_PIGEONS)) + int(ProgressionManager.get_effect_value(EffectIds.TREE_NESTS)) * BALANCE.tree_nest_pigeon_capacity, BALANCE.minimum_pigeons, BALANCE.maximum_pigeons)
+	return BALANCE.minimum_pigeons + int(ProgressionManager.get_effect_value(EffectIds.MAX_PIGEONS)) + int(ProgressionManager.get_effect_value(EffectIds.TREE_NESTS)) * BALANCE.tree_nest_pigeon_capacity
 
 
 func _spawn_available_visitors() -> void:
