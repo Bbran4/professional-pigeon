@@ -1,7 +1,6 @@
 extends Node2D
 class_name PigeonSpawner
 
-signal ate_food(points: int)
 signal visitor_count_changed(count: int)
 
 @export var pigeon_scene: PackedScene
@@ -17,7 +16,6 @@ var collectible_drops := CollectibleDropService.new()
 var _pending_points_by_pigeon: Dictionary = {}
 var _spawn_delay_pending := false
 var _spawn_generation: int = 0
-var _retry := 0.0
 
 
 func _ready() -> void:
