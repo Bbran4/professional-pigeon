@@ -12,7 +12,7 @@ func _ready() -> void:
 	settings_button.pressed.connect(_show_settings)
 	main_menu_button.pressed.connect(_return_to_main_menu)
 	settings_back_button.pressed.connect(_show_pause_actions)
-	visible = false
+	$Overlay.hide()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -27,12 +27,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func pause_game() -> void:
 	get_tree().paused = true
 	_show_pause_actions()
-	visible = true
+	$Overlay.show()
 
 
 func resume_game() -> void:
 	get_tree().paused = false
-	visible = false
+	$Overlay.hide()
 
 
 func _show_pause_actions() -> void:
