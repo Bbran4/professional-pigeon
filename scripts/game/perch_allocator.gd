@@ -42,7 +42,7 @@ func reserve_perch(tree: SceneTree) -> PerchReservation:
 	var rows := maxi(1, int(park_layout.visitor_bounds.size.y / BALANCE.overflow_cell_height))
 	var cell_index := overflow_index % (columns * rows)
 	var cell_x := cell_index % columns
-	var cell_y := int(cell_index / columns)
+	var cell_y := floori(float(cell_index) / float(columns))
 	var overflow_position := Vector2(
 		park_layout.visitor_bounds.position.x + BALANCE.overflow_cell_half_width + cell_x * BALANCE.overflow_cell_width,
 		park_layout.visitor_bounds.position.y + BALANCE.overflow_cell_half_height + cell_y * BALANCE.overflow_cell_height
