@@ -138,13 +138,17 @@ func _spawn_pickup_text(world_position: Vector2, points: int, is_golden: bool) -
 	label.add_theme_color_override("font_outline_color", Color(0.16, 0.12, 0.07, 0.95))
 	label.add_theme_constant_override("outline_size", 4)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.position = get_parent().to_local(world_position) - Vector2(18.0, 12.0)
+	var world_parent := get_parent() as Node2D
+	if world_parent == null:
+		label.queue_free()
+		return
+	label.position = world_parent.to_local(world_position) - Vector2(18.0, 12.0)
 	label.z_index = 100
-	get_parent().add_child(label)
+	world_parent.add_child(label)
 
 	var tween := create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(label, "position:y", label.position.y - PICKUP_TEXT_RISE, PICKUP_TEXT_DURATION).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(label, "modulate:a", 0.0, PICKUP_TEXT_DURATION).set_ease(Tween.EASE_IN)
 	tween.set_parallel(false)
-	tween.tween_callback(label.queue_free)
+	tween.tween_callback(Callable(label, "queue_free"))
