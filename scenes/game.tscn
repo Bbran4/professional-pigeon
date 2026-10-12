@@ -104,6 +104,38 @@ position = Vector2(245, 190)
 script = ExtResource("19_unlockable")
 required_skill = &"tree_nests"
 
+[node name="VisitorEntryLeft" type="Marker2D" parent="."]
+position = Vector2(-35, 180)
+groups = ["visitor_entry_left"]
+
+[node name="VisitorEntryRight" type="Marker2D" parent="."]
+position = Vector2(1187, 180)
+groups = ["visitor_entry_right"]
+
+[node name="VisitorExitLeft" type="Marker2D" parent="."]
+position = Vector2(-55, 180)
+groups = ["visitor_exit_left"]
+
+[node name="VisitorExitRight" type="Marker2D" parent="."]
+position = Vector2(1207, 180)
+groups = ["visitor_exit_right"]
+
+[node name="BenchPerch" type="Marker2D" parent="."]
+position = Vector2(780, 250)
+groups = ["perch_spots"]
+
+[node name="StarterFeederPerch" type="Marker2D" parent="."]
+position = Vector2(480, 375)
+groups = ["perch_spots"]
+
+[node name="ParkPerchLeft" type="Marker2D" parent="."]
+position = Vector2(350, 245)
+groups = ["perch_spots"]
+
+[node name="ParkPerchRight" type="Marker2D" parent="."]
+position = Vector2(850, 440)
+groups = ["perch_spots"]
+
 [node name="ParkLayout" type="Node" parent="." unique_id=1716656565]
 script = ExtResource("16_layout")
 
