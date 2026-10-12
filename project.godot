@@ -26,6 +26,10 @@ SkillPurchases="*res://scripts/progression/skill_purchase_service.gd"
 SceneManager="*res://scripts/scene_manager.gd"
 DomainEvents="*res://scripts/domain_events.gd"
 
+[gui]
+
+theme/custom="res://themes/pigeon_theme.tres"
+
 [display]
 
 window/stretch/mode="canvas_items"
