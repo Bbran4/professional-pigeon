@@ -10,7 +10,7 @@ signal depleted
 @export_range(1, 100, 1) var seed_capacity: int = 5
 @export_range(0, 100, 1) var starting_seeds: int = 5
 @export_enum("bread", "seeds") var food_kind: String = "bread"
-@export_range(0.25, 5.0, 0.05) var throw_interval: float = 1.2
+@export_range(0.25, 5.0, 0.05) var throw_interval: float = 5.0
 @export_range(20.0, 180.0, 5.0) var throw_distance: float = 82.0
 @export_range(0.0, 60.0, 1.0) var throw_spread_degrees: float = 32.0
 
