@@ -113,7 +113,6 @@ script = ExtResource("12_collector")
 [node name="PigeonSpawner" type="Node2D" parent="." unique_id=28304278]
 script = ExtResource("10_spawner")
 pigeon_scene = ExtResource("4_npc_pigeon")
-park_layout = NodePath("../ParkLayout")
 
 [node name="DayManager" type="Node" parent="." unique_id=1031930032]
 script = ExtResource("7_day")
@@ -160,19 +159,18 @@ text = "Seeds: 0 / 5"
 horizontal_alignment = 1
 
 [node name="StartDay" type="Button" parent="HUD" unique_id=1982270229]
-offset_left = 486.0
-offset_top = 540.0
-offset_right = 666.0
-offset_bottom = 594.0
+offset_left = 930.0
+offset_top = 550.0
+offset_right = 1110.0
+offset_bottom = 604.0
 theme_override_font_sizes/font_size = 20
 text = "START DAY"
 
 [node name="EndDay" type="Button" parent="HUD" unique_id=1783186962]
-visible = false
-offset_left = 486.0
-offset_top = 540.0
-offset_right = 666.0
-offset_bottom = 594.0
+offset_left = 930.0
+offset_top = 550.0
+offset_right = 1110.0
+offset_bottom = 604.0
 theme_override_font_sizes/font_size = 18
 text = "END DAY EARLY"
 
