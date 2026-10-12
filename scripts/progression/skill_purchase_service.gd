@@ -77,6 +77,7 @@ func purchase(skill_id: StringName) -> bool:
 		purchase_rejected.emit(skill_id, error)
 		return false
 
+	var previously_unlocked := _get_unlocked_skill_ids()
 	var costs := get_next_currency_costs(skill_id)
 	# Validate every balance before mutating any balance.
 	for currency_id in costs:
@@ -90,6 +91,9 @@ func purchase(skill_id: StringName) -> bool:
 
 	var new_level := get_level(skill_id) + 1
 	ProgressionManager.set_skill_level(skill_id, new_level)
+	for newly_unlocked_id in _get_unlocked_skill_ids():
+		if not previously_unlocked.has(newly_unlocked_id):
+			DomainEvents.progression_unlocked.emit(newly_unlocked_id)
 	ProgressionManager.save_game()
 	skill_purchased.emit(skill_id, new_level)
 	return true
@@ -103,3 +107,11 @@ func _currency_display_name(currency_id: StringName) -> String:
 			return "Coins"
 		_:
 			return String(currency_id).capitalize()
+
+
+func _get_unlocked_skill_ids() -> Array[StringName]:
+	var unlocked: Array[StringName] = []
+	for skill in SKILL_CATALOG.skills:
+		if skill != null and is_unlocked(skill.id):
+			unlocked.append(skill.id)
+	return unlocked
