@@ -41,6 +41,7 @@ var target_food_is_golden := false
 var target_food_is_worm := false
 var perch_position := Vector2.ZERO
 var exit_position := Vector2.ZERO
+var _last_requested_intent: int = -1
 
 @onready var pigeon: Pigeon = get_parent() as Pigeon
 @onready var state_machine: StateMachine = $"../StateMachine"
@@ -61,6 +62,7 @@ func start_day(perch: Vector2, arrival: Vector2, exit: Vector2) -> void:
 	eating_timer = 0.0
 	dropping_timer = 0.0
 	waiting_timer = 0.0
+	_last_requested_intent = -1
 
 	pigeon.show()
 	if pigeon.stats != null:
@@ -71,7 +73,7 @@ func start_day(perch: Vector2, arrival: Vector2, exit: Vector2) -> void:
 	pigeon.move_direction = Vector2.ZERO
 	state_machine.set_process(true)
 	state_machine.set_physics_process(true)
-	state_machine.transition(StateMachine.Intent.FLY)
+	_request_locomotion_intent(StateMachine.Intent.FLY)
 
 
 func set_food(food: Node2D) -> void:
@@ -154,6 +156,15 @@ func _physics_process(delta: float) -> void:
 				state_machine.set_process(false)
 				state_machine.set_physics_process(false)
 				departed.emit()
+
+
+func _request_locomotion_intent(intent: StateMachine.Intent) -> void:
+	# The brain runs every physics frame, but locomotion intent usually changes
+	# only at visitor-state boundaries. Avoid repeating state-machine lookups.
+	if _last_requested_intent == int(intent):
+		return
+	_last_requested_intent = int(intent)
+	state_machine.transition(intent)
 
 
 func _move_to_food(_delta: float) -> void:
