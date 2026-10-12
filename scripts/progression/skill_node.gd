@@ -50,6 +50,7 @@ func refresh() -> void:
 		text = "UNKNOWN SKILL\n" + String(skill_id)
 		return
 
+	_apply_category_style(skill)
 	if skill.coming_soon:
 		text = "%s\nCOMING SOON" % skill.display_name
 		tooltip_text = skill.get_effect_description()
@@ -104,10 +105,10 @@ func _apply_category_style(skill: SkillData) -> void:
 	var hover := _make_category_style(accent, 0.30)
 	var pressed_style := _make_category_style(accent, 0.38)
 	var disabled_style := _make_category_style(accent, 0.10)
-	theme_override_styles.normal = normal
-	theme_override_styles.hover = hover
-	theme_override_styles.pressed = pressed_style
-	theme_override_styles.disabled = disabled_style
+	add_theme_stylebox_override("normal", normal)
+	add_theme_stylebox_override("hover", hover)
+	add_theme_stylebox_override("pressed", pressed_style)
+	add_theme_stylebox_override("disabled", disabled_style)
 	add_theme_color_override("font_color", Color(0.94, 0.94, 0.91))
 	add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0))
 	add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0))
