@@ -68,9 +68,7 @@ Progression is saved automatically to `user://professional_pigeon_save.json`. Th
 
 ### Visitor capacity
 
-Active visitors have no hard maximum, no seed-count-based spawn cap, and no fixed perch-count cap. The spawner uses authored perch markers and landing spots first, then generates additional virtual perches within the park bounds when those spots are occupied. Food still governs whether new visitors can arrive: if every feeder is empty, arrivals pause, and visitors that cannot find food leave after their patience timeout. Feeders are discovered through the `feeders` group, so additional benches and feeders can join the system without hard-coded node paths.
-
-The **More Pigeons**, **More Pigeons I**, and **More Pigeons II** upgrades currently need a new purpose now that visitor capacity is uncapped; their old capacity effect no longer changes the number of active visitors.
+The active visitor cap is controlled by progression upgrades, not by park layout or current seed stock. The game starts with one active visitor slot, and each purchased **More Pigeons** tier adds another slot; **Tree Nests** also adds capacity. The spawner uses authored perch markers and landing spots first, then generates virtual perch positions when all of those are occupied. New visitors can arrive even when feeders are empty; visitors that cannot find food leave after their patience timeout. Feeders are discovered through the `feeders` group, so benches and other feeder objects are not hard-coded into visitor spawning.
 
 ### Feather collection progression
 
