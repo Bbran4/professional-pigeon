@@ -35,7 +35,7 @@ func save_data(data: Dictionary) -> void:
 	if file == null:
 		push_warning("SaveService: unable to open save file for writing.")
 		return
-	file.store_string(JSON.stringify(data, "\\t"))
+	file.store_string(JSON.stringify(data, "\t"))
 	_dirty = false
 
 
