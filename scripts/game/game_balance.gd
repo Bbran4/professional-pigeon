@@ -1,7 +1,17 @@
 extends Resource
 class_name GameBalance
 
-## Shared tuning values for visitor behaviour, food bonuses, timing, and spawn limits.
+## Shared tuning values for visitor behaviour, food bonuses, timing, movement, and spawn limits.
+
+@export_group("Day")
+@export_range(1.0, 600.0, 1.0) var default_day_duration: float = 60.0
+@export_range(0.0, 5.0, 0.05) var default_arrival_interval: float = 0.25
+
+@export_group("Visitor Movement")
+@export var food_distance: float = 28.0
+@export var arrival_distance: float = 18.0
+@export var departure_distance: float = 40.0
+@export var food_search_interval: float = 0.25
 
 @export_group("Food")
 @export_range(0.0, 1.0, 0.01) var worm_chance: float = 0.2
