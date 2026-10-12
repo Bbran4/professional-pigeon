@@ -35,9 +35,13 @@ func validate() -> bool:
 		if skill.category < SkillData.Category.FOOD or skill.category > SkillData.Category.NPC_PIGEONS:
 			push_error("SkillCatalog: skill '%s' has an invalid category value %d." % [skill.id, skill.category])
 			valid = false
-		if skill.points_cost < 0:
-			push_error("SkillCatalog: skill '%s' has a negative points cost." % skill.id)
-			valid = false
+		for currency_id in skill.currency_costs:
+			if not CurrencyIds.is_valid_id(StringName(currency_id)):
+				push_error("SkillCatalog: skill '%s' uses unknown currency ID '%s'." % [skill.id, currency_id])
+				valid = false
+			if int(skill.currency_costs[currency_id]) < 0:
+				push_error("SkillCatalog: skill '%s' has a negative cost for '%s'." % [skill.id, currency_id])
+				valid = false
 		if not is_finite(skill.cost_growth) or skill.cost_growth < 1.0:
 			push_error("SkillCatalog: skill '%s' has invalid cost growth %s; expected a finite value >= 1." % [skill.id, skill.cost_growth])
 			valid = false
