@@ -3,6 +3,8 @@ class_name PerchAllocator
 
 ## Owns reservations and fallback landing positions for active visitors.
 
+const BALANCE: GameBalance = preload("res://data/game_balance.tres")
+
 var park_layout: ParkLayout
 var park_node: Node2D
 var reserved_perches: Dictionary = {}
@@ -33,18 +35,17 @@ func reserve_perch(tree: SceneTree) -> PerchReservation:
 
 	# Normal landing locations must be placed as Marker2D nodes in the
 	# "perch_spots" group. Only overflow visitors use generated positions.
-
 	# Layout never caps visitor capacity: overflow visitors receive virtual spots.
 	var overflow_index := _next_overflow_perch
 	_next_overflow_perch += 1
-	var columns := maxi(1, int(park_layout.visitor_bounds.size.x / 72.0))
-	var rows := maxi(1, int(park_layout.visitor_bounds.size.y / 54.0))
+	var columns := maxi(1, int(park_layout.visitor_bounds.size.x / BALANCE.overflow_cell_width))
+	var rows := maxi(1, int(park_layout.visitor_bounds.size.y / BALANCE.overflow_cell_height))
 	var cell_index := overflow_index % (columns * rows)
 	var cell_x := cell_index % columns
 	var cell_y := int(cell_index / columns)
 	var overflow_position := Vector2(
-		park_layout.visitor_bounds.position.x + 36.0 + cell_x * 72.0,
-		park_layout.visitor_bounds.position.y + 27.0 + cell_y * 54.0
+		park_layout.visitor_bounds.position.x + BALANCE.overflow_cell_half_width + cell_x * BALANCE.overflow_cell_width,
+		park_layout.visitor_bounds.position.y + BALANCE.overflow_cell_half_height + cell_y * BALANCE.overflow_cell_height
 	)
 	var overflow_key := "overflow_%d" % overflow_index
 	reserved_perches[overflow_key] = true
