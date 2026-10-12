@@ -2,7 +2,7 @@ extends Node
 
 ## Run with:
 ## godot --path . res://tests/performance/stress_test.tscn
-## Metrics are printed once per second in CSV format for easy comparison.
+## Prints one-second CSV samples plus frame-time and memory peaks.
 
 const GAME_SCENE: PackedScene = preload("res://scenes/game.tscn")
 const FEEDER_SCENE: PackedScene = preload("res://scenes/park/seed_feeder.tscn")
@@ -25,7 +25,7 @@ func _ready() -> void:
 	print("STRESS_TEST_BEGIN,visitors=%d,feeders=%d,collectibles=%d,duration_seconds=%d" % [
 		stress_visitors, stress_feeders, stress_collectibles, duration_seconds
 	])
-	print("elapsed_s,process_ms,physics_ms,static_memory_mb,object_count,node_count,active_2d_objects,visitor_count,feeder_count,collectible_count")
+	print("elapsed_s,frame_delta_ms,process_ms,physics_ms,static_memory_mb,object_count,node_count,active_2d_objects,visitor_count,feeder_count,collectible_count")
 	_game = GAME_SCENE.instantiate() as Node2D
 	if _game == null:
 		push_error("Stress test: game scene root must be Node2D.")
@@ -42,9 +42,11 @@ func _process(delta: float) -> void:
 	if _game == null:
 		return
 	_elapsed += delta
+	var frame_delta_ms := delta * 1000.0
+	_frame_samples_ms.append(frame_delta_ms)
 	if _elapsed >= _next_sample:
 		_next_sample = _elapsed + 1.0
-		_sample_metrics()
+		_sample_metrics(frame_delta_ms)
 	if _elapsed >= float(duration_seconds):
 		_print_summary()
 		get_tree().quit()
@@ -76,6 +78,7 @@ func _spawn_stress_load() -> void:
 			push_error("Stress test: pigeon scene root must be Pigeon.")
 			return
 		_game.add_child(pigeon)
+		pigeon.add_to_group("stress_test_visitors")
 		pigeon.position = Vector2(80.0 + float(index % 20) * 40.0, 140.0 + float(index / 20) * 35.0)
 		var brain := pigeon.get_node_or_null("ParkPigeonBrain") as ParkPigeonBrain
 		if brain == null:
@@ -90,33 +93,33 @@ func _spawn_stress_load() -> void:
 			brain.set_food(feeder_nodes[index % feeder_nodes.size()])
 
 
-func _sample_metrics() -> void:
+func _sample_metrics(frame_delta_ms: float = 0.0) -> void:
 	var process_ms := Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0
 	var physics_ms := Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) * 1000.0
 	var memory_mb := float(Performance.get_monitor(Performance.MEMORY_STATIC)) / (1024.0 * 1024.0)
-	_frame_samples_ms.append(process_ms)
 	_memory_samples_mb.append(memory_mb)
-	print("%.2f,%.3f,%.3f,%.2f,%d,%d,%d,%d,%d,%d" % [
+	print("%.2f,%.3f,%.3f,%.3f,%.2f,%d,%d,%d,%d,%d,%d" % [
 		_elapsed,
+		frame_delta_ms,
 		process_ms,
 		physics_ms,
 		memory_mb,
 		int(Performance.get_monitor(Performance.OBJECT_COUNT)),
-		int(Performance.get_monitor(Performance.NODE_COUNT)),
+		int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)),
 		int(Performance.get_monitor(Performance.PHYSICS_2D_ACTIVE_OBJECTS)),
-		_game.get_tree().get_nodes_in_group("pigeons").size(),
+		_game.get_tree().get_nodes_in_group("stress_test_visitors").size(),
 		_game.get_tree().get_nodes_in_group("feeders").size(),
 		_game.get_tree().get_nodes_in_group("collectibles").size()
 	])
 
 
 func _print_summary() -> void:
-	var peak_process_ms := 0.0
+	var peak_frame_ms := 0.0
 	var peak_memory_mb := 0.0
 	for value in _frame_samples_ms:
-		peak_process_ms = maxf(peak_process_ms, value)
+		peak_frame_ms = maxf(peak_frame_ms, value)
 	for value in _memory_samples_mb:
 		peak_memory_mb = maxf(peak_memory_mb, value)
-	print("STRESS_TEST_SUMMARY,samples=%d,peak_process_ms=%.3f,peak_static_memory_mb=%.2f" % [
-		_frame_samples_ms.size(), peak_process_ms, peak_memory_mb
+	print("STRESS_TEST_SUMMARY,frame_samples=%d,memory_samples=%d,peak_frame_delta_ms=%.3f,peak_static_memory_mb=%.2f" % [
+		_frame_samples_ms.size(), _memory_samples_mb.size(), peak_frame_ms, peak_memory_mb
 	])
