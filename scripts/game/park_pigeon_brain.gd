@@ -255,7 +255,7 @@ func _get_food_points(_food: Node2D) -> int:
 	return points
 
 
-func _get_eating_duration(food: Node2D) -> float:
+func _get_eating_duration(_food: Node2D) -> float:
 	var duration := eating_duration - ProgressionManager.get_effect_value(EffectIds.EATING_TIME_REDUCTION)
 	if target_food_is_worm and ProgressionManager.get_effect_value(EffectIds.WORM_FOOD_UNLOCK) > 0.0:
 		duration += BALANCE.worm_extra_eating_duration
