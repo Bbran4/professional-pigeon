@@ -119,6 +119,7 @@ func _collect_collectible(collectible: Collectible) -> void:
 		return
 	var pickup_position := collectible.global_position
 	var points := collectible.point_value
+	DomainEvents.collectible_collected.emit(collectible, points)
 	var is_golden := collectible is Feather and (collectible as Feather).is_golden
 	_spawn_pickup_text(pickup_position, points, is_golden)
 	collectible.hide()
