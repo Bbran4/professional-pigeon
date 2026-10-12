@@ -1,6 +1,10 @@
 extends Node
 class_name StateMachine
 
+## Controls actor locomotion/animation states (IDLE, WALK, FLY) only.
+## Gameplay lifecycle decisions such as a park visitor arriving, feeding, or
+## departing belong to ParkPigeonBrain, which requests an Intent from this machine.
+
 signal state_changed(previous_state: State, new_state: State)
 
 enum Intent {
