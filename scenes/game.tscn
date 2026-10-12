@@ -43,6 +43,9 @@ position = Vector2(780, 210)
 [node name="BenchFeeder" parent="." unique_id=1447542670 instance=ExtResource("11_feeder")]
 position = Vector2(780, 210)
 
+[node name="StarterBench" parent="." instance=ExtResource("2_bench")]
+position = Vector2(480, 340)
+
 [node name="StarterFeeder" parent="." unique_id=625185563 instance=ExtResource("15_starter_feeder")]
 position = Vector2(480, 340)
 
