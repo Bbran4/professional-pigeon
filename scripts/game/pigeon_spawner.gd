@@ -200,24 +200,28 @@ func get_active_count() -> int:
 	return visitors.size()
 
 
+func _get_max_pigeons() -> int:
+	# Upgrades control the active visitor cap. Park objects only provide visual
+	# destinations; they never determine how many visitors may be active.
+	return BALANCE.minimum_pigeons + int(ProgressionManager.get_effect_value(EffectIds.MAX_PIGEONS)) + int(ProgressionManager.get_effect_value(EffectIds.TREE_NESTS)) * BALANCE.tree_nest_pigeon_capacity
+
+
 func _spawn_available_visitors() -> void:
 	if not day_active or pigeon_scene == null or _spawn_delay_pending:
 		return
 	_prune_invalid_visitors()
+	if visitors.size() >= _get_max_pigeons():
+		return
 
-	# Visitor count is intentionally uncapped. Food availability controls new
-	# arrivals, while patience timeouts let visitors leave if the food runs out.
+	# Do not cap arrivals by seed count or available perch markers. Visitors
+	# without food will wait for their patience timeout and then depart.
 	var perch := _reserve_perch()
-	if perch.is_empty():
-		return
 	var food_source := _find_available_feeder()
-	if food_source == null:
-		_release_perch(str(perch.get("key", "")))
-		return
 	if not _spawn_visitor(perch, food_source):
 		_release_perch(str(perch.get("key", "")))
 		return
-	_spawn_next_after_delay()
+	if visitors.size() < _get_max_pigeons():
+		_spawn_next_after_delay()
 
 
 func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
