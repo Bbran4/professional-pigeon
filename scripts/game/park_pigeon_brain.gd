@@ -35,7 +35,10 @@ var visitor_state: VisitorState = VisitorState.ARRIVING
 var target_food: Node2D
 var pending_food: Array[Node2D] = []
 var eating_timer := 0.0
+var feeding_remaining := 0.0
+var feeding_drop_timer := 0.0
 var dropping_timer := 0.0
+var target_food_kind := "bread"
 var waiting_timer := 0.0
 var target_food_is_golden := false
 var target_food_is_worm := false
@@ -63,6 +66,9 @@ func start_day(perch: Vector2, arrival: Vector2, exit: Vector2) -> void:
 	target_food = null
 	pending_food.clear()
 	eating_timer = 0.0
+	feeding_remaining = 0.0
+	feeding_drop_timer = 0.0
+	target_food_kind = "bread"
 	dropping_timer = 0.0
 	waiting_timer = 0.0
 	_food_search_cooldown = 0.0
@@ -123,36 +129,20 @@ func _physics_process(delta: float) -> void:
 		VisitorState.FEEDING:
 			pigeon.move_direction = Vector2.ZERO
 			state_machine.transition(StateMachine.Intent.IDLE)
-			eating_timer -= delta
-			if eating_timer <= 0.0:
-				var successfully_fed := false
-				if is_instance_valid(target_food):
-					if target_food.has_method("consume_seed"):
-						successfully_fed = bool(target_food.call("consume_seed"))
-					else:
-						target_food.hide()
-						target_food.queue_free()
-						successfully_fed = true
-					if successfully_fed:
-						ate_food.emit(_get_food_points(target_food))
+			feeding_remaining -= delta
+			feeding_drop_timer -= delta
+			if feeding_drop_timer <= 0.0:
+				ate_food.emit(_get_food_points(target_food))
+				feather_dropped.emit(pigeon.global_position + Vector2(BALANCE.feather_drop_offset_x, BALANCE.feather_drop_offset_y))
+				feeding_drop_timer = maxf(BALANCE.minimum_dropping_duration, dropping_duration - ProgressionManager.get_effect_value(EffectIds.FEATHER_WAIT_REDUCTION)) if target_food_kind == "bread" else 1.0
+			if feeding_remaining <= 0.0:
 				target_food = null
-				if successfully_fed:
-					visitor_state = VisitorState.DROPPING
-					dropping_timer = maxf(BALANCE.minimum_dropping_duration, dropping_duration - ProgressionManager.get_effect_value(EffectIds.FEATHER_WAIT_REDUCTION))
-				else:
-					# Another visitor may have consumed the last seed while this pigeon
-					# was eating. Look for another feeder before giving up.
-					visitor_state = VisitorState.WAITING
-					waiting_timer = 0.0
-					_try_next_food()
+				_begin_departure()
 
 		VisitorState.DROPPING:
-			pigeon.move_direction = Vector2.ZERO
-			state_machine.transition(StateMachine.Intent.IDLE)
-			dropping_timer -= delta
-			if dropping_timer <= 0.0:
-				feather_dropped.emit(pigeon.global_position + Vector2(BALANCE.feather_drop_offset_x, BALANCE.feather_drop_offset_y))
-				_begin_departure()
+			# Kept as a compatibility state for existing saves/scenes. Food rewards
+			# are now emitted on a timer during the feeding session itself.
+			_begin_departure()
 
 		VisitorState.DEPARTING:
 			_move_toward(exit_position, departure_distance, true)
@@ -182,14 +172,23 @@ func _move_to_food(_delta: float) -> void:
 	if distance <= food_distance:
 		pigeon.move_direction = Vector2.ZERO
 		state_machine.transition(StateMachine.Intent.IDLE)
-		target_food_is_golden = false
-		target_food_is_worm = false
-		if target_food.has_method("prepare_seed"):
-			var seed_traits: Dictionary = target_food.call("prepare_seed")
-			target_food_is_golden = bool(seed_traits.get("golden", false))
-			target_food_is_worm = bool(seed_traits.get("worm", false))
+		if not target_food.has_method("claim") or not bool(target_food.call("claim")):
+			target_food = null
+			visitor_state = VisitorState.WAITING
+			return
+		target_food_is_golden = bool(target_food.get("is_golden"))
+		target_food_is_worm = bool(target_food.get("is_worm"))
+		target_food_kind = str(target_food.get("food_kind"))
+		feeding_remaining = float(target_food.get("feeding_duration"))
+		feeding_drop_timer = feeding_remaining
+		if not target_food.call("consume_food"):
+			target_food = null
+			visitor_state = VisitorState.WAITING
+			return
 		visitor_state = VisitorState.FEEDING
 		eating_timer = _get_eating_duration(target_food)
+		feeding_remaining = maxf(feeding_remaining, eating_timer)
+		feeding_drop_timer = 1.0 if target_food_kind == "seeds" else feeding_remaining
 		waiting_timer = 0.0
 		return
 	_move_toward(target_food.global_position, food_distance, distance > BALANCE.fly_to_food_distance)
@@ -225,7 +224,8 @@ func _try_next_food() -> void:
 
 	var nearest_food: Node2D = null
 	var nearest_distance := INF
-	for candidate in day_manager.get_registered_feeders():
+	for node in get_tree().get_nodes_in_group("food_pieces"):
+		var candidate := node as Node2D
 		if not _food_is_available(candidate):
 			continue
 		var distance := pigeon.global_position.distance_squared_to(candidate.global_position)
