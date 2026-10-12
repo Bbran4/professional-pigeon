@@ -63,7 +63,7 @@ Progression is saved automatically to `user://professional_pigeon_save.json`. Th
 
 1. Playtest the full progression path in Godot, including purchases, day completion, and save persistence.
 2. Tune upgrade balance using Feathers earned per day.
-3. Add a day-summary panel, pecking audio, feather pickup feedback, and readable number formatting.
+3. Add a day-summary panel, pecking audio, and readable number formatting.
 
 
 ### Visitor capacity
