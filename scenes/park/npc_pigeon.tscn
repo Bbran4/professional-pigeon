@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="1_pigeon"]
+[ext_resource type="Script" path="res://scripts/game/park_pigeon_brain.gd" id="2_brain"]
+
+[node name="NPCPigeon" instance=ExtResource("1_pigeon")]
+
+[node name="ParkPigeonBrain" type="Node" parent="."]
+script = ExtResource("2_brain")
