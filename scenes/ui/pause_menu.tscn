@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="2_settings"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 20
+script = ExtResource("1_pause")
+
+[node name="Overlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0, 0, 0, 0.65)
+
+[node name="Center" type="CenterContainer" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Overlay/Center"]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Overlay/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Resume" type="Button" parent="Overlay/Center/Panel/Content/Buttons"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "RESUME"
+
+[node name="Settings" type="Button" parent="Overlay/Center/Panel/Content/Buttons"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="MainMenu" type="Button" parent="Overlay/Center/Panel/Content/Buttons"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "MAIN MENU"
+
+[node name="SettingsPanel" parent="Overlay/Center/Panel/Content" instance=ExtResource("2_settings")]
+visible = false
+layout_mode = 2
+
+[node name="SettingsBack" type="Button" parent="Overlay/Center/Panel/Content"]
+visible = false
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "BACK"
