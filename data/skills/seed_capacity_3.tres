@@ -12,6 +12,5 @@ points_cost = 48
 prerequisites = Array[StringName]([&"seed_capacity_2"])
 effect_id = &"seed_capacity_add"
 effect_value = 2
-tree_position = Vector2(40, 1380)
 cost_growth = 1.5
 max_level = 1
