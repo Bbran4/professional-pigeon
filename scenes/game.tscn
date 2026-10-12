@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/park/bench_feeder.tscn" id="11_feeder"]
 [ext_resource type="Script" uid="uid://b35apv74qdk7b" path="res://scripts/game/feather_collector.gd" id="12_collector"]
 [ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="15_starter_feeder"]
-[ext_resource type="Script" uid="uid://dnp8yuuqstsy5" path="res://scripts/game/park_layout.gd" id="16_layout"]
+[ext_resource type="Script" uid="uid://cty1fo2acnmc" path="res://scripts/game/park_layout.gd" id="16_layout"]
 [ext_resource type="PackedScene" path="res://scenes/park/fountain.tscn" id="17_fountain"]
 [ext_resource type="PackedScene" path="res://scenes/park/tree_nest.tscn" id="18_tree_nest"]
 [ext_resource type="Script" uid="uid://bwoalt8vwxmch" path="res://scripts/game/unlockable.gd" id="19_unlockable"]
