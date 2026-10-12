@@ -6,10 +6,10 @@
 script = ExtResource("1_skill")
 id = &"unlock_seeds"
 display_name = "Seed Supply"
-description = "Improve the park seed supply and unlock seed-related upgrades."
+description = "Unlock seeds as a food source and add 2 seeds to feeder capacity."
 currency_costs = {
 &"feathers": 5
 }
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"unlock_seeds"
-effect_value = 1.0
+effect_value = 2.0
