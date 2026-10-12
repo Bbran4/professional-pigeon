@@ -110,6 +110,17 @@ func is_unlocked(skill_id: StringName) -> bool:
 	return true
 
 
+## Show root skills immediately. A skill with prerequisites appears only after
+## every prerequisite has been purchased, keeping deeper branches hidden.
+func should_show_skill(skill_id: StringName) -> bool:
+	if Engine.is_editor_hint():
+		return true
+	var skill := get_skill(skill_id)
+	if skill == null:
+		return false
+	return is_unlocked(skill_id)
+
+
 func get_next_points_cost(skill_id: StringName) -> int:
 	var skill := get_skill(skill_id)
 	if skill == null:
@@ -172,12 +183,12 @@ func _draw() -> void:
 		return
 	for child in get_children():
 		var node := child as SkillNode
-		if node == null:
+		if node == null or not node.visible:
 			continue
 		var from_position := node.position + node.size * 0.5
 		for prerequisite_id in node.get_prerequisites():
 			var prerequisite := nodes_by_id.get(prerequisite_id) as SkillNode
-			if prerequisite == null:
+			if prerequisite == null or not prerequisite.visible:
 				continue
 			var to_position := prerequisite.position + prerequisite.size * 0.5
 			var purchased := get_level(prerequisite_id) > 0 and get_level(node.skill_id) > 0
