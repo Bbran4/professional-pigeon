@@ -1,7 +1,7 @@
 extends Node
 class_name ParkLayout
 
-## Single source of truth for park-space spawn locations and visitor flight bounds.
+## Single source of truth for visitor flight bounds and fallback landing positions.
 
 @export var visitor_bounds := Rect2(40.0, 100.0, 1072.0, 500.0)
 @export var landing_spots: Array[Vector2] = [
@@ -12,9 +12,4 @@ class_name ParkLayout
 	Vector2(620.0, 460.0),
 	Vector2(850.0, 430.0),
 	Vector2(1010.0, 250.0),
-]
-	Vector2(-82.0, 5.0),
-	Vector2(82.0, 5.0),
-	Vector2(0.0, -65.0),
-	Vector2(0.0, 42.0),
 ]
