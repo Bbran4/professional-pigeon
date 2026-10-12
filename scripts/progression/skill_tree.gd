@@ -67,10 +67,14 @@ func _validate_scene_dependencies() -> void:
 func _load_catalog() -> void:
 	skills.clear()
 	if catalog == null:
-		push_error("SkillTree '%s': catalog is not assigned. Assign data/skills/skill_catalog.tres in the Inspector." % get_path())
+		if not Engine.is_editor_hint():
+			push_error("SkillTree '%s': catalog is not assigned. Assign data/skills/skill_catalog.tres in the Inspector." % get_path())
 		_rebuild_lookup()
 		return
-	if not catalog.validate():
+	# SkillCatalog is intentionally not @tool. In the editor its script can be a
+	# placeholder, so do not invoke catalog methods here. Runtime validation is
+	# still performed before gameplay starts.
+	if not Engine.is_editor_hint() and not catalog.validate():
 		push_error("SkillTree '%s': catalog validation failed. Fix the SkillCatalog errors above before editing or running the tree." % get_path())
 		_rebuild_lookup()
 		return
@@ -87,8 +91,6 @@ func _apply_editor_layout() -> void:
 		queue_redraw()
 		return
 
-	# Inspector setters can run before _ready() has populated the lookup tables.
-	# Rebuild them here so toggling the preview always acts on the current scene.
 	_load_catalog()
 	_collect_nodes()
 
@@ -130,6 +132,10 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 
 func _collect_nodes() -> void:
 	nodes_by_id.clear()
+	for child in get_children():
+		var node := child as SkillNode
+	if not Engine.is_editor_hint() and node == null:
+		continue
 	for child in get_children():
 		var node := child as SkillNode
 		if node == null:
@@ -224,7 +230,6 @@ func _draw() -> void:
 			var prerequisite := nodes_by_id.get(prerequisite_id) as SkillNode
 			if prerequisite == null or not prerequisite.visible:
 				continue
-			var to_position := prerequisite.position + prerequisite.size * 0.5
 			var purchased := get_level(prerequisite_id) > 0 and get_level(node.skill_id) > 0
 			var available := SkillPurchases.is_unlocked(node.skill_id)
 			var line_color := locked_connection_color
