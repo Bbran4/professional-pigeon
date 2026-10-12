@@ -4,6 +4,12 @@
 
 [resource]
 script = ExtResource("1_balance")
+default_day_duration = 60.0
+default_arrival_interval = 0.25
+food_distance = 28.0
+arrival_distance = 18.0
+departure_distance = 40.0
+food_search_interval = 0.25
 worm_chance = 0.2
 worm_chance_per_upgrade = 0.05
 golden_seed_bonus_points = 1
