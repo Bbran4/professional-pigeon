@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[node name="SettingsPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(320, 0)
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "SETTINGS"
+
+[node name="MasterVolumeLabel" type="Label" parent="Content"]
+layout_mode = 2
+text = "Master volume"
+
+[node name="MasterVolume" type="HSlider" parent="Content"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Fullscreen" type="CheckBox" parent="Content"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="VSync" type="CheckBox" parent="Content"]
+layout_mode = 2
+text = "Vertical sync"
