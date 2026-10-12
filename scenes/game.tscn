@@ -76,16 +76,13 @@ position = Vector2(960, 420)
 visible = false
 
 [node name="TreeNest1" parent="TreeNests" instance=ExtResource("18_tree_nest")]
-position = Vector2(-45, -30)
+position = Vector2(140, 155)
 
 [node name="TreeNest2" parent="TreeNests" instance=ExtResource("18_tree_nest")]
-position = Vector2(25, -45)
+position = Vector2(210, 140)
 
 [node name="TreeNest3" parent="TreeNests" instance=ExtResource("18_tree_nest")]
-position = Vector2(60, 5)
-
-[node name="FountainMarker" type="Marker2D" parent="."]
-position = Vector2(960, 420)
+position = Vector2(245, 190)
 
 [node name="ParkLayout" type="Node" parent="."]
 script = ExtResource("16_layout")
