@@ -31,7 +31,6 @@ display_name = "Longer Day I"
 description = "Add 5 seconds to every day."
 category = 3
 points_cost = 12
-tree_position = Vector2(1250, 700)
 prerequisites = Array[StringName]([&"larger_flock"])
 effect_id = &"day_duration_add"
 effect_value = 5
