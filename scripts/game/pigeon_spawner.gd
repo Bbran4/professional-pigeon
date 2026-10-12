@@ -98,15 +98,14 @@ func _spawn_available_visitors() -> void:
 	if perch == null:
 		push_error("PigeonSpawner: Could not reserve a landing position.")
 		return
-	var food_source := _find_available_feeder()
-	if not _spawn_visitor(perch, food_source):
+	if not _spawn_visitor(perch):
 		perch_allocator.release_perch(perch.key)
 		return
 	if visitors.size() < _get_max_pigeons():
 		_spawn_next_after_delay()
 
 
-func _spawn_visitor(perch: PerchReservation, food_source: SeedFeeder) -> bool:
+func _spawn_visitor(perch: PerchReservation) -> bool:
 	if not is_inside_tree() or not day_active:
 		return false
 	var pigeon := pigeon_scene.instantiate() as Pigeon
@@ -148,7 +147,6 @@ func _spawn_visitor(perch: PerchReservation, food_source: SeedFeeder) -> bool:
 	visitors.append(VisitorRecord.new(pigeon, brain, perch_key))
 	brain.start_day(perch_position, arrival, exit)
 	DomainEvents.visitor_spawned.emit(pigeon)
-	brain.set_food(food_source)
 	visitor_count_changed.emit(visitors.size())
 	return true
 
