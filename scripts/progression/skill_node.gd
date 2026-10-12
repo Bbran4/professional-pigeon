@@ -51,7 +51,7 @@ func refresh() -> void:
 
 	if skill.coming_soon:
 		text = "%s\nCOMING SOON" % skill.display_name
-		tooltip_text = skill.get_effect_description()
+		TooltipHelper.set_tooltip(self, skill.display_name, skill.get_effect_description())
 		disabled = true
 		return
 
