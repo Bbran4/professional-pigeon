@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cka58ox55d5n6" path="res://scripts/progression/skill_tree.gd" id="1_tree"]
 [ext_resource type="Resource" uid="uid://dsjv870im25ba" path="res://data/skills/skill_catalog.tres" id="2_catalog"]
-[ext_resource type="PackedScene" path="res://scenes/progression/skill_node.tscn" id="3_skill_node"]
+[ext_resource type="PackedScene" uid="uid://0ykrix14ih6k" path="res://scenes/progression/skill_node.tscn" id="3_skill_node"]
 
 [node name="SkillTree" type="Control" unique_id=1416980828]
 custom_minimum_size = Vector2(2400, 1600)
@@ -19,541 +19,721 @@ preview_grid_horizontal_spacing = 200
 preview_grid_vertical_spacing = 200
 
 [node name="bread" parent="." unique_id=1792491210 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1085.0
-offset_top = 976.0
-offset_right = 1275.0
-offset_bottom = 1076.0
+offset_top = 950.0
+offset_right = 1173.0
+offset_bottom = 1038.0
+theme_override_font_sizes/font_size = 15
+text = "bread"
+clip_text = true
 skill_id = &"bread"
 
 [node name="larger_flock" parent="." unique_id=1534210213 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1353.0
 offset_top = 981.0
-offset_right = 1543.0
-offset_bottom = 1081.0
+offset_right = 1467.0
+offset_bottom = 1069.0
+theme_override_font_sizes/font_size = 15
+text = "larger_flock"
+clip_text = true
 skill_id = &"larger_flock"
 
 [node name="unlock_seeds" parent="." unique_id=2048056223 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
-offset_left = 1087.0
-offset_top = 703.0
-offset_right = 1277.0
-offset_bottom = 803.0
+offset_left = 1085.0
+offset_top = 700.0
+offset_right = 1212.0
+offset_bottom = 788.00024
+theme_override_font_sizes/font_size = 15
+text = "unlock_seeds"
+clip_text = true
 skill_id = &"unlock_seeds"
 
 [node name="unlock_worms" parent="." unique_id=892471047 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 810.0
 offset_top = 998.0
-offset_right = 1000.0
-offset_bottom = 1098.0
+offset_right = 946.0
+offset_bottom = 1086.0
+theme_override_font_sizes/font_size = 15
+text = "unlock_worms"
+clip_text = true
 skill_id = &"unlock_worms"
 
 [node name="seeds_spawns" parent="." unique_id=1853410941 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1074.0
 offset_top = 474.0
-offset_right = 1264.0
-offset_bottom = 574.0
+offset_right = 1207.0
+offset_bottom = 562.0
+theme_override_font_sizes/font_size = 15
+text = "seeds_spawns"
+clip_text = true
 skill_id = &"seeds_spawns"
 
 [node name="worms_spawns" parent="." unique_id=1847527849 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 809.0
 offset_top = 1143.0
-offset_right = 999.0
-offset_bottom = 1243.0
+offset_right = 951.0
+offset_bottom = 1231.0
+theme_override_font_sizes/font_size = 15
+text = "worms_spawns"
+clip_text = true
 skill_id = &"worms_spawns"
 
 [node name="bench_feeder" parent="." unique_id=813571983 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1329.0
 offset_top = 837.0
-offset_right = 1519.0
-offset_bottom = 937.0
+offset_right = 1458.0
+offset_bottom = 925.0
+theme_override_font_sizes/font_size = 15
+text = "bench_feeder"
+clip_text = true
 skill_id = &"bench_feeder"
 
 [node name="more_pigeons" parent="." unique_id=1430292920 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1087.0
 offset_top = 1127.0
-offset_right = 1277.0
-offset_bottom = 1227.0
+offset_right = 1220.0
+offset_bottom = 1215.0
+theme_override_font_sizes/font_size = 15
+text = "more_pigeons"
+clip_text = true
 skill_id = &"more_pigeons"
 
 [node name="more_pigeons_1" parent="." unique_id=1933628068 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 806.0
 offset_top = 1432.0
-offset_right = 996.0
-offset_bottom = 1532.0
+offset_right = 955.0
+offset_bottom = 1520.0
+theme_override_font_sizes/font_size = 15
+text = "more_pigeons_1"
+clip_text = true
 skill_id = &"more_pigeons_1"
 
 [node name="more_pigeons_2" parent="." unique_id=1916343224 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 537.0
 offset_top = 1429.0
-offset_right = 727.0
-offset_bottom = 1529.0
+offset_right = 686.0
+offset_bottom = 1517.0
+theme_override_font_sizes/font_size = 15
+text = "more_pigeons_2"
+clip_text = true
 skill_id = &"more_pigeons_2"
 
 [node name="feather_fast_collection" parent="." unique_id=1920612739 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1341.0
 offset_top = 695.0
-offset_right = 1531.0
-offset_bottom = 795.0
+offset_right = 1540.0
+offset_bottom = 783.0
+theme_override_font_sizes/font_size = 15
+text = "feather_fast_collection"
+clip_text = true
 skill_id = &"feather_fast_collection"
 
 [node name="feather_collection_radius" parent="." unique_id=2027567431 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1610.0
 offset_top = 695.0
-offset_right = 1800.0
-offset_bottom = 795.0
+offset_right = 1828.0
+offset_bottom = 783.0
+theme_override_font_sizes/font_size = 15
+text = "feather_collection_radius"
+clip_text = true
 skill_id = &"feather_collection_radius"
 
 [node name="feather_auto_collect" parent="." unique_id=33059212 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1617.0
 offset_top = 526.0
-offset_right = 1807.0
-offset_bottom = 626.0
+offset_right = 1798.0
+offset_bottom = 614.0
+theme_override_font_sizes/font_size = 15
+text = "feather_auto_collect"
+clip_text = true
 skill_id = &"feather_auto_collect"
 
 [node name="day_duration_1" parent="." unique_id=602054418 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1591.0
 offset_top = 985.0
-offset_right = 1781.0
-offset_bottom = 1085.0
+offset_right = 1733.0
+offset_bottom = 1073.0
+theme_override_font_sizes/font_size = 15
+text = "day_duration_1"
+clip_text = true
 skill_id = &"day_duration_1"
 
 [node name="day_duration_2" parent="." unique_id=1442851711 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1592.0
 offset_top = 1119.0
-offset_right = 1782.0
-offset_bottom = 1219.0
+offset_right = 1734.0
+offset_bottom = 1207.0
+theme_override_font_sizes/font_size = 15
+text = "day_duration_2"
+clip_text = true
 skill_id = &"day_duration_2"
 
 [node name="day_duration_3" parent="." unique_id=1285120224 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1610.0
 offset_top = 1253.0
-offset_right = 1800.0
-offset_bottom = 1353.0
+offset_right = 1752.0
+offset_bottom = 1341.0
+theme_override_font_sizes/font_size = 15
+text = "day_duration_3"
+clip_text = true
 skill_id = &"day_duration_3"
 
 [node name="day_duration_4" parent="." unique_id=39182701 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1608.0
 offset_top = 1412.0
-offset_right = 1798.0
-offset_bottom = 1512.0
+offset_right = 1750.0
+offset_bottom = 1500.0
+theme_override_font_sizes/font_size = 15
+text = "day_duration_4"
+clip_text = true
 skill_id = &"day_duration_4"
 
 [node name="day_duration_5" parent="." unique_id=403956158 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1612.0
 offset_top = 1566.0
-offset_right = 1802.0
-offset_bottom = 1666.0
+offset_right = 1754.0
+offset_bottom = 1654.0
+theme_override_font_sizes/font_size = 15
+text = "day_duration_5"
+clip_text = true
 skill_id = &"day_duration_5"
 
 [node name="arrival_speed_1" parent="." unique_id=1939856151 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1350.0
 offset_top = 1141.0
-offset_right = 1540.0
-offset_bottom = 1241.0
+offset_right = 1493.0
+offset_bottom = 1229.0
+theme_override_font_sizes/font_size = 15
+text = "arrival_speed_1"
+clip_text = true
 skill_id = &"arrival_speed_1"
 
 [node name="arrival_speed_2" parent="." unique_id=1655131306 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1342.0
 offset_top = 1281.0
-offset_right = 1532.0
-offset_bottom = 1381.0
+offset_right = 1485.0
+offset_bottom = 1369.0
+theme_override_font_sizes/font_size = 15
+text = "arrival_speed_2"
+clip_text = true
 skill_id = &"arrival_speed_2"
 
 [node name="arrival_speed_3" parent="." unique_id=1752459987 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1358.0
 offset_top = 1421.0
-offset_right = 1548.0
-offset_bottom = 1521.0
+offset_right = 1501.0
+offset_bottom = 1509.0
+theme_override_font_sizes/font_size = 15
+text = "arrival_speed_3"
+clip_text = true
 skill_id = &"arrival_speed_3"
 
 [node name="eating_speed_1" parent="." unique_id=1378367494 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1332.0
 offset_top = 474.0
-offset_right = 1522.0
-offset_bottom = 574.0
+offset_right = 1474.0
+offset_bottom = 562.0
+theme_override_font_sizes/font_size = 15
+text = "eating_speed_1"
+clip_text = true
 skill_id = &"eating_speed_1"
 
 [node name="eating_speed_2" parent="." unique_id=382288655 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1332.0
 offset_top = 317.0
-offset_right = 1522.0
-offset_bottom = 417.0
+offset_right = 1474.0
+offset_bottom = 405.0
+theme_override_font_sizes/font_size = 15
+text = "eating_speed_2"
+clip_text = true
 skill_id = &"eating_speed_2"
 
 [node name="eating_speed_3" parent="." unique_id=140488355 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1332.0
 offset_top = 164.0
-offset_right = 1522.0
-offset_bottom = 264.0
+offset_right = 1474.0
+offset_bottom = 252.0
+theme_override_font_sizes/font_size = 15
+text = "eating_speed_3"
+clip_text = true
 skill_id = &"eating_speed_3"
 
 [node name="flight_speed_1" parent="." unique_id=855075757 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1346.0
 offset_top = 1576.0
-offset_right = 1536.0
-offset_bottom = 1676.0
+offset_right = 1480.0
+offset_bottom = 1664.0
+theme_override_font_sizes/font_size = 15
+text = "flight_speed_1"
+clip_text = true
 skill_id = &"flight_speed_1"
 
 [node name="flight_speed_2" parent="." unique_id=320125430 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1351.0
 offset_top = 1722.0
-offset_right = 1541.0
-offset_bottom = 1822.0
+offset_right = 1485.0
+offset_bottom = 1810.0
+theme_override_font_sizes/font_size = 15
+text = "flight_speed_2"
+clip_text = true
 skill_id = &"flight_speed_2"
 
 [node name="flight_speed_3" parent="." unique_id=43418121 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1358.0
 offset_top = 1884.0
-offset_right = 1548.0
-offset_bottom = 1984.0
+offset_right = 1492.0
+offset_bottom = 1972.0
+theme_override_font_sizes/font_size = 15
+text = "flight_speed_3"
+clip_text = true
 skill_id = &"flight_speed_3"
 
 [node name="feather_wait_1" parent="." unique_id=500926259 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2154.0
 offset_top = 997.0
-offset_right = 2344.0
-offset_bottom = 1097.0
+offset_right = 2291.0
+offset_bottom = 1085.0
+theme_override_font_sizes/font_size = 15
+text = "feather_wait_1"
+clip_text = true
 skill_id = &"feather_wait_1"
 
 [node name="feather_wait_2" parent="." unique_id=984287729 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2155.0
 offset_top = 1149.0
-offset_right = 2345.0
-offset_bottom = 1249.0
+offset_right = 2292.0
+offset_bottom = 1237.0
+theme_override_font_sizes/font_size = 15
+text = "feather_wait_2"
+clip_text = true
 skill_id = &"feather_wait_2"
 
 [node name="feather_wait_3" parent="." unique_id=1548848300 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2143.0
 offset_top = 1304.0
-offset_right = 2333.0
-offset_bottom = 1404.0
+offset_right = 2280.0
+offset_bottom = 1392.0
+theme_override_font_sizes/font_size = 15
+text = "feather_wait_3"
+clip_text = true
 skill_id = &"feather_wait_3"
 
 [node name="points_per_seed_1" parent="." unique_id=69763400 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 814.0
 offset_top = 484.0
-offset_right = 1004.0
-offset_bottom = 584.0
+offset_right = 979.0
+offset_bottom = 572.0
+theme_override_font_sizes/font_size = 15
+text = "points_per_seed_1"
+clip_text = true
 skill_id = &"points_per_seed_1"
 
 [node name="points_per_seed_2" parent="." unique_id=1507112702 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 555.0
 offset_top = 492.0
-offset_right = 745.0
-offset_bottom = 592.0
+offset_right = 720.0
+offset_bottom = 580.0
+theme_override_font_sizes/font_size = 15
+text = "points_per_seed_2"
+clip_text = true
 skill_id = &"points_per_seed_2"
 
 [node name="points_per_seed_3" parent="." unique_id=1538664747 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 548.0
 offset_top = 317.0
-offset_right = 738.0
-offset_bottom = 417.0
+offset_right = 713.0
+offset_bottom = 405.0
+theme_override_font_sizes/font_size = 15
+text = "points_per_seed_3"
+clip_text = true
 skill_id = &"points_per_seed_3"
 
 [node name="seed_regen_1" parent="." unique_id=1168578163 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 820.0
 offset_top = 705.0
-offset_right = 1010.0
-offset_bottom = 805.0
+offset_right = 948.0
+offset_bottom = 793.0
+theme_override_font_sizes/font_size = 15
+text = "seed_regen_1"
+clip_text = true
 skill_id = &"seed_regen_1"
 
 [node name="seed_regen_2" parent="." unique_id=2062207875 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 314.0
 offset_top = 711.0
-offset_right = 504.0
-offset_bottom = 811.0
+offset_right = 442.0
+offset_bottom = 799.0
+theme_override_font_sizes/font_size = 15
+text = "seed_regen_2"
+clip_text = true
 skill_id = &"seed_regen_2"
 
 [node name="golden_seed_1" parent="." unique_id=2011670617 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1079.0
 offset_top = 315.0
-offset_right = 1269.0
-offset_bottom = 415.0
+offset_right = 1215.0
+offset_bottom = 403.0
+theme_override_font_sizes/font_size = 15
+text = "golden_seed_1"
+clip_text = true
 skill_id = &"golden_seed_1"
 
 [node name="worm_quality" parent="." unique_id=1810771488 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 802.0
 offset_top = 1295.0
-offset_right = 992.0
-offset_bottom = 1395.0
+offset_right = 932.0
+offset_bottom = 1383.0
+theme_override_font_sizes/font_size = 15
+text = "worm_quality"
+clip_text = true
 skill_id = &"worm_quality"
 
 [node name="pigeon_patience_1" parent="." unique_id=838776310 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1092.0
 offset_top = 1271.0
-offset_right = 1282.0
-offset_bottom = 1371.0
+offset_right = 1258.0
+offset_bottom = 1359.0
+theme_override_font_sizes/font_size = 15
+text = "pigeon_patience_1"
+clip_text = true
 skill_id = &"pigeon_patience_1"
 
 [node name="rare_visitor" parent="." unique_id=2000909909 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1092.0
 offset_top = 1421.0
-offset_right = 1282.0
-offset_bottom = 1521.0
+offset_right = 1204.0
+offset_bottom = 1509.0
+theme_override_font_sizes/font_size = 15
+text = "rare_visitor"
+clip_text = true
 skill_id = &"rare_visitor"
 
 [node name="pair_arrivals" parent="." unique_id=1818679912 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1094.0
 offset_top = 1581.0
-offset_right = 1284.0
-offset_bottom = 1681.0
+offset_right = 1214.0
+offset_bottom = 1669.0
+theme_override_font_sizes/font_size = 15
+text = "pair_arrivals"
+clip_text = true
 skill_id = &"pair_arrivals"
 
 [node name="more_benches_1" parent="." unique_id=1970009872 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2088.0
 offset_top = 362.0
-offset_right = 2278.0
-offset_bottom = 462.0
+offset_right = 2241.0
+offset_bottom = 450.0
+theme_override_font_sizes/font_size = 15
+text = "more_benches_1"
+clip_text = true
 skill_id = &"more_benches_1"
 
 [node name="more_benches_2" parent="." unique_id=1791268206 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2088.0
 offset_top = 512.0
-offset_right = 2278.0
-offset_bottom = 612.0
+offset_right = 2241.0
+offset_bottom = 600.0
+theme_override_font_sizes/font_size = 15
+text = "more_benches_2"
+clip_text = true
 skill_id = &"more_benches_2"
 
 [node name="more_benches_3" parent="." unique_id=911574328 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2088.0
 offset_top = 662.0
-offset_right = 2278.0
-offset_bottom = 762.0
+offset_right = 2241.0
+offset_bottom = 750.0
+theme_override_font_sizes/font_size = 15
+text = "more_benches_3"
+clip_text = true
 skill_id = &"more_benches_3"
 
 [node name="fountain_unlock" parent="." unique_id=163226718 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2388.0
 offset_top = 512.0
-offset_right = 2578.0
-offset_bottom = 612.0
+offset_right = 2537.0
+offset_bottom = 600.0
+theme_override_font_sizes/font_size = 15
+text = "fountain_unlock"
+clip_text = true
 skill_id = &"fountain_unlock"
 
 [node name="tree_nests" parent="." unique_id=359188559 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2385.0
 offset_top = 662.0
-offset_right = 2575.0
-offset_bottom = 762.0
+offset_right = 2489.0
+offset_bottom = 750.0
+theme_override_font_sizes/font_size = 15
+text = "tree_nests"
+clip_text = true
 skill_id = &"tree_nests"
 
 [node name="feather_count_1" parent="." unique_id=1743022610 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1885.0
 offset_top = 994.0
-offset_right = 2075.0
-offset_bottom = 1094.0
+offset_right = 2034.0
+offset_bottom = 1082.0
+theme_override_font_sizes/font_size = 15
+text = "feather_count_1"
+clip_text = true
 skill_id = &"feather_count_1"
 
 [node name="feather_count_2" parent="." unique_id=89924466 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1875.0
 offset_top = 1146.0
-offset_right = 2065.0
-offset_bottom = 1246.0
+offset_right = 2024.0
+offset_bottom = 1234.0
+theme_override_font_sizes/font_size = 15
+text = "feather_count_2"
+clip_text = true
 skill_id = &"feather_count_2"
 
 [node name="feather_value_1" parent="." unique_id=1527688474 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1614.0
 offset_top = 842.0
-offset_right = 1804.0
-offset_bottom = 942.0
+offset_right = 1760.0
+offset_bottom = 930.0
+theme_override_font_sizes/font_size = 15
+text = "feather_value_1"
+clip_text = true
 skill_id = &"feather_value_1"
 
 [node name="feather_value_2" parent="." unique_id=498322128 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1879.0
 offset_top = 840.0
-offset_right = 2069.0
-offset_bottom = 940.0
+offset_right = 2025.0
+offset_bottom = 928.0
+theme_override_font_sizes/font_size = 15
+text = "feather_value_2"
+clip_text = true
 skill_id = &"feather_value_2"
 
 [node name="golden_feather_1" parent="." unique_id=1210085286 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 2131.0
 offset_top = 850.0
-offset_right = 2321.0
-offset_bottom = 950.0
+offset_right = 2288.0
+offset_bottom = 938.0
+theme_override_font_sizes/font_size = 15
+text = "golden_feather_1"
+clip_text = true
 skill_id = &"golden_feather_1"
 
 [node name="crow_collector" parent="." unique_id=1839759471 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1867.0
 offset_top = 700.0
-offset_right = 2057.0
-offset_bottom = 800.0
+offset_right = 2003.0
+offset_bottom = 788.0
+theme_override_font_sizes/font_size = 15
+text = "crow_collector"
+clip_text = true
 skill_id = &"crow_collector"
 
 [node name="golden_seed_bonus" parent="." unique_id=773976340 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 1086.0
 offset_top = 141.0
-offset_right = 1276.0
-offset_bottom = 241.0
+offset_right = 1261.0
+offset_bottom = 229.0
+theme_override_font_sizes/font_size = 15
+text = "golden_seed_bonus"
+clip_text = true
 skill_id = &"golden_seed_bonus"
 
 [node name="seed_capacity_1" parent="." unique_id=1685202718 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 805.0
 offset_top = 855.0
-offset_right = 995.0
-offset_bottom = 955.0
+offset_right = 952.0
+offset_bottom = 943.0
+theme_override_font_sizes/font_size = 15
+text = "seed_capacity_1"
+clip_text = true
 skill_id = &"seed_capacity_1"
 
 [node name="seed_capacity_2" parent="." unique_id=1764572539 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 575.0
 offset_top = 857.0
-offset_right = 765.0
-offset_bottom = 957.0
+offset_right = 722.0
+offset_bottom = 945.0
+theme_override_font_sizes/font_size = 15
+text = "seed_capacity_2"
+clip_text = true
 skill_id = &"seed_capacity_2"
 
 [node name="seed_capacity_3" parent="." unique_id=855490393 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 574.0
 offset_top = 996.0
-offset_right = 764.0
-offset_bottom = 1096.0
+offset_right = 721.0
+offset_bottom = 1084.0
+theme_override_font_sizes/font_size = 15
+text = "seed_capacity_3"
+clip_text = true
 skill_id = &"seed_capacity_3"
 
 [node name="seed_refill_speed_1" parent="." unique_id=1708361212 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 320.0
 offset_top = 859.0
-offset_right = 510.0
-offset_bottom = 959.0
+offset_right = 492.0
+offset_bottom = 947.0
+theme_override_font_sizes/font_size = 15
+text = "seed_refill_speed_1"
+clip_text = true
 skill_id = &"seed_refill_speed_1"
 
 [node name="seed_refill_speed_2" parent="." unique_id=25386507 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 314.0
 offset_top = 986.0
-offset_right = 504.0
-offset_bottom = 1086.0
+offset_right = 486.0
+offset_bottom = 1074.0
+theme_override_font_sizes/font_size = 15
+text = "seed_refill_speed_2"
+clip_text = true
 skill_id = &"seed_refill_speed_2"
 
 [node name="seed_refill_speed_3" parent="." unique_id=546110970 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 307.0
 offset_top = 1125.0
-offset_right = 497.0
-offset_bottom = 1225.0
+offset_right = 479.0
+offset_bottom = 1213.0
+theme_override_font_sizes/font_size = 15
+text = "seed_refill_speed_3"
+clip_text = true
 skill_id = &"seed_refill_speed_3"
 
 [node name="seed_capacity_4" parent="." unique_id=464312591 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 305.0
 offset_top = 491.0
-offset_right = 495.0
-offset_bottom = 591.0
+offset_right = 452.0
+offset_bottom = 579.0
+theme_override_font_sizes/font_size = 15
+text = "seed_capacity_4"
+clip_text = true
 skill_id = &"seed_capacity_4"
 
 [node name="seed_capacity_5" parent="." unique_id=2099523071 instance=ExtResource("3_skill_node")]
-custom_minimum_size = Vector2(190, 100)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
 offset_left = 829.0
 offset_top = 318.0
-offset_right = 1019.0
-offset_bottom = 418.0
+offset_right = 976.0
+offset_bottom = 406.0
+theme_override_font_sizes/font_size = 15
+text = "seed_capacity_5"
+clip_text = true
 skill_id = &"seed_capacity_5"
