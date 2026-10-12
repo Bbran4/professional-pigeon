@@ -17,7 +17,6 @@ enum Category {
 @export var category: Category = Category.FOOD
 @export_range(0, 100000, 1) var points_cost: int = 0
 @export_range(1.0, 5.0, 0.05) var cost_growth: float = 1.5
-@export var tree_position: Vector2 = Vector2.ZERO
 @export var coming_soon: bool = false
 @export var prerequisites: Array[StringName] = []
 @export var effect_id: StringName
