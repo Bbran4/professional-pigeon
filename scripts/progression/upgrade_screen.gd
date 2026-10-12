@@ -1,9 +1,9 @@
 extends Control
 class_name UpgradeScreen
 
-@onready var points_label: Label = $TopBar/PointsLabel
-@onready var start_day_button: Button = $TopBar/StartDayButton
-@onready var reset_save_button: Button = $TopBar/ResetSaveButton
+@onready var points_label: Label = $TopBar/TopBarContent/PointsLabel
+@onready var start_day_button: Button = $TopBar/TopBarContent/StartDayButton
+@onready var reset_save_button: Button = $TopBar/TopBarContent/ResetSaveButton
 @onready var reset_confirmation: ConfirmationDialog = $ResetConfirmation
 
 
