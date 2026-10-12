@@ -1,12 +1,19 @@
 extends Node
 class_name ParkPigeonBrain
 
+## Coordinates a visitor's park-level lifecycle: arriving, waiting, feeding,
+## dropping a feather, and departing. This is deliberately separate from the
+## child StateMachine, which only controls the pigeon's movement/animation intent.
+## Keep food, patience, timers, perch and exit decisions here; request IDLE/WALK/FLY
+## from StateMachine rather than duplicating movement states in this lifecycle enum.
+
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
 
 signal ate_food(points: int)
 signal feather_dropped(position: Vector2)
 signal departed
 
+## High-level visitor lifecycle, not locomotion state.
 enum VisitorState {
 	ARRIVING,
 	WAITING,
