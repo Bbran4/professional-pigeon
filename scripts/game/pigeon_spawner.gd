@@ -13,6 +13,7 @@ const BALANCE: GameBalance = preload("res://data/game_balance.tres")
 const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 const BENCH_SCENE := preload("res://scenes/park/bench.tscn")
 const FOUNTAIN_SCENE := preload("res://scenes/park/fountain.tscn")
+const TREE_NEST_SCENE := preload("res://scenes/park/tree_nest.tscn")
 const SEED_FEEDER_SCENE := preload("res://scenes/park/seed_feeder.tscn")
 const BENCH_FEEDER_SCRIPT := preload("res://scripts/game/bench_feeder.gd")
 
@@ -24,7 +25,7 @@ var _spawn_delay_pending := false
 var _retry := 0.0
 var _spawned_benches: Dictionary = {}
 var _spawned_bench_feeders: Dictionary = {}
-var _spawned_nests: Array[Marker2D] = []
+var _spawned_nests: Array[Node2D] = []
 var _fountain_instance: Node2D
 var _next_overflow_perch := 0
 
@@ -109,12 +110,14 @@ func _spawn_park_upgrades() -> void:
 
 	var wants_nests := ProgressionManager.get_effect_value(EffectIds.TREE_NESTS) > 0.0
 	if wants_nests and _spawned_nests.is_empty():
-		for nest_position in park_layout.tree_nest_positions:
-			var nest := Marker2D.new()
-			nest.name = "UnlockedTreeNest"
-			nest.add_to_group("perch_spots")
+		for index in range(park_layout.tree_nest_positions.size()):
+			var nest := TREE_NEST_SCENE.instantiate() as Node2D
+			if nest == null:
+				push_error("PigeonSpawner: failed to instantiate scenes/park/tree_nest.tscn.")
+				continue
+			nest.name = "UnlockedTreeNest_%d" % (index + 1)
 			park.add_child(nest)
-			nest.global_position = nest_position
+			nest.position = park_layout.tree_nest_positions[index]
 			_spawned_nests.append(nest)
 	elif not wants_nests and not _spawned_nests.is_empty():
 		for nest in _spawned_nests:
