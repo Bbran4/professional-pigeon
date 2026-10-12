@@ -80,6 +80,7 @@ func _process(delta: float) -> void:
 func get_seed_capacity() -> int:
 	var capacity := seed_capacity + int(ProgressionManager.get_effect_value(EffectIds.SEED_CAPACITY_ADD))
 	if ProgressionManager.get_effect_value(EffectIds.UNLOCK_SEEDS) > 0.0:
+		capacity += int(ProgressionManager.get_effect_value(EffectIds.UNLOCK_SEEDS))
 		capacity += int(ProgressionManager.get_effect_value(EffectIds.SEEDS_SPAWNS))
 	return capacity
 
@@ -93,7 +94,7 @@ func prepare_seed() -> Dictionary:
 		return {}
 	return {
 		"golden": randf() < ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_CHANCE),
-		"worm": ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) > 0.0 and randf() < BALANCE.worm_chance + ProgressionManager.get_effect_value(EffectIds.WORMS_SPAWNS) * BALANCE.worm_chance_per_upgrade,
+		"worm": ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) > 0.0 and randf() < clampf(ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) + ProgressionManager.get_effect_value(EffectIds.WORMS_SPAWNS) * BALANCE.worm_chance_per_upgrade, 0.0, 1.0),
 	}
 
 
