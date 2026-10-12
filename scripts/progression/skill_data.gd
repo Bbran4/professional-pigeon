@@ -64,7 +64,7 @@ func get_effect_description() -> String:
 		EffectIds.UNLOCK_WORMS:
 			return "Unlock worms as a food source."
 		EffectIds.WORM_FOOD_UNLOCK:
-			return "Unlock premium worm rewards: %s bonus Feathers per worm, with %s extra seconds to eat." % [
+			return "Add %s bonus Feathers to worm rewards and %s seconds to eating time." % [
 				_format_effect_value(float(GAME_BALANCE.unlocked_worm_bonus_points)),
 				_format_effect_value(GAME_BALANCE.worm_extra_eating_duration)
 			]
@@ -91,7 +91,7 @@ func get_effect_description() -> String:
 		EffectIds.SEED_CAPACITY_ADD:
 			return "Increase feeder capacity by %s seed(s) per level." % amount
 		EffectIds.SEEDS_SPAWNS:
-			return "Increase the seed supply by %s per level." % amount
+			return "Increase available feeder seed capacity by %s per level." % amount
 		EffectIds.MAX_PIGEONS:
 			return "Increase the number of pigeons allowed in the park at once by %s per level." % amount
 		EffectIds.FEATHER_COLLECT_TIME_REDUCTION:
