@@ -72,18 +72,28 @@ func refresh() -> void:
 		]
 		disabled = true
 	else:
-		var points_cost := SkillPurchases.get_next_points_cost(skill_id)
-		var cost_text := "%d Feathers" % points_cost
+		var costs := SkillPurchases.get_next_currency_costs(skill_id)
+		var cost_parts: PackedStringArray = []
+		var affordable := true
+		for currency_id in costs:
+			var amount := int(costs[currency_id])
+			var currency_name := String(currency_id).capitalize()
+			if currency_id == CurrencyIds.FEATHERS:
+				currency_name = "Feathers"
+			elif currency_id == CurrencyIds.COINS:
+				currency_name = "Coins"
+			cost_parts.append("%d %s" % [amount, currency_name])
+			if not ProgressionManager.can_spend_currency(currency_id, amount):
+				affordable = false
+		var cost_text := ", ".join(cost_parts) if not cost_parts.is_empty() else "Free"
 		var state_text := "AVAILABLE"
 		if not available:
 			if not SkillPurchases.is_unlocked(skill_id):
 				state_text = "PREREQUISITES NEEDED"
+			elif not affordable:
+				state_text = "INSUFFICIENT CURRENCY"
 			else:
-				var lacks_points := not ProgressionManager.can_spend_points(points_cost)
-				if lacks_points:
-					state_text = "NEED %d FEATHERS" % points_cost
-				else:
-					state_text = "UNAVAILABLE"
+				state_text = "UNAVAILABLE"
 		text = "%s\nLevel %d/%d\n%s\n%s" % [
 			skill.display_name,
 			level,
