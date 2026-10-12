@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Wallet="*res://scripts/progression/wallet.gd"
 ProgressionState="*res://scripts/progression/progression_state.gd"
+RunState="*res://scripts/progression/run_state.gd"
 SaveService="*res://scripts/progression/save_service.gd"
 ProgressionManager="*res://scripts/progression/progression_manager.gd"
 SkillPurchases="*res://scripts/progression/skill_purchase_service.gd"
