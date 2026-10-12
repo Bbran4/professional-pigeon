@@ -28,9 +28,15 @@ func _ready() -> void:
 
 func _load_catalog() -> void:
 	skills.clear()
-	if catalog != null:
-		assert(catalog.validate(), "SkillTree requires a valid SkillCatalog.")
-		skills = catalog.skills
+	if catalog == null:
+		push_error("SkillTree '%s': catalog is not assigned. Assign data/skills/skill_catalog.tres in the Inspector." % get_path())
+		_rebuild_lookup()
+		return
+	if not catalog.validate():
+		push_error("SkillTree '%s': catalog validation failed. Fix the SkillCatalog errors above before editing or running the tree." % get_path())
+	_rebuild_lookup()
+		return
+	skills = catalog.skills
 	_rebuild_lookup()
 
 
@@ -51,9 +57,18 @@ func _collect_nodes() -> void:
 		var node := child as SkillNode
 		if node == null:
 			continue
-		assert(node.skill_id != &"", "SkillTree node '%s' has an empty skill ID." % node.name)
-		assert(get_skill(node.skill_id) != null, "SkillTree node '%s' has no matching SkillCatalog entry." % node.name)
-		assert(not nodes_by_id.has(node.skill_id), "SkillTree contains duplicate node ID '%s'." % node.skill_id)
+		if node.skill_id == &"":
+			push_error("SkillTree '%s': node '%s' has an empty skill_id. Set it to an ID from the SkillCatalog." % [get_path(), node.name])
+			node.disabled = true
+			continue
+		if get_skill(node.skill_id) == null:
+			push_error("SkillTree '%s': node '%s' references unknown skill ID '%s'. Add the SkillData to the catalog or correct the node's skill_id." % [get_path(), node.name, node.skill_id])
+			node.disabled = true
+			continue
+		if nodes_by_id.has(node.skill_id):
+			push_error("SkillTree '%s': duplicate node for skill ID '%s' (node '%s'). Keep exactly one SkillNode per skill ID." % [get_path(), node.skill_id, node.name])
+			node.disabled = true
+			continue
 		nodes_by_id[node.skill_id] = node
 		if not node.item_rect_changed.is_connected(queue_redraw):
 			node.item_rect_changed.connect(queue_redraw)
