@@ -26,6 +26,7 @@ var _spawned_benches: Dictionary = {}
 var _spawned_bench_feeders: Dictionary = {}
 var _spawned_nests: Array[Marker2D] = []
 var _fountain_instance: Node2D
+var _next_overflow_perch := 0
 
 
 func _ready() -> void:
@@ -199,42 +200,24 @@ func get_active_count() -> int:
 	return visitors.size()
 
 
-func _get_max_pigeons() -> int:
-	return BALANCE.minimum_pigeons + int(ProgressionManager.get_effect_value(EffectIds.MAX_PIGEONS)) + int(ProgressionManager.get_effect_value(EffectIds.TREE_NESTS)) * BALANCE.tree_nest_pigeon_capacity
-
-
 func _spawn_available_visitors() -> void:
 	if not day_active or pigeon_scene == null or _spawn_delay_pending:
 		return
 	_prune_invalid_visitors()
-	# Never invite more pigeons than the park has seeds available to feed them.
-	# This prevents a whole flock from competing for a single remaining seed.
-	var available_seeds := _get_available_seed_count()
-	while day_active and visitors.size() < _get_max_pigeons() and visitors.size() < available_seeds:
-		var perch := _reserve_perch()
-		if perch.is_empty():
-			return
-		var food_source := _find_available_feeder()
-		if food_source == null:
-			_release_perch(str(perch.get("key", "")))
-			return
-		if not _spawn_visitor(perch, food_source):
-			_release_perch(str(perch.get("key", "")))
-			return
-		if visitors.size() < _get_max_pigeons():
-			_spawn_next_after_delay()
-			return
 
-
-func _get_available_seed_count() -> int:
-	var total := 0
-	for node in get_tree().get_nodes_in_group("feeders"):
-		var candidate := node as SeedFeeder
-		if candidate != null and candidate.is_visible_in_tree():
-			total += candidate.seeds_remaining
-	if total == 0 and is_instance_valid(feeder) and feeder.is_visible_in_tree():
-		total = feeder.seeds_remaining
-	return total
+	# Visitor count is intentionally uncapped. Food availability controls new
+	# arrivals, while patience timeouts let visitors leave if the food runs out.
+	var perch := _reserve_perch()
+	if perch.is_empty():
+		return
+	var food_source := _find_available_feeder()
+	if food_source == null:
+		_release_perch(str(perch.get("key", "")))
+		return
+	if not _spawn_visitor(perch, food_source):
+		_release_perch(str(perch.get("key", "")))
+		return
+	_spawn_next_after_delay()
 
 
 func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
@@ -294,11 +277,27 @@ func _reserve_perch() -> Dictionary:
 		if reserved_perches.has(key):
 			continue
 		landing_candidates.append({"key": key, "position": (get_parent() as Node2D).to_global(park_layout.landing_spots[index])})
-	if landing_candidates.is_empty():
-		return {}
-	var selected: Dictionary = landing_candidates[randi_range(0, landing_candidates.size() - 1)]
-	reserved_perches[str(selected.key)] = true
-	return selected
+	if not landing_candidates.is_empty():
+		var selected: Dictionary = landing_candidates[randi_range(0, landing_candidates.size() - 1)]
+		reserved_perches[str(selected.key)] = true
+		return selected
+
+	# Existing markers and landing spots are all occupied. Generate a virtual
+	# perch inside the park bounds so active visitors are never capped by layout.
+	var overflow_index := _next_overflow_perch
+	_next_overflow_perch += 1
+	var columns := maxi(1, int(park_layout.visitor_bounds.size.x / 72.0))
+	var rows := maxi(1, int(park_layout.visitor_bounds.size.y / 54.0))
+	var cell_index := overflow_index % (columns * rows)
+	var cell_x := cell_index % columns
+	var cell_y := int(cell_index / columns)
+	var overflow_position := Vector2(
+		park_layout.visitor_bounds.position.x + 36.0 + cell_x * 72.0,
+		park_layout.visitor_bounds.position.y + 27.0 + cell_y * 54.0
+	)
+	var overflow_key := "overflow_%d" % overflow_index
+	reserved_perches[overflow_key] = true
+	return {"key": overflow_key, "position": (get_parent() as Node2D).to_global(overflow_position)}
 
 
 func _release_perch(key: String) -> void:
