@@ -7,7 +7,7 @@
 script = ExtResource("1_skill")
 id = &"bread"
 display_name = "Basic Feeding"
-description = "Unlock a bread feeder with +5 bread capacity and open the path to park upgrades."
+description = "Unlock the starting bread-feeding human. Bread attracts a pigeon, which eats and drops a feather before leaving."
 currency_costs = {
 &"feathers": 0
 }
