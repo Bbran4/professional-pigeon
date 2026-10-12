@@ -7,11 +7,11 @@ signal seeds_changed(current: int, capacity: int)
 signal depleted
 
 @export_range(1, 100, 1) var seed_capacity: int = 5
-@export var starting_seeds: int = 5
+@export_range(0, 100, 1) var starting_seeds: int = 5
 
-var seeds_remaining: int = 5
+var seeds_remaining: int = 0
 var _regen_elapsed := 0.0
-var _last_capacity := 5
+var _last_capacity: int = 0
 
 
 func _process(delta: float) -> void:
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	_last_capacity = get_seed_capacity()
-	seeds_remaining = _last_capacity
+	seeds_remaining = mini(starting_seeds, _last_capacity)
 	_update_visual()
 	seeds_changed.emit(seeds_remaining, _last_capacity)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
