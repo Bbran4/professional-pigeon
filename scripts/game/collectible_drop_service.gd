@@ -34,6 +34,7 @@ func spawn_feather(spawn_position: Vector2, point_reward: int = 0) -> void:
 		return
 	park_node.add_child(feather)
 	feather.global_position = spawn_position
+	DomainEvents.collectible_spawned.emit(feather)
 	feather.z_index = 20
 	feather.z_as_relative = false
 	feather.point_value = point_reward
