@@ -68,7 +68,9 @@ Progression is saved automatically to `user://professional_pigeon_save.json`. Th
 
 ### Visitor capacity
 
-The **More Pigeons**, **More Pigeons I**, and **More Pigeons II** upgrades are each single-purchase upgrades that add one simultaneous visitor slot. Tree Nests adds its own visitor capacity. There is no fixed maximum-pigeon clamp; the practical number of active visitors is limited by available perch markers and food. Visitors reserve distinct perch markers from the `perch_spots` group, and feeders are discovered through the `feeders` group, allowing additional benches and feeders to participate without hard-coded node paths. Visitors that cannot find food leave after their patience timeout instead of waiting forever.
+Active visitors have no hard maximum, no seed-count-based spawn cap, and no fixed perch-count cap. The spawner uses authored perch markers and landing spots first, then generates additional virtual perches within the park bounds when those spots are occupied. Food still governs whether new visitors can arrive: if every feeder is empty, arrivals pause, and visitors that cannot find food leave after their patience timeout. Feeders are discovered through the `feeders` group, so additional benches and feeders can join the system without hard-coded node paths.
+
+The **More Pigeons**, **More Pigeons I**, and **More Pigeons II** upgrades currently need a new purpose now that visitor capacity is uncapped; their old capacity effect no longer changes the number of active visitors.
 
 ### Feather collection progression
 
