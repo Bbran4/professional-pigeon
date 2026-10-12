@@ -27,7 +27,5 @@ func spend(amount: int) -> bool:
 
 func set_balance(amount: int) -> void:
 	var safe_amount := maxi(amount, 0)
-	if balance == safe_amount:
-		return
 	balance = safe_amount
 	balance_changed.emit(balance)
