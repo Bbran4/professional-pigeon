@@ -1,6 +1,8 @@
 extends Resource
 class_name SkillData
 
+const GAME_BALANCE: GameBalance = preload("res://data/game_balance.tres")
+
 enum Category {
 	FOOD,
 	PLAYER_UPGRADES,
@@ -47,17 +49,35 @@ func get_effect_description() -> String:
 		EffectIds.GOLDEN_SEED_CHANCE:
 			return "Increase the golden-seed chance by %s%% per level." % _format_effect_value(effect_value * 100.0)
 		EffectIds.GOLDEN_SEED_BONUS:
-			return "Golden seeds award %s extra Feather(s)." % amount
+			var golden_seed_bonus := GAME_BALANCE.golden_seed_bonus_points + int(round(effect_value))
+			return "Golden seeds award %s extra Feathers." % _format_effect_value(float(golden_seed_bonus))
 		EffectIds.PIGEON_PATIENCE_ADD:
 			return "Visitors wait %s extra seconds before leaving an empty feeder, per level." % amount
 		EffectIds.RARE_VISITOR_CHANCE:
 			return "Increase the rare-visitor chance by %s%% per level." % _format_effect_value(effect_value * 100.0)
 		EffectIds.PAIR_ARRIVALS:
 			return "Increase the chance of paired pigeon arrivals by %s%% per level." % _format_effect_value(effect_value * 100.0)
+		EffectIds.BASIC_FEEDING:
+			return "Unlock the basic feeding route and the park-upgrade path."
+		EffectIds.UNLOCK_SEEDS:
+			return "Unlock seeds as a food source and open seed-related upgrades."
+		EffectIds.UNLOCK_WORMS:
+			return "Unlock worms as a food source."
+		EffectIds.WORM_FOOD_UNLOCK:
+			return "Unlock premium worm rewards: %s bonus Feathers per worm, with %s extra seconds to eat." % [
+				_format_effect_value(float(GAME_BALANCE.unlocked_worm_bonus_points)),
+				_format_effect_value(GAME_BALANCE.worm_extra_eating_duration)
+			]
+		EffectIds.WORMS_SPAWNS:
+			return "Increase the worm-food spawn amount by %s per level." % amount
+		EffectIds.BENCH_FEEDER:
+			return "Unlock the seed feeder beside the bench."
+		EffectIds.AUTO_COLLECT:
+			return "Automatically collect feathers as soon as they appear."
 		EffectIds.BENCH_COUNT_ADD:
 			return "Unlock %s additional bench(es) and their perch spots." % amount
 		EffectIds.FOUNTAIN_UNLOCK:
-			return "Unlock the fountain and its perch spots."
+			return "Unlock the fountain and its perch spots, reducing visitor arrival delays."
 		EffectIds.TREE_NESTS:
 			return "Unlock tree-nest perches that increase visitor capacity."
 		EffectIds.FEATHER_COUNT_ADD:
