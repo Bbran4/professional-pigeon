@@ -50,6 +50,10 @@ func refresh() -> void:
 		text = "UNKNOWN SKILL\n" + String(skill_id)
 		return
 
+	visible = skill_tree.should_show_skill(skill_id)
+	if not visible:
+		return
+
 	_apply_category_style(skill)
 	if skill.coming_soon:
 		text = "%s\nCOMING SOON" % skill.display_name
