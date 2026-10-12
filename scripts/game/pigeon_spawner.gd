@@ -17,6 +17,7 @@ var perch_allocator := PerchAllocator.new()
 var collectible_drops := CollectibleDropService.new()
 var _pending_points_by_pigeon: Dictionary = {}
 var _spawn_delay_pending := false
+var _spawn_generation: int = 0
 var _retry := 0.0
 
 
@@ -33,16 +34,27 @@ func _ready() -> void:
 	collectible_drops.configure(get_parent())
 
 
+func _exit_tree() -> void:
+	# Invalidate any timer callback that may fire after this spawner leaves
+	# the scene tree. The timer itself can finish harmlessly.
+	day_active = false
+	_spawn_generation += 1
+	_spawn_delay_pending = false
+
+
 func start_day() -> void:
-	if day_active:
+	if not is_inside_tree() or day_active:
 		return
+	_spawn_generation += 1
+	_spawn_delay_pending = false
 	day_active = true
 	_spawn_available_visitors()
 
 
 func end_day() -> void:
-	# A day ending stops arrivals and removes any visitors still in flight.
+	# Invalidate outstanding arrivals before cleaning up current visitors.
 	day_active = false
+	_spawn_generation += 1
 	_spawn_delay_pending = false
 	for visitor in visitors:
 		var pigeon := visitor.pigeon
@@ -66,7 +78,7 @@ func _get_max_pigeons() -> int:
 
 
 func _spawn_available_visitors() -> void:
-	if not day_active or pigeon_scene == null or _spawn_delay_pending:
+	if not is_inside_tree() or not day_active or pigeon_scene == null or _spawn_delay_pending:
 		return
 	_prune_invalid_visitors()
 	if visitors.size() >= _get_max_pigeons():
@@ -84,6 +96,8 @@ func _spawn_available_visitors() -> void:
 
 
 func _spawn_visitor(perch: PerchReservation, food_source: SeedFeeder) -> bool:
+	if not is_inside_tree() or not day_active:
+		return false
 	var pigeon := pigeon_scene.instantiate() as Pigeon
 	if pigeon == null:
 		push_error("PigeonSpawner: pigeon_scene root must be a Pigeon.")
@@ -155,26 +169,27 @@ func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 		DomainEvents.visitor_departed.emit(pigeon)
 		pigeon.queue_free()
 	visitor_count_changed.emit(visitors.size())
-	if day_active:
+	if day_active and is_inside_tree():
 		_spawn_next_after_delay()
 
 
 func _spawn_next_after_delay() -> void:
-	if _spawn_delay_pending:
+	if not is_inside_tree() or not day_active or _spawn_delay_pending:
 		return
 	_spawn_delay_pending = true
+	var generation := _spawn_generation
 	var delay := maxf(BALANCE.minimum_spawn_delay, arrival_interval - ProgressionManager.get_effect_value(EffectIds.ARRIVAL_SPEED_REDUCTION) - ProgressionManager.get_effect_value(EffectIds.FOUNTAIN_UNLOCK) * BALANCE.fountain_spawn_delay_reduction)
 	if randf() < ProgressionManager.get_effect_value(EffectIds.PAIR_ARRIVALS):
 		delay = 0.0
-	get_tree().create_timer(delay).timeout.connect(_on_spawn_delay_timeout, CONNECT_ONE_SHOT)
+	get_tree().create_timer(delay).timeout.connect(_on_spawn_delay_timeout.bind(generation), CONNECT_ONE_SHOT)
 
 
-func _on_spawn_delay_timeout() -> void:
-	if not is_inside_tree():
+func _on_spawn_delay_timeout(generation: int) -> void:
+	# A completed day, a new day, or scene exit invalidates this callback.
+	if generation != _spawn_generation or not is_inside_tree() or not day_active:
 		return
 	_spawn_delay_pending = false
-	if day_active:
-		_spawn_available_visitors()
+	_spawn_available_visitors()
 
 
 func _prune_invalid_visitors() -> void:
