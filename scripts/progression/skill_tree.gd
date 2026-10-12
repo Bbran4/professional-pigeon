@@ -51,8 +51,9 @@ func _collect_nodes() -> void:
 	nodes_by_id.clear()
 	for child in get_children():
 		var node := child as SkillNode
-		if node == null or node.skill_id == &"":
+		if node == null:
 			continue
+		assert(node.skill_id != &"", "SkillTree node '%s' has an empty skill ID." % node.name)
 		assert(get_skill(node.skill_id) != null, "SkillTree node '%s' has no matching SkillCatalog entry." % node.name)
 		assert(not nodes_by_id.has(node.skill_id), "SkillTree contains duplicate node ID '%s'." % node.skill_id)
 		nodes_by_id[node.skill_id] = node
