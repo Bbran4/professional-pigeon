@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
 [ext_resource type="PackedScene" path="res://scenes/park/bench_feeder.tscn" id="11_feeder"]
 [ext_resource type="Script" path="res://scripts/game/feather_collector.gd" id="12_collector"]
-[ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/player.tscn" id="4_player"]
+[ext_resource type="PackedScene" path="res://scenes/park/npc_pigeon.tscn" id="4_npc_pigeon"]
 [ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="15_starter_feeder"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
@@ -52,7 +52,7 @@ script = ExtResource("12_collector")
 
 [node name="PigeonSpawner" type="Node2D" parent="." unique_id=28304278]
 script = ExtResource("10_spawner")
-pigeon_scene = ExtResource("4_player")
+pigeon_scene = ExtResource("4_npc_pigeon")
 park_layout = NodePath("../ParkLayout")
 
 [node name="DayManager" type="Node" parent="." unique_id=1031930032]
