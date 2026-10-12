@@ -175,6 +175,9 @@ func _has_available_food() -> bool:
 	for available_feeder in _feeders:
 		if is_instance_valid(available_feeder) and available_feeder.is_visible_in_tree() and available_feeder.seeds_remaining > 0:
 			return true
+	for node in get_tree().get_nodes_in_group("food_pieces"):
+		if node is Node2D and node.is_visible_in_tree():
+			return true
 	return is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining > 0
 
 
