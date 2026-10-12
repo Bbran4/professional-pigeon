@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/currency_display.gd" id="1_currency"]
+
+[node name="CurrencyDisplay" type="HBoxContainer"]
+theme_override_constants/separation = 6
+script = ExtResource("1_currency")
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 2
+text = "Feathers: 0"
