@@ -9,6 +9,7 @@ script = ExtResource("2_bench_feeder")
 
 [node name="SeedFeeder" parent="." instance=ExtResource("1_seed_feeder")]
 position = Vector2(0, 78)
+food_kind = "seeds"
 
 [node name="BenchSpawn1" type="Marker2D" parent="." groups=["perch_spots"]]
 position = Vector2(-48, 12)
@@ -21,4 +22,4 @@ position = Vector2(48, 12)
 
 [node name="Unlockable" type="Node" parent="."]
 script = ExtResource("3_unlockable")
-required_skills = Array[StringName]([&"bench_feeder"])
+required_skills = Array[StringName]([&"unlock_seeds"])
