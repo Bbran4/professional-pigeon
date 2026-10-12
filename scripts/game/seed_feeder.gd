@@ -12,11 +12,26 @@ signal depleted
 var seeds_remaining: int = 0
 var _regen_elapsed := 0.0
 var _last_capacity: int = 0
+var _day_manager: DayManager
+
+
+func _ready() -> void:
+	_last_capacity = get_seed_capacity()
+	seeds_remaining = mini(starting_seeds, _last_capacity)
+	_update_visual()
+	seeds_changed.emit(seeds_remaining, _last_capacity)
+	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+	# Resolve after all nodes have completed _ready(), so scene-tree order
+	# cannot leave us with a missing DayManager reference.
+	call_deferred("_cache_day_manager")
+
+
+func _cache_day_manager() -> void:
+	_day_manager = get_tree().get_first_node_in_group("day_manager") as DayManager
 
 
 func _process(delta: float) -> void:
-	var day_manager := get_tree().get_first_node_in_group("day_manager") as DayManager
-	if day_manager == null or not day_manager.active:
+	if not is_instance_valid(_day_manager) or not _day_manager.active:
 		_regen_elapsed = 0.0
 		return
 	var regen_interval := ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL) - ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL_REDUCTION)
@@ -27,14 +42,6 @@ func _process(delta: float) -> void:
 	if _regen_elapsed >= regen_interval:
 		_regen_elapsed = 0.0
 		refill(1)
-
-
-func _ready() -> void:
-	_last_capacity = get_seed_capacity()
-	seeds_remaining = mini(starting_seeds, _last_capacity)
-	_update_visual()
-	seeds_changed.emit(seeds_remaining, _last_capacity)
-	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
 
 
 func get_seed_capacity() -> int:
