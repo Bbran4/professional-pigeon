@@ -84,6 +84,11 @@ func _unregister_feeder(node: Node) -> void:
 	_feeders.erase(available_feeder)
 
 
+func get_registered_feeders() -> Array[SeedFeeder]:
+	var registered: Array[SeedFeeder] = _feeders.duplicate()
+	return registered
+
+
 func _register_collectible(node: Node) -> void:
 	var collectible := node as Collectible
 	if is_instance_valid(collectible) and not _collectibles.has(collectible):
