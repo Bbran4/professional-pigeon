@@ -29,6 +29,8 @@ func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("collectibles"):
 		_register_collectible(node)
 	_refresh_effect_cache()
+	if _auto_collect:
+		_collect_all_collectibles()
 
 
 func _exit_tree() -> void:
@@ -50,8 +52,6 @@ func _process(delta: float) -> void:
 	if _auto_collect:
 		_cursor_active = false
 		_reset_current_collectible()
-		queue_redraw()
-		_collect_all_collectibles()
 		return
 
 	if _crow_interval > 0.0:
@@ -90,7 +90,10 @@ func _draw() -> void:
 
 
 func _refresh_effect_cache() -> void:
+	var was_auto_collecting := _auto_collect
 	_auto_collect = ProgressionManager.get_effect_value(EffectIds.AUTO_COLLECT) > 0.0
+	if _auto_collect and not was_auto_collecting:
+		_collect_all_collectibles()
 	_crow_interval = ProgressionManager.get_effect_value(EffectIds.CROW_COLLECT_INTERVAL)
 	_cursor_radius = maxf(4.0, base_cursor_radius + ProgressionManager.get_effect_value(EffectIds.FEATHER_COLLECT_RADIUS))
 	_collection_duration = maxf(minimum_collection_duration, base_collection_duration - ProgressionManager.get_effect_value(EffectIds.FEATHER_COLLECT_TIME_REDUCTION))
@@ -108,6 +111,8 @@ func _register_collectible(node: Node) -> void:
 		return
 	_collectibles.append(collectible)
 	_needs_target_refresh = true
+	if _auto_collect and collectible.is_visible_in_tree():
+		_collect_collectible(collectible)
 
 
 func _unregister_collectible(node: Node) -> void:
