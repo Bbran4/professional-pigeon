@@ -38,7 +38,7 @@ func is_unlocked(skill_id: StringName) -> bool:
 
 func get_next_currency_costs(skill_id: StringName) -> Dictionary[StringName, int]:
 	var skill := get_skill(skill_id)
-	var costs: Dictionary[StringName, int] = {}
+	var costs: Dictionary = {}
 	if skill == null:
 		return costs
 	var growth := pow(maxf(skill.cost_growth, 1.0), get_level(skill_id))
