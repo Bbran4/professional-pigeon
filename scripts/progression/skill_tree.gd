@@ -31,6 +31,7 @@ func _ready() -> void:
 func _load_catalog() -> void:
 	skills.clear()
 	if catalog != null:
+		assert(catalog.validate(), "SkillTree requires a valid SkillCatalog.")
 		skills = catalog.skills
 	_rebuild_lookup()
 
@@ -52,9 +53,8 @@ func _collect_nodes() -> void:
 		var node := child as SkillNode
 		if node == null or node.skill_id == &"":
 			continue
-		if nodes_by_id.has(node.skill_id):
-			push_warning("SkillTree contains duplicate node ID: " + String(node.skill_id))
-			continue
+		assert(get_skill(node.skill_id) != null, "SkillTree node '%s' has no matching SkillCatalog entry." % node.name)
+		assert(not nodes_by_id.has(node.skill_id), "SkillTree contains duplicate node ID '%s'." % node.skill_id)
 		nodes_by_id[node.skill_id] = node
 		if not node.item_rect_changed.is_connected(queue_redraw):
 			node.item_rect_changed.connect(queue_redraw)
