@@ -20,8 +20,8 @@ There is **no manual bread throwing or manual feeding**.
 - A starter feeder is available from the beginning, so the first day can be played without any skill purchase.
 - **Basic Feeding** is the first feeding skill and prerequisite for the first progression branches.
 - The **Bench Feeder** skill costs 5 Feathers and requires Basic Feeding. It unlocks the feeder beside the bench and its three pigeon spawn markers.
-- Until the Bench Feeder is unlocked, pigeons use the starter feeder and the general landing spots.
-- The FountainMarker is a placeholder for future use.
+- Until the Bench Feeder is unlocked, pigeons use the starter feeder and available perch markers. If no authored perches are available, the spawner falls back to the configured landing spots.
+- **Fountain Attraction** unlocks the authored fountain scene and its park progression effects; it is no longer a placeholder.
 - **Larger Seed Tray** costs 20 Feathers, and increases the active feeder's seed capacity.
 - Unlocking Seeds enables the additional seed-supply upgrade.
 
@@ -77,4 +77,4 @@ Feather collection scales with the flock through three upgrades: **Quick Collect
 
 ### Upgrade pool
 
-The current catalog contains 58 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Feathers per seed, seed regeneration and refill speed, five seed-capacity upgrades, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
+The current catalog contains 60 skills. It includes five separate +5-second day upgrades, arrival/eating/flight pacing, Feathers per seed, seed regeneration and refill speed, five seed-capacity upgrades, golden seeds, worm food, visitor patience and rare arrivals, pairs, three extra benches, fountain and tree nests, plus feather count/value/rarity and a periodic crow collector. Some park effects are generated at park startup from purchased progression.
