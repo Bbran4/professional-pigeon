@@ -19,6 +19,9 @@ enum Category {
 @export_range(1.0, 5.0, 0.05) var cost_growth: float = 1.5
 @export var coming_soon: bool = false
 @export var prerequisites: Array[StringName] = []
+## Prefer typed effects for all new and migrated skills.
+@export var effects: Array[SkillEffect] = []
+## Legacy single-effect fields retained while existing .tres resources migrate.
 @export var effect_id: StringName
 @export var effect_value: float = 0.0
 @export_range(1, 100, 1) var max_level: int = 1
@@ -27,8 +30,13 @@ enum Category {
 ## Return a description derived from the same effect data used by progression.
 ## The authored description remains the fallback for qualitative/unlock effects.
 func get_effect_description() -> String:
-	var amount := _format_effect_value(effect_value)
-	match effect_id:
+	var primary_effect_id := effect_id
+	var primary_effect_value := effect_value
+	if not effects.is_empty() and effects[0] != null:
+		primary_effect_id = effects[0].effect_id
+		primary_effect_value = effects[0].value
+	var amount := _format_effect_value(primary_effect_value)
+	match primary_effect_id:
 		EffectIds.DAY_DURATION_ADD:
 			return "Add %s seconds to every day per level." % amount
 		EffectIds.ARRIVAL_SPEED_REDUCTION:
@@ -46,16 +54,16 @@ func get_effect_description() -> String:
 		EffectIds.SEED_REGEN_INTERVAL_REDUCTION:
 			return "Reduce the seed refill interval by %s seconds per level." % amount
 		EffectIds.GOLDEN_SEED_CHANCE:
-			return "Increase the golden-seed chance by %s%% per level." % _format_effect_value(effect_value * 100.0)
+			return "Increase the golden-seed chance by %s%% per level." % _format_effect_value(primary_effect_value * 100.0)
 		EffectIds.GOLDEN_SEED_BONUS:
-			var golden_seed_bonus := GAME_BALANCE.golden_seed_bonus_points + int(round(effect_value))
+			var golden_seed_bonus := GAME_BALANCE.golden_seed_bonus_points + int(round(primary_effect_value))
 			return "Golden seeds award %s extra Feathers." % _format_effect_value(float(golden_seed_bonus))
 		EffectIds.PIGEON_PATIENCE_ADD:
 			return "Visitors wait %s extra seconds before leaving an empty feeder, per level." % amount
 		EffectIds.RARE_VISITOR_CHANCE:
-			return "Increase the rare-visitor chance by %s%% per level." % _format_effect_value(effect_value * 100.0)
+			return "Increase the rare-visitor chance by %s%% per level." % _format_effect_value(primary_effect_value * 100.0)
 		EffectIds.PAIR_ARRIVALS:
-			return "Increase the chance of paired pigeon arrivals by %s%% per level." % _format_effect_value(effect_value * 100.0)
+			return "Increase the chance of paired pigeon arrivals by %s%% per level." % _format_effect_value(primary_effect_value * 100.0)
 		EffectIds.BASIC_FEEDING:
 			return "Unlock the basic feeding route and the park-upgrade path."
 		EffectIds.UNLOCK_SEEDS:
@@ -68,7 +76,7 @@ func get_effect_description() -> String:
 				_format_effect_value(GAME_BALANCE.worm_extra_eating_duration)
 			]
 		EffectIds.WORMS_SPAWNS:
-			return "Increase the chance of a worm appearing by %s%% per level." % _format_effect_value(effect_value * GAME_BALANCE.worm_chance_per_upgrade * 100.0)
+			return "Increase the chance of a worm appearing by %s%% per level." % _format_effect_value(primary_effect_value * GAME_BALANCE.worm_chance_per_upgrade * 100.0)
 		EffectIds.BENCH_FEEDER:
 			return "Unlock the seed feeder beside the bench."
 		EffectIds.AUTO_COLLECT:
@@ -84,7 +92,7 @@ func get_effect_description() -> String:
 		EffectIds.FEATHER_VALUE_ADD:
 			return "Increase the Feather reward by %s per level." % amount
 		EffectIds.GOLDEN_FEATHER_CHANCE:
-			return "Increase the golden-feather chance by %s%% per level." % _format_effect_value(effect_value * 100.0)
+			return "Increase the golden-feather chance by %s%% per level." % _format_effect_value(primary_effect_value * 100.0)
 		EffectIds.CROW_COLLECT_INTERVAL:
 			return "A crow collects one collectible every %s seconds." % amount
 		EffectIds.SEED_CAPACITY_ADD:
