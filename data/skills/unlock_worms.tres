@@ -6,10 +6,10 @@
 script = ExtResource("1_skill")
 id = &"unlock_worms"
 display_name = "Worms"
-description = "Unlock Worms as a Food source."
+description = "Unlock worms as a food source with a 5% chance to find one."
 currency_costs = {
 &"feathers": 10
 }
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"unlock_worms"
-effect_value = 1.0
+effect_value = 0.05
