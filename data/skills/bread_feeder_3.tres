@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"bread_feeder_3"
+display_name = "Bread Vendor III"
+description = "Unlock a third bread-feeding human on a nearby bench."
+category = 4
+currency_costs = {
+&"feathers": 30
+}
+prerequisites = Array[StringName]([&"bread_feeder_2"])
+effect_id = &"basic_feeding"
+effect_value = 1.0
