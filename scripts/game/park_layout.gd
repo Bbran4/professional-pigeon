@@ -13,17 +13,6 @@ class_name ParkLayout
 	Vector2(850.0, 430.0),
 	Vector2(1010.0, 250.0),
 ]
-@export var bench_positions: Array[Vector2] = [
-	Vector2(300.0, 500.0),
-	Vector2(600.0, 500.0),
-	Vector2(990.0, 230.0),
-]
-@export var tree_nest_positions: Array[Vector2] = [
-	Vector2(140.0, 155.0),
-	Vector2(210.0, 140.0),
-	Vector2(245.0, 190.0),
-]
-@export var fountain_perch_offsets: Array[Vector2] = [
 	Vector2(-82.0, 5.0),
 	Vector2(82.0, 5.0),
 	Vector2(0.0, -65.0),
