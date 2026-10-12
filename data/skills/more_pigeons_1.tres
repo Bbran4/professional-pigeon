@@ -13,4 +13,4 @@ cost_growth = 1.7
 prerequisites = Array[StringName]([&"rare_visitor"])
 effect_id = &"max_pigeons"
 effect_value = 1.0
-max_level = 3
+max_level = 1
