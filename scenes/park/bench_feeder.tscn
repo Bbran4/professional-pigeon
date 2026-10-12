@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="1_seed_feeder"]
 [ext_resource type="Script" path="res://scripts/game/bench_feeder.gd" id="2_bench_feeder"]
+[ext_resource type="Script" uid="uid://bwoalt8vwxmch" path="res://scripts/game/unlockable.gd" id="3_unlockable"]
 
 [node name="BenchFeeder" type="Node2D"]
 script = ExtResource("2_bench_feeder")
@@ -17,3 +18,7 @@ position = Vector2(0, 12)
 
 [node name="BenchSpawn3" type="Marker2D" parent="." groups=["perch_spots"]]
 position = Vector2(48, 12)
+
+[node name="Unlockable" type="Node" parent="."]
+script = ExtResource("3_unlockable")
+required_skills = Array[StringName]([&"bench_feeder"])
