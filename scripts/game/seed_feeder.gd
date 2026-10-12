@@ -10,6 +10,7 @@ signal depleted
 @export_range(0, 100, 1) var starting_seeds: int = 5
 
 var seeds_remaining: int = 0
+var gameplay_enabled := true
 var _regen_elapsed := 0.0
 var _last_capacity: int = 0
 var _day_manager: DayManager
@@ -21,6 +22,9 @@ func _ready() -> void:
 	_update_visual()
 	seeds_changed.emit(seeds_remaining, _last_capacity)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+	if not visibility_changed.is_connected(_on_visibility_changed):
+		visibility_changed.connect(_on_visibility_changed)
+	_refresh_processing_state()
 	# Resolve after all nodes have completed _ready(), so scene-tree order
 	# cannot leave us with a missing DayManager reference.
 	call_deferred("_cache_day_manager")
@@ -30,7 +34,30 @@ func _cache_day_manager() -> void:
 	_day_manager = get_tree().get_first_node_in_group("day_manager") as DayManager
 
 
+func set_gameplay_enabled(enabled: bool) -> void:
+	if gameplay_enabled == enabled:
+		_refresh_processing_state()
+		return
+	gameplay_enabled = enabled
+	if not gameplay_enabled:
+		_regen_elapsed = 0.0
+	_refresh_processing_state()
+
+
+func _on_visibility_changed() -> void:
+	_refresh_processing_state()
+
+
+func _refresh_processing_state() -> void:
+	set_process(gameplay_enabled and is_visible_in_tree())
+	if not gameplay_enabled or not is_visible_in_tree():
+		_regen_elapsed = 0.0
+
+
 func _process(delta: float) -> void:
+	if not gameplay_enabled or not is_visible_in_tree():
+		_regen_elapsed = 0.0
+		return
 	if not is_instance_valid(_day_manager) or not _day_manager.active:
 		_regen_elapsed = 0.0
 		return
@@ -52,10 +79,12 @@ func get_seed_capacity() -> int:
 
 
 func can_feed() -> bool:
-	return seeds_remaining > 0
+	return gameplay_enabled and is_visible_in_tree() and seeds_remaining > 0
 
 
 func prepare_seed() -> Dictionary:
+	if not can_feed():
+		return {}
 	return {
 		"golden": randf() < ProgressionManager.get_effect_value(EffectIds.GOLDEN_SEED_CHANCE),
 		"worm": ProgressionManager.get_effect_value(EffectIds.UNLOCK_WORMS) > 0.0 and randf() < BALANCE.worm_chance + ProgressionManager.get_effect_value(EffectIds.WORMS_SPAWNS) * BALANCE.worm_chance_per_upgrade,
@@ -63,7 +92,7 @@ func prepare_seed() -> Dictionary:
 
 
 func consume_seed() -> bool:
-	if seeds_remaining <= 0:
+	if not can_feed():
 		return false
 	seeds_remaining -= 1
 	_update_visual()
