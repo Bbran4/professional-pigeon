@@ -10,6 +10,28 @@ class_name SkillTree
 @export var locked_connection_color: Color = Color(0.25, 0.25, 0.28, 0.7)
 @export var purchased_connection_color: Color = Color(0.75, 0.6, 0.2, 0.95)
 
+@export_group("Editor Layout Preview")
+@export var preview_grid_layout: bool = false:
+	set(value):
+		preview_grid_layout = value
+		if is_inside_tree():
+			_apply_editor_layout()
+@export_range(1, 12, 1) var preview_grid_columns: int = 6:
+	set(value):
+		preview_grid_columns = maxi(value, 1)
+		if is_inside_tree() and preview_grid_layout:
+			_apply_editor_layout()
+@export_range(0, 500, 10) var preview_grid_horizontal_spacing: int = 220:
+	set(value):
+		preview_grid_horizontal_spacing = maxi(value, 0)
+		if is_inside_tree() and preview_grid_layout:
+			_apply_editor_layout()
+@export_range(0, 500, 10) var preview_grid_vertical_spacing: int = 130:
+	set(value):
+		preview_grid_vertical_spacing = maxi(value, 0)
+		if is_inside_tree() and preview_grid_layout:
+			_apply_editor_layout()
+
 var skills: Array[SkillData] = []
 var skills_by_id: Dictionary = {}
 var nodes_by_id: Dictionary = {}
@@ -20,6 +42,7 @@ func _ready() -> void:
 	_load_catalog()
 	_collect_nodes()
 	if Engine.is_editor_hint():
+		_apply_editor_layout()
 		queue_redraw()
 		return
 	_validate_scene_dependencies()
@@ -48,10 +71,36 @@ func _load_catalog() -> void:
 		return
 	if not catalog.validate():
 		push_error("SkillTree '%s': catalog validation failed. Fix the SkillCatalog errors above before editing or running the tree." % get_path())
-	_rebuild_lookup()
+		_rebuild_lookup()
 		return
 	skills = catalog.skills
 	_rebuild_lookup()
+
+
+## Optional editor-only arrangement. Disabled by default so the authored skill-tree
+## layout is preserved unless a designer explicitly requests a grid preview.
+func _apply_editor_layout() -> void:
+	if not Engine.is_editor_hint() or not preview_grid_layout:
+		queue_redraw()
+		return
+
+	var ordered_nodes: Array[SkillNode] = []
+	for skill in skills:
+		if skill == null:
+			continue
+		var node := nodes_by_id.get(skill.id) as SkillNode
+		if node != null:
+			ordered_nodes.append(node)
+
+	for index in range(ordered_nodes.size()):
+		var node := ordered_nodes[index]
+		var column := index % maxi(preview_grid_columns, 1)
+		var row := floori(float(index) / float(maxi(preview_grid_columns, 1)))
+		node.position = Vector2(
+			float(column * preview_grid_horizontal_spacing),
+			float(row * preview_grid_vertical_spacing)
+		)
+	queue_redraw()
 
 
 func _connect_progression_signals() -> void:
