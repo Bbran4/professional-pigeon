@@ -25,3 +25,15 @@ color = Color(0.22, 0.45, 0.2, 1)
 [node name="CrownRight" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(28, -75, 53, -116, 91, -125, 125, -101, 132, -62, 102, -34, 55, -38)
 color = Color(0.16, 0.34, 0.16, 1)
+
+[node name="TreePerchLeft" type="Marker2D" parent="."]
+position = Vector2(-72, -90)
+groups = ["perch_spots"]
+
+[node name="TreePerchCrown" type="Marker2D" parent="."]
+position = Vector2(12, -151)
+groups = ["perch_spots"]
+
+[node name="TreePerchRight" type="Marker2D" parent="."]
+position = Vector2(94, -82)
+groups = ["perch_spots"]
