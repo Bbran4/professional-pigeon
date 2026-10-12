@@ -14,22 +14,22 @@ class_name SkillTree
 @export var preview_grid_layout: bool = false:
 	set(value):
 		preview_grid_layout = value
-		if is_inside_tree():
+		if is_inside_tree() and Engine.is_editor_hint():
 			_apply_editor_layout()
 @export_range(1, 12, 1) var preview_grid_columns: int = 6:
 	set(value):
 		preview_grid_columns = maxi(value, 1)
-		if is_inside_tree() and preview_grid_layout:
+		if is_inside_tree() and Engine.is_editor_hint() and preview_grid_layout:
 			_apply_editor_layout()
 @export_range(0, 500, 10) var preview_grid_horizontal_spacing: int = 220:
 	set(value):
 		preview_grid_horizontal_spacing = maxi(value, 0)
-		if is_inside_tree() and preview_grid_layout:
+		if is_inside_tree() and Engine.is_editor_hint() and preview_grid_layout:
 			_apply_editor_layout()
 @export_range(0, 500, 10) var preview_grid_vertical_spacing: int = 130:
 	set(value):
 		preview_grid_vertical_spacing = maxi(value, 0)
-		if is_inside_tree() and preview_grid_layout:
+		if is_inside_tree() and Engine.is_editor_hint() and preview_grid_layout:
 			_apply_editor_layout()
 
 var skills: Array[SkillData] = []
@@ -42,7 +42,8 @@ func _ready() -> void:
 	_load_catalog()
 	_collect_nodes()
 	if Engine.is_editor_hint():
-		_apply_editor_layout()
+		if preview_grid_layout:
+			_apply_editor_layout()
 		queue_redraw()
 		return
 	_validate_scene_dependencies()
@@ -77,12 +78,19 @@ func _load_catalog() -> void:
 	_rebuild_lookup()
 
 
-## Optional editor-only arrangement. Disabled by default so the authored skill-tree
-## layout is preserved unless a designer explicitly requests a grid preview.
+## Applies a deterministic grid to the actual SkillNode positions in the editor.
+## This is an editor layout operation, not a temporary visual overlay.
 func _apply_editor_layout() -> void:
-	if not Engine.is_editor_hint() or not preview_grid_layout:
+	if not Engine.is_editor_hint() or not is_inside_tree():
+		return
+	if not preview_grid_layout:
 		queue_redraw()
 		return
+
+	# Inspector setters can run before _ready() has populated the lookup tables.
+	# Rebuild them here so toggling the preview always acts on the current scene.
+	_load_catalog()
+	_collect_nodes()
 
 	var ordered_nodes: Array[SkillNode] = []
 	for skill in skills:
@@ -92,10 +100,16 @@ func _apply_editor_layout() -> void:
 		if node != null:
 			ordered_nodes.append(node)
 
+	if ordered_nodes.is_empty():
+		push_warning("SkillTree '%s': grid layout found no matching SkillNodes. Check the catalog and each node's skill_id." % get_path())
+		queue_redraw()
+		return
+
+	var columns := maxi(preview_grid_columns, 1)
 	for index in range(ordered_nodes.size()):
 		var node := ordered_nodes[index]
-		var column := index % maxi(preview_grid_columns, 1)
-		var row := floori(float(index) / float(maxi(preview_grid_columns, 1)))
+		var column := index % columns
+		var row := floori(float(index) / float(columns))
 		node.position = Vector2(
 			float(column * preview_grid_horizontal_spacing),
 			float(row * preview_grid_vertical_spacing)
@@ -121,7 +135,7 @@ func _collect_nodes() -> void:
 		if node == null:
 			continue
 		if node.skill_id == &"":
-			push_error("SkillTree '%s': node '%s' has an empty skill_id. Set it to an ID from the SkillCatalog." % [get_path(), node.name])
+			push_error("SkillTree '%s': node '%s' has an empty skill_id. Set it to an ID from the SkillCatalog." % [get_path(), node.name, node.skill_id])
 			node.disabled = true
 			continue
 		if get_skill(node.skill_id) == null:
