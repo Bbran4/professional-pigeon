@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GameBalance" format=3 uid="uid://c6v3tenqjlvl5"]
 
-[ext_resource type="Script" uid="uid://d0hpjinomq51g" path="res://scripts/game/game_balance.gd" id="1_balance"]
+[ext_resource type="Script" uid="uid://bf0yh7oidurc5" path="res://scripts/game/game_balance.gd" id="1_balance"]
 
 [resource]
 script = ExtResource("1_balance")
