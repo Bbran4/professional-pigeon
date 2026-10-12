@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="1_feeder"]
+
+[node name="BreadFeeder" instance=ExtResource("1_feeder")]
+food_kind = "bread"
