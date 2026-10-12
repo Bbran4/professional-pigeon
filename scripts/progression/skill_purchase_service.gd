@@ -36,13 +36,18 @@ func is_unlocked(skill_id: StringName) -> bool:
 	return true
 
 
-func get_next_points_cost(skill_id: StringName) -> int:
+func get_next_currency_costs(skill_id: StringName) -> Dictionary[StringName, int]:
 	var skill := get_skill(skill_id)
+	var costs: Dictionary[StringName, int] = {}
 	if skill == null:
-		return 0
-	if skill.points_cost <= 0:
-		return 0
-	return ceili(float(skill.points_cost) * pow(maxf(skill.cost_growth, 1.0), get_level(skill_id)))
+		return costs
+	var growth := pow(maxf(skill.cost_growth, 1.0), get_level(skill_id))
+	for currency_id in skill.currency_costs:
+		var base_cost := int(skill.currency_costs[currency_id])
+		if base_cost < 0:
+			continue
+		costs[StringName(currency_id)] = ceili(float(base_cost) * growth)
+	return costs
 
 
 func get_purchase_error(skill_id: StringName) -> String:
@@ -55,8 +60,10 @@ func get_purchase_error(skill_id: StringName) -> String:
 		return "Required skills have not been purchased."
 	if get_level(skill_id) >= skill.max_level:
 		return "Skill is already at maximum level."
-	if not ProgressionManager.can_spend_points(get_next_points_cost(skill_id)):
-		return "Not enough Feathers."
+	for currency_id in get_next_currency_costs(skill_id):
+		var amount := get_next_currency_costs(skill_id)[currency_id]
+		if not ProgressionManager.can_spend_currency(currency_id, amount):
+			return "Not enough %s." % _currency_display_name(currency_id)
 	return ""
 
 
@@ -70,13 +77,29 @@ func purchase(skill_id: StringName) -> bool:
 		purchase_rejected.emit(skill_id, error)
 		return false
 
-	var cost := get_next_points_cost(skill_id)
-	if not ProgressionManager.spend_points(cost):
-		purchase_rejected.emit(skill_id, "Not enough Feathers.")
-		return false
+	var costs := get_next_currency_costs(skill_id)
+	# Validate every balance before mutating any balance.
+	for currency_id in costs:
+		if not ProgressionManager.can_spend_currency(currency_id, costs[currency_id]):
+			purchase_rejected.emit(skill_id, "Not enough %s." % _currency_display_name(currency_id))
+			return false
+	for currency_id in costs:
+		if not ProgressionManager.spend_currency(currency_id, costs[currency_id]):
+			push_error("Skill purchase transaction failed after affordability validation.")
+			return false
 
 	var new_level := get_level(skill_id) + 1
 	ProgressionManager.set_skill_level(skill_id, new_level)
 	ProgressionManager.save_game()
 	skill_purchased.emit(skill_id, new_level)
 	return true
+
+
+func _currency_display_name(currency_id: StringName) -> String:
+	match currency_id:
+		CurrencyIds.FEATHERS:
+			return "Feathers"
+		CurrencyIds.COINS:
+			return "Coins"
+		_:
+			return String(currency_id).capitalize()
