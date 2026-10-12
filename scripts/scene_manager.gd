@@ -2,6 +2,7 @@ extends Node
 
 ## Central registry for scene destinations. Callers use stable IDs instead of paths.
 const SCENES: Dictionary = {
+	&"main_menu": "res://scenes/ui/main_menu.tscn",
 	&"park": "res://scenes/game.tscn",
 	&"upgrades": "res://scenes/progression/upgrade_screen.tscn",
 }
