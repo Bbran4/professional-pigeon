@@ -4,7 +4,6 @@ class_name PigeonSpawner
 signal visitor_count_changed(count: int)
 
 @export var pigeon_scene: PackedScene
-@export var feeder: SeedFeeder
 @export var park_layout: ParkLayout
 
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
@@ -20,8 +19,6 @@ var _spawn_generation: int = 0
 
 func _ready() -> void:
 	set_process(false)
-	if feeder == null:
-		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
 	if park_layout == null:
 		park_layout = get_parent().get_node_or_null("ParkLayout") as ParkLayout
 	if pigeon_scene == null:
@@ -36,8 +33,6 @@ func _ready() -> void:
 		push_error("PigeonSpawner '%s': pigeon_scene cannot be instantiated. Re-select a valid Pigeon scene in the Inspector." % get_path())
 		set_process(false)
 		return
-	if not is_instance_valid(feeder):
-		push_warning("PigeonSpawner '%s': no StarterFeeder was found or assigned. Pigeons can arrive without food until a feeder is registered." % get_path())
 	perch_allocator.configure(park_layout, get_parent() as Node2D)
 	collectible_drops.configure(get_parent())
 
@@ -149,20 +144,6 @@ func _spawn_visitor(perch: PerchReservation) -> bool:
 	DomainEvents.visitor_spawned.emit(pigeon)
 	visitor_count_changed.emit(visitors.size())
 	return true
-
-
-func _find_available_feeder() -> SeedFeeder:
-	var available: Array[SeedFeeder] = []
-	for node in get_tree().get_nodes_in_group("feeders"):
-		var candidate := node as SeedFeeder
-		if candidate == null or not candidate.is_visible_in_tree() or not candidate.can_feed():
-			continue
-		available.append(candidate)
-	if available.is_empty():
-		if is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.can_feed():
-			return feeder
-		return null
-	return available[randi_range(0, available.size() - 1)]
 
 
 func _on_ate_food(points: int, pigeon: Pigeon) -> void:
