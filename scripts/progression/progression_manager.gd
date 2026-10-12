@@ -78,7 +78,6 @@ func reset_save() -> void:
 	Wallet.set_balance(0)
 	ProgressionState.reset()
 	SaveService.clear_save()
-	points_changed.emit(points)
 
 
 func _notification(what: int) -> void:
