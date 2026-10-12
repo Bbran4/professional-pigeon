@@ -7,9 +7,18 @@ signal day_ended(points: int)
 
 @export var day_duration: float = 60.0
 
-var time_remaining: float = 0.0
-var points: int = 0
-var active: bool = false
+var time_remaining: float:
+	get:
+		return RunState.time_remaining
+
+var points: int:
+	get:
+		return RunState.earned_feathers
+
+var active: bool:
+	get:
+		return RunState.active
+
 var _last_display_state: Array = []
 
 var feeder: SeedFeeder:
@@ -44,7 +53,7 @@ func refresh_display() -> void:
 func _process(delta: float) -> void:
 	if not active:
 		return
-	time_remaining = maxf(time_remaining - delta, 0.0)
+	RunState.advance_time(delta)
 	_emit_day_updated()
 	if time_remaining <= 0.0:
 		end_day()
@@ -63,9 +72,8 @@ func start_day() -> void:
 	if not is_instance_valid(feeder):
 		if is_instance_valid(_feeder):
 			_feeder.refill(_feeder.get_seed_capacity())
-	points = 0
-	time_remaining = day_duration + ProgressionManager.get_effect_value(EffectIds.DAY_DURATION_ADD)
-	active = true
+	var duration := day_duration + ProgressionManager.get_effect_value(EffectIds.DAY_DURATION_ADD)
+	RunState.begin_day(duration)
 	spawner.start_day()
 	day_started.emit(time_remaining)
 	_emit_day_updated()
@@ -74,7 +82,7 @@ func start_day() -> void:
 func collect_feather_points(amount: int) -> void:
 	if not active or amount <= 0:
 		return
-	points += amount
+	RunState.add_feathers(amount)
 	_emit_day_updated()
 
 
@@ -135,15 +143,15 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 func end_day() -> void:
 	if not active:
 		return
-	active = false
+	var reward := RunState.finish_day()
 	spawner.end_day()
 	_clear_uncollected_feathers()
 	if OS.is_debug_build():
-		print("Day complete: earned %d Feathers." % points)
-	ProgressionManager.add_points(points)
+		print("Day complete: earned %d Feathers." % reward)
+	ProgressionManager.add_points(reward)
 	ProgressionManager.save_game()
 	_emit_day_updated()
-	day_ended.emit(points)
+	day_ended.emit(reward)
 
 
 func _emit_day_updated() -> void:
