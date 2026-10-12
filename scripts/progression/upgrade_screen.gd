@@ -3,12 +3,14 @@ class_name UpgradeScreen
 
 @onready var start_day_button: Button = $TopBar/TopBarContent/StartDayButton
 @onready var reset_save_button: Button = $TopBar/TopBarContent/ResetSaveButton
+@onready var main_menu_button: Button = $TopBar/TopBarContent/MainMenuButton
 @onready var reset_confirmation: ConfirmationDialog = $ResetConfirmation
 
 
 func _ready() -> void:
 	start_day_button.pressed.connect(_on_start_day_pressed)
 	reset_save_button.pressed.connect(_on_reset_save_pressed)
+	main_menu_button.pressed.connect(_on_main_menu_pressed)
 	reset_confirmation.confirmed.connect(_on_reset_save_confirmed)
 	ConfirmationDialogHelper.configure(
 		reset_confirmation,
@@ -46,3 +48,8 @@ func _exit_tree() -> void:
 func _on_start_day_pressed() -> void:
 	ProgressionManager.save_game()
 	SceneManager.change_to(&"park")
+
+
+func _on_main_menu_pressed() -> void:
+	ProgressionManager.save_game()
+	SceneManager.change_to(&"main_menu")

@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cissk5e6duv43"]
 
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="20_pause_menu"]
+
 [ext_resource type="PackedScene" path="res://scenes/park/tree.tscn" id="1_tree"]
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
 [ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/park/npc_pigeon.tscn" id="4_npc_pigeon"]
@@ -287,3 +289,5 @@ theme_override_font_sizes/font_size = 22
 text = "Day complete!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PauseMenu" parent="." instance=ExtResource("20_pause_menu")]

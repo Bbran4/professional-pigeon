@@ -70,6 +70,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "START NEW DAY"
 
+[node name="MainMenuButton" type="Button" parent="TopBar/TopBarContent"]
+custom_minimum_size = Vector2(120, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "MAIN MENU"
+
 [node name="SkillManager" type="Control" parent="." unique_id=106104407]
 layout_mode = 1
 anchors_preset = 15
