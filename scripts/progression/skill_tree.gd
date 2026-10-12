@@ -109,7 +109,7 @@ func _apply_editor_layout() -> void:
 			continue
 		node.position = Vector2(
 			float((index % columns) * preview_grid_horizontal_spacing),
-			float((index / columns) * preview_grid_vertical_spacing)
+			float(floori(float(index) / float(columns)) * preview_grid_vertical_spacing)
 		)
 		index += 1
 	queue_redraw()
