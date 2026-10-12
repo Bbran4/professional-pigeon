@@ -67,9 +67,9 @@ func get_effect_description() -> String:
 		EffectIds.BASIC_FEEDING:
 			return "Unlock the basic feeding route and the park-upgrade path."
 		EffectIds.UNLOCK_SEEDS:
-			return "Unlock seeds as a food source and open seed-related upgrades."
+			return "Unlock seeds as a food source and add %s seeds to feeder capacity." % amount
 		EffectIds.UNLOCK_WORMS:
-			return "Unlock worms as a food source."
+			return "Unlock worms as a food source with a %s%% chance to find one." % _format_effect_value(primary_effect_value * 100.0)
 		EffectIds.WORM_FOOD_UNLOCK:
 			return "Add %s bonus Feathers to worm rewards and %s seconds to eating time." % [
 				_format_effect_value(float(GAME_BALANCE.unlocked_worm_bonus_points)),
