@@ -116,11 +116,16 @@ func _spawn_visitor(perch: PerchReservation, food_source: SeedFeeder) -> bool:
 		brain.food_points += BALANCE.rare_visitor_bonus_points
 	var perch_position: Vector2 = perch.position
 	var from_left := randf() < 0.5
-	var park := get_parent() as Node2D
-	var bounds_start := park.to_global(park_layout.visitor_bounds.position)
-	var bounds_end := park.to_global(park_layout.visitor_bounds.end)
-	var arrival := Vector2(bounds_start.x - 35.0, perch_position.y - 80.0) if from_left else Vector2(bounds_end.x + 35.0, perch_position.y - 80.0)
-	var exit := Vector2(bounds_end.x + 55.0, perch_position.y - 80.0) if from_left else Vector2(bounds_start.x - 55.0, perch_position.y - 80.0)
+	var arrival_group: StringName = &"visitor_entry_left" if from_left else &"visitor_entry_right"
+	var exit_group: StringName = &"visitor_exit_right" if from_left else &"visitor_exit_left"
+	var arrival_marker := _get_random_spawn_marker(arrival_group)
+	var exit_marker := _get_random_spawn_marker(exit_group)
+	if arrival_marker == null or exit_marker == null:
+		push_error("PigeonSpawner: Park scene requires Marker2D nodes in groups '%s' and '%s'." % [arrival_group, exit_group])
+		pigeon.queue_free()
+		return false
+	var arrival := arrival_marker.global_position
+	var exit := exit_marker.global_position
 	var perch_key := perch.key
 
 	brain.ate_food.connect(_on_ate_food.bind(pigeon))
@@ -200,3 +205,14 @@ func _prune_invalid_visitors() -> void:
 			continue
 		perch_allocator.release_perch(visitor.perch_key)
 		visitors.remove_at(index)
+
+
+func _get_random_spawn_marker(group_name: StringName) -> Marker2D:
+	var candidates: Array[Marker2D] = []
+	for node in get_tree().get_nodes_in_group(group_name):
+		var marker := node as Marker2D
+		if marker != null and marker.is_inside_tree() and marker.is_visible_in_tree():
+			candidates.append(marker)
+	if candidates.is_empty():
+		return null
+	return candidates[randi_range(0, candidates.size() - 1)]
