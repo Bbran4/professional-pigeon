@@ -2,15 +2,15 @@ extends CanvasLayer
 class_name ParkHud
 
 @onready var day_manager: DayManager = $"../DayManager"
-@onready var timer_label: Label = $Margin/Panel/VBox/Timer
-@onready var points_label: Label = $Margin/Panel/VBox/Points
-@onready var pigeons_label: Label = $Margin/Panel/VBox/Pigeons
-@onready var seeds_label: Label = $Margin/Panel/VBox/Seeds
-@onready var start_button: Button = $StartDay
-@onready var end_day_button: Button = $EndDay
-@onready var unlocks_button: Button = $Upgrades
-@onready var hint_label: Label = $Hint
-@onready var result_label: Label = $Result
+@onready var timer_label: Label = $SafeArea/StatsMargin/Panel/VBox/Timer
+@onready var points_label: Label = $SafeArea/StatsMargin/Panel/VBox/Points
+@onready var pigeons_label: Label = $SafeArea/StatsMargin/Panel/VBox/Pigeons
+@onready var seeds_label: Label = $SafeArea/StatsMargin/Panel/VBox/Seeds
+@onready var start_button: Button = $SafeArea/ActionMargin/Actions/StartDay
+@onready var end_day_button: Button = $SafeArea/ActionMargin/Actions/EndDay
+@onready var unlocks_button: Button = $SafeArea/ActionMargin/Actions/Upgrades
+@onready var hint_label: Label = $SafeArea/HintMargin/Hint
+@onready var result_label: Label = $SafeArea/Result
 
 var _visible_collectible_count: int = 0
 var _tracked_collectibles: Array[Collectible] = []
