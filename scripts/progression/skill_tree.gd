@@ -35,17 +35,19 @@ class_name SkillTree
 var skills: Array[SkillData] = []
 var skills_by_id: Dictionary = {}
 var nodes_by_id: Dictionary = {}
+var _editor_original_positions: Dictionary = {}
 
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_load_catalog()
+	_collect_nodes()
 	if Engine.is_editor_hint():
-		# Keep the layout preview independent of catalog/resource script execution.
+		# Populate editor lookups so prerequisite connections can be drawn.
+		# SkillNode.setup() uses its editor-safe refresh path.
 		_apply_editor_layout()
 		queue_redraw()
 		return
-	_load_catalog()
-	_collect_nodes()
 	_validate_scene_dependencies()
 	_connect_progression_signals()
 	queue_redraw()
@@ -82,14 +84,22 @@ func _load_catalog() -> void:
 	_rebuild_lookup()
 
 
-## Applies a deterministic grid to child controls without depending on catalog data.
-## This is an editor layout operation that changes the actual child positions.
+## Temporarily previews a deterministic grid while preserving authored positions.
+## Original positions are restored when the preview toggle is disabled.
 func _apply_editor_layout() -> void:
 	if not Engine.is_editor_hint() or not is_inside_tree():
 		return
 	if not preview_grid_layout:
+		_restore_editor_positions()
 		queue_redraw()
 		return
+
+	# Capture the authored layout once, before the first preview arrangement.
+	if _editor_original_positions.is_empty():
+		for child in get_children():
+			var original_node := child as Control
+			if original_node != null:
+				_editor_original_positions[original_node.get_instance_id()] = original_node.position
 
 	var columns := maxi(preview_grid_columns, 1)
 	var index := 0
@@ -103,6 +113,17 @@ func _apply_editor_layout() -> void:
 		)
 		index += 1
 	queue_redraw()
+
+
+func _restore_editor_positions() -> void:
+	for child in get_children():
+		var node := child as Control
+		if node == null:
+			continue
+		var instance_id := node.get_instance_id()
+		if _editor_original_positions.has(instance_id):
+			node.position = _editor_original_positions[instance_id]
+	_editor_original_positions.clear()
 
 
 func _connect_progression_signals() -> void:
