@@ -114,6 +114,7 @@ func _spawn_visitor(perch: PerchReservation, food_source: SeedFeeder) -> bool:
 	brain.departed.connect(_on_visitor_departed.bind(pigeon, perch_key))
 	visitors.append(VisitorRecord.new(pigeon, brain, perch_key))
 	brain.start_day(perch_position, arrival, exit)
+	DomainEvents.visitor_spawned.emit(pigeon)
 	brain.set_food(food_source)
 	visitor_count_changed.emit(visitors.size())
 	return true
@@ -151,6 +152,7 @@ func _on_visitor_departed(pigeon: Pigeon, perch_key: String) -> void:
 			break
 	perch_allocator.release_perch(perch_key)
 	if is_instance_valid(pigeon):
+		DomainEvents.visitor_departed.emit(pigeon)
 		pigeon.queue_free()
 	visitor_count_changed.emit(visitors.size())
 	if day_active:
