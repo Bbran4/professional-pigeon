@@ -21,6 +21,8 @@ var active: bool:
 
 var _last_display_state: Array = []
 var _last_timer_display: int = -1
+var _feeders: Array[SeedFeeder] = []
+var _collectibles: Array[Collectible] = []
 
 var feeder: SeedFeeder:
 	get:
@@ -42,16 +44,56 @@ func _ready() -> void:
 	add_to_group("day_manager")
 	spawner.visitor_count_changed.connect(_on_visitor_count_changed)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
-	_connect_feeder_signals()
+	_connect_registry_signals()
+	# Seed the registries for nodes that entered the tree before our signals
+	# were connected. Registration callbacks are idempotent, so later signals
+	# for the same nodes cannot create duplicates.
+	for node in get_tree().get_nodes_in_group("feeders"):
+		_register_feeder(node)
+	for node in get_tree().get_nodes_in_group("collectibles"):
+		_register_collectible(node)
 	spawner.end_day()
 	_emit_day_updated()
 
 
-func _connect_feeder_signals() -> void:
-	for node in get_tree().get_nodes_in_group("feeders"):
-		var available_feeder := node as SeedFeeder
-		if is_instance_valid(available_feeder) and not available_feeder.seeds_changed.is_connected(_on_feeder_seeds_changed):
+func _connect_registry_signals() -> void:
+	if not DomainEvents.feeder_registered.is_connected(_register_feeder):
+		DomainEvents.feeder_registered.connect(_register_feeder)
+	if not DomainEvents.feeder_unregistered.is_connected(_unregister_feeder):
+		DomainEvents.feeder_unregistered.connect(_unregister_feeder)
+	if not DomainEvents.collectible_registered.is_connected(_register_collectible):
+		DomainEvents.collectible_registered.connect(_register_collectible)
+	if not DomainEvents.collectible_unregistered.is_connected(_unregister_collectible):
+		DomainEvents.collectible_unregistered.connect(_unregister_collectible)
+
+
+func _register_feeder(node: Node) -> void:
+	var available_feeder := node as SeedFeeder
+	if is_instance_valid(available_feeder) and not _feeders.has(available_feeder):
+		_feeders.append(available_feeder)
+		if not available_feeder.seeds_changed.is_connected(_on_feeder_seeds_changed):
 			available_feeder.seeds_changed.connect(_on_feeder_seeds_changed)
+
+
+func _unregister_feeder(node: Node) -> void:
+	var available_feeder := node as SeedFeeder
+	if not is_instance_valid(available_feeder):
+		return
+	if available_feeder.seeds_changed.is_connected(_on_feeder_seeds_changed):
+		available_feeder.seeds_changed.disconnect(_on_feeder_seeds_changed)
+	_feeders.erase(available_feeder)
+
+
+func _register_collectible(node: Node) -> void:
+	var collectible := node as Collectible
+	if is_instance_valid(collectible) and not _collectibles.has(collectible):
+		_collectibles.append(collectible)
+
+
+func _unregister_collectible(node: Node) -> void:
+	var collectible := node as Collectible
+	if is_instance_valid(collectible):
+		_collectibles.erase(collectible)
 
 
 func _on_feeder_seeds_changed(_current: int, _capacity: int) -> void:
@@ -81,9 +123,8 @@ func start_day() -> void:
 	if active:
 		return
 	_clear_uncollected_feathers()
-	for node in get_tree().get_nodes_in_group("feeders"):
-		var available_feeder := node as SeedFeeder
-		if available_feeder != null and available_feeder.is_visible_in_tree():
+	for available_feeder in _feeders:
+		if is_instance_valid(available_feeder) and available_feeder.is_visible_in_tree():
 			available_feeder.refill(available_feeder.get_seed_capacity())
 	if not is_instance_valid(feeder):
 		if is_instance_valid(_feeder):
@@ -119,32 +160,28 @@ func _has_regenerating_feeder() -> bool:
 	var regen_interval := ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL) - ProgressionManager.get_effect_value(EffectIds.SEED_REGEN_INTERVAL_REDUCTION)
 	if regen_interval <= 0.0:
 		return false
-	for node in get_tree().get_nodes_in_group("feeders"):
-		var available_feeder := node as SeedFeeder
-		if available_feeder != null and available_feeder.is_visible_in_tree() and available_feeder.seeds_remaining < available_feeder.get_seed_capacity():
+	for available_feeder in _feeders:
+		if is_instance_valid(available_feeder) and available_feeder.is_visible_in_tree() and available_feeder.seeds_remaining < available_feeder.get_seed_capacity():
 			return true
 	return is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining < feeder.get_seed_capacity()
 
 
 func _has_available_food() -> bool:
-	for node in get_tree().get_nodes_in_group("feeders"):
-		var available_feeder := node as SeedFeeder
-		if available_feeder != null and available_feeder.is_visible_in_tree() and available_feeder.seeds_remaining > 0:
+	for available_feeder in _feeders:
+		if is_instance_valid(available_feeder) and available_feeder.is_visible_in_tree() and available_feeder.seeds_remaining > 0:
 			return true
 	return is_instance_valid(feeder) and feeder.is_visible_in_tree() and feeder.seeds_remaining > 0
 
 
 func _has_uncollected_feathers() -> bool:
-	for node in get_tree().get_nodes_in_group("collectibles"):
-		var collectible := node as Collectible
+	for collectible in _collectibles:
 		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
 			return true
 	return false
 
 
 func _clear_uncollected_feathers() -> void:
-	for node in get_tree().get_nodes_in_group("collectibles"):
-		var collectible := node as Collectible
+	for collectible in _collectibles:
 		if is_instance_valid(collectible):
 			collectible.queue_free()
 
@@ -176,9 +213,8 @@ func end_day() -> void:
 func _emit_day_updated() -> void:
 	var seeds := 0
 	var capacity := 0
-	for node in get_tree().get_nodes_in_group("feeders"):
-		var available_feeder := node as SeedFeeder
-		if available_feeder != null and available_feeder.is_visible_in_tree():
+	for available_feeder in _feeders:
+		if is_instance_valid(available_feeder) and available_feeder.is_visible_in_tree():
 			seeds += available_feeder.seeds_remaining
 			capacity += available_feeder.get_seed_capacity()
 	if capacity == 0 and is_instance_valid(feeder):
