@@ -61,9 +61,9 @@ func refresh() -> void:
 		disabled = true
 		return
 
-	var level := SkillPurchaseService.get_level(skill_id)
+	var level := SkillPurchases.get_level(skill_id)
 	var maxed := level >= skill.max_level
-	var available := SkillPurchaseService.can_purchase(skill_id)
+	var available := SkillPurchases.can_purchase(skill_id)
 	if maxed:
 		text = "%s\nLevel %d/%d\nMAXED" % [
 			skill.display_name,
@@ -72,11 +72,11 @@ func refresh() -> void:
 		]
 		disabled = true
 	else:
-		var points_cost := SkillPurchaseService.get_next_points_cost(skill_id)
+		var points_cost := SkillPurchases.get_next_points_cost(skill_id)
 		var cost_text := "%d Feathers" % points_cost
 		var state_text := "AVAILABLE"
 		if not available:
-			if not SkillPurchaseService.is_unlocked(skill_id):
+			if not SkillPurchases.is_unlocked(skill_id):
 				state_text = "PREREQUISITES NEEDED"
 			else:
 				var lacks_points := not ProgressionManager.can_spend_points(points_cost)
@@ -96,7 +96,7 @@ func refresh() -> void:
 
 
 func _on_pressed() -> void:
-	if SkillPurchaseService.purchase(skill_id):
+	if SkillPurchases.purchase(skill_id):
 		refresh()
 
 
