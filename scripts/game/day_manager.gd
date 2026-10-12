@@ -27,15 +27,15 @@ var _collectibles: Array[Collectible] = []
 var feeder: SeedFeeder:
 	get:
 		if is_instance_valid(_bench_feeder) and _bench_feeder.is_visible_in_tree():
-			var bench_seed_feeder := _bench_feeder.get_node_or_null("SeedFeeder") as SeedFeeder
-			if is_instance_valid(bench_seed_feeder):
-				return bench_seed_feeder
+			if is_instance_valid(_bench_seed_feeder):
+				return _bench_seed_feeder
 		if not is_instance_valid(_feeder):
 			_feeder = _starter_feeder
 		return _feeder
 
 var _feeder: SeedFeeder
 @onready var _bench_feeder: BenchFeeder = get_node_or_null("../BenchFeeder") as BenchFeeder
+@onready var _bench_seed_feeder: SeedFeeder = get_node_or_null("../BenchFeeder/SeedFeeder") as SeedFeeder
 @onready var _starter_feeder: SeedFeeder = get_node_or_null("../StarterFeeder") as SeedFeeder
 @onready var spawner: PigeonSpawner = $"../PigeonSpawner"
 
