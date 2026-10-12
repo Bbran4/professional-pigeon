@@ -96,7 +96,7 @@ func refresh() -> void:
 			state_text
 		]
 		disabled = not available
-	tooltip_text = skill.get_effect_description()
+	TooltipHelper.set_tooltip(self, skill.display_name, skill.get_effect_description())
 
 
 func _on_pressed() -> void:
