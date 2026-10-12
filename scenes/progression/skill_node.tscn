@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://0ykrix14ih6k"]
 
-[ext_resource type="Script" path="res://scripts/progression/skill_node.gd" id="1_node"]
+[ext_resource type="Script" uid="uid://dppnv1fw0qjj6" path="res://scripts/progression/skill_node.gd" id="1_node"]
 
-[node name="SkillNode" type="Button"]
+[node name="SkillNode" type="Button" unique_id=973032688]
+custom_minimum_size = Vector2(190, 100)
+offset_right = 190.0
+offset_bottom = 100.0
 mouse_default_cursor_shape = 2
 text = "Skill"
 script = ExtResource("1_node")
