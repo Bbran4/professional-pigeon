@@ -26,9 +26,20 @@ func _ready() -> void:
 		feeder = get_parent().get_node_or_null("StarterFeeder") as SeedFeeder
 	if park_layout == null:
 		park_layout = get_parent().get_node_or_null("ParkLayout") as ParkLayout
-	if park_layout == null:
-		push_error("PigeonSpawner: ParkLayout is required to provide park bounds and spawn positions.")
+	if pigeon_scene == null:
+		push_error("PigeonSpawner '%s': pigeon_scene is not assigned. Assign scenes/park/npc_pigeon.tscn in the Inspector." % get_path())
+		set_process(false)
 		return
+	if park_layout == null:
+		push_error("PigeonSpawner '%s': ParkLayout is missing. Add a ParkLayout node under the park and assign it in the Inspector, or name the child 'ParkLayout'." % get_path())
+		set_process(false)
+		return
+	if not pigeon_scene.can_instantiate():
+		push_error("PigeonSpawner '%s': pigeon_scene cannot be instantiated. Re-select a valid Pigeon scene in the Inspector." % get_path())
+		set_process(false)
+		return
+	if not is_instance_valid(feeder):
+		push_warning("PigeonSpawner '%s': no StarterFeeder was found or assigned. Pigeons can arrive without food until a feeder is registered." % get_path())
 	perch_allocator.configure(park_layout, get_parent() as Node2D)
 	collectible_drops.configure(get_parent())
 
