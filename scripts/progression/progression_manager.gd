@@ -3,13 +3,14 @@ extends Node
 ## Compatibility facade for game systems. Domain work is delegated to Wallet,
 ## ProgressionState, and SaveService so existing callers keep a stable API.
 signal points_changed(points: int)
+signal currency_changed(currency_id: StringName, amount: int)
 signal skill_level_changed(skill_id: StringName, new_level: int)
 
 const SKILL_CATALOG: SkillCatalog = preload("res://data/skills/skill_catalog.tres")
 
 var points: int:
 	get:
-		return Wallet.balance
+		return Wallet.get_balance(CurrencyIds.FEATHERS)
 
 var skill_levels: Dictionary:
 	get:
@@ -17,7 +18,7 @@ var skill_levels: Dictionary:
 
 
 func _ready() -> void:
-	Wallet.balance_changed.connect(_on_balance_changed)
+	Wallet.changed.connect(_on_currency_changed)
 	ProgressionState.skill_level_changed.connect(_on_skill_level_changed)
 	_load_game()
 	if OS.is_debug_build():
@@ -32,15 +33,34 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 
-func add_points(amount: int) -> void:
-	if amount <= 0:
-		return
-	Wallet.add(amount)
+func get_currency_balance(currency_id: StringName) -> int:
+	return Wallet.get_balance(currency_id)
+
+
+func add_currency(currency_id: StringName, amount: int) -> bool:
+	if not Wallet.add(currency_id, amount):
+		return false
 	SaveService.mark_dirty()
+	return true
+
+
+func can_spend_currency(currency_id: StringName, amount: int) -> bool:
+	return Wallet.can_spend(currency_id, amount)
+
+
+func spend_currency(currency_id: StringName, amount: int) -> bool:
+	if not Wallet.spend(currency_id, amount):
+		return false
+	SaveService.mark_dirty()
+	return true
+
+
+func add_points(amount: int) -> void:
+	add_currency(CurrencyIds.FEATHERS, amount)
 
 
 func can_spend_points(amount: int) -> bool:
-	return Wallet.can_spend(amount)
+	return can_spend_currency(CurrencyIds.FEATHERS, amount)
 
 
 func can_spend(amount: int) -> bool:
@@ -48,10 +68,7 @@ func can_spend(amount: int) -> bool:
 
 
 func spend_points(amount: int) -> bool:
-	if not Wallet.spend(amount):
-		return false
-	SaveService.mark_dirty()
-	return true
+	return spend_currency(CurrencyIds.FEATHERS, amount)
 
 
 func spend(amount: int) -> bool:
@@ -75,7 +92,7 @@ func get_effect_value(effect_id: StringName) -> float:
 
 
 func reset_save() -> void:
-	Wallet.set_balance(0)
+	Wallet.reset()
 	ProgressionState.reset()
 	SaveService.clear_save()
 
@@ -91,9 +108,12 @@ func save_game() -> void:
 	var saved_levels: Dictionary = {}
 	for skill_id in skill_levels:
 		saved_levels[String(skill_id)] = int(skill_levels[skill_id])
+	var saved_balances: Dictionary = {}
+	for currency_id in Wallet.balances:
+		saved_balances[String(currency_id)] = int(Wallet.balances[currency_id])
 	SaveService.save_data({
-		"version": 1,
-		"points": points,
+		"version": 2,
+		"balances": saved_balances,
 		"skill_levels": saved_levels,
 	})
 
@@ -102,15 +122,22 @@ func _load_game() -> void:
 	var save_data := SaveService.load_data()
 	if save_data.is_empty():
 		return
-	Wallet.set_balance(maxi(int(save_data.get("points", 0)), 0))
+	var saved_balances: Variant = save_data.get("balances", {})
+	if saved_balances is Dictionary:
+		Wallet.load_balances(saved_balances)
+	else:
+		# Migrate the original version-1 single-currency save format.
+		Wallet.set_balance(CurrencyIds.FEATHERS, maxi(int(save_data.get("points", 0)), 0))
 	var saved_levels: Variant = save_data.get("skill_levels", {})
 	if saved_levels is Dictionary:
 		ProgressionState.load_levels(saved_levels)
 	ProgressionState.emit_loaded_levels()
 
 
-func _on_balance_changed(amount: int) -> void:
-	points_changed.emit(amount)
+func _on_currency_changed(currency_id: StringName, amount: int) -> void:
+	currency_changed.emit(currency_id, amount)
+	if currency_id == CurrencyIds.FEATHERS:
+		points_changed.emit(amount)
 
 
 func _on_skill_level_changed(skill_id: StringName, new_level: int) -> void:
