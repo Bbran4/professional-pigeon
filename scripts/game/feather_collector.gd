@@ -12,39 +12,69 @@ var current_collectible: Collectible
 var collection_elapsed: float = 0.0
 var crow_elapsed: float = 0.0
 var _cursor_active := false
+var _collectibles: Array[Collectible] = []
+var _needs_target_refresh := true
+var _last_mouse_position := Vector2.INF
+
+var _auto_collect := false
+var _crow_interval := 0.0
+var _cursor_radius := 34.0
+var _collection_duration := 3.0
+
+
+func _ready() -> void:
+	DomainEvents.collectible_registered.connect(_register_collectible)
+	DomainEvents.collectible_unregistered.connect(_unregister_collectible)
+	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+	for node in get_tree().get_nodes_in_group("collectibles"):
+		_register_collectible(node)
+	_refresh_effect_cache()
+
+
+func _exit_tree() -> void:
+	if DomainEvents.collectible_registered.is_connected(_register_collectible):
+		DomainEvents.collectible_registered.disconnect(_register_collectible)
+	if DomainEvents.collectible_unregistered.is_connected(_unregister_collectible):
+		DomainEvents.collectible_unregistered.disconnect(_unregister_collectible)
+	if ProgressionManager.skill_level_changed.is_connected(_on_skill_level_changed):
+		ProgressionManager.skill_level_changed.disconnect(_on_skill_level_changed)
 
 
 func _process(delta: float) -> void:
-	global_position = get_global_mouse_position()
-	var auto_collect := ProgressionManager.get_effect_value(EffectIds.AUTO_COLLECT) > 0.0
-	var crow_interval := ProgressionManager.get_effect_value(EffectIds.CROW_COLLECT_INTERVAL)
-	if auto_collect:
+	var mouse_position := get_global_mouse_position()
+	global_position = mouse_position
+	if mouse_position != _last_mouse_position:
+		_last_mouse_position = mouse_position
+		_needs_target_refresh = true
+
+	if _auto_collect:
 		_cursor_active = false
 		_reset_current_collectible()
 		queue_redraw()
 		_collect_all_collectibles()
 		return
-	if crow_interval > 0.0:
+
+	if _crow_interval > 0.0:
 		crow_elapsed += delta
-		if crow_elapsed >= crow_interval:
+		if crow_elapsed >= _crow_interval:
 			crow_elapsed = 0.0
 			_collect_one_collectible()
 	else:
 		crow_elapsed = 0.0
 
-	var mouse_position := get_global_mouse_position()
 	if is_instance_valid(current_collectible):
-		if not current_collectible.is_visible_in_tree() or mouse_position.distance_to(current_collectible.global_position) > _get_cursor_radius():
+		if not current_collectible.is_visible_in_tree() or mouse_position.distance_squared_to(current_collectible.global_position) > _cursor_radius * _cursor_radius:
 			_reset_current_collectible()
 
-	if not is_instance_valid(current_collectible):
+	if not is_instance_valid(current_collectible) and _needs_target_refresh:
 		current_collectible = _find_collectible_under_cursor(mouse_position)
+		_needs_target_refresh = false
 		collection_elapsed = 0.0
 
 	_cursor_active = is_instance_valid(current_collectible)
 	if _cursor_active:
-		collection_elapsed = minf(collection_elapsed + delta, _get_collection_duration())
-		if collection_elapsed >= _get_collection_duration():
+		collection_elapsed = minf(collection_elapsed + delta, _collection_duration)
+		if collection_elapsed >= _collection_duration:
 			_collect_current_collectible()
 			_cursor_active = false
 	queue_redraw()
@@ -53,30 +83,48 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if not _cursor_active:
 		return
-	var radius := _get_cursor_radius()
-	var center := Vector2.ZERO
-	draw_arc(center, radius, 0.0, TAU, 48, Color(0.12, 0.12, 0.12, 0.8), 3.0, true)
-	var fraction := clampf(collection_elapsed / _get_collection_duration(), 0.0, 1.0)
+	draw_arc(Vector2.ZERO, _cursor_radius, 0.0, TAU, 48, Color(0.12, 0.12, 0.12, 0.8), 3.0, true)
+	var fraction := clampf(collection_elapsed / _collection_duration, 0.0, 1.0)
 	if fraction > 0.0:
-		draw_arc(center, radius, -PI * 0.5, -PI * 0.5 + TAU * fraction, 48, Color(0.95, 0.82, 0.38, 1.0), 4.0, true)
+		draw_arc(Vector2.ZERO, _cursor_radius, -PI * 0.5, -PI * 0.5 + TAU * fraction, 48, Color(0.95, 0.82, 0.38, 1.0), 4.0, true)
 
 
-func _get_collection_duration() -> float:
-	var reduction := ProgressionManager.get_effect_value(EffectIds.FEATHER_COLLECT_TIME_REDUCTION)
-	return maxf(minimum_collection_duration, base_collection_duration - reduction)
+func _refresh_effect_cache() -> void:
+	_auto_collect = ProgressionManager.get_effect_value(EffectIds.AUTO_COLLECT) > 0.0
+	_crow_interval = ProgressionManager.get_effect_value(EffectIds.CROW_COLLECT_INTERVAL)
+	_cursor_radius = maxf(4.0, base_cursor_radius + ProgressionManager.get_effect_value(EffectIds.FEATHER_COLLECT_RADIUS))
+	_collection_duration = maxf(minimum_collection_duration, base_collection_duration - ProgressionManager.get_effect_value(EffectIds.FEATHER_COLLECT_TIME_REDUCTION))
 
 
-func _get_cursor_radius() -> float:
-	return maxf(4.0, base_cursor_radius + ProgressionManager.get_effect_value(EffectIds.FEATHER_COLLECT_RADIUS))
+func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
+	_refresh_effect_cache()
+	_needs_target_refresh = true
+	queue_redraw()
+
+
+func _register_collectible(node: Node) -> void:
+	var collectible := node as Collectible
+	if not is_instance_valid(collectible) or _collectibles.has(collectible):
+		return
+	_collectibles.append(collectible)
+	_needs_target_refresh = true
+
+
+func _unregister_collectible(node: Node) -> void:
+	var collectible := node as Collectible
+	if is_instance_valid(collectible):
+		_collectibles.erase(collectible)
+	if current_collectible == collectible:
+		_reset_current_collectible()
+	_needs_target_refresh = true
 
 
 func _find_collectible_under_cursor(mouse_position: Vector2) -> Collectible:
 	var candidates: Array[Collectible] = []
-	for node in get_tree().get_nodes_in_group("collectibles"):
-		var collectible := node as Collectible
+	for collectible in _collectibles:
 		if not is_instance_valid(collectible) or not collectible.is_visible_in_tree():
 			continue
-		if mouse_position.distance_to(collectible.global_position) <= _get_cursor_radius():
+		if mouse_position.distance_squared_to(collectible.global_position) <= _cursor_radius * _cursor_radius:
 			candidates.append(collectible)
 	if candidates.is_empty():
 		return null
@@ -86,19 +134,18 @@ func _find_collectible_under_cursor(mouse_position: Vector2) -> Collectible:
 func _reset_current_collectible() -> void:
 	current_collectible = null
 	collection_elapsed = 0.0
+	_needs_target_refresh = true
 
 
 func _collect_all_collectibles() -> void:
-	for node in get_tree().get_nodes_in_group("collectibles"):
-		var collectible := node as Collectible
+	for collectible in _collectibles:
 		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
 			_collect_collectible(collectible)
 
 
 func _collect_one_collectible() -> void:
 	var candidates: Array[Collectible] = []
-	for node in get_tree().get_nodes_in_group("collectibles"):
-		var collectible := node as Collectible
+	for collectible in _collectibles:
 		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
 			candidates.append(collectible)
 	if not candidates.is_empty():
