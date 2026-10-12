@@ -12,6 +12,5 @@ points_cost = 5
 prerequisites = Array[StringName]([&"unlock_worms"])
 effect_id = &"worms_spawns"
 effect_value = 1.0
-tree_position = Vector2(260, 1160)
 cost_growth = 1.5
 max_level = 3
