@@ -2,26 +2,26 @@
 
 [ext_resource type="Script" uid="uid://b3ae4o6yy0p1x" path="res://scripts/progression/skill_catalog.gd" id="1_catalog"]
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="2_skill"]
-[ext_resource type="Resource" path="res://data/skills/bread.tres" id="12"]
-[ext_resource type="Resource" path="res://data/skills/larger_flock.tres" id="13"]
-[ext_resource type="Resource" path="res://data/skills/unlock_seeds.tres" id="18"]
-[ext_resource type="Resource" path="res://data/skills/unlock_worms.tres" id="19"]
-[ext_resource type="Resource" path="res://data/skills/seeds_spawns.tres" id="21"]
-[ext_resource type="Resource" path="res://data/skills/worms_spawns.tres" id="22"]
+[ext_resource type="Resource" uid="uid://cur6ypwksvl6u" path="res://data/skills/bread.tres" id="12"]
+[ext_resource type="Resource" uid="uid://bl8vcg3aqqi6q" path="res://data/skills/larger_flock.tres" id="13"]
+[ext_resource type="Resource" uid="uid://op4vh2ba5d50" path="res://data/skills/unlock_seeds.tres" id="18"]
+[ext_resource type="Resource" uid="uid://blxqkciohr1i6" path="res://data/skills/unlock_worms.tres" id="19"]
+[ext_resource type="Resource" uid="uid://dmn06pedb6xdj" path="res://data/skills/seeds_spawns.tres" id="21"]
+[ext_resource type="Resource" uid="uid://bmiird2fw7deg" path="res://data/skills/worms_spawns.tres" id="22"]
 [ext_resource type="Resource" uid="uid://br4p8xrkews4k" path="res://data/skills/more_pigeons_2.tres" id="23_kol86"]
-[ext_resource type="Resource" path="res://data/skills/bench_feeder.tres" id="26"]
+[ext_resource type="Resource" uid="uid://bf0ava1gq5yno" path="res://data/skills/bench_feeder.tres" id="26"]
 [ext_resource type="Resource" uid="uid://dtsn8w12hjegj" path="res://data/skills/more_pigeons.tres" id="27"]
-[ext_resource type="Resource" path="res://data/skills/feather_fast_collection.tres" id="28"]
-[ext_resource type="Resource" path="res://data/skills/feather_collection_radius.tres" id="29"]
-[ext_resource type="Resource" path="res://data/skills/feather_auto_collect.tres" id="30"]
-[ext_resource type="Resource" path="res://data/skills/seed_capacity_1.tres" id="31"]
-[ext_resource type="Resource" path="res://data/skills/seed_capacity_2.tres" id="32"]
-[ext_resource type="Resource" path="res://data/skills/seed_capacity_3.tres" id="33"]
+[ext_resource type="Resource" uid="uid://cvjr2psi0db6t" path="res://data/skills/feather_fast_collection.tres" id="28"]
+[ext_resource type="Resource" uid="uid://bte46732yrxck" path="res://data/skills/feather_collection_radius.tres" id="29"]
+[ext_resource type="Resource" uid="uid://lsuwi3r42sxk" path="res://data/skills/feather_auto_collect.tres" id="30"]
+[ext_resource type="Resource" uid="uid://b1862wv6qmxwt" path="res://data/skills/seed_capacity_1.tres" id="31"]
+[ext_resource type="Resource" uid="uid://dh2e720b8jwbd" path="res://data/skills/seed_capacity_2.tres" id="32"]
+[ext_resource type="Resource" uid="uid://bj7mal2x1hk8t" path="res://data/skills/seed_capacity_3.tres" id="33"]
 [ext_resource type="Resource" uid="uid://bsh5j1lxwiv06" path="res://data/skills/seed_refill_speed_1.tres" id="34"]
 [ext_resource type="Resource" uid="uid://bbhcqqiuqujon" path="res://data/skills/seed_refill_speed_2.tres" id="35"]
 [ext_resource type="Resource" uid="uid://cwk32474nasje" path="res://data/skills/seed_refill_speed_3.tres" id="36"]
-[ext_resource type="Resource" path="res://data/skills/seed_capacity_4.tres" id="37"]
-[ext_resource type="Resource" path="res://data/skills/seed_capacity_5.tres" id="38"]
+[ext_resource type="Resource" uid="uid://l7wdjcfsvoxe" path="res://data/skills/seed_capacity_4.tres" id="37"]
+[ext_resource type="Resource" uid="uid://dqgghal8l0cyh" path="res://data/skills/seed_capacity_5.tres" id="38"]
 [ext_resource type="Resource" uid="uid://5rp3y25l8y8g" path="res://data/skills/more_pigeons_1.tres" id="39"]
 
 [sub_resource type="Resource" id="Skill_day_duration_1"]
@@ -30,7 +30,9 @@ id = &"day_duration_1"
 display_name = "Longer Day I"
 description = "Add 5 seconds to every day."
 category = 3
-currency_costs = { &"feathers": 12 }
+currency_costs = {
+&"feathers": 12
+}
 prerequisites = Array[StringName]([&"larger_flock"])
 effect_id = &"day_duration_add"
 effect_value = 5
@@ -41,7 +43,9 @@ id = &"day_duration_2"
 display_name = "Longer Day II"
 description = "Add 5 seconds to every day."
 category = 3
-currency_costs = { &"feathers": 16 }
+currency_costs = {
+&"feathers": 16
+}
 prerequisites = Array[StringName]([&"day_duration_1"])
 effect_id = &"day_duration_add"
 effect_value = 5
@@ -52,7 +56,9 @@ id = &"day_duration_3"
 display_name = "Longer Day III"
 description = "Add 5 seconds to every day."
 category = 3
-currency_costs = { &"feathers": 20 }
+currency_costs = {
+&"feathers": 20
+}
 prerequisites = Array[StringName]([&"day_duration_2"])
 effect_id = &"day_duration_add"
 effect_value = 5
@@ -63,7 +69,9 @@ id = &"day_duration_4"
 display_name = "Longer Day IV"
 description = "Add 5 seconds to every day."
 category = 3
-currency_costs = { &"feathers": 24 }
+currency_costs = {
+&"feathers": 24
+}
 prerequisites = Array[StringName]([&"day_duration_3"])
 effect_id = &"day_duration_add"
 effect_value = 5
@@ -74,7 +82,9 @@ id = &"day_duration_5"
 display_name = "Longer Day V"
 description = "Add 5 seconds to every day."
 category = 3
-currency_costs = { &"feathers": 28 }
+currency_costs = {
+&"feathers": 28
+}
 prerequisites = Array[StringName]([&"day_duration_4"])
 effect_id = &"day_duration_add"
 effect_value = 5
@@ -85,7 +95,9 @@ id = &"arrival_speed_1"
 display_name = "Swift Arrivals 1"
 description = "Reduce the gap between arrivals by 0.15 seconds."
 category = 3
-currency_costs = { &"feathers": 17 }
+currency_costs = {
+&"feathers": 17
+}
 prerequisites = Array[StringName]([&"more_pigeons"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
@@ -96,7 +108,9 @@ id = &"arrival_speed_2"
 display_name = "Swift Arrivals 2"
 description = "Reduce the gap between arrivals by 0.15 seconds."
 category = 3
-currency_costs = { &"feathers": 22 }
+currency_costs = {
+&"feathers": 22
+}
 prerequisites = Array[StringName]([&"arrival_speed_1"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
@@ -107,7 +121,9 @@ id = &"arrival_speed_3"
 display_name = "Swift Arrivals 3"
 description = "Reduce the gap between arrivals by 0.15 seconds."
 category = 3
-currency_costs = { &"feathers": 27 }
+currency_costs = {
+&"feathers": 27
+}
 prerequisites = Array[StringName]([&"arrival_speed_2"])
 effect_id = &"arrival_speed_reduction"
 effect_value = 0.15
@@ -118,7 +134,9 @@ id = &"eating_speed_1"
 display_name = "Quick Pecking 1"
 description = "Reduce eating time by 0.25 seconds."
 category = 3
-currency_costs = { &"feathers": 17 }
+currency_costs = {
+&"feathers": 17
+}
 prerequisites = Array[StringName]([&"unlock_seeds"])
 effect_id = &"eating_time_reduction"
 effect_value = 0.25
@@ -129,7 +147,9 @@ id = &"eating_speed_2"
 display_name = "Quick Pecking 2"
 description = "Reduce eating time by 0.25 seconds."
 category = 3
-currency_costs = { &"feathers": 22 }
+currency_costs = {
+&"feathers": 22
+}
 prerequisites = Array[StringName]([&"eating_speed_1"])
 effect_id = &"eating_time_reduction"
 effect_value = 0.25
@@ -140,7 +160,9 @@ id = &"eating_speed_3"
 display_name = "Quick Pecking 3"
 description = "Reduce eating time by 0.25 seconds."
 category = 3
-currency_costs = { &"feathers": 27 }
+currency_costs = {
+&"feathers": 27
+}
 prerequisites = Array[StringName]([&"eating_speed_2"])
 effect_id = &"eating_time_reduction"
 effect_value = 0.25
@@ -151,7 +173,9 @@ id = &"flight_speed_1"
 display_name = "Fleet Wings 1"
 description = "Increase pigeon flight speed by 20."
 category = 3
-currency_costs = { &"feathers": 20 }
+currency_costs = {
+&"feathers": 20
+}
 prerequisites = Array[StringName]([&"more_pigeons"])
 effect_id = &"flight_speed_add"
 effect_value = 20
@@ -162,7 +186,9 @@ id = &"flight_speed_2"
 display_name = "Fleet Wings 2"
 description = "Increase pigeon flight speed by 20."
 category = 3
-currency_costs = { &"feathers": 26 }
+currency_costs = {
+&"feathers": 26
+}
 prerequisites = Array[StringName]([&"flight_speed_1"])
 effect_id = &"flight_speed_add"
 effect_value = 20
@@ -173,7 +199,9 @@ id = &"flight_speed_3"
 display_name = "Fleet Wings 3"
 description = "Increase pigeon flight speed by 20."
 category = 3
-currency_costs = { &"feathers": 32 }
+currency_costs = {
+&"feathers": 32
+}
 prerequisites = Array[StringName]([&"flight_speed_2"])
 effect_id = &"flight_speed_add"
 effect_value = 20
@@ -184,7 +212,9 @@ id = &"feather_wait_1"
 display_name = "Quick Feather Drop 1"
 description = "Reduce the feather-drop wait by 0.25 seconds."
 category = 3
-currency_costs = { &"feathers": 15 }
+currency_costs = {
+&"feathers": 15
+}
 prerequisites = Array[StringName]([&"feather_count_1"])
 effect_id = &"feather_wait_reduction"
 effect_value = 0.25
@@ -195,7 +225,9 @@ id = &"feather_wait_2"
 display_name = "Quick Feather Drop 2"
 description = "Reduce the feather-drop wait by 0.25 seconds."
 category = 3
-currency_costs = { &"feathers": 20 }
+currency_costs = {
+&"feathers": 20
+}
 prerequisites = Array[StringName]([&"feather_wait_1"])
 effect_id = &"feather_wait_reduction"
 effect_value = 0.25
@@ -206,7 +238,9 @@ id = &"feather_wait_3"
 display_name = "Quick Feather Drop 3"
 description = "Reduce the feather-drop wait by 0.25 seconds."
 category = 3
-currency_costs = { &"feathers": 25 }
+currency_costs = {
+&"feathers": 25
+}
 prerequisites = Array[StringName]([&"feather_wait_2"])
 effect_id = &"feather_wait_reduction"
 effect_value = 0.25
@@ -215,9 +249,10 @@ effect_value = 0.25
 script = ExtResource("2_skill")
 id = &"points_per_seed_1"
 display_name = "Better Harvest 1"
-category = 0
 description = "Earn one extra Feather per seed eaten."
-currency_costs = { &"feathers": 18 }
+currency_costs = {
+&"feathers": 18
+}
 prerequisites = Array[StringName]([&"unlock_seeds"])
 effect_id = &"points_per_seed_add"
 effect_value = 1
@@ -226,9 +261,10 @@ effect_value = 1
 script = ExtResource("2_skill")
 id = &"points_per_seed_2"
 display_name = "Better Harvest 2"
-category = 0
 description = "Earn one extra Feather per seed eaten."
-currency_costs = { &"feathers": 26 }
+currency_costs = {
+&"feathers": 26
+}
 prerequisites = Array[StringName]([&"points_per_seed_1"])
 effect_id = &"points_per_seed_add"
 effect_value = 1
@@ -237,9 +273,10 @@ effect_value = 1
 script = ExtResource("2_skill")
 id = &"points_per_seed_3"
 display_name = "Better Harvest 3"
-category = 0
 description = "Earn one extra Feather per seed eaten."
-currency_costs = { &"feathers": 34 }
+currency_costs = {
+&"feathers": 34
+}
 prerequisites = Array[StringName]([&"points_per_seed_2"])
 effect_id = &"points_per_seed_add"
 effect_value = 1
@@ -248,9 +285,10 @@ effect_value = 1
 script = ExtResource("2_skill")
 id = &"seed_regen_1"
 display_name = "Seed Refill 1"
-category = 0
 description = "Regenerate one seed every 20 seconds during the day."
-currency_costs = { &"feathers": 8 }
+currency_costs = {
+&"feathers": 8
+}
 prerequisites = Array[StringName]([&"unlock_seeds"])
 effect_id = &"seed_regen_interval"
 effect_value = 20
@@ -259,9 +297,10 @@ effect_value = 20
 script = ExtResource("2_skill")
 id = &"seed_regen_2"
 display_name = "Seed Refill 2"
-category = 0
 description = "Reduce the seed refill interval by 10 seconds."
-currency_costs = { &"feathers": 38 }
+currency_costs = {
+&"feathers": 38
+}
 prerequisites = Array[StringName]([&"seed_regen_1"])
 effect_id = &"seed_regen_interval_reduction"
 effect_value = 10
@@ -270,9 +309,10 @@ effect_value = 10
 script = ExtResource("2_skill")
 id = &"golden_seed_1"
 display_name = "Golden Seed"
-category = 0
 description = "Golden seeds have a 20% chance and award 1 extra Feather."
-currency_costs = { &"feathers": 32 }
+currency_costs = {
+&"feathers": 32
+}
 prerequisites = Array[StringName]([&"seeds_spawns"])
 effect_id = &"golden_seed_chance"
 effect_value = 0.2
@@ -281,9 +321,10 @@ effect_value = 0.2
 script = ExtResource("2_skill")
 id = &"worm_quality"
 display_name = "Worms: Premium Food"
-category = 0
 description = "Worms award 3 extra Feathers but take longer to eat."
-currency_costs = { &"feathers": 35 }
+currency_costs = {
+&"feathers": 35
+}
 prerequisites = Array[StringName]([&"worms_spawns"])
 effect_id = &"worm_food_unlock"
 effect_value = 1
@@ -294,7 +335,9 @@ id = &"pigeon_patience_1"
 display_name = "Patient Visitors"
 description = "Visitors wait longer before leaving an empty feeder."
 category = 4
-currency_costs = { &"feathers": 20 }
+currency_costs = {
+&"feathers": 20
+}
 prerequisites = Array[StringName]([&"more_pigeons"])
 effect_id = &"pigeon_patience_add"
 effect_value = 3
@@ -305,7 +348,9 @@ id = &"rare_visitor"
 display_name = "Rare Visitor"
 description = "Each level adds a 10% chance for a visitor to bring 2 extra Feathers."
 category = 4
-currency_costs = { &"feathers": 35 }
+currency_costs = {
+&"feathers": 35
+}
 prerequisites = Array[StringName]([&"pigeon_patience_1"])
 effect_id = &"rare_visitor_chance"
 effect_value = 0.1
@@ -317,7 +362,9 @@ id = &"pair_arrivals"
 display_name = "Pigeon Pairs"
 description = "Occasionally send two pigeons together when capacity allows."
 category = 4
-currency_costs = { &"feathers": 40 }
+currency_costs = {
+&"feathers": 40
+}
 prerequisites = Array[StringName]([&"rare_visitor"])
 effect_id = &"pair_arrivals"
 effect_value = 0.1
@@ -326,9 +373,11 @@ effect_value = 0.1
 script = ExtResource("2_skill")
 id = &"more_benches_1"
 display_name = "Extra Bench 1"
-category = 4
 description = "Unlock another bench and its perch spots."
-currency_costs = { &"feathers": 35 }
+category = 4
+currency_costs = {
+&"feathers": 35
+}
 prerequisites = Array[StringName]([&"bench_feeder"])
 effect_id = &"bench_count_add"
 effect_value = 1
@@ -337,9 +386,11 @@ effect_value = 1
 script = ExtResource("2_skill")
 id = &"more_benches_2"
 display_name = "Extra Bench 2"
-category = 4
 description = "Unlock another bench and its perch spots."
-currency_costs = { &"feathers": 50 }
+category = 4
+currency_costs = {
+&"feathers": 50
+}
 prerequisites = Array[StringName]([&"more_benches_1"])
 effect_id = &"bench_count_add"
 effect_value = 1
@@ -348,9 +399,11 @@ effect_value = 1
 script = ExtResource("2_skill")
 id = &"more_benches_3"
 display_name = "Extra Bench 3"
-category = 4
 description = "Unlock another bench and its perch spots."
-currency_costs = { &"feathers": 65 }
+category = 4
+currency_costs = {
+&"feathers": 65
+}
 prerequisites = Array[StringName]([&"more_benches_2"])
 effect_id = &"bench_count_add"
 effect_value = 1
@@ -359,9 +412,11 @@ effect_value = 1
 script = ExtResource("2_skill")
 id = &"fountain_unlock"
 display_name = "Fountain Attraction"
-category = 4
 description = "Unlock a fountain with extra perches and quicker arrivals."
-currency_costs = { &"feathers": 50 }
+category = 4
+currency_costs = {
+&"feathers": 50
+}
 prerequisites = Array[StringName]([&"more_benches_2"])
 effect_id = &"fountain_unlock"
 effect_value = 1
@@ -372,7 +427,9 @@ id = &"tree_nests"
 display_name = "Tree Nests"
 description = "Add nest perches that increase visitor capacity."
 category = 4
-currency_costs = { &"feathers": 45 }
+currency_costs = {
+&"feathers": 45
+}
 prerequisites = Array[StringName]([&"fountain_unlock"])
 effect_id = &"tree_nests"
 effect_value = 1
@@ -383,7 +440,9 @@ id = &"feather_count_1"
 display_name = "Feather Shower 1"
 description = "Drop an additional feather after a successful visit."
 category = 1
-currency_costs = { &"feathers": 30 }
+currency_costs = {
+&"feathers": 30
+}
 prerequisites = Array[StringName]([&"feather_value_1"])
 effect_id = &"feather_count_add"
 effect_value = 1
@@ -394,7 +453,9 @@ id = &"feather_count_2"
 display_name = "Feather Shower 2"
 description = "Drop an additional feather after a successful visit."
 category = 1
-currency_costs = { &"feathers": 42 }
+currency_costs = {
+&"feathers": 42
+}
 prerequisites = Array[StringName]([&"feather_count_1"])
 effect_id = &"feather_count_add"
 effect_value = 1
@@ -405,7 +466,9 @@ id = &"feather_value_1"
 display_name = "Fine Feathers 1"
 description = "Increase the Feather reward by 1."
 category = 1
-currency_costs = { &"feathers": 30 }
+currency_costs = {
+&"feathers": 30
+}
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"feather_value_add"
 effect_value = 1
@@ -416,7 +479,9 @@ id = &"feather_value_2"
 display_name = "Fine Feathers 2"
 description = "Increase the Feather reward by 1."
 category = 1
-currency_costs = { &"feathers": 42 }
+currency_costs = {
+&"feathers": 42
+}
 prerequisites = Array[StringName]([&"feather_value_1"])
 effect_id = &"feather_value_add"
 effect_value = 1
@@ -427,7 +492,9 @@ id = &"golden_feather_1"
 display_name = "Golden Plumage"
 description = "Increase the chance of a golden feather to 20%."
 category = 1
-currency_costs = { &"feathers": 35 }
+currency_costs = {
+&"feathers": 35
+}
 prerequisites = Array[StringName]([&"feather_value_2"])
 effect_id = &"golden_feather_chance"
 effect_value = 0.2
@@ -438,7 +505,9 @@ id = &"crow_collector"
 display_name = "Helpful Crow"
 description = "A crow collects one collectible every 15 seconds."
 category = 2
-currency_costs = { &"feathers": 65 }
+currency_costs = {
+&"feathers": 65
+}
 prerequisites = Array[StringName]([&"feather_collection_radius"])
 effect_id = &"crow_collect_interval"
 effect_value = 15
@@ -447,9 +516,10 @@ effect_value = 15
 script = ExtResource("2_skill")
 id = &"golden_seed_bonus"
 display_name = "Golden Seed Bonus"
-category = 0
 description = "Golden seeds award an extra 3 Feathers."
-currency_costs = { &"feathers": 25 }
+currency_costs = {
+&"feathers": 25
+}
 prerequisites = Array[StringName]([&"golden_seed_1"])
 effect_id = &"golden_seed_bonus"
 effect_value = 3

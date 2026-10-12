@@ -1,16 +1,15 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://op4vh2ba5d50"]
 
-[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
 script = ExtResource("1_skill")
 id = &"unlock_seeds"
 display_name = "Seed Supply"
 description = "Improve the park seed supply and unlock seed-related upgrades."
-category = 0
-currency_costs = { &"feathers": 5 }
+currency_costs = {
+&"feathers": 5
+}
 prerequisites = Array[StringName]([&"bread"])
 effect_id = &"unlock_seeds"
 effect_value = 1.0
-cost_growth = 1.5
-max_level = 1

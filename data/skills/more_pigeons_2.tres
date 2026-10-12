@@ -8,9 +8,10 @@ id = &"more_pigeons_2"
 display_name = "More Pigeons II"
 description = "Immediately allow one additional pigeon to visit the park at once."
 category = 4
-currency_costs = { &"feathers": 50 }
+currency_costs = {
+&"feathers": 50
+}
 cost_growth = 1.7
 prerequisites = Array[StringName]([&"more_pigeons_1"])
 effect_id = &"max_pigeons"
 effect_value = 1.0
-max_level = 1

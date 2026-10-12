@@ -2,17 +2,17 @@
 
 [ext_resource type="PackedScene" path="res://scenes/park/tree.tscn" id="1_tree"]
 [ext_resource type="PackedScene" path="res://scenes/park/bench.tscn" id="2_bench"]
-[ext_resource type="PackedScene" path="res://scenes/park/bench_feeder.tscn" id="11_feeder"]
-[ext_resource type="Script" path="res://scripts/game/feather_collector.gd" id="12_collector"]
-[ext_resource type="PackedScene" path="res://scenes/park/npc_pigeon.tscn" id="4_npc_pigeon"]
-[ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="15_starter_feeder"]
+[ext_resource type="PackedScene" uid="uid://c1t5plqhc67ua" path="res://scenes/park/npc_pigeon.tscn" id="4_npc_pigeon"]
 [ext_resource type="Script" uid="uid://bsxru0jibi6ae" path="res://scripts/game/day_manager.gd" id="7_day"]
 [ext_resource type="Script" uid="uid://crgv6uy8l1fnh" path="res://scripts/game/park_hud.gd" id="8_hud"]
-[ext_resource type="Script" path="res://scripts/game/pigeon_spawner.gd" id="10_spawner"]
-[ext_resource type="Script" path="res://scripts/game/park_layout.gd" id="16_layout"]
+[ext_resource type="Script" uid="uid://l6mvo8mv8pra" path="res://scripts/game/pigeon_spawner.gd" id="10_spawner"]
+[ext_resource type="PackedScene" path="res://scenes/park/bench_feeder.tscn" id="11_feeder"]
+[ext_resource type="Script" uid="uid://b35apv74qdk7b" path="res://scripts/game/feather_collector.gd" id="12_collector"]
+[ext_resource type="PackedScene" path="res://scenes/park/seed_feeder.tscn" id="15_starter_feeder"]
+[ext_resource type="Script" uid="uid://dnp8yuuqstsy5" path="res://scripts/game/park_layout.gd" id="16_layout"]
 [ext_resource type="PackedScene" path="res://scenes/park/fountain.tscn" id="17_fountain"]
 [ext_resource type="PackedScene" path="res://scenes/park/tree_nest.tscn" id="18_tree_nest"]
-[ext_resource type="Script" path="res://scripts/game/unlockable.gd" id="19_unlockable"]
+[ext_resource type="Script" uid="uid://bwoalt8vwxmch" path="res://scripts/game/unlockable.gd" id="19_unlockable"]
 
 [node name="Park" type="Node2D" unique_id=462212071]
 y_sort_enabled = true
@@ -38,82 +38,76 @@ position = Vector2(185, 185)
 [node name="Bench" parent="." unique_id=627715693 instance=ExtResource("2_bench")]
 position = Vector2(780, 210)
 
-[node name="BenchFeeder" parent="." instance=ExtResource("11_feeder")]
+[node name="BenchFeeder" parent="." unique_id=1447542670 instance=ExtResource("11_feeder")]
 position = Vector2(780, 210)
 
-[node name="StarterFeeder" parent="." instance=ExtResource("15_starter_feeder")]
+[node name="StarterFeeder" parent="." unique_id=625185563 instance=ExtResource("15_starter_feeder")]
 position = Vector2(480, 340)
 
-[node name="UpgradeBench1" type="Node2D" parent="."]
+[node name="UpgradeBench1" type="Node2D" parent="." unique_id=206120649]
 visible = false
 position = Vector2(300, 500)
 
-[node name="Bench" parent="UpgradeBench1" instance=ExtResource("2_bench")]
+[node name="Bench" parent="UpgradeBench1" unique_id=471250174 instance=ExtResource("2_bench")]
 
-[node name="BenchFeeder" parent="UpgradeBench1" instance=ExtResource("11_feeder")]
+[node name="BenchFeeder" parent="UpgradeBench1" unique_id=471149681 instance=ExtResource("11_feeder")]
 
-[node name="Unlockable" type="Node" parent="UpgradeBench1"]
+[node name="Unlockable" type="Node" parent="UpgradeBench1" unique_id=656332279]
 script = ExtResource("19_unlockable")
 required_skill = &"more_benches_1"
-min_level = 1
 
-[node name="UpgradeBench2" type="Node2D" parent="."]
+[node name="UpgradeBench2" type="Node2D" parent="." unique_id=648213494]
 visible = false
 position = Vector2(600, 500)
 
-[node name="Bench" parent="UpgradeBench2" instance=ExtResource("2_bench")]
+[node name="Bench" parent="UpgradeBench2" unique_id=1798229389 instance=ExtResource("2_bench")]
 
-[node name="BenchFeeder" parent="UpgradeBench2" instance=ExtResource("11_feeder")]
+[node name="BenchFeeder" parent="UpgradeBench2" unique_id=1958170107 instance=ExtResource("11_feeder")]
 
-[node name="Unlockable" type="Node" parent="UpgradeBench2"]
+[node name="Unlockable" type="Node" parent="UpgradeBench2" unique_id=1076644359]
 script = ExtResource("19_unlockable")
 required_skill = &"more_benches_2"
-min_level = 1
 
-[node name="UpgradeBench3" type="Node2D" parent="."]
+[node name="UpgradeBench3" type="Node2D" parent="." unique_id=283424795]
 visible = false
 position = Vector2(990, 230)
 
-[node name="Bench" parent="UpgradeBench3" instance=ExtResource("2_bench")]
+[node name="Bench" parent="UpgradeBench3" unique_id=917815814 instance=ExtResource("2_bench")]
 
-[node name="BenchFeeder" parent="UpgradeBench3" instance=ExtResource("11_feeder")]
+[node name="BenchFeeder" parent="UpgradeBench3" unique_id=1331075965 instance=ExtResource("11_feeder")]
 
-[node name="Unlockable" type="Node" parent="UpgradeBench3"]
+[node name="Unlockable" type="Node" parent="UpgradeBench3" unique_id=411009348]
 script = ExtResource("19_unlockable")
 required_skill = &"more_benches_3"
-min_level = 1
 
-[node name="Fountain" parent="." instance=ExtResource("17_fountain")]
+[node name="Fountain" parent="." unique_id=1335517616 instance=ExtResource("17_fountain")]
 visible = false
 position = Vector2(960, 420)
 
-[node name="Unlockable" type="Node" parent="Fountain"]
+[node name="Unlockable" type="Node" parent="Fountain" unique_id=1239809291]
 script = ExtResource("19_unlockable")
 required_skill = &"fountain_unlock"
-min_level = 1
 
-[node name="TreeNests" type="Node2D" parent="."]
+[node name="TreeNests" type="Node2D" parent="." unique_id=1787508398]
 visible = false
 
-[node name="TreeNest1" parent="TreeNests" instance=ExtResource("18_tree_nest")]
+[node name="TreeNest1" parent="TreeNests" unique_id=233170867 instance=ExtResource("18_tree_nest")]
 position = Vector2(140, 155)
 
-[node name="TreeNest2" parent="TreeNests" instance=ExtResource("18_tree_nest")]
+[node name="TreeNest2" parent="TreeNests" unique_id=706238493 instance=ExtResource("18_tree_nest")]
 position = Vector2(210, 140)
 
-[node name="TreeNest3" parent="TreeNests" instance=ExtResource("18_tree_nest")]
+[node name="TreeNest3" parent="TreeNests" unique_id=1751869399 instance=ExtResource("18_tree_nest")]
 position = Vector2(245, 190)
 
-[node name="Unlockable" type="Node" parent="TreeNests"]
+[node name="Unlockable" type="Node" parent="TreeNests" unique_id=1405840458]
 script = ExtResource("19_unlockable")
 required_skill = &"tree_nests"
-min_level = 1
 
-[node name="ParkLayout" type="Node" parent="."]
+[node name="ParkLayout" type="Node" parent="." unique_id=1716656565]
 script = ExtResource("16_layout")
 
-
-[node name="FeatherCollector" type="Node2D" parent="."]
+[node name="FeatherCollector" type="Node2D" parent="." unique_id=989897121]
 script = ExtResource("12_collector")
 
 [node name="PigeonSpawner" type="Node2D" parent="." unique_id=28304278]
@@ -123,8 +117,6 @@ park_layout = NodePath("../ParkLayout")
 
 [node name="DayManager" type="Node" parent="." unique_id=1031930032]
 script = ExtResource("7_day")
-day_duration = 60.0
-
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=128581925]
 layer = 10
@@ -175,7 +167,7 @@ offset_bottom = 594.0
 theme_override_font_sizes/font_size = 20
 text = "START DAY"
 
-[node name="EndDay" type="Button" parent="HUD"]
+[node name="EndDay" type="Button" parent="HUD" unique_id=1783186962]
 visible = false
 offset_left = 486.0
 offset_top = 540.0

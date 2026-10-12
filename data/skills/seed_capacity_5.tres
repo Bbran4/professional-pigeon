@@ -1,16 +1,15 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://dqgghal8l0cyh"]
 
-[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
 script = ExtResource("1_skill")
 id = &"seed_capacity_5"
 display_name = "Deep Seed Pouch"
 description = "Increase feeder capacity by 3 seeds."
-category = 0
-currency_costs = { &"feathers": 58 }
+currency_costs = {
+&"feathers": 58
+}
 prerequisites = Array[StringName]([&"golden_seed_1"])
 effect_id = &"seed_capacity_add"
 effect_value = 3
-cost_growth = 1.5
-max_level = 1
