@@ -10,7 +10,6 @@ signal visitor_count_changed(count: int)
 @export var park_layout: ParkLayout
 
 const BALANCE: GameBalance = preload("res://data/game_balance.tres")
-const BRAIN_SCRIPT := preload("res://scripts/game/park_pigeon_brain.gd")
 const FEATHER_SCENE := preload("res://scenes/park/feather.tscn")
 const BENCH_SCENE := preload("res://scenes/park/bench.tscn")
 const SEED_FEEDER_SCENE := preload("res://scenes/park/seed_feeder.tscn")
@@ -232,12 +231,9 @@ func _spawn_visitor(perch: Dictionary, food_source: SeedFeeder) -> bool:
 	get_parent().add_child(pigeon)
 	pigeon.z_index = 20
 	pigeon.z_as_relative = false
-	var brain_node := Node.new()
-	brain_node.set_script(BRAIN_SCRIPT)
-	pigeon.add_child(brain_node)
-	var brain := brain_node as ParkPigeonBrain
+	var brain := pigeon.get_node_or_null("ParkPigeonBrain") as ParkPigeonBrain
 	if brain == null:
-		push_error("PigeonSpawner: failed to attach ParkPigeonBrain.")
+		push_error("PigeonSpawner: npc_pigeon.tscn must contain a ParkPigeonBrain child.")
 		pigeon.queue_free()
 		return false
 
