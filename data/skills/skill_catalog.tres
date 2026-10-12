@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b3ae4o6yy0p1x" path="res://scripts/progression/skill_catalog.gd" id="1_catalog"]
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="2_skill"]
+[ext_resource type="Resource" path="res://data/skills/bread_feeder_2.tres" id="40_bread_2"]
+[ext_resource type="Resource" path="res://data/skills/bread_feeder_3.tres" id="41_bread_3"]
+[ext_resource type="Resource" path="res://data/skills/bread_feeder_4.tres" id="42_bread_4"]
 [ext_resource type="Resource" uid="uid://cur6ypwksvl6u" path="res://data/skills/bread.tres" id="12"]
 [ext_resource type="Resource" uid="uid://bl8vcg3aqqi6q" path="res://data/skills/larger_flock.tres" id="13"]
 [ext_resource type="Script" uid="uid://d01mbuyb63u16" path="res://scripts/progression/skill_effect.gd" id="14_x4b2h"]
@@ -524,10 +527,6 @@ currency_costs = {
 prerequisites = Array[StringName]([&"golden_seed_1"])
 effect_id = &"golden_seed_bonus"
 effect_value = 3
-
-[ext_resource type="Resource" path="res://data/skills/bread_feeder_2.tres" id="40_bread_2"]
-[ext_resource type="Resource" path="res://data/skills/bread_feeder_3.tres" id="41_bread_3"]
-[ext_resource type="Resource" path="res://data/skills/bread_feeder_4.tres" id="42_bread_4"]
 
 [resource]
 script = ExtResource("1_catalog")
