@@ -39,13 +39,13 @@ var nodes_by_id: Dictionary = {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_load_catalog()
-	_collect_nodes()
 	if Engine.is_editor_hint():
-		if preview_grid_layout:
-			_apply_editor_layout()
+		# Keep the layout preview independent of catalog/resource script execution.
+		_apply_editor_layout()
 		queue_redraw()
 		return
+	_load_catalog()
+	_collect_nodes()
 	_validate_scene_dependencies()
 	_connect_progression_signals()
 	queue_redraw()
@@ -82,8 +82,8 @@ func _load_catalog() -> void:
 	_rebuild_lookup()
 
 
-## Applies a deterministic grid to the actual SkillNode positions in the editor.
-## This is an editor layout operation, not a temporary visual overlay.
+## Applies a deterministic grid to child controls without depending on catalog data.
+## This is an editor layout operation that changes the actual child positions.
 func _apply_editor_layout() -> void:
 	if not Engine.is_editor_hint() or not is_inside_tree():
 		return
@@ -91,31 +91,17 @@ func _apply_editor_layout() -> void:
 		queue_redraw()
 		return
 
-	_load_catalog()
-	_collect_nodes()
-
-	var ordered_nodes: Array[SkillNode] = []
-	for skill in skills:
-		if skill == null:
-			continue
-		var node := nodes_by_id.get(skill.id) as SkillNode
-		if node != null:
-			ordered_nodes.append(node)
-
-	if ordered_nodes.is_empty():
-		push_warning("SkillTree '%s': grid layout found no matching SkillNodes. Check the catalog and each node's skill_id." % get_path())
-		queue_redraw()
-		return
-
 	var columns := maxi(preview_grid_columns, 1)
-	for index in range(ordered_nodes.size()):
-		var node := ordered_nodes[index]
-		var column := index % columns
-		var row := floori(float(index) / float(columns))
+	var index := 0
+	for child in get_children():
+		var node := child as Control
+		if node == null:
+			continue
 		node.position = Vector2(
-			float(column * preview_grid_horizontal_spacing),
-			float(row * preview_grid_vertical_spacing)
+			float((index % columns) * preview_grid_horizontal_spacing),
+			float((index / columns) * preview_grid_vertical_spacing)
 		)
+		index += 1
 	queue_redraw()
 
 
