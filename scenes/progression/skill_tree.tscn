@@ -737,3 +737,36 @@ theme_override_font_sizes/font_size = 15
 text = "seed_refill_speed_3"
 clip_text = true
 skill_id = &"seed_refill_speed_3"
+
+[node name="bread_feeder_2" parent="." instance=ExtResource("3_skill_node")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 1850.0
+offset_top = 300.0
+offset_right = 1938.0
+offset_bottom = 388.0
+text = "bread_feeder_2"
+clip_text = true
+skill_id = &"bread_feeder_2"
+
+[node name="bread_feeder_3" parent="." instance=ExtResource("3_skill_node")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 1980.0
+offset_top = 300.0
+offset_right = 2068.0
+offset_bottom = 388.0
+text = "bread_feeder_3"
+clip_text = true
+skill_id = &"bread_feeder_3"
+
+[node name="bread_feeder_4" parent="." instance=ExtResource("3_skill_node")]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 2110.0
+offset_top = 300.0
+offset_right = 2198.0
+offset_bottom = 388.0
+text = "bread_feeder_4"
+clip_text = true
+skill_id = &"bread_feeder_4"
