@@ -1,6 +1,8 @@
 extends Control
 class_name SkillManager
 
+const STARTING_SKILL_ID: StringName = &"bread"
+
 @export var skill_tree: SkillTree
 @export var zoom_step: float = 0.1
 @export var min_zoom: float = 0.5
@@ -34,7 +36,7 @@ func _connect_progression_signals() -> void:
 func _center_on_starting_skill() -> void:
 	if skill_tree == null:
 		return
-	var starting_node := skill_tree.nodes_by_id.get(&"bread") as Control
+	var starting_node := skill_tree.nodes_by_id.get(STARTING_SKILL_ID) as Control
 	if starting_node == null:
 		return
 	zoom = 1.0
