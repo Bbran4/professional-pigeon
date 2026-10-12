@@ -15,7 +15,7 @@ enum Category {
 @export var display_name: String = ""
 @export_multiline var description: String = ""
 @export var category: Category = Category.FOOD
-@export var currency_costs: Dictionary[StringName, int] = {}
+@export var currency_costs: Dictionary = {}
 @export_range(1.0, 5.0, 0.05) var cost_growth: float = 1.5
 @export var coming_soon: bool = false
 @export var prerequisites: Array[StringName] = []
