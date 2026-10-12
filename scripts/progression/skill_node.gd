@@ -34,6 +34,7 @@ func refresh() -> void:
 		if skill_tree != null:
 			var editor_skill := skill_tree.get_skill(skill_id)
 			if editor_skill != null:
+				_apply_category_style(editor_skill)
 				text = editor_skill.display_name
 				tooltip_text = editor_skill.get_effect_description()
 				return
@@ -94,3 +95,49 @@ func _on_pressed() -> void:
 		return
 	if skill_tree.purchase(skill_id):
 		refresh()
+
+
+
+func _apply_category_style(skill: SkillData) -> void:
+	var accent := _get_category_color(skill.category)
+	var normal := _make_category_style(accent, 0.18)
+	var hover := _make_category_style(accent, 0.30)
+	var pressed_style := _make_category_style(accent, 0.38)
+	var disabled_style := _make_category_style(accent, 0.10)
+	theme_override_styles.normal = normal
+	theme_override_styles.hover = hover
+	theme_override_styles.pressed = pressed_style
+	theme_override_styles.disabled = disabled_style
+	add_theme_color_override("font_color", Color(0.94, 0.94, 0.91))
+	add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0))
+	add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0))
+	add_theme_color_override("font_disabled_color", Color(0.68, 0.68, 0.66))
+
+
+func _make_category_style(accent: Color, tint: float) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.09, 0.10, 0.12).lerp(accent, tint)
+	style.border_color = accent
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(7)
+	style.content_margin_left = 8.0
+	style.content_margin_right = 8.0
+	style.content_margin_top = 6.0
+	style.content_margin_bottom = 6.0
+	return style
+
+
+func _get_category_color(category: SkillData.Category) -> Color:
+	match category:
+		SkillData.Category.FOOD:
+			return Color(0.76, 0.57, 0.25)
+		SkillData.Category.PLAYER_UPGRADES:
+			return Color(0.34, 0.67, 0.83)
+		SkillData.Category.ABILITIES:
+			return Color(0.63, 0.48, 0.82)
+		SkillData.Category.BOOSTS:
+			return Color(0.85, 0.47, 0.28)
+		SkillData.Category.NPC_PIGEONS:
+			return Color(0.43, 0.72, 0.48)
+		_:
+			return Color(0.55, 0.55, 0.58)
