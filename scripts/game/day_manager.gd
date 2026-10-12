@@ -20,6 +20,7 @@ var active: bool:
 		return RunState.active
 
 var _last_display_state: Array = []
+var _last_timer_display: int = -1
 
 var feeder: SeedFeeder:
 	get:
@@ -41,12 +42,25 @@ func _ready() -> void:
 	add_to_group("day_manager")
 	spawner.visitor_count_changed.connect(_on_visitor_count_changed)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+	_connect_feeder_signals()
 	spawner.end_day()
+	_emit_day_updated()
+
+
+func _connect_feeder_signals() -> void:
+	for node in get_tree().get_nodes_in_group("feeders"):
+		var available_feeder := node as SeedFeeder
+		if is_instance_valid(available_feeder) and not available_feeder.seeds_changed.is_connected(_on_feeder_seeds_changed):
+			available_feeder.seeds_changed.connect(_on_feeder_seeds_changed)
+
+
+func _on_feeder_seeds_changed(_current: int, _capacity: int) -> void:
 	_emit_day_updated()
 
 
 func refresh_display() -> void:
 	_last_display_state.clear()
+	_last_timer_display = -1
 	_emit_day_updated()
 
 
@@ -54,7 +68,9 @@ func _process(delta: float) -> void:
 	if not active:
 		return
 	RunState.advance_time(delta)
-	_emit_day_updated()
+	var timer_display := ceili(time_remaining)
+	if timer_display != _last_timer_display:
+		_emit_day_updated()
 	if time_remaining <= 0.0:
 		end_day()
 		return
@@ -74,6 +90,7 @@ func start_day() -> void:
 			_feeder.refill(_feeder.get_seed_capacity())
 	var duration := day_duration + ProgressionManager.get_effect_value(EffectIds.DAY_DURATION_ADD)
 	RunState.begin_day(duration)
+	_last_timer_display = -1
 	spawner.start_day()
 	day_started.emit(time_remaining)
 	_emit_day_updated()
@@ -134,6 +151,7 @@ func _clear_uncollected_feathers() -> void:
 
 func _on_visitor_count_changed(_count: int) -> void:
 	_check_day_completion()
+	_emit_day_updated()
 
 
 func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
@@ -172,6 +190,7 @@ func _emit_day_updated() -> void:
 	if display_state == _last_display_state:
 		return
 	_last_display_state = display_state
+	_last_timer_display = displayed_time
 	day_updated.emit(
 		time_remaining if active else 0.0,
 		points,
