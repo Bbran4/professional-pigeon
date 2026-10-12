@@ -13,6 +13,7 @@ class_name ParkHud
 @onready var result_label: Label = $Result
 
 var _visible_collectible_count: int = 0
+var _tracked_collectibles: Array[Collectible] = []
 
 
 func _ready() -> void:
@@ -24,28 +25,52 @@ func _ready() -> void:
 	day_manager.day_ended.connect(_on_day_ended)
 	DomainEvents.collectible_spawned.connect(_on_collectible_spawned)
 	DomainEvents.collectible_collected.connect(_on_collectible_collected)
+	DomainEvents.collectible_unregistered.connect(_on_collectible_unregistered)
 	_recount_visible_collectibles()
 	day_manager.refresh_display()
 	_update_feather_hint()
 
 
 func _recount_visible_collectibles() -> void:
+	_tracked_collectibles.clear()
 	_visible_collectible_count = 0
 	for node in get_tree().get_nodes_in_group("collectibles"):
 		var collectible := node as Collectible
 		if is_instance_valid(collectible) and collectible.is_visible_in_tree():
-			_visible_collectible_count += 1
+			_track_collectible(collectible)
+
+
+func _track_collectible(collectible: Collectible) -> void:
+	if not is_instance_valid(collectible) or _tracked_collectibles.has(collectible):
+		return
+	_tracked_collectibles.append(collectible)
+	_visible_collectible_count += 1
+
+
+func _untrack_collectible(collectible: Collectible) -> void:
+	var index := _tracked_collectibles.find(collectible)
+	if index == -1:
+		return
+	_tracked_collectibles.remove_at(index)
+	_visible_collectible_count = maxi(0, _visible_collectible_count - 1)
 
 
 func _on_collectible_spawned(collectible_node: Node) -> void:
 	var collectible := collectible_node as Collectible
 	if is_instance_valid(collectible) and collectible.is_visible_in_tree():
-		_visible_collectible_count += 1
+		_track_collectible(collectible)
 		_update_feather_hint()
 
 
-func _on_collectible_collected(_collectible_node: Node, _points: int) -> void:
-	_visible_collectible_count = maxi(0, _visible_collectible_count - 1)
+func _on_collectible_collected(collectible_node: Node, _points: int) -> void:
+	_untrack_collectible(collectible_node as Collectible)
+	_update_feather_hint()
+
+
+func _on_collectible_unregistered(collectible_node: Node) -> void:
+	# Also handles feathers removed by queue_free() when a day ends.
+	# Already-collected feathers are untracked above, so this cannot double-decrement.
+	_untrack_collectible(collectible_node as Collectible)
 	_update_feather_hint()
 
 
