@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="2_skill"]
 [ext_resource type="Resource" uid="uid://cur6ypwksvl6u" path="res://data/skills/bread.tres" id="12"]
 [ext_resource type="Resource" uid="uid://bl8vcg3aqqi6q" path="res://data/skills/larger_flock.tres" id="13"]
+[ext_resource type="Script" uid="uid://d01mbuyb63u16" path="res://scripts/progression/skill_effect.gd" id="14_x4b2h"]
 [ext_resource type="Resource" uid="uid://op4vh2ba5d50" path="res://data/skills/unlock_seeds.tres" id="18"]
 [ext_resource type="Resource" uid="uid://blxqkciohr1i6" path="res://data/skills/unlock_worms.tres" id="19"]
 [ext_resource type="Resource" uid="uid://dmn06pedb6xdj" path="res://data/skills/seeds_spawns.tres" id="21"]
