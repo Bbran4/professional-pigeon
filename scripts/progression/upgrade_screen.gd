@@ -40,4 +40,4 @@ func _exit_tree() -> void:
 
 func _on_start_day_pressed() -> void:
 	ProgressionManager.save_game()
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
+	SceneManager.change_to(&"park")
