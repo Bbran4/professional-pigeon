@@ -61,9 +61,9 @@ func refresh() -> void:
 		disabled = true
 		return
 
-	var level := skill_tree.get_level(skill_id)
+	var level := SkillPurchaseService.get_level(skill_id)
 	var maxed := level >= skill.max_level
-	var available := skill_tree.can_purchase(skill_id)
+	var available := SkillPurchaseService.can_purchase(skill_id)
 	if maxed:
 		text = "%s\nLevel %d/%d\nMAXED" % [
 			skill.display_name,
@@ -72,14 +72,14 @@ func refresh() -> void:
 		]
 		disabled = true
 	else:
-		var points_cost := skill_tree.get_next_points_cost(skill_id)
+		var points_cost := SkillPurchaseService.get_next_points_cost(skill_id)
 		var cost_text := "%d Feathers" % points_cost
 		var state_text := "AVAILABLE"
 		if not available:
-			if not skill_tree.is_unlocked(skill_id):
+			if not SkillPurchaseService.is_unlocked(skill_id):
 				state_text = "PREREQUISITES NEEDED"
 			else:
-				var lacks_points := ProgressionManager.points < points_cost
+				var lacks_points := not ProgressionManager.can_spend_points(points_cost)
 				if lacks_points:
 					state_text = "NEED %d FEATHERS" % points_cost
 				else:
@@ -96,11 +96,8 @@ func refresh() -> void:
 
 
 func _on_pressed() -> void:
-	if skill_tree == null:
-		return
-	if skill_tree.purchase(skill_id):
+	if SkillPurchaseService.purchase(skill_id):
 		refresh()
-
 
 
 func _apply_category_style(skill: SkillData) -> void:
