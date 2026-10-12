@@ -31,13 +31,8 @@ func get_prerequisites() -> Array[StringName]:
 
 func refresh() -> void:
 	if Engine.is_editor_hint():
-		if skill_tree != null:
-			var editor_skill := skill_tree.get_skill(skill_id)
-			if editor_skill != null:
-				_apply_category_style(editor_skill)
-				text = editor_skill.display_name
-				tooltip_text = editor_skill.get_effect_description()
-				return
+		# SkillData is not @tool, so editor instances may be placeholders.
+		# Keep editor refresh limited to this node's exported data.
 		text = String(skill_id) if skill_id != &"" else "UNASSIGNED"
 		return
 	if skill_tree == null or skill_id == &"":
