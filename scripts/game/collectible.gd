@@ -6,3 +6,8 @@ class_name Collectible
 
 func _ready() -> void:
 	add_to_group("collectibles")
+	DomainEvents.collectible_registered.emit(self)
+
+
+func _exit_tree() -> void:
+	DomainEvents.collectible_unregistered.emit(self)
