@@ -152,6 +152,7 @@ func end_day() -> void:
 	ProgressionManager.save_game()
 	_emit_day_updated()
 	day_ended.emit(reward)
+	DomainEvents.run_completed.emit(reward)
 
 
 func _emit_day_updated() -> void:
