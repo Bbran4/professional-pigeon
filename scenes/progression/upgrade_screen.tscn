@@ -24,49 +24,49 @@ mouse_filter = 2
 
 [node name="TopBar" type="Panel" parent="." unique_id=1931811504]
 z_index = 1
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 82.0
 grow_horizontal = 2
 
-[node name="Title" type="Label" parent="TopBar" unique_id=861124657]
-layout_mode = 0
-offset_left = 28.0
-offset_top = 18.0
-offset_right = 360.0
-offset_bottom = 54.0
+[node name="TopBarContent" type="HBoxContainer" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 12.0
+offset_right = -24.0
+offset_bottom = -12.0
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="TopBar/TopBarContent" unique_id=861124657]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 26
 text = "PARK SKILL TREE"
+vertical_alignment = 1
 
-[node name="PointsLabel" type="Label" parent="TopBar" unique_id=2144754319]
-layout_mode = 0
-offset_left = 390.0
-offset_top = 24.0
-offset_right = 540.0
-offset_bottom = 54.0
+[node name="PointsLabel" type="Label" parent="TopBar/TopBarContent" unique_id=2144754319]
+custom_minimum_size = Vector2(150, 36)
+layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Feathers: 0"
+vertical_alignment = 1
 
-[node name="StartDayButton" type="Button" parent="TopBar" unique_id=853104194]
-layout_mode = 0
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -190.0
-offset_top = 17.0
-offset_right = -28.0
-offset_bottom = 62.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 18
-text = "START NEW DAY"
-
-[node name="ResetSaveButton" type="Button" parent="TopBar" unique_id=1590502962]
-layout_mode = 0
-offset_left = 720.0
-offset_top = 17.0
-offset_right = 850.0
-offset_bottom = 62.0
+[node name="ResetSaveButton" type="Button" parent="TopBar/TopBarContent" unique_id=2144754320]
+custom_minimum_size = Vector2(130, 45)
+layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "RESET SAVE"
+
+[node name="StartDayButton" type="Button" parent="TopBar/TopBarContent" unique_id=853104194]
+custom_minimum_size = Vector2(162, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "START NEW DAY"
 
 [node name="SkillManager" type="Control" parent="." unique_id=106104407]
 layout_mode = 1
@@ -84,9 +84,9 @@ offset_left = -850.0
 offset_top = -89.0
 offset_right = 1719.0
 offset_bottom = 1879.0
-preview_grid_layout = true
+preview_grid_layout = false
 
-[node name="ResetConfirmation" type="ConfirmationDialog" parent="." unique_id=1692433564]
+[node name="ResetConfirmation" type="ConfirmationDialog" parent="." unique_id=1931811505]
 title = "Reset Save"
 ok_button_text = "RESET"
 dialog_text = "Delete all saved Feathers and purchased upgrades?"
