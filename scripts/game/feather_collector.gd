@@ -5,6 +5,9 @@ class_name FeatherCollector
 @export_range(4.0, 128.0, 1.0) var base_cursor_radius: float = 34.0
 @export_range(0.1, 10.0, 0.1) var minimum_collection_duration: float = 0.5
 
+const PICKUP_TEXT_DURATION := 0.75
+const PICKUP_TEXT_RISE := 30.0
+
 var current_collectible: Collectible
 var collection_elapsed: float = 0.0
 var crow_elapsed: float = 0.0
@@ -114,9 +117,34 @@ func _collect_current_collectible() -> void:
 func _collect_collectible(collectible: Collectible) -> void:
 	if not is_instance_valid(collectible) or not collectible.is_visible_in_tree():
 		return
+	var pickup_position := collectible.global_position
+	var points := collectible.point_value
+	var is_golden := collectible is Feather and (collectible as Feather).is_golden
+	_spawn_pickup_text(pickup_position, points, is_golden)
 	collectible.hide()
-	if collectible.point_value > 0:
+	if points > 0:
 		var day_manager := get_tree().get_first_node_in_group("day_manager") as DayManager
 		if is_instance_valid(day_manager):
-			day_manager.collect_feather_points(collectible.point_value)
+			day_manager.collect_feather_points(points)
 	collectible.queue_free()
+
+
+func _spawn_pickup_text(world_position: Vector2, points: int, is_golden: bool) -> void:
+	var label := Label.new()
+	label.name = "PickupFeedback"
+	label.text = "+%d" % points
+	label.add_theme_font_size_override("font_size", 20 if is_golden else 18)
+	label.add_theme_color_override("font_color", Color(1.0, 0.76, 0.18, 1.0) if is_golden else Color(1.0, 0.97, 0.86, 1.0))
+	label.add_theme_color_override("font_outline_color", Color(0.16, 0.12, 0.07, 0.95))
+	label.add_theme_constant_override("outline_size", 4)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.position = get_parent().to_local(world_position) - Vector2(18.0, 12.0)
+	label.z_index = 100
+	get_parent().add_child(label)
+
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(label, "position:y", label.position.y - PICKUP_TEXT_RISE, PICKUP_TEXT_DURATION).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(label, "modulate:a", 0.0, PICKUP_TEXT_DURATION).set_ease(Tween.EASE_IN)
+	tween.set_parallel(false)
+	tween.tween_callback(label.queue_free)
