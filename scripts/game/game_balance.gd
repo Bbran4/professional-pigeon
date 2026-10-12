@@ -32,5 +32,4 @@ class_name GameBalance
 
 @export_group("Flock Limits")
 @export_range(1, 100, 1) var minimum_pigeons: int = 1
-@export_range(1, 100, 1) var maximum_pigeons: int = 12
 @export var tree_nest_pigeon_capacity: int = 1
