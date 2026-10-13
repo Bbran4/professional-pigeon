@@ -70,6 +70,8 @@ func _sync_feeders(
 		if feeder == null:
 			push_error("FeederSpawner: feeder scene root must extend SeedFeeder.")
 			return
+		if feeder_scene == SEED_FEEDER_SCENE:
+			feeder.food_kind = "seeds"
 		get_parent().add_child(feeder)
 		feeder.global_position = marker.global_position
 		feeders.append(feeder)
