@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" path="res://scenes/park/fountain.tscn" id="17_fountain"]
 [ext_resource type="PackedScene" path="res://scenes/park/tree_nest.tscn" id="18_tree_nest"]
 [ext_resource type="Script" uid="uid://cavx4sw26g0s0" path="res://scripts/game/unlockable.gd" id="19_unlockable"]
+[ext_resource type="Script" path="res://scripts/game/feeder_spawner.gd" id="24_feeder_spawner"]
 
 [node name="Park" type="Node2D" unique_id=462212071]
 y_sort_enabled = true
@@ -39,98 +40,32 @@ polygon = PackedVector2Array(460, 82, 690, 82, 820, 648, 610, 648)
 [node name="Tree" parent="." unique_id=443909036 instance=ExtResource("1_tree")]
 position = Vector2(185, 185)
 
-[node name="Bench" parent="." unique_id=627715693 instance=ExtResource("2_bench")]
+[node name="Bench1" parent="." instance=ExtResource("2_bench")]
 position = Vector2(780, 210)
 
-[node name="BenchFeeder" parent="." unique_id=1447542670 instance=ExtResource("11_feeder")]
-position = Vector2(780, 210)
-
-[node name="StarterBench" parent="." instance=ExtResource("2_bench")]
+[node name="Bench2" parent="." instance=ExtResource("2_bench")]
 position = Vector2(480, 340)
 
-[node name="StarterFeeder" parent="." unique_id=625185563 instance=ExtResource("15_starter_feeder")]
-position = Vector2(445, 340)
-food_kind = "bread"
-
-[node name="StarterSeedFeeder" parent="." instance=ExtResource("15_starter_feeder")]
-position = Vector2(515, 340)
-food_kind = "seeds"
-
-[node name="Unlockable" type="Node" parent="StarterSeedFeeder"]
-script = ExtResource("23_unlockable")
-required_skills = Array[StringName]([&"unlock_seeds"])
-
-[node name="UpgradeBench1" type="Node2D" parent="." unique_id=206120649]
-visible = false
+[node name="Bench3" parent="." instance=ExtResource("2_bench")]
 position = Vector2(300, 500)
 
-[node name="Bench" parent="UpgradeBench1" unique_id=471250174 instance=ExtResource("2_bench")]
-
-[node name="BreadFeeder" parent="UpgradeBench1" instance=ExtResource("22_bread_feeder")]
-
-[node name="Unlockable" type="Node" parent="UpgradeBench1" unique_id=656332279]
-script = ExtResource("19_unlockable")
-required_skills = Array[StringName]([&"bread_feeder_2"])
-
-[node name="UpgradeBench2" type="Node2D" parent="." unique_id=648213494]
-visible = false
+[node name="Bench4" parent="." instance=ExtResource("2_bench")]
 position = Vector2(600, 500)
 
-[node name="Bench" parent="UpgradeBench2" unique_id=1791268206 instance=ExtResource("2_bench")]
-
-[node name="BreadFeeder" parent="UpgradeBench2" instance=ExtResource("22_bread_feeder")]
-
-[node name="Unlockable" type="Node" parent="UpgradeBench2" unique_id=1076644359]
-script = ExtResource("19_unlockable")
-required_skills = Array[StringName]([&"bread_feeder_3"])
-
-[node name="UpgradeBench3" type="Node2D" parent="." unique_id=283424795]
-visible = false
+[node name="Bench5" parent="." instance=ExtResource("2_bench")]
 position = Vector2(990, 230)
 
-[node name="Bench" parent="UpgradeBench3" unique_id=917815814 instance=ExtResource("2_bench")]
-
-[node name="BreadFeeder" parent="UpgradeBench3" instance=ExtResource("22_bread_feeder")]
-
-[node name="Unlockable" type="Node" parent="UpgradeBench3" unique_id=411009348]
-script = ExtResource("19_unlockable")
-required_skills = Array[StringName]([&"bread_feeder_4"])
-
-[node name="UpgradeSeedBench1" type="Node2D" parent="."]
-visible = false
+[node name="Bench6" parent="." instance=ExtResource("2_bench")]
 position = Vector2(320, 245)
 
-[node name="Bench" parent="UpgradeSeedBench1" instance=ExtResource("2_bench")]
-
-[node name="BenchFeeder" parent="UpgradeSeedBench1" instance=ExtResource("11_feeder")]
-
-[node name="Unlockable" type="Node" parent="UpgradeSeedBench1"]
-script = ExtResource("19_unlockable")
-required_skills = Array[StringName]([&"more_benches_1"])
-
-[node name="UpgradeSeedBench2" type="Node2D" parent="."]
-visible = false
+[node name="Bench7" parent="." instance=ExtResource("2_bench")]
 position = Vector2(900, 350)
 
-[node name="Bench" parent="UpgradeSeedBench2" instance=ExtResource("2_bench")]
-
-[node name="BenchFeeder" parent="UpgradeSeedBench2" instance=ExtResource("11_feeder")]
-
-[node name="Unlockable" type="Node" parent="UpgradeSeedBench2"]
-script = ExtResource("19_unlockable")
-required_skills = Array[StringName]([&"more_benches_2"])
-
-[node name="UpgradeSeedBench3" type="Node2D" parent="."]
-visible = false
+[node name="Bench8" parent="." instance=ExtResource("2_bench")]
 position = Vector2(300, 440)
 
-[node name="Bench" parent="UpgradeSeedBench3" instance=ExtResource("2_bench")]
-
-[node name="BenchFeeder" parent="UpgradeSeedBench3" instance=ExtResource("11_feeder")]
-
-[node name="Unlockable" type="Node" parent="UpgradeSeedBench3"]
-script = ExtResource("19_unlockable")
-required_skills = Array[StringName]([&"more_benches_3"])
+[node name="FeederSpawner" type="Node" parent="."]
+script = ExtResource("24_feeder_spawner")
 
 [node name="Fountain" parent="." unique_id=1335517616 instance=ExtResource("17_fountain")]
 visible = false
