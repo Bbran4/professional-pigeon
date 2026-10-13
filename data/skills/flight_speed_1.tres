@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"flight_speed_1"
+display_name = "Fleet Wings 1"
+description = "Increase pigeon flight speed by 20."
+category = 3
+currency_costs = {
+&"feathers": 20
+}
+prerequisites = Array[StringName]([&"more_pigeons"])
+effect_id = &"flight_speed_add"
+effect_value = 20
