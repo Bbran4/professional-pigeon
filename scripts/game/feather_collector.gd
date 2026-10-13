@@ -119,6 +119,14 @@ func _register_collectible(node: Node) -> void:
 	_collectibles.append(collectible)
 	_needs_target_refresh = true
 	if _auto_collect and collectible.is_visible_in_tree():
+		# Collectibles announce themselves from _ready(), which can run before
+		# their spawner finishes assigning point_value and other runtime data.
+		# Defer collection so the spawn operation can fully initialize the item.
+		call_deferred("_collect_registered_collectible", collectible)
+
+
+func _collect_registered_collectible(collectible: Collectible) -> void:
+	if _auto_collect and is_instance_valid(collectible) and collectible.is_visible_in_tree():
 		_collect_collectible(collectible)
 
 
