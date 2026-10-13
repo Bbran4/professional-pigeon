@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"eating_speed_1"
+display_name = "Quick Pecking 1"
+description = "Reduce eating time by 0.25 seconds."
+category = 3
+currency_costs = {
+&"feathers": 17
+}
+prerequisites = Array[StringName]([&"unlock_seeds"])
+effect_id = &"eating_time_reduction"
+effect_value = 0.25
