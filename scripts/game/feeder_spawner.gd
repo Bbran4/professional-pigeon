@@ -40,7 +40,7 @@ func _refresh_feeders() -> void:
 			bread_count += 1
 
 	var seed_count := 0
-	if ProgressionManager.get_skill_level(&"unlock_seeds") > 0:
+	if ProgressionManager.get_skill_level(&"bench_feeder") > 0 or ProgressionManager.get_skill_level(&"unlock_seeds") > 0:
 		seed_count = 1
 		for skill_id in [&"more_benches_1", &"more_benches_2", &"more_benches_3"]:
 			if ProgressionManager.get_skill_level(skill_id) > 0:
