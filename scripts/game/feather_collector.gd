@@ -9,6 +9,7 @@ const BALANCE: GameBalance = preload("res://data/game_balance.tres")
 
 const PICKUP_TEXT_DURATION := 0.75
 const PICKUP_TEXT_RISE := 30.0
+const CURSOR_Z_INDEX := 1000
 
 var current_collectible: Collectible
 var collection_elapsed: float = 0.0
@@ -25,6 +26,10 @@ var _collection_duration: float = BALANCE.default_feather_collection_duration
 
 
 func _ready() -> void:
+	# The park root uses Y-sorting, so keep the cursor in its own high,
+	# absolute Z layer to prevent benches, pigeons, and other props drawing over it.
+	z_as_relative = false
+	z_index = CURSOR_Z_INDEX
 	DomainEvents.collectible_registered.connect(_register_collectible)
 	DomainEvents.collectible_unregistered.connect(_unregister_collectible)
 	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
@@ -198,7 +203,8 @@ func _spawn_pickup_text(world_position: Vector2, points: int, is_golden: bool) -
 		label.queue_free()
 		return
 	label.position = world_parent.to_local(world_position) - Vector2(18.0, 12.0)
-	label.z_index = 100
+	label.z_as_relative = false
+	label.z_index = CURSOR_Z_INDEX
 	world_parent.add_child(label)
 
 	var tween := create_tween()
