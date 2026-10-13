@@ -41,28 +41,28 @@ polygon = PackedVector2Array(460, 82, 690, 82, 820, 648, 610, 648)
 position = Vector2(185, 185)
 
 [node name="Bench1" parent="." instance=ExtResource("2_bench")]
-position = Vector2(780, 210)
+position = Vector2(760, 210)
 
 [node name="Bench2" parent="." instance=ExtResource("2_bench")]
-position = Vector2(480, 340)
+position = Vector2(500, 430)
 
 [node name="Bench3" parent="." instance=ExtResource("2_bench")]
-position = Vector2(300, 500)
+position = Vector2(250, 500)
 
 [node name="Bench4" parent="." instance=ExtResource("2_bench")]
-position = Vector2(600, 500)
+position = Vector2(500, 510)
 
 [node name="Bench5" parent="." instance=ExtResource("2_bench")]
-position = Vector2(990, 230)
+position = Vector2(1000, 250)
 
 [node name="Bench6" parent="." instance=ExtResource("2_bench")]
-position = Vector2(320, 245)
+position = Vector2(300, 285)
 
 [node name="Bench7" parent="." instance=ExtResource("2_bench")]
-position = Vector2(900, 350)
+position = Vector2(1000, 450)
 
 [node name="Bench8" parent="." instance=ExtResource("2_bench")]
-position = Vector2(300, 440)
+position = Vector2(750, 500)
 
 [node name="FeederSpawner" type="Node" parent="."]
 script = ExtResource("24_feeder_spawner")
