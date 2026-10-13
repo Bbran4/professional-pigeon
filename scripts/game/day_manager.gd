@@ -130,9 +130,6 @@ func start_day() -> void:
 	for available_feeder in _feeders:
 		if is_instance_valid(available_feeder) and available_feeder.is_visible_in_tree():
 			available_feeder.refill(available_feeder.get_seed_capacity())
-	if not is_instance_valid(feeder):
-		if is_instance_valid(_feeder):
-			_feeder.refill(_feeder.get_seed_capacity())
 	var duration := BALANCE.default_day_duration + ProgressionManager.get_effect_value(EffectIds.DAY_DURATION_ADD)
 	RunState.begin_day(duration)
 	_last_timer_display = -1
