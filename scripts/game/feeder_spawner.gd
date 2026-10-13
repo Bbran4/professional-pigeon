@@ -11,9 +11,9 @@ var _seed_markers: Array[Marker2D] = []
 
 
 func _ready() -> void:
-	_bread_markers = _get_markers(&"bread_feeder_spawn")
-	_seed_markers = _get_markers(&"seed_feeder_spawn")
-	ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+	if not ProgressionManager.skill_level_changed.is_connected(_on_skill_level_changed):
+		ProgressionManager.skill_level_changed.connect(_on_skill_level_changed)
+	# Resolve markers after all scene instances have entered the tree.
 	call_deferred("_refresh_feeders")
 
 
@@ -21,7 +21,7 @@ func _get_markers(group_name: StringName) -> Array[Marker2D]:
 	var markers: Array[Marker2D] = []
 	for node in get_tree().get_nodes_in_group(group_name):
 		var marker := node as Marker2D
-		if marker != null and marker.is_inside_tree() and marker.is_visible_in_tree():
+		if marker != null and marker.is_inside_tree():
 			markers.append(marker)
 	return markers
 
@@ -33,6 +33,13 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 func _refresh_feeders() -> void:
 	if not is_inside_tree():
 		return
+	# Refresh marker references in case the park scene finished instancing after _ready.
+	_bread_markers = _get_markers(&"bread_feeder_spawn")
+	_seed_markers = _get_markers(&"seed_feeder_spawn")
+	if _bread_markers.is_empty():
+		push_warning("FeederSpawner: no bread_feeder_spawn markers found.")
+	if _seed_markers.is_empty():
+		push_warning("FeederSpawner: no seed_feeder_spawn markers found.")
 	# The park starts with one bread feeder. Each vendor upgrade adds another.
 	var bread_count := 1
 	for skill_id in [&"bread_feeder_2", &"bread_feeder_3", &"bread_feeder_4"]:
@@ -66,9 +73,11 @@ func _sync_feeders(
 		var marker := markers[feeders.size()]
 		if not is_instance_valid(marker):
 			break
-		var feeder := feeder_scene.instantiate() as SeedFeeder
+		var instance := feeder_scene.instantiate()
+		var feeder := instance as SeedFeeder
 		if feeder == null:
-			push_error("FeederSpawner: feeder scene root must extend SeedFeeder.")
+			push_error("FeederSpawner: %s root must extend SeedFeeder." % feeder_scene.resource_path)
+			instance.free()
 			return
 		if feeder_scene == SEED_FEEDER_SCENE:
 			feeder.food_kind = "seeds"
