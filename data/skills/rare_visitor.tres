@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="SkillData" format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://c2wnwnw3t7ur2"]
 
+[ext_resource type="Script" uid="uid://d01mbuyb63u16" path="res://scripts/progression/skill_effect.gd" id="1_7jsd7"]
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
 
 [resource]
@@ -11,7 +12,7 @@ category = 4
 currency_costs = {
 &"feathers": 35
 }
-prerequisites = Array[StringName]([&"pigeon_patience_1"])
+prerequisites = Array[StringName]([&"more_pigeons_1"])
 effect_id = &"rare_visitor_chance"
 effect_value = 0.1
 max_level = 3

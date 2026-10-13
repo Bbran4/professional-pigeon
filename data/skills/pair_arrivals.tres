@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="SkillData" format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://nn2w8qj57qi8"]
 
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+[ext_resource type="Script" uid="uid://d01mbuyb63u16" path="res://scripts/progression/skill_effect.gd" id="1_w6a6j"]
 
 [resource]
 script = ExtResource("1_skill")
@@ -11,6 +12,6 @@ category = 4
 currency_costs = {
 &"feathers": 40
 }
-prerequisites = Array[StringName]([&"rare_visitor"])
+prerequisites = Array[StringName]([&"more_pigeons_2"])
 effect_id = &"pair_arrivals"
 effect_value = 0.1

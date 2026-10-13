@@ -2,12 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b3ae4o6yy0p1x" path="res://scripts/progression/skill_catalog.gd" id="1_catalog"]
 [ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="2_skill"]
-[ext_resource type="Resource" path="res://data/skills/bread_feeder_2.tres" id="40_bread_2"]
-[ext_resource type="Resource" path="res://data/skills/bread_feeder_3.tres" id="41_bread_3"]
-[ext_resource type="Resource" path="res://data/skills/bread_feeder_4.tres" id="42_bread_4"]
 [ext_resource type="Resource" uid="uid://cur6ypwksvl6u" path="res://data/skills/bread.tres" id="12"]
 [ext_resource type="Resource" uid="uid://bl8vcg3aqqi6q" path="res://data/skills/larger_flock.tres" id="13"]
-[ext_resource type="Script" uid="uid://d01mbuyb63u16" path="res://scripts/progression/skill_effect.gd" id="14_x4b2h"]
 [ext_resource type="Resource" uid="uid://op4vh2ba5d50" path="res://data/skills/unlock_seeds.tres" id="18"]
 [ext_resource type="Resource" uid="uid://blxqkciohr1i6" path="res://data/skills/unlock_worms.tres" id="19"]
 [ext_resource type="Resource" uid="uid://dmn06pedb6xdj" path="res://data/skills/seeds_spawns.tres" id="21"]
@@ -27,84 +23,48 @@
 [ext_resource type="Resource" uid="uid://l7wdjcfsvoxe" path="res://data/skills/seed_capacity_4.tres" id="37"]
 [ext_resource type="Resource" uid="uid://dqgghal8l0cyh" path="res://data/skills/seed_capacity_5.tres" id="38"]
 [ext_resource type="Resource" uid="uid://5rp3y25l8y8g" path="res://data/skills/more_pigeons_1.tres" id="39"]
+[ext_resource type="Resource" path="res://data/skills/bread_feeder_2.tres" id="40_bread_2"]
+[ext_resource type="Resource" path="res://data/skills/bread_feeder_3.tres" id="41_bread_3"]
+[ext_resource type="Resource" path="res://data/skills/bread_feeder_4.tres" id="42_bread_4"]
+[ext_resource type="Resource" path="res://data/skills/arrival_speed_1.tres" id="skill_arrival_speed_1"]
+[ext_resource type="Resource" path="res://data/skills/arrival_speed_2.tres" id="skill_arrival_speed_2"]
+[ext_resource type="Resource" path="res://data/skills/arrival_speed_3.tres" id="skill_arrival_speed_3"]
+[ext_resource type="Resource" path="res://data/skills/crow_collector.tres" id="skill_crow_collector"]
 [ext_resource type="Resource" path="res://data/skills/day_duration_1.tres" id="skill_day_duration_1"]
 [ext_resource type="Resource" path="res://data/skills/day_duration_2.tres" id="skill_day_duration_2"]
 [ext_resource type="Resource" path="res://data/skills/day_duration_3.tres" id="skill_day_duration_3"]
 [ext_resource type="Resource" path="res://data/skills/day_duration_4.tres" id="skill_day_duration_4"]
 [ext_resource type="Resource" path="res://data/skills/day_duration_5.tres" id="skill_day_duration_5"]
-[ext_resource type="Resource" path="res://data/skills/arrival_speed_1.tres" id="skill_arrival_speed_1"]
-[ext_resource type="Resource" path="res://data/skills/arrival_speed_2.tres" id="skill_arrival_speed_2"]
-[ext_resource type="Resource" path="res://data/skills/arrival_speed_3.tres" id="skill_arrival_speed_3"]
 [ext_resource type="Resource" path="res://data/skills/eating_speed_1.tres" id="skill_eating_speed_1"]
 [ext_resource type="Resource" path="res://data/skills/eating_speed_2.tres" id="skill_eating_speed_2"]
 [ext_resource type="Resource" path="res://data/skills/eating_speed_3.tres" id="skill_eating_speed_3"]
-[ext_resource type="Resource" path="res://data/skills/flight_speed_1.tres" id="skill_flight_speed_1"]
-[ext_resource type="Resource" path="res://data/skills/flight_speed_2.tres" id="skill_flight_speed_2"]
-[ext_resource type="Resource" path="res://data/skills/flight_speed_3.tres" id="skill_flight_speed_3"]
-[ext_resource type="Resource" path="res://data/skills/feather_wait_1.tres" id="skill_feather_wait_1"]
-[ext_resource type="Resource" path="res://data/skills/feather_wait_2.tres" id="skill_feather_wait_2"]
-[ext_resource type="Resource" path="res://data/skills/feather_wait_3.tres" id="skill_feather_wait_3"]
-[ext_resource type="Resource" path="res://data/skills/points_per_seed_1.tres" id="skill_points_per_seed_1"]
-[ext_resource type="Resource" path="res://data/skills/points_per_seed_2.tres" id="skill_points_per_seed_2"]
-[ext_resource type="Resource" path="res://data/skills/points_per_seed_3.tres" id="skill_points_per_seed_3"]
-[ext_resource type="Resource" path="res://data/skills/seed_regen_1.tres" id="skill_seed_regen_1"]
-[ext_resource type="Resource" path="res://data/skills/seed_regen_2.tres" id="skill_seed_regen_2"]
-[ext_resource type="Resource" path="res://data/skills/golden_seed_1.tres" id="skill_golden_seed_1"]
-[ext_resource type="Resource" path="res://data/skills/worm_quality.tres" id="skill_worm_quality"]
-[ext_resource type="Resource" path="res://data/skills/pigeon_patience_1.tres" id="skill_pigeon_patience_1"]
-[ext_resource type="Resource" path="res://data/skills/rare_visitor.tres" id="skill_rare_visitor"]
-[ext_resource type="Resource" path="res://data/skills/pair_arrivals.tres" id="skill_pair_arrivals"]
-[ext_resource type="Resource" path="res://data/skills/more_benches_1.tres" id="skill_more_benches_1"]
-[ext_resource type="Resource" path="res://data/skills/more_benches_2.tres" id="skill_more_benches_2"]
-[ext_resource type="Resource" path="res://data/skills/more_benches_3.tres" id="skill_more_benches_3"]
-[ext_resource type="Resource" path="res://data/skills/fountain_unlock.tres" id="skill_fountain_unlock"]
-[ext_resource type="Resource" path="res://data/skills/tree_nests.tres" id="skill_tree_nests"]
 [ext_resource type="Resource" path="res://data/skills/feather_count_1.tres" id="skill_feather_count_1"]
 [ext_resource type="Resource" path="res://data/skills/feather_count_2.tres" id="skill_feather_count_2"]
 [ext_resource type="Resource" path="res://data/skills/feather_value_1.tres" id="skill_feather_value_1"]
 [ext_resource type="Resource" path="res://data/skills/feather_value_2.tres" id="skill_feather_value_2"]
+[ext_resource type="Resource" path="res://data/skills/feather_wait_1.tres" id="skill_feather_wait_1"]
+[ext_resource type="Resource" path="res://data/skills/feather_wait_2.tres" id="skill_feather_wait_2"]
+[ext_resource type="Resource" path="res://data/skills/feather_wait_3.tres" id="skill_feather_wait_3"]
+[ext_resource type="Resource" path="res://data/skills/flight_speed_1.tres" id="skill_flight_speed_1"]
+[ext_resource type="Resource" path="res://data/skills/flight_speed_2.tres" id="skill_flight_speed_2"]
+[ext_resource type="Resource" path="res://data/skills/flight_speed_3.tres" id="skill_flight_speed_3"]
+[ext_resource type="Resource" path="res://data/skills/fountain_unlock.tres" id="skill_fountain_unlock"]
 [ext_resource type="Resource" path="res://data/skills/golden_feather_1.tres" id="skill_golden_feather_1"]
-[ext_resource type="Resource" path="res://data/skills/crow_collector.tres" id="skill_crow_collector"]
+[ext_resource type="Resource" path="res://data/skills/golden_seed_1.tres" id="skill_golden_seed_1"]
 [ext_resource type="Resource" path="res://data/skills/golden_seed_bonus.tres" id="skill_golden_seed_bonus"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[ext_resource type="Resource" path="res://data/skills/more_benches_1.tres" id="skill_more_benches_1"]
+[ext_resource type="Resource" path="res://data/skills/more_benches_2.tres" id="skill_more_benches_2"]
+[ext_resource type="Resource" path="res://data/skills/more_benches_3.tres" id="skill_more_benches_3"]
+[ext_resource type="Resource" path="res://data/skills/pair_arrivals.tres" id="skill_pair_arrivals"]
+[ext_resource type="Resource" path="res://data/skills/pigeon_patience_1.tres" id="skill_pigeon_patience_1"]
+[ext_resource type="Resource" path="res://data/skills/points_per_seed_1.tres" id="skill_points_per_seed_1"]
+[ext_resource type="Resource" path="res://data/skills/points_per_seed_2.tres" id="skill_points_per_seed_2"]
+[ext_resource type="Resource" path="res://data/skills/points_per_seed_3.tres" id="skill_points_per_seed_3"]
+[ext_resource type="Resource" path="res://data/skills/rare_visitor.tres" id="skill_rare_visitor"]
+[ext_resource type="Resource" path="res://data/skills/seed_regen_1.tres" id="skill_seed_regen_1"]
+[ext_resource type="Resource" path="res://data/skills/seed_regen_2.tres" id="skill_seed_regen_2"]
+[ext_resource type="Resource" path="res://data/skills/tree_nests.tres" id="skill_tree_nests"]
+[ext_resource type="Resource" path="res://data/skills/worm_quality.tres" id="skill_worm_quality"]
 
 [resource]
 script = ExtResource("1_catalog")
