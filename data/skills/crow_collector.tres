@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"crow_collector"
+display_name = "Helpful Crow"
+description = "A crow collects one collectible every 15 seconds."
+category = 2
+currency_costs = {
+&"feathers": 65
+}
+prerequisites = Array[StringName]([&"feather_collection_radius"])
+effect_id = &"crow_collect_interval"
+effect_value = 15

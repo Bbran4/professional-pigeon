@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"feather_count_2"
+display_name = "Feather Shower 2"
+description = "Drop an additional feather after a successful visit."
+category = 1
+currency_costs = {
+&"feathers": 42
+}
+prerequisites = Array[StringName]([&"feather_count_1"])
+effect_id = &"feather_count_add"
+effect_value = 1

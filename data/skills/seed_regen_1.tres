@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"seed_regen_1"
+display_name = "Seed Refill 1"
+description = "Regenerate one seed every 20 seconds during the day."
+currency_costs = {
+&"feathers": 8
+}
+prerequisites = Array[StringName]([&"unlock_seeds"])
+effect_id = &"seed_regen_interval"
+effect_value = 20

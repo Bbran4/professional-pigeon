@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"fountain_unlock"
+display_name = "Fountain Attraction"
+description = "Unlock a fountain with extra perches and quicker arrivals."
+category = 4
+currency_costs = {
+&"feathers": 50
+}
+prerequisites = Array[StringName]([&"more_benches_2"])
+effect_id = &"fountain_unlock"
+effect_value = 1

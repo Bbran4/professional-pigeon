@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"worm_quality"
+display_name = "Worms: Premium Food"
+description = "Worms award 3 extra Feathers but take longer to eat."
+currency_costs = {
+&"feathers": 35
+}
+prerequisites = Array[StringName]([&"worms_spawns"])
+effect_id = &"worm_food_unlock"
+effect_value = 1

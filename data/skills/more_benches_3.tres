@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"more_benches_3"
+display_name = "Extra Bench 3"
+description = "Unlock another bench and its perch spots."
+category = 4
+currency_costs = {
+&"feathers": 65
+}
+prerequisites = Array[StringName]([&"more_benches_2"])
+effect_id = &"bench_count_add"
+effect_value = 1

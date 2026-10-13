@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"golden_feather_1"
+display_name = "Golden Plumage"
+description = "Increase the chance of a golden feather to 20%."
+category = 1
+currency_costs = {
+&"feathers": 35
+}
+prerequisites = Array[StringName]([&"feather_value_2"])
+effect_id = &"golden_feather_chance"
+effect_value = 0.2
