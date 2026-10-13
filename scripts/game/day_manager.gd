@@ -26,17 +26,16 @@ var _collectibles: Array[Collectible] = []
 
 var feeder: SeedFeeder:
 	get:
-		if is_instance_valid(_bench_feeder) and _bench_feeder.is_visible_in_tree():
-			if is_instance_valid(_bench_seed_feeder):
-				return _bench_seed_feeder
-		if not is_instance_valid(_feeder):
-			_feeder = _starter_feeder
-		return _feeder
+		# Feeders are spawned dynamically at bench markers, so resolve the
+		# first visible feeder instead of relying on a fixed scene path.
+		for available_feeder in _feeders:
+			if is_instance_valid(available_feeder) and available_feeder.is_visible_in_tree() and available_feeder.food_kind == "bread":
+				return available_feeder
+		for available_feeder in _feeders:
+			if is_instance_valid(available_feeder) and available_feeder.is_visible_in_tree():
+				return available_feeder
+		return null
 
-var _feeder: SeedFeeder
-@onready var _bench_feeder: BenchFeeder = get_node_or_null("../BenchFeeder") as BenchFeeder
-@onready var _bench_seed_feeder: SeedFeeder = get_node_or_null("../BenchFeeder/SeedFeeder") as SeedFeeder
-@onready var _starter_feeder: SeedFeeder = get_node_or_null("../StarterFeeder") as SeedFeeder
 @onready var spawner: PigeonSpawner = $"../PigeonSpawner"
 
 
