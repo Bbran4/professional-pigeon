@@ -65,7 +65,7 @@ func _sync_feeders(
 ) -> void:
 	var target_count := mini(desired_count, markers.size())
 	while feeders.size() > target_count:
-		var feeder := feeders.pop_back()
+		var feeder : Variant = feeders.pop_back()
 		if is_instance_valid(feeder):
 			feeder.queue_free()
 
