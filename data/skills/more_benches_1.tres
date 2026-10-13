@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_skill")
 id = &"more_benches_1"
-display_name = "Extra Bench 1"
-description = "Unlock another bench and its perch spots."
+display_name = "Seed Feeder 2"
+description = "Unlock another seed-feeding human on an existing bench."
 category = 4
 currency_costs = {
 &"feathers": 35
