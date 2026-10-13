@@ -36,6 +36,8 @@ func get_effect_description() -> String:
 		primary_effect_id = effects[0].effect_id
 		primary_effect_value = effects[0].value
 	var amount := _format_effect_value(primary_effect_value)
+	if id in [&"more_benches_1", &"more_benches_2", &"more_benches_3"]:
+		return "Unlock another seed-feeding human on an existing bench."
 	match primary_effect_id:
 		EffectIds.DAY_DURATION_ADD:
 			return "Add %s seconds to every day per level." % amount
@@ -67,7 +69,7 @@ func get_effect_description() -> String:
 		EffectIds.BASIC_FEEDING:
 			return "Unlock the basic feeding route and the park-upgrade path."
 		EffectIds.UNLOCK_SEEDS:
-			return "Unlock seeds as a food source and add %s seeds to feeder capacity." % amount
+			return "Unlock the first seed-feeding human on a bench and add %s seeds to feeder capacity." % amount
 		EffectIds.UNLOCK_WORMS:
 			return "Unlock worms as a food source with a %s%% chance to find one." % _format_effect_value(primary_effect_value * 100.0)
 		EffectIds.WORM_FOOD_UNLOCK:
