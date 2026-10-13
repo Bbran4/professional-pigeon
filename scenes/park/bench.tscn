@@ -17,3 +17,11 @@ color = Color(0.2, 0.16, 0.12, 1)
 [node name="LegRight" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(45, 8, 60, 8, 62, 48, 48, 48)
 color = Color(0.2, 0.16, 0.12, 1)
+
+[node name="BreadFeederSpawn" type="Marker2D" parent="."]
+position = Vector2(-38, 0)
+groups = ["bread_feeder_spawn"]
+
+[node name="SeedFeederSpawn" type="Marker2D" parent="."]
+position = Vector2(38, 0)
+groups = ["seed_feeder_spawn"]
