@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" uid="uid://ccqe0lr0xjvdh" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"arrival_speed_1"
+display_name = "Swift Arrivals 1"
+description = "Reduce the gap between arrivals by 0.15 seconds."
+category = 3
+currency_costs = {
+&"feathers": 17
+}
+prerequisites = Array[StringName]([&"more_pigeons"])
+effect_id = &"arrival_speed_reduction"
+effect_value = 0.15
