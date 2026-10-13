@@ -42,9 +42,9 @@ func _refresh_feeders() -> void:
 	var seed_count := 0
 	if ProgressionManager.get_skill_level(&"unlock_seeds") > 0:
 		seed_count = 1
-	for skill_id in [&"more_benches_1", &"more_benches_2", &"more_benches_3"]:
-		if ProgressionManager.get_skill_level(skill_id) > 0:
-			seed_count += 1
+		for skill_id in [&"more_benches_1", &"more_benches_2", &"more_benches_3"]:
+			if ProgressionManager.get_skill_level(skill_id) > 0:
+				seed_count += 1
 
 	_sync_feeders(_bread_feeders, bread_count, _bread_markers, BREAD_FEEDER_SCENE)
 	_sync_feeders(_seed_feeders, seed_count, _seed_markers, SEED_FEEDER_SCENE)
