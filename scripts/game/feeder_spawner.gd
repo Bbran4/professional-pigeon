@@ -33,9 +33,8 @@ func _on_skill_level_changed(_skill_id: StringName, _new_level: int) -> void:
 func _refresh_feeders() -> void:
 	if not is_inside_tree():
 		return
-	var bread_count := 0
-	if ProgressionManager.get_skill_level(&"bread") > 0:
-		bread_count = 1
+	# The park starts with one bread feeder. Each vendor upgrade adds another.
+	var bread_count := 1
 	for skill_id in [&"bread_feeder_2", &"bread_feeder_3", &"bread_feeder_4"]:
 		if ProgressionManager.get_skill_level(skill_id) > 0:
 			bread_count += 1
